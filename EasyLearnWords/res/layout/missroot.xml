@@ -3,15 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-     android:background="@drawable/word" >
+     android:background="@color/white" >
 
     <TextView
         android:id="@+id/textview1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#60c0ff"
+        android:background="@color/blue"
         android:gravity="center_horizontal"
-        android:textColor="@android:color/white"
+        android:textColor="@color/white"
         android:textSize="20sp" />
 
     <TextView
@@ -60,7 +60,7 @@
             android:id="@+id/missrootworddefview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/white"
+            android:background="@color/white"
             android:gravity="center"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
@@ -78,11 +78,13 @@
             android:id="@+id/missrootwordview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/transparent"
+            android:background="@color/green"
             android:gravity="center"
             android:padding="15dp"
             android:text="____logy"
-            android:textSize="20sp" />
+            android:textSize="20sp" 
+            android:textColor="@color/white"
+            />
     </LinearLayout>
     
      
@@ -108,7 +110,7 @@
               android:layout_height="match_parent"
               android:orientation="horizontal"
               android:layout_weight="1"
-              android:background="#60c0ff"
+              android:background="@color/white"
               android:padding="2dp">
               
               <TextView 
@@ -116,7 +118,7 @@
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:layout_weight="1"
-                  android:background="@drawable/white"
+                  android:background="@drawable/custom_btn"
                   android:layout_marginRight="1dp"
                   android:textSize="25sp"
                   android:gravity="center"
@@ -128,7 +130,7 @@
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:layout_weight="1"
-                    android:background="@drawable/white"
+                    android:background="@drawable/custom_btn"
                     android:layout_marginRight="1dp"
                       android:textSize="25sp"
                   android:gravity="center"
@@ -144,7 +146,7 @@
               android:layout_height="match_parent"
               android:orientation="horizontal"
               android:layout_weight="1"
-              android:background="#60c0ff"
+              android:background="@color/white"
               android:padding="2dp">
               
               <TextView 
@@ -152,7 +154,7 @@
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:layout_weight="1"
-                  android:background="@drawable/white"
+                  android:background="@drawable/custom_btn"
                   android:layout_marginRight="1dp"
                     android:textSize="25sp"
                   android:gravity="center"
@@ -164,7 +166,7 @@
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:layout_weight="1"
-                    android:background="@drawable/white"
+                    android:background="@drawable/custom_btn"
                     android:layout_marginRight="1dp"
                     android:textSize="25sp"
                   android:gravity="center"
@@ -179,7 +181,7 @@
               android:layout_height="match_parent"
               android:orientation="horizontal"
               android:layout_weight="1"
-              android:background="#60c0ff"
+              android:background="@color/white"
               android:padding="2dp">
               
               <TextView 
@@ -187,7 +189,7 @@
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:layout_weight="1"
-                  android:background="@drawable/white"
+                  android:background="@drawable/custom_btn"
                   android:layout_marginRight="1dp"
                     android:textSize="25sp"
                   android:gravity="center"
@@ -198,7 +200,7 @@
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:layout_weight="1"
-                    android:background="@drawable/white"
+                    android:background="@drawable/custom_btn"
                     android:layout_marginRight="1dp"
                     android:textSize="25sp"
                   android:gravity="center"

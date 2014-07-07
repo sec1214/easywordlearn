@@ -794,10 +794,21 @@ containing a value of this type.
         public static final int abc_split_action_bar_is_narrow=0x7f070002;
     }
     public static final class color {
-        public static final int abc_search_url_text_holo=0x7f080003;
+        public static final int abc_search_url_text_holo=0x7f08000e;
         public static final int abc_search_url_text_normal=0x7f080000;
         public static final int abc_search_url_text_pressed=0x7f080002;
         public static final int abc_search_url_text_selected=0x7f080001;
+        public static final int black=0x7f08000a;
+        public static final int blue=0x7f080003;
+        public static final int brown=0x7f080004;
+        public static final int dark_grey=0x7f08000c;
+        public static final int green=0x7f080007;
+        public static final int grey=0x7f080005;
+        public static final int orange=0x7f080008;
+        public static final int purple=0x7f080006;
+        public static final int red=0x7f080009;
+        public static final int red_pink=0x7f08000d;
+        public static final int white=0x7f08000b;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
@@ -981,15 +992,18 @@ containing a value of this type.
         public static final int abc_textfield_searchview_holo_light=0x7f020054;
         public static final int abc_textfield_searchview_right_holo_dark=0x7f020055;
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
-        public static final int green=0x7f020057;
-        public static final int ic_launcher=0x7f020058;
-        public static final int main=0x7f020059;
-        public static final int red=0x7f02005a;
-        public static final int setbar_bg=0x7f02005b;
-        public static final int start=0x7f02005c;
-        public static final int transparent=0x7f02005d;
-        public static final int white=0x7f02005e;
-        public static final int word=0x7f02005f;
+        public static final int custom_btn=0x7f020057;
+        public static final int green=0x7f020058;
+        public static final int ic_launcher=0x7f020059;
+        public static final int logo=0x7f02005a;
+        public static final int main=0x7f02005b;
+        public static final int red=0x7f02005c;
+        public static final int roots_small=0x7f02005d;
+        public static final int setbar_bg=0x7f02005e;
+        public static final int start=0x7f02005f;
+        public static final int transparent=0x7f020060;
+        public static final int white=0x7f020061;
+        public static final int word=0x7f020062;
     }
     public static final class id {
         public static final int Listlistview=0x7f060051;
@@ -1012,9 +1026,9 @@ containing a value of this type.
         public static final int always=0x7f06000b;
         public static final int backscore=0x7f060065;
         public static final int beginning=0x7f060011;
-        public static final int button1=0x7f06004e;
+        public static final int button1=0x7f06004f;
         public static final int button2=0x7f06004d;
-        public static final int button3=0x7f06004f;
+        public static final int button3=0x7f06004e;
         public static final int checkbox=0x7f06002d;
         public static final int collapseActionView=0x7f06000d;
         public static final int default_activity_button=0x7f060028;
