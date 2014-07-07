@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.easylearnwords"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="20" />
+
+    <application
+        android:name=".mypublicvalue"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.easylearnwords.MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleInstance" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity 
+            android:name=".listselectactivity"></activity>
+        
+        
+        <activity 
+            android:name="com.easylearnwords.list"></activity>
+        
+        <activity 
+            android:name="com.easylearnwords.studyword"></activity>
+        
+        <activity android:name="com.easylearnwords.play"></activity>
+        <activity android:name="com.easylearnwords.definition"></activity>
+        <activity android:name="com.easylearnwords.words"
+           
+            
+            
+            ></activity>
+        <activity android:name="com.easylearnwords.root"></activity>
+        <activity android:name="com.easylearnwords.score"></activity>
+        
+        <activity android:name="com.easylearnwords.wrongword"></activity>
+        <activity android:name="com.easylearnwords.scoreword"></activity>
+        <activity android:name="level2.idroortsl2"></activity>
+        <activity android:name="level2.rootl2"></activity>
+        <activity android:name="level2.wordsl2"></activity>
+        <activity android:name="level2.definitionl2"></activity>
+        
+        <activity android:name="level3.missroot"></activity>
+        <activity android:name="level4.testtime"></activity>
+        <activity android:name="level4.definitionl4"></activity>
+        <activity android:name="level4.idroortsl4"></activity>
+        <activity android:name="level4.rootl4"></activity>
+        <activity android:name="level4.wordsl4"></activity>
+    </application>
+
+</manifest>

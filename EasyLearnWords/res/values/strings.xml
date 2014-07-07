@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">EasyLearnWords</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="course">Course</string> 
+    
+    <string name="level1">Level1:\nDefine vocabulary and roots</string>
+    
+     <string name="level2">Level2:\nBreak words into roots </string>
+      <string name="level3">Level3:\nFill in the missing root</string>
+       <string name="level4">Level4:\nTime:Define vocabulary and roots</string>
+        <string name="level5">Level5:\nDefine vocabulary and roots</string>
+         <string name="level6">Level6:\nDefine vocabulary and roots</string>
+          <string name="level7">Level7:\nDefine vocabulary and roots</string>
+           <string name="level8">Level8:\nDefine vocabulary and roots</string>
+    
+
+</resources>
