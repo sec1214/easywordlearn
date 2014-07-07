@@ -25,7 +25,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:paddingLeft="15dp"
-            android:text="Final Percentage:"
+            android:text="Total Percentage including roots:"
             android:textSize="15sp"
             android:textStyle="bold" />
 

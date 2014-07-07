@@ -76,7 +76,7 @@
         android:text="Definition"
         android:gravity="center"
         android:padding="10dp"
-        android:background="@color/green"
+        android:background="@color/purple"
         android:textColor="@color/white"
         
         
@@ -85,10 +85,9 @@
       
    
      <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-     	android:layout_marginTop="40dp"
 		android:layout_margin="5dp"
         
        >
@@ -97,13 +96,13 @@
             android:id="@+id/word1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="1dp"
+            android:layout_margin="1dp"
             android:background="@drawable/custom_btn"
             android:gravity="center"
             android:text="test"
-            android:textSize="15sp" 
+            android:textSize="17sp" 
             android:textColor="@color/white"
-                              android:layout_weight="1"
+            android:layout_weight="1"
             
             />
 
@@ -111,12 +110,12 @@
             android:id="@+id/word2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="1dp"
+            android:layout_margin="1dp"
             android:background="@drawable/custom_btn"
             android:gravity="center"
-            android:textSize="15sp" 
+            android:textSize="17sp" 
             android:textColor="@color/white"
-                              android:layout_weight="1"
+            android:layout_weight="1"
             
             />
 
@@ -124,12 +123,12 @@
             android:id="@+id/word3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="1dp"
+            android:layout_margin="1dp"
             android:background="@drawable/custom_btn"
             android:gravity="center"
-            android:textSize="15sp" 
+            android:textSize="17sp" 
             android:textColor="@color/white"
-                              android:layout_weight="1"
+            android:layout_weight="1"
             
             />
         
@@ -137,12 +136,12 @@
             android:id="@+id/word4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="1dp"
+            android:layout_margin="1dp"
             android:background="@drawable/custom_btn"
             android:gravity="center"
             android:textSize="15sp" 
             android:textColor="@color/white"
-                              android:layout_weight="1"
+            android:layout_weight="1"
             
             />
     </LinearLayout>

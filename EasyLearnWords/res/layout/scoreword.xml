@@ -9,12 +9,11 @@
         android:id="@+id/scoreword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
         android:padding="10dp"
         android:text="Word"
         android:textSize="20sp"
         android:gravity="center"
-        android:background="@color/grey" 
+        android:background="@color/blue" 
         android:textColor="@color/white"
         />
     
@@ -27,13 +26,12 @@
          android:id="@+id/scoredef"
          android:layout_width="match_parent"
          android:layout_height="250dp"
-         android:layout_margin="15dp"
-         android:background="@color/dark_grey"
+         android:background="@color/grey"
          android:gravity="left"
          android:padding="10dp"
          android:paddingLeft="15sp"
          android:text="Word"
-         android:textSize="15sp" 
+         android:textSize="17sp" 
          android:textColor="@color/white"
          />
 

@@ -74,7 +74,7 @@
             android:id="@+id/roottestview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/green"
+            android:background="@color/orange"
             android:gravity="center"
             android:padding="15dp"
             android:text="WORD"
@@ -83,15 +83,17 @@
             />
     </LinearLayout>
 
-    <RelativeLayout 
+    <LinearLayout 
         
         
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        >
     
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@color/white"
@@ -102,76 +104,83 @@
         <TextView
             android:id="@+id/rootdef1"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:layout_margin="2dp"
             android:background="@drawable/custom_btn"
             android:textSize="20sp" 
             android:paddingLeft="5dp"
             android:textColor="@color/white"
+            android:layout_weight="1"
             />
 
         <TextView
             android:id="@+id/rootdef2"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:layout_margin="2dp"
             android:background="@drawable/custom_btn"
             android:textSize="20sp" 
             android:paddingLeft="5dp"
             android:textColor="@color/white"
+            android:layout_weight="1"
+            
             
             />
 
         <TextView
             android:id="@+id/rootdef3"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:layout_margin="2dp"
             android:background="@drawable/custom_btn"
             android:textSize="20sp" 
             android:paddingLeft="5dp"
             android:textColor="@color/white"
+            android:layout_weight="1"
             
             />
 
         <TextView
             android:id="@+id/rootdef4"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:layout_margin="2dp"
             android:background="@drawable/custom_btn"
             android:textSize="20sp" 
             android:paddingLeft="5dp"
             android:textColor="@color/white"
+            android:layout_weight="1"
             
             />
 
         <TextView
             android:id="@+id/rootdef5"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:layout_margin="2dp"
             android:background="@drawable/custom_btn"
             android:textSize="20sp"
             android:paddingLeft="5dp" 
             android:textColor="@color/white"
+            android:layout_weight="1"
             
             />
 
         <TextView
             android:id="@+id/rootdef6"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:layout_margin="2dp"
             android:background="@drawable/custom_btn"
             android:textSize="20sp" 
             android:paddingLeft="5dp"
             android:textColor="@color/white"
+    	  	android:layout_weight="1"
             
             />
     </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
     
     
 </LinearLayout>
