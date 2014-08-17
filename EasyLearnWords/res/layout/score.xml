@@ -4,15 +4,74 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+         <TextView
+            android:id="@+id/mainbutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/green"
+            android:gravity="center"
+            android:text="Main"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/reviewbutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/green"
+            android:gravity="center"
+            android:text="Review"
+            android:textSize="15sp" />
+        
+        </LinearLayout>
+        
     <TextView
         android:id="@+id/finish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#60c0ff"
         android:gravity="center"
         android:padding="5dp"
         android:text="Stats Page"
         android:textSize="20sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textview1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#60c0ff"
+        android:gravity="center_horizontal"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#60c0ff"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textview2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/leveltext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+             android:textColor="@android:color/white"
+            android:textSize="15sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +84,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:paddingLeft="15dp"
-            android:text="Total Percentage including roots:"
+            android:text="Final Percentage:"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -33,23 +92,104 @@
             android:id="@+id/score"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="00%"
+            android:textColor="#FF0000"
             android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="#FF0000" />
+            android:textStyle="bold" />
+
+    </LinearLayout>
+    
+     <LinearLayout
+         android:id="@+id/defwordline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/reviewbutton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:background="@drawable/green"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="Review"
-            android:textSize="15sp" />
+            android:paddingLeft="15dp"
+            android:text="DefWrd Percentage:"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/defwordscore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="00%"
+            android:textColor="#FF0000"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
     </LinearLayout>
+    
+       <LinearLayout
+         android:id="@+id/rootline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:text="Root Percentage:"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/rootscore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="00%"
+            android:textColor="#FF0000"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+      <LinearLayout
+         android:id="@+id/idrootline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:text="Idroot Percentage:"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/idrootscore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="00%"
+            android:textColor="#FF0000"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+    
+    
+     
+    
 
     <LinearLayout
         android:layout_width="match_parent"

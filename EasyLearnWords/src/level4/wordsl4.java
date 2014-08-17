@@ -1,45 +1,48 @@
 package level4;
 
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import level3.missroot;
+
 import com.easylearnwords.R;
-import com.easylearnwords.definition;
+
+import com.easylearnwords.MainActivity;
+import com.easylearnwords.list;
+import com.easylearnwords.listselectactivity;
 import com.easylearnwords.mypublicvalue;
 import com.easylearnwords.play;
-import com.easylearnwords.root;
-import com.easylearnwords.score;
-import com.easylearnwords.words;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class wordsl4 extends Activity {
 
-
-	/*
-	 * private SoundPool sp;// 声明一个SoundPool
-	 *//*
-		 * private int musicright;// 定义一个整型用load（）；来设置suondID private int
-		 * musicwrong;
-		 */
-
-	/* private managedb db; */
 	private Dialog alertdDialog;
 	private TextView textView1, textView2, defTextView, wordTextView1,
 			wordTextView2, wordTextView3, wordTextView4;
-	private TextView textViewlevel, textViewword, textViewwr;
+	private TextView textViewlevel, textViewword, textViewwr, textViewscore;
 	private mypublicvalue myapp;
 	private String[][] words;
-
-	/* private MediaPlayer mp = new MediaPlayer(); */
-
-	// private String[][] lwords;
 
 	private String[] roots;
 
@@ -49,27 +52,150 @@ public class wordsl4 extends Activity {
 	public int con; // TT 循环控制阀
 	public int wcon; // 复习控制阀
 
+	private double clicknum, rightnum;
+	private double defwordclicknum, defwordrightnum;
+
+	private ImageButton wenhaoButton;
+	private boolean p1 = false; // 操控help button的控制阀
+
+	public  long sleeptime = 2000;
+	private Timer timergreen;
+
+	private boolean timergreencontrol = false;
+
+	private Intent intent;
+
+	private Matrix matrix = new Matrix();
+
+	private CountDownTimer helpshape;
+	private BroadcastReceiver receiver;
+
+	CountDownTimer timer = new CountDownTimer(15000, 1000) {
+
+		@Override
+		public void onTick(long millisUntilFinished) {
+			// TODO Auto-generated method stub
+
+			int k = (int) (millisUntilFinished / 1000);
+
+			textViewwr.setText("Time: " + k + "'s");
+			if (k > 5) {
+				myapp.playmusic(4);
+			}
+
+			if (k == 5) {
+				textViewwr.setBackgroundColor(Color.RED);
+			}
+			if (k <= 5) {
+				myapp.playmusic(2);
+			}
+
+		}
+
+		@Override
+		public void onFinish() {
+			// TODO Auto-generated method stub
+			textViewwr.setText("Time over");
+			if (Integer.parseInt(myapp.get(6)) == 1) {
+
+				myapp.playmusic(3); // 失败音乐
+			}
+
+			Intent intent = new Intent(wordsl4.this, wordsl4.class);
+			startActivity(intent);
+			defrepeat(1);
+			myapp.setscore(0, clicknum + 1);
+			myapp.setdefwordscore(0, defwordclicknum + 1);
+			if (wcon == 0) {
+				myapp.addwrongword(words[wordnum - 1]);
+
+			}
+			if (wcon == 1) {
+				myapp.addwrongwords1(words[wordnum - 1]);
+
+			}
+			timer.cancel();
+			stopshape();
+			finish();
+		}
+	};
+	CountDownTimer timerhelp = new CountDownTimer(5000, 1000) {
+
+		@Override
+		public void onTick(long millisUntilFinished) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onFinish() {
+
+			p1 = true;
+
+			helpshape = new CountDownTimer(2000, 90) {
+
+				boolean key = true;
+
+				@Override
+				public void onTick(long millisUntilFinished) {
+					// TODO Auto-generated method stub
+
+					Bitmap bitmap = ((BitmapDrawable) (getResources()
+							.getDrawable(R.drawable.wenhaored))).getBitmap();
+
+					if (key) {
+
+						matrix.setRotate(10f);
+						key = false;
+					} else {
+
+						matrix.setRotate(-10f);
+						key = true;
+					}
+
+					bitmap = Bitmap
+							.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+									bitmap.getHeight(), matrix, true);
+					wenhaoButton.setImageBitmap(bitmap);
+
+				}
+
+				@Override
+				public void onFinish() {
+					// TODO Auto-generated method stub
+
+					helpshape.cancel();
+					wenhaoButton.setImageResource(R.drawable.wenhao);
+					timerhelp.start();
+					// helpshape.start();
+
+				}
+			};
+
+			helpshape.start();
+
+		}
+	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.word);
-		/*
-		 * sp = new SoundPool(10, AudioManager.STREAM_SYSTEM, 5);//
-		 * 第一个参数为同时播放数据流的最大个数，第二数据流类型，第三为声音质量
-		 * 
-		 * musicright = sp.load(this, R.raw.right, 1); //
-		 * 把你的声音素材放到res/raw里，第2个参数即为资源文件，第3个为音乐的优先级 musicwrong = sp.load(this,
-		 * R.raw.wrong, 1); // 把你的声音素材放到res/raw里，第2个参数即为资源文件，第3个为音乐的优先级\
-		 */
+		setContentView(R.layout.zword);
+		
+		sleeptime =Long.parseLong(this.getString(R.string.sleeptime));
 
-		System.out.println("Word.class 启动");
-
+		receiver = new HomeKeyEventBroadCastReceiver();
+		getApplicationContext().registerReceiver(receiver,
+				new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
+		wenhaoButton = (ImageButton) this.findViewById(R.id.wenhaobutton);
 		textView1 = (TextView) this.findViewById(R.id.textview1);
 		textView2 = (TextView) this.findViewById(R.id.textview2);
 		textViewlevel = (TextView) this.findViewById(R.id.leveltext);
 		textViewword = (TextView) this.findViewById(R.id.wordtext);
 		textViewwr = (TextView) this.findViewById(R.id.wrtext);
+		textViewscore = (TextView) this.findViewById(R.id.scoretext);
+
 		defTextView = (TextView) this.findViewById(R.id.definition);
 		wordTextView1 = (TextView) this.findViewById(R.id.word1);
 		wordTextView2 = (TextView) this.findViewById(R.id.word2);
@@ -78,93 +204,464 @@ public class wordsl4 extends Activity {
 
 		myapp = (mypublicvalue) getApplication();
 
-		/* db = new managedb(this); */
-		/* myapp.setwords(db.getwords()); */
-
-		textView1.setText(myapp.get(0));
+		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
 
 		textViewlevel.setText(" Level: " + myapp.get(3)); // 设定显示level的控件
 
-		wordnum = Integer.parseInt(myapp.get(4));
+		clicknum = myapp.getscore(0);
+		rightnum = myapp.getscore(1);
 
-		textViewword.setText("Word: " + wordnum + "  "); // 设定显示几号word的控件
+		defwordclicknum = myapp.getdefwordscore(0);
+		defwordrightnum = myapp.getdefwordscore(1);
 
 		wcon = myapp.getreviewwrongcontrol(); // 复习控制阀值
 
 		con = myapp.getrepeatcontrol(); // TT循环控制阀
 
-		if (wcon == 0) { // 标准情况下 words 取用
-
+		if (wcon == 0) {
 			words = myapp.getwords();
-			textViewwr.setText("");
-			textViewwr.setBackgroundColor(Color.TRANSPARENT);
-
-			if (con == 0) {
-				textViewwr.setText("");
-
-			}
-			if (con == 1) {
-				textViewwr.setText("Repeat 5 words");
-				textViewwr.setBackgroundColor(Color.GREEN);
-
-			}
-
 		}
-
-		if (wcon == 1) { // 错误情况下， 取用错词
-			/* lwords = myapp.getwords(); */
+		if (wcon == 1) {
 			words = myapp.getCwrongwords();
 			textViewwr.setText("Wrong Reivew");
 			textViewwr.setBackgroundColor(Color.RED);
-
 		}
+		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
+		textViewscore.setText("Score:"
+				+ (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100) + "%");
 
+		wordnum = Integer.parseInt(myapp.get(4));
+		textViewword.setText("Word: " + wordnum + " / " + wordnum()); // 设定显示几号word的控件
 		defTextView.setText(words[wordnum - 1][1]);
-
-		System.out.println("Word TT 循环控制阀 变量 con " + myapp.getrepeatcontrol());
-		System.out.println("Word wrong 循环控制阀 变量 wcon "
-				+ myapp.getreviewwrongcontrol());
-
-		System.out.println("ran前一步");
 
 		this.ran();
 
-		wordTextView1.setOnClickListener(new View.OnClickListener() {
+		if (myapp.gethelpcontrol(4) == 0) {
+			timerhelp.start();
+		}
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				String key = (String) wordTextView1.getText();
+		if (Integer.parseInt(myapp.get(6)) < 2) {
 
-				if (wcon == 1) { // 错词循环下
+			textViewwr.setText("Time: " + 15 + "'s");
+			timer.start();
+
+			wordTextView1.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					String key = (String) wordTextView1.getText();
 
 					if (key.equals(words[wordnum - 1][0])) { // 做对了
 
 						wordTextView1.setBackgroundResource(R.drawable.green);
 						myapp.playmusic(1);
+						myapp.setscore(1, rightnum + 1);
+						myapp.setdefwordscore(1, defwordrightnum + 1);
 
 						defrepeat(0);
 						if (!words[wordnum][0].equals("")) {
 
-							System.out.println("错词循环下一个");
+							System.out.println("循环下一个");
 							myapp.set(4, Integer.toString(wordnum + 1));
-							Intent intent = new Intent(wordsl4.this, idroortsl4.class);
-							startActivity(intent);
-							// playmusic(1);
+							intent = new Intent(wordsl4.this, idroortsl4.class);
 
+							myapp.setscore(0, clicknum + 1);
+							myapp.setdefwordscore(0, defwordclicknum + 1);
+							timer.cancel();
+							stopshape();
+							timergreen = new Timer();
+							timergreen.schedule(new TimerTask() {
+
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+
+									startActivity(intent);
+									finish();
+								}
+							}, sleeptime);
+
+						}
+
+						if (words[wordnum][0].equals("")) { // 错词循环结束了
+
+							System.out.println("循环结束");
+							intent = new Intent(wordsl4.this, scorel4.class);
+
+							if (wcon == 0) {
+								myapp.cleanwrongwords();
+							}
+							if (wcon == 1) {
+								myapp.cleanCwrongwords();
+							}
+
+							myapp.setscore(0, clicknum + 1);
+							myapp.setdefwordscore(0, defwordclicknum + 1);
+							timer.cancel();
+							stopshape();
+							timergreen = new Timer();
+							timergreen.schedule(new TimerTask() {
+
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+
+									startActivity(intent);
+									finish();
+								}
+							}, sleeptime);
+
+						}
+
+					}
+
+					if (!key.equals(words[wordnum - 1][0])) { // 错词循环下做错了
+
+						wordTextView1.setBackgroundResource(R.drawable.red);
+						myapp.Vibrate();
+						myapp.playmusic(0);
+						stopshape();
+						if (!timergreencontrol) {
+						if (wcon == 0) {
+							myapp.addwrongword(words[wordnum - 1]);
+						}
+						if (wcon == 1) {
+							myapp.addwrongwords1(words[wordnum - 1]);
+						}
+						defrepeat(1); // 这是做错了加1
+						Intent intent = new Intent(wordsl4.this, wordsl4.class);
+						startActivity(intent);
+						myapp.setscore(0, clicknum + 1);
+						myapp.setdefwordscore(0, defwordclicknum + 1);
+						timer.cancel();						
+						finish();
+						}
+					}
+
+				}
+			});
+
+			wordTextView2.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					String key = (String) wordTextView2.getText();
+
+					if (key.equals(words[wordnum - 1][0])) {
+
+						wordTextView2.setBackgroundResource(R.drawable.green);
+						myapp.playmusic(1);
+						myapp.setscore(1, rightnum + 1);
+						myapp.setdefwordscore(1, defwordrightnum + 1);
+
+						defrepeat(0);
+						if (!words[wordnum][0].equals("")) {
+
+							System.out.println("循环下一个");
+							myapp.set(4, Integer.toString(wordnum + 1));
+							intent = new Intent(wordsl4.this, idroortsl4.class);
+
+							myapp.setscore(0, clicknum + 1);
+							myapp.setdefwordscore(0, defwordclicknum + 1);
+							timer.cancel();
+							stopshape();
+							timergreen = new Timer();
+							timergreen.schedule(new TimerTask() {
+
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+
+									startActivity(intent);
+									finish();
+								}
+							}, sleeptime);
+
+						}
+
+						if (words[wordnum][0].equals("")) {
+
+							System.out.println("循环结束");
+							intent = new Intent(wordsl4.this, scorel4.class);
+							if (wcon == 0) {
+								myapp.cleanwrongwords();
+							}
+							if (wcon == 1) {
+								myapp.cleanCwrongwords();
+							}
+
+							myapp.setscore(0, clicknum + 1);
+							myapp.setdefwordscore(0, defwordclicknum + 1);
+							timer.cancel();
+							stopshape();
+							timergreen = new Timer();
+							timergreen.schedule(new TimerTask() {
+
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+
+									startActivity(intent);
+									finish();
+								}
+							}, sleeptime);
+
+						}
+
+					}
+					if (!key.equals(words[wordnum - 1][0])) { // 错词循环下做错了
+
+						wordTextView2.setBackgroundResource(R.drawable.red);
+						myapp.Vibrate();
+						myapp.playmusic(0);
+						stopshape();
+						if (!timergreencontrol) {
+						if (wcon == 0) {
+							myapp.addwrongword(words[wordnum - 1]);
+						}
+						if (wcon == 1) {
+							myapp.addwrongwords1(words[wordnum - 1]);
+						}
+						defrepeat(1); // 这是做错了加1
+						Intent intent = new Intent(wordsl4.this, wordsl4.class);
+						startActivity(intent);
+						myapp.setscore(0, clicknum + 1);
+						myapp.setdefwordscore(0, defwordclicknum + 1);
+						timer.cancel();						
+						finish();
+						}
+					}
+
+				}
+			});
+			wordTextView3.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					String key = (String) wordTextView3.getText();
+
+					if (key.equals(words[wordnum - 1][0])) {
+
+						wordTextView3.setBackgroundResource(R.drawable.green);
+						myapp.playmusic(1);
+						myapp.setscore(1, rightnum + 1);
+						myapp.setdefwordscore(1, defwordrightnum + 1);
+
+						defrepeat(0);
+						if (!words[wordnum][0].equals("")) {
+
+							myapp.set(4, Integer.toString(wordnum + 1));
+							intent = new Intent(wordsl4.this, idroortsl4.class);
+
+							myapp.setscore(0, clicknum + 1);
+							myapp.setdefwordscore(0, defwordclicknum + 1);
+							timer.cancel();
+							stopshape();
+							timergreen = new Timer();
+							timergreen.schedule(new TimerTask() {
+
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+
+									startActivity(intent);
+									finish();
+								}
+							}, sleeptime);
+
+						}
+
+						if (words[wordnum][0].equals("")) {
+
+							intent = new Intent(wordsl4.this, scorel4.class);
+							if (wcon == 0) {
+								myapp.cleanwrongwords();
+							}
+							if (wcon == 1) {
+								myapp.cleanCwrongwords();
+							}
+
+							myapp.setscore(0, clicknum + 1);
+							myapp.setdefwordscore(0, defwordclicknum + 1);
+							timer.cancel();
+							stopshape();
+							timergreen = new Timer();
+							timergreen.schedule(new TimerTask() {
+
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+
+									startActivity(intent);
+									finish();
+								}
+							}, sleeptime);
+
+						}
+
+					}
+
+					if (!key.equals(words[wordnum - 1][0])) { // 错词循环下做错了
+
+						wordTextView3.setBackgroundResource(R.drawable.red);
+						myapp.Vibrate();
+						myapp.playmusic(0);
+						stopshape();
+						if (!timergreencontrol) {
+						if (wcon == 0) {
+							myapp.addwrongword(words[wordnum - 1]);
+						}
+						if (wcon == 1) {
+							myapp.addwrongwords1(words[wordnum - 1]);
+						}
+						defrepeat(1); // 这是做错了加1
+						Intent intent = new Intent(wordsl4.this, wordsl4.class);
+						startActivity(intent);
+						myapp.setscore(0, clicknum + 1);
+						myapp.setdefwordscore(0, defwordclicknum + 1);
+						timer.cancel();						
+						finish();
+						}
+					}
+
+				}
+			});
+
+			wordTextView4.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					String key = (String) wordTextView4.getText();
+
+					if (key.equals(words[wordnum - 1][0])) {
+
+						wordTextView4.setBackgroundResource(R.drawable.green);
+						myapp.playmusic(1);
+						myapp.setscore(1, rightnum + 1);
+						myapp.setdefwordscore(1, defwordrightnum + 1);
+
+						defrepeat(0);
+						if (!words[wordnum][0].equals("")) {
+
+							myapp.set(4, Integer.toString(wordnum + 1));
+							intent = new Intent(wordsl4.this, idroortsl4.class);
+
+							myapp.setscore(0, clicknum + 1);
+							myapp.setdefwordscore(0, defwordclicknum + 1);
+							timer.cancel();
+							stopshape();
+							timergreen = new Timer();
+							timergreen.schedule(new TimerTask() {
+
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+
+									startActivity(intent);
+									finish();
+								}
+							}, sleeptime);
+						}
+
+						if (words[wordnum][0].equals("")) {
+
+							intent = new Intent(wordsl4.this, scorel4.class);
+							if (wcon == 0) {
+								myapp.cleanwrongwords();
+							}
+							if (wcon == 1) {
+								myapp.cleanCwrongwords();
+							}
+
+							myapp.setscore(0, clicknum + 1);
+							myapp.setdefwordscore(0, defwordclicknum + 1);
+							timer.cancel();
+							stopshape();
+							timergreen = new Timer();
+							timergreen.schedule(new TimerTask() {
+
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+
+									startActivity(intent);
+									finish();
+								}
+							}, sleeptime);
+
+						}
+
+					}
+
+					if (!key.equals(words[wordnum - 1][0])) { // 错词循环下做错了
+
+						wordTextView4.setBackgroundResource(R.drawable.red);
+						myapp.Vibrate();
+						myapp.playmusic(0);
+						stopshape();
+						if (!timergreencontrol) {
+						if (wcon == 0) {
+							myapp.addwrongword(words[wordnum - 1]);
+						}
+						if (wcon == 1) {
+							myapp.addwrongwords1(words[wordnum - 1]);
+						}
+						defrepeat(1); // 这是做错了加1
+						Intent intent = new Intent(wordsl4.this, wordsl4.class);
+						startActivity(intent);
+						myapp.setscore(0, clicknum + 1);
+						myapp.setdefwordscore(0, defwordclicknum + 1);
+						timer.cancel();						
+						finish();
+						}
+					}
+
+				}
+			});
+		}
+
+		if (Integer.parseInt(myapp.get(6)) == 2) {
+			myapp.greentoast();
+			wordTextView1.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					String key = (String) wordTextView1.getText();
+
+					if (key.equals(words[wordnum - 1][0])) { // 做对了
+						defrepeat(0);
+
+						wordTextView1.setBackgroundResource(R.drawable.green);
+						myapp.playmusic(1);
+
+						if (!words[wordnum][0].equals("")) {
+							myapp.set(4, Integer.toString(wordnum + 1));
+							Intent intent = new Intent(wordsl4.this,
+									idroortsl4.class);
+							startActivity(intent);
 							finish();
 
 						}
 
 						if (words[wordnum][0].equals("")) { // 错词循环结束了
 
-							System.out.println("错词循环结束");
-							Intent intent = new Intent(wordsl4.this, score.class);
+							Intent intent = new Intent(wordsl4.this,
+									scorel4.class);
+
+							if (wcon == 0) {
+								myapp.cleanwrongwords();
+							}
+							if (wcon == 1) {
+								myapp.cleanCwrongwords();
+							}
 
 							startActivity(intent);
-							// playmusic(1);
-
 							finish();
 
 						}
@@ -174,216 +671,49 @@ public class wordsl4 extends Activity {
 					if (!key.equals(words[wordnum - 1][0])) { // 错词循环下做错了
 
 						wordTextView1.setBackgroundResource(R.drawable.red);
+						myapp.Vibrate();
 						myapp.playmusic(0);
-
-						defrepeat(1); // 这是做错了加1
-						Intent intent = new Intent(wordsl4.this, wordsl4.class);
-						startActivity(intent);
-
-						// playmusic(0);
-						finish();
 
 					}
 
 				}
+			});
 
-				if (wcon == 0) { // 标准循环下
+			wordTextView2.setOnClickListener(new View.OnClickListener() {
 
-					if (key.equals(words[wordnum - 1][0])) {// 标准循环下 做对了
-
-						defrepeat(0);
-						wordTextView1.setBackgroundResource(R.drawable.green);
-						myapp.playmusic(1);
-
-						if (con == 1) { // 标准循环+ TT循环下
-
-							if (wordnum % 5 != 0) { // 没有走完5个单词
-
-								myapp.set(4, Integer.toString(wordnum + 1));
-								Intent intent = new Intent(wordsl4.this,
-										idroortsl4.class);
-								startActivity(intent);
-
-								// playmusic(1);
-								finish();
-
-							}
-
-							if (wordnum % 5 == 0) { // 走完5个单词了
-								myapp.set(4, Integer.toString(wordnum + 1));
-								myapp.setrepreatcontrol(0); // TT循环到头， 清空控制阀
-
-								if (words[wordnum][0].equals("")) { // 判断结束
-									// 整个list的前两个sequence操作结束
-									// 进入复习 wrong
-									// words 流程。
-									myapp.cleanwrongwords(); // 快速算法排序
-																// 清理wrongwords
-
-									/*
-									 * Toast.makeText( wordsl2.this,
-									 * "OK, This list words is over, we will enter REVIEW step"
-									 * , 1).show();
-									 */
-
-									myapp.set(4, Integer.toString(1)); // 进入review
-																		// wrong
-																		// 循环
-																		// wordnumber
-																		// 给1
-
-									myapp.setreviewwrongcontrol(1); // 设定进入reviewwrong
-																	// wcon赋值为1
-
-									String[][] wrongwords = myapp
-											.getCwrongwords();
-
-									System.out.println(wrongwords[0][0]);
-
-									System.out.println(wrongwords[1][0]);
-
-									System.out.println(wrongwords[2][0]); // 便于测试使用本段
-
-									System.out.println(wrongwords[3][0]);
-
-									System.out.println(wrongwords[4][0]);
-
-									if (!wrongwords[0][0].equals("")) {
-										Intent intent = new Intent(wordsl4.this,
-												idroortsl4.class);
-
-										startActivity(intent);
-
-										// playmusic(1);
-										finish();
-
-									}
-
-									if (wrongwords[0][0].equals("")) {
-
-										Intent intent = new Intent(wordsl4.this,
-												score.class);
-
-										startActivity(intent);
-
-										// playmusic(1);
-										finish();
-
-									}
-
-								}
-
-								if (!words[wordnum][0].equals("")) { // 标准
-																		// TT循环没有结束  //走完5个词了
-
-									double h = Math.random();
-
-									if (h < 0.5) {
-										Intent intent = new Intent(wordsl4.this,
-												wordsl4.class);
-										startActivity(intent);
-
-										// playmusic(1);
-
-									} else {
-										Intent intent = new Intent(wordsl4.this,
-												definitionl4.class);
-										startActivity(intent);
-										finish();
-									
-
-									}
-									finish();
-								}
-							}
-						}
-
-						if (con == 0) { // 标准循环 and 非TT循环
-
-							if (wordnum % 5 != 0) {
-								Intent intent = new Intent(wordsl4.this,
-										idroortsl4.class);
-								startActivity(intent);
-
-								// playmusic(1);
-								finish();
-
-							}
-							if (wordnum % 5 == 0) {
-								Intent intent = new Intent(wordsl4.this,
-										idroortsl4.class);
-								startActivity(intent);
-
-								// playmusic(1);
-								finish();
-
-							}
-
-						}
-
-					}
-					if (!key.equals(words[wordnum - 1][0])) { // 标准循环下做错了 非TT循环
-
-						defrepeat(1);
-						wordTextView1.setBackgroundResource(R.drawable.red);
-						myapp.playmusic(0);
-
-						myapp.addwrongword(words[wordnum - 1]);
-
-						String[][] wrongwords = myapp.getwrongwords();
-						System.out.println(wrongwords[0][0]);
-
-						System.out.println(wrongwords[1][0]);
-
-						System.out.println(wrongwords[2][0]);
-
-						Intent intent = new Intent(wordsl4.this, wordsl4.class);
-						startActivity(intent);
-
-						// playmusic(0);
-						finish();
-
-					}
-
-				}
-			}
-		});
-
-		wordTextView2.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				String key = (String) wordTextView2.getText();
-
-				if (wcon == 1) { // 错词循环下
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					String key = (String) wordTextView2.getText();
 
 					if (key.equals(words[wordnum - 1][0])) { // 做对了
+						defrepeat(0);
 
 						wordTextView2.setBackgroundResource(R.drawable.green);
 						myapp.playmusic(1);
 
-						defrepeat(0);
 						if (!words[wordnum][0].equals("")) {
-
-							System.out.println("错词循环下一个");
 							myapp.set(4, Integer.toString(wordnum + 1));
-							Intent intent = new Intent(wordsl4.this, idroortsl4.class);
+							Intent intent = new Intent(wordsl4.this,
+									idroortsl4.class);
 							startActivity(intent);
-							// playmusic(1);
-
 							finish();
 
 						}
 
 						if (words[wordnum][0].equals("")) { // 错词循环结束了
 
-							System.out.println("错词循环结束");
-							Intent intent = new Intent(wordsl4.this, score.class);
+							Intent intent = new Intent(wordsl4.this,
+									scorel4.class);
+
+							if (wcon == 0) {
+								myapp.cleanwrongwords();
+							}
+							if (wcon == 1) {
+								myapp.cleanCwrongwords();
+							}
 
 							startActivity(intent);
-							// playmusic(1);
-
 							finish();
 
 						}
@@ -393,215 +723,48 @@ public class wordsl4 extends Activity {
 					if (!key.equals(words[wordnum - 1][0])) { // 错词循环下做错了
 
 						wordTextView2.setBackgroundResource(R.drawable.red);
+						myapp.Vibrate();
 						myapp.playmusic(0);
-
-						defrepeat(1); // 这是做错了加1
-						Intent intent = new Intent(wordsl4.this, wordsl4.class);
-						startActivity(intent);
-
-						// playmusic(0);
-						finish();
 
 					}
 
 				}
+			});
+			wordTextView3.setOnClickListener(new View.OnClickListener() {
 
-				if (wcon == 0) { // 标准循环下
-
-					if (key.equals(words[wordnum - 1][0])) {// 标准循环下 做对了
-
-						defrepeat(0);
-						wordTextView2.setBackgroundResource(R.drawable.green);
-						myapp.playmusic(1);
-
-						if (con == 1) { // 标准循环+ TT循环下
-
-							if (wordnum % 5 != 0) { // 没有走完5个单词
-
-								myapp.set(4, Integer.toString(wordnum + 1));
-								Intent intent = new Intent(wordsl4.this,
-										idroortsl4.class);
-								startActivity(intent);
-
-								// playmusic(1);
-								finish();
-
-							}
-
-							if (wordnum % 5 == 0) { // 走完5个单词了
-								myapp.set(4, Integer.toString(wordnum + 1));
-								myapp.setrepreatcontrol(0); // TT循环到头， 清空控制阀
-
-								if (words[wordnum][0].equals("")) { // 判断结束
-									// 整个list的前两个sequence操作结束
-									// 进入复习 wrong
-									// words 流程。
-									myapp.cleanwrongwords(); // 快速算法排序
-																// 清理wrongwords
-
-									/*
-									 * Toast.makeText( wordsl2.this,
-									 * "OK, This list words is over, we will enter REVIEW step"
-									 * , 1).show();
-									 */
-
-									myapp.set(4, Integer.toString(1)); // 进入review
-																		// wrong
-																		// 循环
-																		// wordnumber
-																		// 给1
-
-									myapp.setreviewwrongcontrol(1); // 设定进入reviewwrong
-																	// wcon赋值为1
-
-									String[][] wrongwords = myapp
-											.getCwrongwords();
-
-									System.out.println(wrongwords[0][0]);
-
-									System.out.println(wrongwords[1][0]);
-
-									System.out.println(wrongwords[2][0]); // 便于测试使用本段
-
-									System.out.println(wrongwords[3][0]);
-
-									System.out.println(wrongwords[4][0]);
-
-									if (!wrongwords[0][0].equals("")) {
-										Intent intent = new Intent(wordsl4.this,
-												idroortsl4.class);
-
-										startActivity(intent);
-
-										// playmusic(1);
-										finish();
-
-									}
-
-									if (wrongwords[0][0].equals("")) {
-
-										Intent intent = new Intent(wordsl4.this,
-												score.class);
-
-										startActivity(intent);
-
-										// playmusic(1);
-										finish();
-
-									}
-
-								}
-
-								if (!words[wordnum][0].equals("")) { // 标准
-																		// TT循环没有结束  //走完5个词了
-
-									double h = Math.random();
-
-									if (h < 0.5) {
-										Intent intent = new Intent(wordsl4.this,
-												wordsl4.class);
-										startActivity(intent);
-
-										// playmusic(1);
-
-									} else {
-										Intent intent = new Intent(wordsl4.this,
-												definitionl4.class);
-										startActivity(intent);
-										finish();
-									
-
-									}
-									finish();
-								}
-							}
-						}
-
-						if (con == 0) { // 标准循环 and 非TT循环
-
-							if (wordnum % 5 != 0) {
-								Intent intent = new Intent(wordsl4.this,
-										idroortsl4.class);
-								startActivity(intent);
-
-								// playmusic(1);
-								finish();
-
-							}
-							if (wordnum % 5 == 0) {
-								Intent intent = new Intent(wordsl4.this,
-										idroortsl4.class);
-								startActivity(intent);
-
-								// playmusic(1);
-								finish();
-
-							}
-
-						}
-
-					}
-					if (!key.equals(words[wordnum - 1][0])) { // 标准循环下做错了 非TT循环
-
-						defrepeat(1);
-						wordTextView2.setBackgroundResource(R.drawable.red);
-						myapp.playmusic(0);
-
-						myapp.addwrongword(words[wordnum - 1]);
-
-						String[][] wrongwords = myapp.getwrongwords();
-						System.out.println(wrongwords[0][0]);
-
-						System.out.println(wrongwords[1][0]);
-
-						System.out.println(wrongwords[2][0]);
-
-						Intent intent = new Intent(wordsl4.this, wordsl4.class);
-						startActivity(intent);
-
-						// playmusic(0);
-						finish();
-
-					}
-
-				}
-			}
-		});
-		wordTextView3.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				String key = (String) wordTextView3.getText();
-
-				if (wcon == 1) { // 错词循环下
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					String key = (String) wordTextView3.getText();
 
 					if (key.equals(words[wordnum - 1][0])) { // 做对了
+						defrepeat(0);
 
 						wordTextView3.setBackgroundResource(R.drawable.green);
 						myapp.playmusic(1);
 
-						defrepeat(0);
 						if (!words[wordnum][0].equals("")) {
-
-							System.out.println("错词循环下一个");
 							myapp.set(4, Integer.toString(wordnum + 1));
-							Intent intent = new Intent(wordsl4.this, idroortsl4.class);
+							Intent intent = new Intent(wordsl4.this,
+									idroortsl4.class);
 							startActivity(intent);
-							// playmusic(1);
-
 							finish();
 
 						}
 
 						if (words[wordnum][0].equals("")) { // 错词循环结束了
 
-							System.out.println("错词循环结束");
-							Intent intent = new Intent(wordsl4.this, score.class);
+							Intent intent = new Intent(wordsl4.this,
+									scorel4.class);
+
+							if (wcon == 0) {
+								myapp.cleanwrongwords();
+							}
+							if (wcon == 1) {
+								myapp.cleanCwrongwords();
+							}
 
 							startActivity(intent);
-							// playmusic(1);
-
 							finish();
 
 						}
@@ -611,216 +774,49 @@ public class wordsl4 extends Activity {
 					if (!key.equals(words[wordnum - 1][0])) { // 错词循环下做错了
 
 						wordTextView3.setBackgroundResource(R.drawable.red);
+						myapp.Vibrate();
 						myapp.playmusic(0);
-
-						defrepeat(1); // 这是做错了加1
-						Intent intent = new Intent(wordsl4.this, wordsl4.class);
-						startActivity(intent);
-
-						// playmusic(0);
-						finish();
 
 					}
 
 				}
+			});
 
-				if (wcon == 0) { // 标准循环下
+			wordTextView4.setOnClickListener(new View.OnClickListener() {
 
-					if (key.equals(words[wordnum - 1][0])) {// 标准循环下 做对了
-
-						defrepeat(0);
-						wordTextView3.setBackgroundResource(R.drawable.green);
-						myapp.playmusic(1);
-
-						if (con == 1) { // 标准循环+ TT循环下
-
-							if (wordnum % 5 != 0) { // 没有走完5个单词
-
-								myapp.set(4, Integer.toString(wordnum + 1));
-								Intent intent = new Intent(wordsl4.this,
-										idroortsl4.class);
-								startActivity(intent);
-
-								// playmusic(1);
-								finish();
-
-							}
-
-							if (wordnum % 5 == 0) { // 走完5个单词了
-								myapp.set(4, Integer.toString(wordnum + 1));
-								myapp.setrepreatcontrol(0); // TT循环到头， 清空控制阀
-
-								if (words[wordnum][0].equals("")) { // 判断结束
-									// 整个list的前两个sequence操作结束
-									// 进入复习 wrong
-									// words 流程。
-									myapp.cleanwrongwords(); // 快速算法排序
-																// 清理wrongwords
-
-									/*
-									 * Toast.makeText( wordsl2.this,
-									 * "OK, This list words is over, we will enter REVIEW step"
-									 * , 1).show();
-									 */
-
-									myapp.set(4, Integer.toString(1)); // 进入review
-																		// wrong
-																		// 循环
-																		// wordnumber
-																		// 给1
-
-									myapp.setreviewwrongcontrol(1); // 设定进入reviewwrong
-																	// wcon赋值为1
-
-									String[][] wrongwords = myapp
-											.getCwrongwords();
-
-									System.out.println(wrongwords[0][0]);
-
-									System.out.println(wrongwords[1][0]);
-
-									System.out.println(wrongwords[2][0]); // 便于测试使用本段
-
-									System.out.println(wrongwords[3][0]);
-
-									System.out.println(wrongwords[4][0]);
-
-									if (!wrongwords[0][0].equals("")) {
-										Intent intent = new Intent(wordsl4.this,
-												idroortsl4.class);
-
-										startActivity(intent);
-
-										// playmusic(1);
-										finish();
-
-									}
-
-									if (wrongwords[0][0].equals("")) {
-
-										Intent intent = new Intent(wordsl4.this,
-												score.class);
-
-										startActivity(intent);
-
-										// playmusic(1);
-										finish();
-
-									}
-
-								}
-
-								if (!words[wordnum][0].equals("")) { // 标准
-																		// TT循环没有结束  //走完5个词了
-
-									double h = Math.random();
-
-									if (h < 0.5) {
-										Intent intent = new Intent(wordsl4.this,
-												wordsl4.class);
-										startActivity(intent);
-
-										// playmusic(1);
-
-									} else {
-										Intent intent = new Intent(wordsl4.this,
-												definitionl4.class);
-										startActivity(intent);
-										finish();
-									
-
-									}
-									finish();
-								}
-							}
-						}
-
-						if (con == 0) { // 标准循环 and 非TT循环
-
-							if (wordnum % 5 != 0) {
-								Intent intent = new Intent(wordsl4.this,
-										idroortsl4.class);
-								startActivity(intent);
-
-								// playmusic(1);
-								finish();
-
-							}
-							if (wordnum % 5 == 0) {
-								Intent intent = new Intent(wordsl4.this,
-										idroortsl4.class);
-								startActivity(intent);
-
-								// playmusic(1);
-								finish();
-
-							}
-
-						}
-
-					}
-					if (!key.equals(words[wordnum - 1][0])) { // 标准循环下做错了 非TT循环
-
-						defrepeat(1);
-						wordTextView3.setBackgroundResource(R.drawable.red);
-						myapp.playmusic(0);
-
-						myapp.addwrongword(words[wordnum - 1]);
-
-						String[][] wrongwords = myapp.getwrongwords();
-						System.out.println(wrongwords[0][0]);
-
-						System.out.println(wrongwords[1][0]);
-
-						System.out.println(wrongwords[2][0]);
-
-						Intent intent = new Intent(wordsl4.this, wordsl4.class);
-						startActivity(intent);
-
-						// playmusic(0);
-						finish();
-
-					}
-
-				}
-			}
-		});
-
-		wordTextView4.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				String key = (String) wordTextView4.getText();
-
-				if (wcon == 1) { // 错词循环下
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					String key = (String) wordTextView4.getText();
 
 					if (key.equals(words[wordnum - 1][0])) { // 做对了
+						defrepeat(0);
 
 						wordTextView4.setBackgroundResource(R.drawable.green);
 						myapp.playmusic(1);
 
-						defrepeat(0);
 						if (!words[wordnum][0].equals("")) {
-
-							System.out.println("错词循环下一个");
 							myapp.set(4, Integer.toString(wordnum + 1));
-							Intent intent = new Intent(wordsl4.this, idroortsl4.class);
+							Intent intent = new Intent(wordsl4.this,
+									idroortsl4.class);
 							startActivity(intent);
-							// playmusic(1);
-
 							finish();
 
 						}
 
 						if (words[wordnum][0].equals("")) { // 错词循环结束了
 
-							System.out.println("错词循环结束");
-							Intent intent = new Intent(wordsl4.this, score.class);
+							Intent intent = new Intent(wordsl4.this,
+									scorel4.class);
+
+							if (wcon == 0) {
+								myapp.cleanwrongwords();
+							}
+							if (wcon == 1) {
+								myapp.cleanCwrongwords();
+							}
 
 							startActivity(intent);
-							// playmusic(1);
-
 							finish();
 
 						}
@@ -830,178 +826,50 @@ public class wordsl4 extends Activity {
 					if (!key.equals(words[wordnum - 1][0])) { // 错词循环下做错了
 
 						wordTextView4.setBackgroundResource(R.drawable.red);
+						myapp.Vibrate();
 						myapp.playmusic(0);
-
-						defrepeat(1); // 这是做错了加1
-						Intent intent = new Intent(wordsl4.this, wordsl4.class);
-						startActivity(intent);
-
-						// playmusic(0);
-						finish();
 
 					}
 
 				}
+			});
+		}
+		wenhaoButton.setOnClickListener(new View.OnClickListener() {
 
-				if (wcon == 0) { // 标准循环下
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				timer.cancel();
+				stopshape();
 
-					if (key.equals(words[wordnum - 1][0])) {// 标准循环下 做对了
-
-						defrepeat(0);
-						wordTextView4.setBackgroundResource(R.drawable.green);
-						myapp.playmusic(1);
-
-						if (con == 1) { // 标准循环+ TT循环下
-
-							if (wordnum % 5 != 0) { // 没有走完5个单词
-
-								myapp.set(4, Integer.toString(wordnum + 1));
-								Intent intent = new Intent(wordsl4.this,
-										idroortsl4.class);
-								startActivity(intent);
-
-								// playmusic(1);
-								finish();
-
-							}
-
-							if (wordnum % 5 == 0) { // 走完5个单词了
-								myapp.set(4, Integer.toString(wordnum + 1));
-								myapp.setrepreatcontrol(0); // TT循环到头， 清空控制阀
-
-								if (words[wordnum][0].equals("")) { // 判断结束
-									// 整个list的前两个sequence操作结束
-									// 进入复习 wrong
-									// words 流程。
-									myapp.cleanwrongwords(); // 快速算法排序
-																// 清理wrongwords
-
-									/*
-									 * Toast.makeText( wordsl2.this,
-									 * "OK, This list words is over, we will enter REVIEW step"
-									 * , 1).show();
-									 */
-
-									myapp.set(4, Integer.toString(1)); // 进入review
-																		// wrong
-																		// 循环
-																		// wordnumber
-																		// 给1
-
-									myapp.setreviewwrongcontrol(1); // 设定进入reviewwrong
-																	// wcon赋值为1
-
-									String[][] wrongwords = myapp
-											.getCwrongwords();
-
-									System.out.println(wrongwords[0][0]);
-
-									System.out.println(wrongwords[1][0]);
-
-									System.out.println(wrongwords[2][0]); // 便于测试使用本段
-
-									System.out.println(wrongwords[3][0]);
-
-									System.out.println(wrongwords[4][0]);
-
-									if (!wrongwords[0][0].equals("")) {
-										Intent intent = new Intent(wordsl4.this,
-												idroortsl4.class);
-
-										startActivity(intent);
-
-										// playmusic(1);
-										finish();
-
-									}
-
-									if (wrongwords[0][0].equals("")) {
-
-										Intent intent = new Intent(wordsl4.this,
-												score.class);
-
-										startActivity(intent);
-
-										// playmusic(1);
-										finish();
-
-									}
-
-								}
-
-								if (!words[wordnum][0].equals("")) { // 标准
-																		// TT循环没有结束  //走完5个词了
-
-									double h = Math.random();
-
-									if (h < 0.5) {
-										Intent intent = new Intent(wordsl4.this,
-												wordsl4.class);
-										startActivity(intent);
-
-										// playmusic(1);
-
-									} else {
-										Intent intent = new Intent(wordsl4.this,
-												definitionl4.class);
-										startActivity(intent);
-										finish();
-									
-
-									}
-									finish();
-								}
-							}
-						}
-
-						if (con == 0) { // 标准循环 and 非TT循环
-
-							if (wordnum % 5 != 0) {
-								Intent intent = new Intent(wordsl4.this,
-										idroortsl4.class);
-								startActivity(intent);
-
-								// playmusic(1);
-								finish();
-
-							}
-							if (wordnum % 5 == 0) {
-								Intent intent = new Intent(wordsl4.this,
-										idroortsl4.class);
-								startActivity(intent);
-
-								// playmusic(1);
-								finish();
-
-							}
-
-						}
-
-					}
-					if (!key.equals(words[wordnum - 1][0])) { // 标准循环下做错了 非TT循环
-
-						defrepeat(1);
-						wordTextView4.setBackgroundResource(R.drawable.red);
-						myapp.playmusic(0);
-
-						myapp.addwrongword(words[wordnum - 1]);
-
-						String[][] wrongwords = myapp.getwrongwords();
-						System.out.println(wrongwords[0][0]);
-
-						System.out.println(wrongwords[1][0]);
-
-						System.out.println(wrongwords[2][0]);
-
-						Intent intent = new Intent(wordsl4.this, wordsl4.class);
-						startActivity(intent);
-
-						// playmusic(0);
-						finish();
-
-					}
-
+				if (myapp.gethelpcontrol(4) == 0) {
+					myapp.sethelpcontrol(4, 1);
 				}
+
+				alertdDialog = new AlertDialog.Builder(wordsl4.this)
+						.setTitle("Instruction")
+						.setMessage(getString(R.string.defwordhelp))
+						.setIcon(R.drawable.ic_launcher)
+						.setPositiveButton("OK",
+								new DialogInterface.OnClickListener() {
+
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										// TODO Auto-generated method stub
+
+										alertdDialog.cancel();
+										textViewwr
+												.setBackgroundColor(Color.TRANSPARENT);
+										if (Integer.parseInt(myapp.get(6)) < 2) {
+											timer.start();
+										}
+
+									}
+								}).create();
+
+				alertdDialog.show();
+
 			}
 		});
 
@@ -1041,34 +909,6 @@ public class wordsl4 extends Activity {
 			method(4);
 
 		}
-
-		/* } */
-
-		/*
-		 * if (wcon == 1) {
-		 * 
-		 * for (int i = 0; i < 20; i++) { if (!lwords[i][0].equals("")) {
-		 * numword = i + 1; } }
-		 * 
-		 * double h = Math.random() * 4; // 随机为0到1之间， 这里有4个按钮，所以选4
-		 * 
-		 * // System.out.println((int) h); int k = (int) h;
-		 * 
-		 * if (k == 0) { method(1);
-		 * 
-		 * 
-		 * } if (k == 1) { method(2);
-		 * 
-		 * 
-		 * } if (k == 2) { method(3);
-		 * 
-		 * } if (k == 3) { method(4);
-		 * 
-		 * 
-		 * }
-		 * 
-		 * }
-		 */
 
 	}
 
@@ -1122,9 +962,9 @@ public class wordsl4 extends Activity {
 
 			if (Integer.parseInt(myapp.get(6)) == 2) {
 				wordTextView1.setBackgroundResource(R.drawable.green);
-				// myapp.playmusic(1);
+				// myapp.playmusic(1);myapp.setscore(1, rightnum+1);;
 				// //playmusic(1);
-				defrepeat(0);
+				// defrepeat(0); 因为自动跳转所以不再需要这里置0；
 
 			}
 			wordTextView2.setText(roots[a2]);
@@ -1137,9 +977,9 @@ public class wordsl4 extends Activity {
 
 			if (Integer.parseInt(myapp.get(6)) == 2) {
 				wordTextView2.setBackgroundResource(R.drawable.green);
-				// myapp.playmusic(1);
+				// myapp.playmusic(1);myapp.setscore(1, rightnum+1);;
 				// //playmusic(1);
-				defrepeat(0);
+				// defrepeat(0);
 			}
 
 			wordTextView1.setText(roots[a3]);
@@ -1152,9 +992,9 @@ public class wordsl4 extends Activity {
 
 			if (Integer.parseInt(myapp.get(6)) == 2) {
 				wordTextView3.setBackgroundResource(R.drawable.green);
-				// myapp.playmusic(1);
+				// myapp.playmusic(1);myapp.setscore(1, rightnum+1);;
 				// //playmusic(1);
-				defrepeat(0);
+				// defrepeat(0);
 			}
 
 			wordTextView1.setText(roots[a4]);
@@ -1166,9 +1006,9 @@ public class wordsl4 extends Activity {
 
 			if (Integer.parseInt(myapp.get(6)) == 2) {
 				wordTextView4.setBackgroundResource(R.drawable.green);
-				// myapp.playmusic(1);
+				// myapp.playmusic(1);myapp.setscore(1, rightnum+1);;
 				// //playmusic(1);
-				defrepeat(0);
+				// defrepeat(0);
 			}
 
 			wordTextView1.setText(roots[a2]);
@@ -1178,18 +1018,11 @@ public class wordsl4 extends Activity {
 
 	}
 
-	/*
-	 * private int rand() { double h = Math.random() * numroot;
-	 * 
-	 * int k = (int) h; return k;
-	 * 
-	 * }
-	 */
-
 	private void defrepeat(int key) { // 这里是 输错2次的控制方法
 
 		if (key == 0) {
 			myapp.set(6, Integer.toString(0));
+			timergreencontrol = true;
 		}
 
 		if (key == 1) {
@@ -1211,9 +1044,6 @@ public class wordsl4 extends Activity {
 			roots[i] = "";
 
 		}
-		System.out.println("root定义");
-		//
-
 		int k = 0;
 
 		for (int i = 0; i < 20; i++) {
@@ -1228,43 +1058,158 @@ public class wordsl4 extends Activity {
 		return roots;
 	}
 
-	public void playmusic(int key) {
+	private String[][] get10ranwords(String[][] words) {
 
-		if (key == 1) {
+		String[][] word = words;
 
-			myapp.playmusic(1);
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < word[0].length; j++) {
+
+				word[i][0] = "";
+
+			}
 		}
 
-		/*
-		 * sp.play(musicright, 1, 1, 0, 0, 1);
-		 * 
-		 * Timer timer=new Timer();
-		 * 
-		 * TimerTask task=new TimerTask() {
-		 * 
-		 * @Override public void run() { // TODO Auto-generated method stub
-		 * sp.unload(musicright); } };
-		 * 
-		 * timer.schedule(task, 900); timer.cancel();
-		 */
+		Random random = new Random();
+		for (int i = 10; i < 20; i++) {
+			int p = random.nextInt(10) + 10;
+			String[] k = word[i];
+			word[i] = word[p];
+			word[p] = k;
+		}
 
-		if (key == 0) {
+		random = null;
 
-			myapp.playmusic(0);
+		return word;
+	}
 
-			/*
-			 * sp.play(musicwrong, 1, 1, 0, 0, 1);
-			 * 
-			 * Timer timer=new Timer();
-			 * 
-			 * TimerTask task=new TimerTask() {
-			 * 
-			 * @Override public void run() { // TODO Auto-generated method stub
-			 * sp.release(); sp.unload(musicwrong); } };
-			 * 
-			 * timer.schedule(task, 900); timer.cancel(); }
-			 */
+	private int wordnum() {
+		int k = 0;
+		for (int i = 0; i < words.length; i++) {
+			if (!words[i][0].equals("")) {
+				k++;
+			}
+		}
 
+		return k;
+	}
+
+	private void stopshape() {
+		timerhelp.cancel();
+
+		if (p1) {
+			helpshape.cancel();
+		}
+
+		wenhaoButton.setImageResource(R.drawable.wenhao);
+
+	}
+
+	public String underlineclear(String key) {
+		String flag = key.replace("_", " ");
+		return flag;
+	}
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		System.out.println("Start");
+
+	}
+
+	@Override
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		super.onRestart();
+		myapp.startlevelmusic();
+		if (Integer.parseInt(myapp.get(6)) < 2) {
+
+			if (timergreencontrol) {
+				timergreen = new Timer();
+				timergreen.schedule(new TimerTask() {
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+
+						startActivity(intent);
+						finish();
+					}
+				}, sleeptime);
+			} else {
+				timer.start();
+			}
+
+		}
+		System.out.println("Restart");
+
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		System.out.println("Resume");
+
+	}
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		System.out.println("Stop");
+
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		System.out.println("Pause");
+
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		System.out.println("Destroy");
+		getApplicationContext().unregisterReceiver(receiver);
+
+	}
+
+	protected class HomeKeyEventBroadCastReceiver extends BroadcastReceiver {
+
+		static final String SYSTEM_REASON = "reason";
+		static final String SYSTEM_HOME_KEY = "homekey";// home key
+		static final String SYSTEM_RECENT_APPS = "recentapps";// long home key
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String action = intent.getAction();
+			if (action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
+				String reason = intent.getStringExtra(SYSTEM_REASON);
+				if (reason != null) {
+					if (reason.equals(SYSTEM_HOME_KEY)) {
+						myapp.pauselevelmusic();
+						timer.cancel();
+						stopshape(); // home key处理点
+						if (timergreencontrol) {
+							timergreen.cancel();
+						}
+
+					} else if (reason.equals(SYSTEM_RECENT_APPS)) {
+						myapp.pauselevelmusic();
+						timer.cancel();
+						stopshape();
+						if (timergreencontrol) {
+							timergreen.cancel();
+						}
+						// long home key处理点
+					}
+				}
+			}
 		}
 
 	}
@@ -1273,6 +1218,14 @@ public class wordsl4 extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+			timer.cancel();
+			stopshape();
+			myapp.pauselevelmusic();
+			if (timergreencontrol) {
+				timergreen.cancel();
+			}
+
 			alertdDialog = new AlertDialog.Builder(this)
 					.setTitle("EXIT LEVEL")
 					.setMessage("Do you want to exit this level learning？")
@@ -1284,12 +1237,14 @@ public class wordsl4 extends Activity {
 								public void onClick(DialogInterface dialog,
 										int which) {
 									// TODO Auto-generated method stub
+									myapp.stoplevelmusic();
 									myapp.empty();
 
 									Intent intent = new Intent(wordsl4.this,
 											play.class);
 									startActivity(intent);
 									finish();
+
 								}
 							})
 					.setNegativeButton("No",
@@ -1298,13 +1253,30 @@ public class wordsl4 extends Activity {
 								@Override
 								public void onClick(DialogInterface dialog,
 										int which) {
-									// TODO Auto-generated method stub
-									/*
-									 * Intent intent= new
-									 * Intent(Word.this,Play.class);
-									 * startActivity(intent);finish();
-									 */
+
 									alertdDialog.cancel();
+									myapp.startlevelmusic();
+									if (Integer.parseInt(myapp.get(6)) < 2) {
+										if (timergreencontrol) {
+											timergreen = new Timer();
+											timergreen.schedule(
+													new TimerTask() {
+
+														@Override
+														public void run() {
+															// TODO
+															// Auto-generated
+															// method stub
+
+															startActivity(intent);
+															finish();
+														}
+													}, sleeptime);
+										} else {
+											timer.start();
+										}
+
+									}
 								}
 							}).create();
 
@@ -1315,6 +1287,142 @@ public class wordsl4 extends Activity {
 		return super.onKeyDown(keyCode, event);
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
 
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.game, menu);
 
+		MenuItem musicsound = menu.add(101, 1, 1, "musicsound");
+		MenuItem buttonsound = menu.add(101, 2, 2, "buttonsound");
+		musicsound.setCheckable(true);
+		buttonsound.setCheckable(true);
+		if (myapp.getmusic(0) == 0) {
+			buttonsound.setChecked(false);
+
+		} else {
+			buttonsound.setChecked(true);
+		}
+		if (myapp.getmusic(1) == 0) {
+			musicsound.setChecked(false);
+
+		} else {
+			musicsound.setChecked(true);
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.level) {
+			timer.cancel();
+			stopshape();
+						
+			if (timergreencontrol) {
+				timergreen.cancel();
+			}
+			myapp.stoplevelmusic();
+			myapp.empty();
+			Intent intent = new Intent(wordsl4.this, play.class);
+			startActivity(intent);
+			finish();
+		}
+
+		
+		if (id == R.id.PlayStudyReview) {
+			timer.cancel();
+			stopshape();
+						
+			if (timergreencontrol) {
+				timergreen.cancel();
+			}
+			myapp.stoplevelmusic();
+			myapp.empty();
+			Intent intent = new Intent(wordsl4.this, list.class);
+			startActivity(intent);
+			finish();
+		}
+
+		if (id == R.id.listpage) {
+			timer.cancel();
+			stopshape();
+						
+			if (timergreencontrol) {
+				timergreen.cancel();
+			}
+			myapp.stoplevelmusic();
+			myapp.empty();
+			Intent intent = new Intent(wordsl4.this, listselectactivity.class);
+			startActivity(intent);
+			finish();
+		}
+
+		if (id == R.id.coursepage) {
+			timer.cancel();
+			stopshape();
+						
+			if (timergreencontrol) {
+				timergreen.cancel();
+			}
+			myapp.stoplevelmusic();
+			myapp.empty();
+			Intent intent = new Intent(wordsl4.this, MainActivity.class);
+			startActivity(intent);
+			finish();
+		}
+		if (id == R.id.Exit) {
+
+			System.exit(0);
+
+			return true;
+		}
+		if (id == 1) { // musicsound
+
+			if (item.isChecked()) {
+				item.setChecked(false);
+				myapp.setmusic(1, 0);
+				myapp.stoplevelmusic();
+
+			} else {
+				item.setChecked(true);
+				myapp.setmusic(1, 1);
+				myapp.startlevelmusic();
+
+			}
+			return true;
+		}
+		if (id == 2) {
+
+			if (item.isChecked()) {
+				item.setChecked(false);
+				myapp.setmusic(0, 0);
+			} else {
+				item.setChecked(true);
+				myapp.setmusic(0, 1);
+			}
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+	public void changecolorscore(int key){
+		if (key>=86) {
+			textViewscore.setTextColor(Color.GREEN);
+			
+		}
+		if (key<=64) {
+			textViewscore.setTextColor(Color.RED);
+		}
+		if (key>64&&key<86) 
+			
+	 {
+			textViewscore.setTextColor(Color.YELLOW);
+		}
+	}
+	
 }

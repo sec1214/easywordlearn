@@ -4,9 +4,11 @@
     tools:context="com.easylearnwords.MainActivity" >
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/Exit"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never"/>
+        android:showAsAction="ifRoom"
+        android:title="Exit App">
+      
+    </item>
 
 </menu>

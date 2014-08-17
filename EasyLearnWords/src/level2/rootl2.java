@@ -1,100 +1,195 @@
 package level2;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import level3.missroot;
+
 import com.easylearnwords.R;
-import com.easylearnwords.definition;
+
+import com.easylearnwords.MainActivity;
+import com.easylearnwords.list;
+import com.easylearnwords.listselectactivity;
 import com.easylearnwords.mypublicvalue;
 import com.easylearnwords.play;
-import com.easylearnwords.root;
-import com.easylearnwords.words;
+
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class rootl2 extends Activity {
 
-
-	/*private SoundPool sp;// 声明一个SoundPool
-	private int musicright;// 定义一个整型用load（）；来设置suondID
-	private int musicwrong;
-*/
 	private Dialog alertdDialog;
 	private TextView textView1, textView2, rootTextView;
 	private TextView rootdef1, rootdef2, rootdef3, rootdef4, rootdef5,
 			rootdef6;
-	private TextView textViewlevel, textViewword, textViewwr;
+	private TextView textViewlevel, textViewword, textViewwr, textViewscore;
 	private mypublicvalue myapp;
 	private String[][] words;
 	private int wordnum;
 	private int rootnum;
 	private String[] roots;
 	private int numroot;
-/*	private ArrayAdapter<String> adapter;*/
+	private ImageButton wenhaoButton;
+	public int wcon, con, lv1;
+	private double clicknum, rightnum;
+	private BroadcastReceiver receiver; // home key
+	private double rootclicknum, rootrightnum;
+	private TextView worddefview;
 
-/*	private List<String> list;*/
+	private boolean p1 = false; // 操控help button的控制阀
 
-	public int wcon, con;
+	public  long sleeptime;
+	private Timer timergreen;
+	private Intent intent;
+	private boolean timergreencontrol = false;
+	private Matrix matrix = new Matrix();
 
-/*	private int rootnumber;*/
+	private CountDownTimer helpshape;
+
+	CountDownTimer timerhelp = new CountDownTimer(5000, 1000) {
+
+		@Override
+		public void onTick(long millisUntilFinished) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onFinish() {
+
+			p1 = true;
+
+			helpshape = new CountDownTimer(500, 100) {
+
+				@Override
+				public void onTick(long millisUntilFinished) {
+					// TODO Auto-generated method stub
+
+					int k = (int) (millisUntilFinished / 100);
+
+					Bitmap bitmap = ((BitmapDrawable) (getResources()
+							.getDrawable(R.drawable.wenhaored))).getBitmap();
+
+					if (k / 2 == 1) {
+						matrix.setRotate(10f);
+					}
+					if (k / 2 == 0) {
+						matrix.setRotate(-10f);
+					}
+
+					bitmap = Bitmap
+							.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+									bitmap.getHeight(), matrix, true);
+					wenhaoButton.setImageBitmap(bitmap);
+
+				}
+
+				@Override
+				public void onFinish() {
+					// TODO Auto-generated method stub
+					helpshape.start();
+
+				}
+			};
+
+			helpshape.start();
+
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.zroot);
+		receiver = new HomeKeyEventBroadCastReceiver();
+		getApplicationContext().registerReceiver(receiver,
+				new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
 
-		setContentView(R.layout.root);
+		sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
+		wenhaoButton = (ImageButton) this.findViewById(R.id.wenhaobutton);
 
-		/*sp = new SoundPool(10, AudioManager.STREAM_SYSTEM, 5);// 第一个参数为同时播放数据流的最大个数，第二数据流类型，第三为声音质量
-
-		musicright = sp.load(this, R.raw.right1, 1); // 把你的声音素材放到res/raw里，第2个参数即为资源文件，第3个为音乐的优先级
-		musicwrong = sp.load(this, R.raw.wrong1, 1); // 把你的声音素材放到res/raw里，第2个参数即为资源文件，第3个为音乐的优先级
-*/
 		textView1 = (TextView) this.findViewById(R.id.textview1);
 		textView2 = (TextView) this.findViewById(R.id.textview2);
 
 		textViewlevel = (TextView) this.findViewById(R.id.leveltext);
 		textViewword = (TextView) this.findViewById(R.id.wordtext);
 		textViewwr = (TextView) this.findViewById(R.id.wrtext);
+
+		textViewscore = (TextView) this.findViewById(R.id.scoretext);
+
 		rootdef1 = (TextView) this.findViewById(R.id.rootdef1);
 		rootdef2 = (TextView) this.findViewById(R.id.rootdef2);
 		rootdef3 = (TextView) this.findViewById(R.id.rootdef3);
 		rootdef4 = (TextView) this.findViewById(R.id.rootdef4);
 		rootdef5 = (TextView) this.findViewById(R.id.rootdef5);
 		rootdef6 = (TextView) this.findViewById(R.id.rootdef6);
-
+		worddefview = (TextView) this.findViewById(R.id.worddefview);
 		myapp = (mypublicvalue) getApplication();
 
-		textView1.setText(myapp.get(0));
+		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
 
 		textViewlevel.setText(" Level: " + myapp.get(3)); // 设定显示level的控件
 
 		wordnum = Integer.parseInt(myapp.get(4));
 
-		textViewword.setText("Word: " + wordnum + "  "); // 设定显示几号word的控件
+		clicknum = myapp.getscore(0);
+		rightnum = myapp.getscore(1);
+
+		rootclicknum = myapp.getrootscore(0);
+		rootrightnum = myapp.getrootscore(1);
 
 		wcon = myapp.getreviewwrongcontrol(); // 复习控制阀值
 		con = myapp.getrepeatcontrol();
 
+		lv1 = Integer.parseInt(myapp.get(8));
+
 		if (wcon == 0) { // 标准情况下 words 取用
 
-			words = myapp.getwords();
+			if (lv1 == 0) {
+				words = myapp.getwords();
+
+			}
+
+			if (lv1 == 1) {
+
+				words = myapp.getwordslv2();
+
+			}
 			textViewwr.setText("");
 			textViewwr.setBackgroundColor(Color.TRANSPARENT);
 
 			if (con == 0) {
-				textViewwr.setText("");
+				textViewwr.setText("Part1");
 
 			}
 			if (con == 1) {
-				textViewwr.setText("Repeat 5 words");
+				textViewwr.setText("Part2");
 				textViewwr.setBackgroundColor(Color.GREEN);
 			}
 
@@ -103,786 +198,2364 @@ public class rootl2 extends Activity {
 		if (wcon == 1) { // 错误情况下， 取用错词
 
 			words = myapp.getCwrongwords();
+
 			textViewwr.setText("Wrong Reivew");
 			textViewwr.setBackgroundColor(Color.RED);
+			
 
 		}
 
+		if (wcon == 0) {
+			textViewword.setText("Word: " + (wordnum - 10) + " / " + wordnum()); // 设定显示几号word的控件
+		}
+		if (wcon == 1) {
+			textViewword.setText("Word: " + wordnum + " / " + wordnum()); // 设定显示几号word的控件
+		}
+		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
+		textViewscore.setText("Score:"
+				+ (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100)
+				+ "%");
+		worddefview.setText(words[wordnum - 1][1]);
 		rootTextView = (TextView) this.findViewById(R.id.roottestview);
 
 		rootnum = Integer.parseInt(myapp.get(5)); // step
-		String word = words[wordnum - 1][rootnum];
-		rootTextView.setText(word);
 
-		System.out.println(myapp.getrepeatcontrol() + "Root");
+		rootTextView.setText(getchangeword());
 
 		this.ran();
 
-		rootdef1.setOnClickListener(new View.OnClickListener() {
+		if (myapp.gethelpcontrol(3) == 0) {
+			timerhelp.start();
+		}
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				String k = (String) rootdef1.getText();
+		if (Integer.parseInt(myapp.get(6)) < 2) {
+			// timer.start();
 
-				if (wcon == 1) {
+			rootdef1.setOnClickListener(new View.OnClickListener() {
 
-					if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					String k = (String) rootdef1.getText();
+					// timer.cancel();
+					if (wcon == 1) {
 
-						defrepeat(0);
-						rootdef1.setBackgroundResource(R.drawable.green);
-						myapp.playmusic(1);
-						// 变色
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
 
-						if (!words[wordnum - 1][rootnum + 2].equals("")) {
+							defrepeat(0);
+							rootdef1.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+							myapp.setscore(1, rightnum + 1);
+							myapp.setrootscore(1, rootrightnum + 1);
+							// 变色
 
-							myapp.set(5, Integer.toString(rootnum + 2));
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
 
-							Intent intent = new Intent(rootl2.this, rootl2.class);
+								myapp.set(5, Integer.toString(rootnum + 2));
 
-							startActivity(intent);
-							// playmusic(1);
+								intent = new Intent(rootl2.this, rootl2.class);
 
-							finish();
+								myapp.setscore(0, clicknum + 1);
+								myapp.setrootscore(0, rootclicknum + 1);
+								stopshape();
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+								System.out.println("wcon" + wcon);
+								System.out.println("进入worddef步骤");
+
+								double h = Math.random();
+
+								if (h < 0.5) {
+
+									intent = new Intent(rootl2.this,
+											wordsl2.class);
+
+									myapp.setscore(0, clicknum + 1);
+									myapp.setrootscore(0, rootclicknum + 1);
+									stopshape();
+									timergreen = new Timer();
+									timergreen.schedule(new TimerTask() {
+
+										@Override
+										public void run() {
+											// TODO Auto-generated method stub
+											startActivity(intent);
+											finish();
+										}
+									}, sleeptime);
+
+								} else {
+									intent = new Intent(rootl2.this,
+											definitionl2.class);
+									myapp.setscore(0, clicknum + 1);
+									myapp.setrootscore(0, rootclicknum + 1);
+									stopshape();
+									timergreen = new Timer();
+									timergreen.schedule(new TimerTask() {
+
+										@Override
+										public void run() {
+											// TODO Auto-generated method stub
+											startActivity(intent);
+											finish();
+										}
+									}, sleeptime);
+								}
+
+							}
+
 						}
 
-						if (words[wordnum - 1][rootnum + 2].equals("")) {
-
-							myapp.set(5, Integer.toString(2)); // root没有了，需要重置
-
-							System.out.println("wcon" + wcon);
-							System.out.println("进入word步骤");
-
-							double h = Math.random();
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // 选错了
 
 							
-							 if (h < 0.5) {
-
-							/*
-							 * if (wcon == 1) { Intent intent = new
-							 * Intent(rootl2.this, WrongWord.class);
-							 * startActivity(intent); finish(); } if (wcon == 0)
-							 * {
-							 */
-
-							Intent intent = new Intent(rootl2.this, wordsl2.class);
+							rootdef1.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+							stopshape();
+							if (!timergreencontrol) {
+							myapp.addwrongwords1(words[wordnum - 1]);						
+							defrepeat(1);
+							Intent intent = new Intent(rootl2.this,
+									rootl2.class);
 							startActivity(intent);
-
-							// playmusic(1);
+							myapp.setscore(0, clicknum + 1);
+							myapp.setrootscore(0, rootclicknum + 1);							
 							finish();
-
-							 } else {
-							 Intent intent = new Intent(rootl2.this,
-							 definitionl2.class);
-							 startActivity(intent); finish();
-							 }
-
+							}
 						}
 
 					}
 
-					if (!k.equals(words[wordnum - 1][rootnum + 1])) {
+					if (wcon == 0) {
 
-						defrepeat(1);
-						rootdef1.setBackgroundResource(R.drawable.red);
-						myapp.playmusic(0);
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
 
-						// myapp.addwrongword(words[wordnum-1]);
+							defrepeat(0);
+							rootdef1.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+							myapp.setscore(1, rightnum + 1);
+							myapp.setrootscore(1, rootrightnum + 1);
 
-						Intent intent = new Intent(rootl2.this, rootl2.class);
-						startActivity(intent);
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
 
-						// playmusic(0);
-						finish();
+								myapp.set(5, Integer.toString(rootnum + 2));
 
-					}
+								intent = new Intent(rootl2.this, rootl2.class);
+								myapp.setscore(0, clicknum + 1);
+								myapp.setrootscore(0, rootclicknum + 1);
+								stopshape();
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
 
-				}
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+							}
 
-				if (wcon == 0) {
-
-					if (k.equals(words[wordnum - 1][rootnum + 1])) {
-
-						defrepeat(0);
-						rootdef1.setBackgroundResource(R.drawable.green);
-						myapp.playmusic(1);
-
-						if (!words[wordnum - 1][rootnum + 2].equals("")) {
-
-							myapp.set(5, Integer.toString(rootnum + 2));
-
-							Intent intent = new Intent(rootl2.this, rootl2.class);
-
-							startActivity(intent);
-
-							// playmusic(1);
-							finish();
-						}
-
-						if (words[wordnum - 1][rootnum + 2].equals("")) {
-							repeattt5();
-						}
-
-					}
-
-					if (!k.equals(words[wordnum - 1][rootnum + 1])) {
-
-						defrepeat(1);
-						rootdef1.setBackgroundResource(R.drawable.red);
-						myapp.playmusic(0);
-
-						// myapp.addwrongword(words[wordnum-1]);
-						// //进入复习循环不用增加wrongword了
-
-						Intent intent = new Intent(rootl2.this, rootl2.class);
-						startActivity(intent);
-
-						// playmusic(0);
-						finish();
-
-					}
-				}
-			}
-		});
-
-		rootdef2.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				String k = (String) rootdef2.getText();
-
-				if (wcon == 1) {
-
-					if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
-
-						defrepeat(0);
-						rootdef2.setBackgroundResource(R.drawable.green);
-						myapp.playmusic(1);
-						// 变色
-
-						if (!words[wordnum - 1][rootnum + 2].equals("")) {
-
-							myapp.set(5, Integer.toString(rootnum + 2));
-
-							Intent intent = new Intent(rootl2.this, rootl2.class);
-
-							startActivity(intent);
-
-							// playmusic(1);
-							finish();
-						}
-
-						if (words[wordnum - 1][rootnum + 2].equals("")) {
-
-							myapp.set(5, Integer.toString(2)); // root没有了，需要重置
-
-							System.out.println("wcon" + wcon);
-							System.out.println("进入word步骤");
-
-							double h = Math.random();
-
-							 if (h < 0.5) {
-							/*
-							 * if (wcon == 1) { Intent intent = new
-							 * Intent(rootl2.this, WrongWord.class);
-							 * startActivity(intent); finish(); } if (wcon == 0)
-							 * {
-							 */
-
-							Intent intent = new Intent(rootl2.this, wordsl2.class);
-							startActivity(intent);
-
-							// playmusic(1);
-							finish();
-
-							 } else {
-							 Intent intent = new Intent(rootl2.this,
-							 definitionl2.class);
-							 startActivity(intent); finish();
-							 }
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+								repeattt5();
+							}
 
 						}
 
-					}
-
-					if (!k.equals(words[wordnum - 1][rootnum + 1])) {
-
-						defrepeat(1);
-						rootdef2.setBackgroundResource(R.drawable.red);
-						myapp.playmusic(0);
-
-						// myapp.addwrongword(words[wordnum-1]);
-
-						Intent intent = new Intent(rootl2.this, rootl2.class);
-						startActivity(intent);
-
-						// playmusic(0);
-
-						finish();
-
-					}
-
-				}
-
-				if (wcon == 0) {
-
-					if (k.equals(words[wordnum - 1][rootnum + 1])) {
-
-						defrepeat(0);
-						rootdef2.setBackgroundResource(R.drawable.green);
-						myapp.playmusic(1);
-
-						if (!words[wordnum - 1][rootnum + 2].equals("")) {
-
-							myapp.set(5, Integer.toString(rootnum + 2));
-
-							Intent intent = new Intent(rootl2.this, rootl2.class);
-
-							startActivity(intent);
-
-							// playmusic(1);
-							finish();
-						}
-
-						if (words[wordnum - 1][rootnum + 2].equals("")) {
-							repeattt5();
-						}
-
-					}
-
-					if (!k.equals(words[wordnum - 1][rootnum + 1])) {
-
-						defrepeat(1);
-						rootdef2.setBackgroundResource(R.drawable.red);
-						myapp.playmusic(0);
-
-						myapp.addwrongword(words[wordnum - 1]);
-
-						Intent intent = new Intent(rootl2.this, rootl2.class);
-						startActivity(intent);
-
-						// playmusic(0);
-						finish();
-
-					}
-
-				}
-			}
-		});
-
-		rootdef3.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				String k = (String) rootdef3.getText();
-
-				if (wcon == 1) {
-
-					if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
-
-						defrepeat(0);
-						rootdef3.setBackgroundResource(R.drawable.green);
-						myapp.playmusic(1);
-						// playmusic(1); // 变色
-
-						if (!words[wordnum - 1][rootnum + 2].equals("")) {
-
-							myapp.set(5, Integer.toString(rootnum + 2));
-
-							Intent intent = new Intent(rootl2.this, rootl2.class);
-
-							startActivity(intent);
-
-							// playmusic(1);
-							finish();
-						}
-
-						if (words[wordnum - 1][rootnum + 2].equals("")) {
-
-							myapp.set(5, Integer.toString(2)); // root没有了，需要重置
-
-							System.out.println("wcon" + wcon);
-							System.out.println("进入word步骤");
-							double h = Math.random();
-
-							 if (h < 0.5) {
-							/*
-							 * if (wcon == 1) { Intent intent = new
-							 * Intent(rootl2.this, WrongWord.class);
-							 * startActivity(intent); finish(); } if (wcon == 0)
-							 * {
-							 */
-
-							Intent intent = new Intent(rootl2.this, wordsl2.class);
-							startActivity(intent);
-
-							// playmusic(1);
-							finish();
-
-							 } else {
-							 Intent intent = new Intent(rootl2.this,
-							 definitionl2.class);
-							 startActivity(intent); finish();
-							 }
-
-						}
-
-					}
-
-					if (!k.equals(words[wordnum - 1][rootnum + 1])) {
-
-						defrepeat(1);
-						rootdef3.setBackgroundResource(R.drawable.red);
-						myapp.playmusic(0);
-						// playmusic(0);
-						;
-
-						// myapp.addwrongword(words[wordnum-1]);
-
-						Intent intent = new Intent(rootl2.this, rootl2.class);
-						startActivity(intent);
-
-						// playmusic(0);
-
-						finish();
-
-					}
-
-				}
-
-				if (wcon == 0) {
-
-					if (k.equals(words[wordnum - 1][rootnum + 1])) {
-
-						defrepeat(0);
-						rootdef3.setBackgroundResource(R.drawable.green);
-						myapp.playmusic(1);
-						// playmusic(1);
-
-						if (!words[wordnum - 1][rootnum + 2].equals("")) {
-
-							myapp.set(5, Integer.toString(rootnum + 2));
-
-							Intent intent = new Intent(rootl2.this, rootl2.class);
-
-							startActivity(intent);
-
-							// playmusic(1);
-							finish();
-						}
-
-						if (words[wordnum - 1][rootnum + 2].equals("")) {
-							repeattt5();
-						}
-
-					}
-
-					if (!k.equals(words[wordnum - 1][rootnum + 1])) {
-
-						defrepeat(1);
-						rootdef3.setBackgroundResource(R.drawable.red);
-						myapp.playmusic(0);
-						// playmusic(0);
-
-						myapp.addwrongword(words[wordnum - 1]);
-
-						Intent intent = new Intent(rootl2.this, rootl2.class);
-						startActivity(intent);
-
-						// playmusic(0);
-
-						finish();
-
-					}
-
-				}
-			}
-		});
-
-		rootdef4.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				String k = (String) rootdef4.getText();
-
-				if (wcon == 1) {
-
-					if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
-
-						defrepeat(0);
-						rootdef4.setBackgroundResource(R.drawable.green);
-						myapp.playmusic(1);
-						// playmusic(1); // 变色
-
-						if (!words[wordnum - 1][rootnum + 2].equals("")) {
-
-							myapp.set(5, Integer.toString(rootnum + 2));
-
-							Intent intent = new Intent(rootl2.this, rootl2.class);
-
-							startActivity(intent);
-
-							// playmusic(1);
-							finish();
-						}
-
-						if (words[wordnum - 1][rootnum + 2].equals("")) {
-
-							myapp.set(5, Integer.toString(2)); // root没有了，需要重置
-
-							System.out.println("wcon" + wcon);
-							System.out.println("进入word步骤");
-							
-							double h = Math.random();
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) {
 
 							
-							 if (h < 0.5) {
-							/*
-							 * if (wcon == 1) { Intent intent = new
-							 * Intent(rootl2.this, WrongWord.class);
-							 * startActivity(intent); finish(); } if (wcon == 0)
-							 * {
-							 */
-
-							Intent intent = new Intent(rootl2.this, wordsl2.class);
+							rootdef1.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+							stopshape();
+							if (!timergreencontrol) {
+							defrepeat(1);
+							myapp.addwrongword(words[wordnum - 1]);
+							Intent intent = new Intent(rootl2.this,
+									rootl2.class);
 							startActivity(intent);
-							// playmusic(1);
+							myapp.setscore(0, clicknum + 1);
+							myapp.setrootscore(0, rootclicknum + 1);							
 							finish();
+							}
+						}
+					}
+				}
+			});
 
-							 } else {
-							 Intent intent = new Intent(rootl2.this,
-							 definitionl2.class);
-							 startActivity(intent); finish();
-							 }
+			rootdef2.setOnClickListener(new View.OnClickListener() {
 
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					String k = (String) rootdef2.getText();
+					// timer.cancel();
+					if (wcon == 1) {
+
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
+
+							defrepeat(0);
+							rootdef2.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+							myapp.setscore(1, rightnum + 1);
+							myapp.setrootscore(1, rootrightnum + 1);
+							// 变色
+
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(rootnum + 2));
+
+								intent = new Intent(rootl2.this, rootl2.class);
+
+								myapp.setscore(0, clicknum + 1);
+								myapp.setrootscore(0, rootclicknum + 1);
+								stopshape();
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+								System.out.println("wcon" + wcon);
+								System.out.println("进入worddef步骤");
+
+								double h = Math.random();
+
+								if (h < 0.5) {
+
+									intent = new Intent(rootl2.this,
+											wordsl2.class);
+
+									myapp.setscore(0, clicknum + 1);
+									myapp.setrootscore(0, rootclicknum + 1);
+									stopshape();
+									timergreen = new Timer();
+									timergreen.schedule(new TimerTask() {
+
+										@Override
+										public void run() {
+											// TODO Auto-generated method stub
+											startActivity(intent);
+											finish();
+										}
+									}, sleeptime);
+
+								} else {
+									intent = new Intent(rootl2.this,
+											definitionl2.class);
+									myapp.setscore(0, clicknum + 1);
+									myapp.setrootscore(0, rootclicknum + 1);
+									stopshape();
+									timergreen = new Timer();
+									timergreen.schedule(new TimerTask() {
+
+										@Override
+										public void run() {
+											// TODO Auto-generated method stub
+											startActivity(intent);
+											finish();
+										}
+									}, sleeptime);
+								}
+
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // 选错了
+
+							
+							rootdef2.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+							stopshape();
+							if (!timergreencontrol) {
+							myapp.addwrongwords1(words[wordnum - 1]);						
+							defrepeat(1);
+							Intent intent = new Intent(rootl2.this,
+									rootl2.class);
+							startActivity(intent);
+							myapp.setscore(0, clicknum + 1);
+							myapp.setrootscore(0, rootclicknum + 1);							
+							finish();
+							}
 						}
 
 					}
 
-					if (!k.equals(words[wordnum - 1][rootnum + 1])) {
+					if (wcon == 0) {
 
-						defrepeat(1);
-						rootdef4.setBackgroundResource(R.drawable.red);
-						myapp.playmusic(0);
-						// playmusic(0);
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
 
-						// myapp.addwrongword(words[wordnum-1]);
+							defrepeat(0);
+							rootdef2.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+							myapp.setscore(1, rightnum + 1);
+							myapp.setrootscore(1, rootrightnum + 1);
 
-						Intent intent = new Intent(rootl2.this, rootl2.class);
-						startActivity(intent);
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
 
-						// playmusic(0);
+								myapp.set(5, Integer.toString(rootnum + 2));
 
-						finish();
+								intent = new Intent(rootl2.this, rootl2.class);
+								myapp.setscore(0, clicknum + 1);
+								myapp.setrootscore(0, rootclicknum + 1);
+								stopshape();
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
 
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+								repeattt5();
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) {
+
+							
+							rootdef2.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+							stopshape();
+							if (!timergreencontrol) {
+							defrepeat(1);
+							myapp.addwrongword(words[wordnum - 1]);
+							Intent intent = new Intent(rootl2.this,
+									rootl2.class);
+							startActivity(intent);
+							myapp.setscore(0, clicknum + 1);
+							myapp.setrootscore(0, rootclicknum + 1);							
+							finish();
+							}
+						}
+
+					}
+				}
+			});
+
+			rootdef3.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					String k = (String) rootdef3.getText();
+					// timer.cancel();
+					if (wcon == 1) {
+
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
+
+							defrepeat(0);
+							rootdef3.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+							myapp.setscore(1, rightnum + 1);
+							myapp.setrootscore(1, rootrightnum + 1);
+							// 变色
+
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(rootnum + 2));
+
+								intent = new Intent(rootl2.this, rootl2.class);
+
+								myapp.setscore(0, clicknum + 1);
+								myapp.setrootscore(0, rootclicknum + 1);
+								stopshape();
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+								System.out.println("wcon" + wcon);
+								System.out.println("进入worddef步骤");
+
+								double h = Math.random();
+
+								if (h < 0.5) {
+
+									intent = new Intent(rootl2.this,
+											wordsl2.class);
+
+									myapp.setscore(0, clicknum + 1);
+									myapp.setrootscore(0, rootclicknum + 1);
+									stopshape();
+									timergreen = new Timer();
+									timergreen.schedule(new TimerTask() {
+
+										@Override
+										public void run() {
+											// TODO Auto-generated method stub
+											startActivity(intent);
+											finish();
+										}
+									}, sleeptime);
+
+								} else {
+									intent = new Intent(rootl2.this,
+											definitionl2.class);
+									myapp.setscore(0, clicknum + 1);
+									myapp.setrootscore(0, rootclicknum + 1);
+									stopshape();
+									timergreen = new Timer();
+									timergreen.schedule(new TimerTask() {
+
+										@Override
+										public void run() {
+											// TODO Auto-generated method stub
+											startActivity(intent);
+											finish();
+										}
+									}, sleeptime);
+								}
+
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // 选错了
+
+							
+							rootdef3.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+							stopshape();
+							if (!timergreencontrol) {
+							myapp.addwrongwords1(words[wordnum - 1]);						
+							defrepeat(1);
+							Intent intent = new Intent(rootl2.this,
+									rootl2.class);
+							startActivity(intent);
+							myapp.setscore(0, clicknum + 1);
+							myapp.setrootscore(0, rootclicknum + 1);							
+							finish();
+							}
+						}
+
+					}
+
+					if (wcon == 0) {
+
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
+
+							defrepeat(0);
+							rootdef3.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+							myapp.setscore(1, rightnum + 1);
+							myapp.setrootscore(1, rootrightnum + 1);
+
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(rootnum + 2));
+
+								intent = new Intent(rootl2.this, rootl2.class);
+								myapp.setscore(0, clicknum + 1);
+								myapp.setrootscore(0, rootclicknum + 1);
+								stopshape();
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+								repeattt5();
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) {
+
+							
+							rootdef3.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+							stopshape();
+							if (!timergreencontrol) {
+							defrepeat(1);
+							myapp.addwrongword(words[wordnum - 1]);
+							Intent intent = new Intent(rootl2.this,
+									rootl2.class);
+							startActivity(intent);
+							myapp.setscore(0, clicknum + 1);
+							myapp.setrootscore(0, rootclicknum + 1);							
+							finish();
+							}
+						}
+
+					}
+				}
+			});
+
+			rootdef4.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					String k = (String) rootdef4.getText();
+					// timer.cancel();
+					if (wcon == 1) {
+
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
+
+							defrepeat(0);
+							rootdef4.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+							myapp.setscore(1, rightnum + 1);
+							myapp.setrootscore(1, rootrightnum + 1);
+							// 变色
+
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(rootnum + 2));
+
+								intent = new Intent(rootl2.this, rootl2.class);
+
+								myapp.setscore(0, clicknum + 1);
+								myapp.setrootscore(0, rootclicknum + 1);
+								stopshape();
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+								System.out.println("wcon" + wcon);
+								System.out.println("进入worddef步骤");
+
+								double h = Math.random();
+
+								if (h < 0.5) {
+
+									intent = new Intent(rootl2.this,
+											wordsl2.class);
+
+									myapp.setscore(0, clicknum + 1);
+									myapp.setrootscore(0, rootclicknum + 1);
+									stopshape();
+									timergreen = new Timer();
+									timergreen.schedule(new TimerTask() {
+
+										@Override
+										public void run() {
+											// TODO Auto-generated method stub
+											startActivity(intent);
+											finish();
+										}
+									}, sleeptime);
+
+								} else {
+									intent = new Intent(rootl2.this,
+											definitionl2.class);
+									myapp.setscore(0, clicknum + 1);
+									myapp.setrootscore(0, rootclicknum + 1);
+									stopshape();
+									timergreen = new Timer();
+									timergreen.schedule(new TimerTask() {
+
+										@Override
+										public void run() {
+											// TODO Auto-generated method stub
+											startActivity(intent);
+											finish();
+										}
+									}, sleeptime);
+								}
+
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // 选错了
+
+							
+							rootdef4.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+							stopshape();
+							if (!timergreencontrol) {
+							myapp.addwrongwords1(words[wordnum - 1]);						
+							defrepeat(1);
+							Intent intent = new Intent(rootl2.this,
+									rootl2.class);
+							startActivity(intent);
+							myapp.setscore(0, clicknum + 1);
+							myapp.setrootscore(0, rootclicknum + 1);							
+							finish();
+							}
+						}
+
+					}
+
+					if (wcon == 0) {
+
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
+
+							defrepeat(0);
+							rootdef4.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+							myapp.setscore(1, rightnum + 1);
+							myapp.setrootscore(1, rootrightnum + 1);
+
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(rootnum + 2));
+
+								intent = new Intent(rootl2.this, rootl2.class);
+								myapp.setscore(0, clicknum + 1);
+								myapp.setrootscore(0, rootclicknum + 1);
+								stopshape();
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+								repeattt5();
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) {
+
+							
+							rootdef4.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+							stopshape();
+							if (!timergreencontrol) {
+							defrepeat(1);
+							myapp.addwrongword(words[wordnum - 1]);
+							Intent intent = new Intent(rootl2.this,
+									rootl2.class);
+							startActivity(intent);
+							myapp.setscore(0, clicknum + 1);
+							myapp.setrootscore(0, rootclicknum + 1);							
+							finish();
+							}
+						}
 					}
 
 				}
+			});
 
-				if (wcon == 0) {
+			rootdef5.setOnClickListener(new View.OnClickListener() {
 
-					if (k.equals(words[wordnum - 1][rootnum + 1])) {
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					String k = (String) rootdef5.getText();
+					// timer.cancel();
+					if (wcon == 1) {
 
-						defrepeat(0);
-						rootdef4.setBackgroundResource(R.drawable.green);
-						myapp.playmusic(1);
-						// playmusic(1);
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
 
-						if (!words[wordnum - 1][rootnum + 2].equals("")) {
+							defrepeat(0);
+							rootdef5.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+							myapp.setscore(1, rightnum + 1);
+							myapp.setrootscore(1, rootrightnum + 1);
+							// 变色
 
-							myapp.set(5, Integer.toString(rootnum + 2));
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
 
-							Intent intent = new Intent(rootl2.this, rootl2.class);
+								myapp.set(5, Integer.toString(rootnum + 2));
 
-							startActivity(intent);
-							// playmusic(1);
+								intent = new Intent(rootl2.this, rootl2.class);
 
-							finish();
+								myapp.setscore(0, clicknum + 1);
+								myapp.setrootscore(0, rootclicknum + 1);
+								stopshape();
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+								System.out.println("wcon" + wcon);
+								System.out.println("进入worddef步骤");
+
+								double h = Math.random();
+
+								if (h < 0.5) {
+
+									intent = new Intent(rootl2.this,
+											wordsl2.class);
+
+									myapp.setscore(0, clicknum + 1);
+									myapp.setrootscore(0, rootclicknum + 1);
+									stopshape();
+									timergreen = new Timer();
+									timergreen.schedule(new TimerTask() {
+
+										@Override
+										public void run() {
+											// TODO Auto-generated method stub
+											startActivity(intent);
+											finish();
+										}
+									}, sleeptime);
+
+								} else {
+									intent = new Intent(rootl2.this,
+											definitionl2.class);
+									myapp.setscore(0, clicknum + 1);
+									myapp.setrootscore(0, rootclicknum + 1);
+									stopshape();
+									timergreen = new Timer();
+									timergreen.schedule(new TimerTask() {
+
+										@Override
+										public void run() {
+											// TODO Auto-generated method stub
+											startActivity(intent);
+											finish();
+										}
+									}, sleeptime);
+								}
+
+							}
+
 						}
 
-						if (words[wordnum - 1][rootnum + 2].equals("")) {
-							repeattt5();
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // 选错了
+
+							
+							rootdef5.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+							stopshape();
+							if (!timergreencontrol) {
+							myapp.addwrongwords1(words[wordnum - 1]);						
+							defrepeat(1);
+							Intent intent = new Intent(rootl2.this,
+									rootl2.class);
+							startActivity(intent);
+							myapp.setscore(0, clicknum + 1);
+							myapp.setrootscore(0, rootclicknum + 1);							
+							finish();
+							}
 						}
 
 					}
 
-					if (!k.equals(words[wordnum - 1][rootnum + 1])) {
+					if (wcon == 0) {
 
-						defrepeat(1);
-						rootdef4.setBackgroundResource(R.drawable.red);
-						myapp.playmusic(0);
-						// playmusic(0);
-						;
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
 
-						myapp.addwrongword(words[wordnum - 1]);
+							defrepeat(0);
+							rootdef5.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+							myapp.setscore(1, rightnum + 1);
+							myapp.setrootscore(1, rootrightnum + 1);
 
-						Intent intent = new Intent(rootl2.this, rootl2.class);
-						startActivity(intent);
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
 
-						// playmusic(0);
+								myapp.set(5, Integer.toString(rootnum + 2));
 
-						finish();
+								intent = new Intent(rootl2.this, rootl2.class);
+								myapp.setscore(0, clicknum + 1);
+								myapp.setrootscore(0, rootclicknum + 1);
+								stopshape();
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+								repeattt5();
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) {
+
+							
+							rootdef5.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+							stopshape();
+							if (!timergreencontrol) {
+							defrepeat(1);
+							myapp.addwrongword(words[wordnum - 1]);
+							Intent intent = new Intent(rootl2.this,
+									rootl2.class);
+							startActivity(intent);
+							myapp.setscore(0, clicknum + 1);
+							myapp.setrootscore(0, rootclicknum + 1);							
+							finish();
+							}
+						}
 
 					}
 				}
+			});
 
-			}
-		});
+			rootdef6.setOnClickListener(new View.OnClickListener() {
 
-		rootdef5.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					String k = (String) rootdef6.getText();
+					// timer.cancel();
+					if (wcon == 1) {
+
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
+
+							defrepeat(0);
+							rootdef6.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+							myapp.setscore(1, rightnum + 1);
+							myapp.setrootscore(1, rootrightnum + 1);
+							// 变色
+
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(rootnum + 2));
+
+								intent = new Intent(rootl2.this, rootl2.class);
+
+								myapp.setscore(0, clicknum + 1);
+								myapp.setrootscore(0, rootclicknum + 1);
+								stopshape();
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+								System.out.println("wcon" + wcon);
+								System.out.println("进入worddef步骤");
+
+								double h = Math.random();
+
+								if (h < 0.5) {
+
+									intent = new Intent(rootl2.this,
+											wordsl2.class);
+
+									myapp.setscore(0, clicknum + 1);
+									myapp.setrootscore(0, rootclicknum + 1);
+									stopshape();
+									timergreen = new Timer();
+									timergreen.schedule(new TimerTask() {
+
+										@Override
+										public void run() {
+											// TODO Auto-generated method stub
+											startActivity(intent);
+											finish();
+										}
+									}, sleeptime);
+
+								} else {
+									intent = new Intent(rootl2.this,
+											definitionl2.class);
+									myapp.setscore(0, clicknum + 1);
+									myapp.setrootscore(0, rootclicknum + 1);
+									stopshape();
+									timergreen = new Timer();
+									timergreen.schedule(new TimerTask() {
+
+										@Override
+										public void run() {
+											// TODO Auto-generated method stub
+											startActivity(intent);
+											finish();
+										}
+									}, sleeptime);
+								}
+
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // 选错了
+
+							
+							rootdef6.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+							stopshape();
+							if (!timergreencontrol) {
+							myapp.addwrongwords1(words[wordnum - 1]);						
+							defrepeat(1);
+							Intent intent = new Intent(rootl2.this,
+									rootl2.class);
+							startActivity(intent);
+							myapp.setscore(0, clicknum + 1);
+							myapp.setrootscore(0, rootclicknum + 1);							
+							finish();
+							}
+						}
+
+					}
+
+					if (wcon == 0) {
+
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
+
+							defrepeat(0);
+							rootdef6.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+							myapp.setscore(1, rightnum + 1);
+							myapp.setrootscore(1, rootrightnum + 1);
+
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(rootnum + 2));
+
+								intent = new Intent(rootl2.this, rootl2.class);
+								myapp.setscore(0, clicknum + 1);
+								myapp.setrootscore(0, rootclicknum + 1);
+								stopshape();
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+								repeattt5();
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) {
+
+							
+							rootdef6.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+							stopshape();
+							if (!timergreencontrol) {
+							defrepeat(1);
+							myapp.addwrongword(words[wordnum - 1]);
+							Intent intent = new Intent(rootl2.this,
+									rootl2.class);
+							startActivity(intent);
+							myapp.setscore(0, clicknum + 1);
+							myapp.setrootscore(0, rootclicknum + 1);							
+							finish();
+							}
+						}
+
+					}
+				}
+			});
+		}
+
+		if (Integer.parseInt(myapp.get(6)) == 2) {
+			myapp.greentoast();
+			rootdef1.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					String k = (String) rootdef1.getText();
+					// timer.cancel();
+					if (wcon == 1) {
+
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
+							defrepeat(0);
+							rootdef1.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+
+							// 变色
+
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(rootnum + 2));
+
+								Intent intent = new Intent(rootl2.this,
+										rootl2.class);
+
+								startActivity(intent);
+
+								stopshape();
+								finish();
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+								double h = Math.random();
+
+								if (h < 0.5) {
+
+									Intent intent = new Intent(rootl2.this,
+											wordsl2.class);
+									startActivity(intent);
+
+									stopshape();
+									finish();
+
+								} else {
+									Intent intent = new Intent(rootl2.this,
+											definitionl2.class);
+									startActivity(intent);
+
+									stopshape();
+									finish();
+								}
+
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // 选错了
+
+							rootdef1.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+
+						}
+
+					}
+
+					if (wcon == 0) {
+
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // choose right
+							defrepeat(0);
+							rootdef1.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(rootnum + 2));
+
+								Intent intent = new Intent(rootl2.this,
+										rootl2.class);
+
+								startActivity(intent);
+
+								// playmusic(1);
+
+								stopshape();
+								finish();
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+
+								// 这条选择代表root后没有root了代表走到头啦
+
+								if (wordnum % 5 == 0) { // 代表走到5个词了
+
+									if (myapp.getrepeatcontrol() == 1) { // 在part2中
+
+										myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+										double h = Math.random();
+
+										if (h < 0.5) {
+											Intent intent = new Intent(
+													rootl2.this, wordsl2.class);
+											startActivity(intent);
+
+											// playmusic(1);
+
+											stopshape();
+											finish();
+										} else {
+											Intent intent = new Intent(
+													rootl2.this,
+													definitionl2.class);
+
+											startActivity(intent);
+
+											stopshape();
+											finish();
+
+										}
+
+									}
+
+									if (myapp.getrepeatcontrol() == 0) { // in part1
+
+										myapp.set(4,
+												Integer.toString(wordnum + 1));
+										myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+										myapp.setrepreatcontrol(1);
+										Intent intent = new Intent(rootl2.this,
+												idroortsl2.class);
+										startActivity(intent);
+
+										// playmusic(1);
+
+										stopshape();
+										finish();
+
+									}
+
+								}
+								if (wordnum % 5 != 0) {
+
+									myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+									if (myapp.getrepeatcontrol() == 1) { // 在part2中
+										double h = Math.random();
+
+										if (h < 0.5) {
+											Intent intent = new Intent(
+													rootl2.this, wordsl2.class);
+											startActivity(intent);
+
+											stopshape();
+											finish();
+										} else {
+											Intent intent = new Intent(
+													rootl2.this,
+													definitionl2.class);
+											startActivity(intent);
+
+											stopshape();
+											finish();
+										}
+
+									}
+
+									if (myapp.getrepeatcontrol() == 0) { // 在part1
+																			// 中
+
+										myapp.set(4,
+												Integer.toString(wordnum + 1));
+										double h = Math.random();
+
+										if (h < 0.5) {
+											Intent intent = new Intent(
+													rootl2.this, wordsl2.class);
+											startActivity(intent);
+
+											stopshape();
+											finish();
+										} else {
+											Intent intent = new Intent(
+													rootl2.this,
+													definitionl2.class);
+											startActivity(intent);
+
+											stopshape();
+											finish();
+										}
+
+									}
+								}
+
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) {
+
+							rootdef1.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+
+						}
+					}
+				}
+			});
+
+			rootdef2.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					String k = (String) rootdef2.getText();
+					// timer.cancel();
+					if (wcon == 1) {
+
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
+							defrepeat(0);
+							rootdef2.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+
+							// 变色
+
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(rootnum + 2));
+
+								Intent intent = new Intent(rootl2.this,
+										rootl2.class);
+
+								startActivity(intent);
+
+								stopshape();
+								finish();
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+								double h = Math.random();
+
+								if (h < 0.5) {
+
+									Intent intent = new Intent(rootl2.this,
+											wordsl2.class);
+									startActivity(intent);
+
+									stopshape();
+									finish();
+
+								} else {
+									Intent intent = new Intent(rootl2.this,
+											definitionl2.class);
+									startActivity(intent);
+
+									stopshape();
+									finish();
+								}
+
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // 选错了
+
+							rootdef2.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+
+						}
+
+					}
+
+					if (wcon == 0) {
+
+						if (k.equals(words[wordnum - 1][rootnum + 1])) {
+							defrepeat(0);
+							rootdef2.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(rootnum + 2));
+
+								Intent intent = new Intent(rootl2.this,
+										rootl2.class);
+
+								startActivity(intent);
+
+								// playmusic(1);
+
+								stopshape();
+								finish();
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+
+								// 这条选择代表root后没有root了代表走到头啦
+
+								if (wordnum % 5 == 0) { // 代表走到5个词了
+
+									if (myapp.getrepeatcontrol() == 1) { // 在part2中
+
+										myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+										double h = Math.random();
+
+										if (h < 0.5) {
+											Intent intent = new Intent(
+													rootl2.this, wordsl2.class);
+											startActivity(intent);
+
+											// playmusic(1);
+
+											stopshape();
+											finish();
+										} else {
+											Intent intent = new Intent(
+													rootl2.this,
+													definitionl2.class);
+
+											startActivity(intent);
+
+											stopshape();
+											finish();
+
+										}
+
+									}
+
+									if (myapp.getrepeatcontrol() == 0) { // 判断进入part2
+
+										myapp.set(4,
+												Integer.toString(wordnum + 1));
+										myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+										myapp.setrepreatcontrol(1);
+										Intent intent = new Intent(rootl2.this,
+												idroortsl2.class);
+										startActivity(intent);
+
+										// playmusic(1);
+
+										stopshape();
+										finish();
+
+									}
+
+								}
+								if (wordnum % 5 != 0) {
+
+									myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+									if (myapp.getrepeatcontrol() == 1) { // 在part2中
+										double h = Math.random();
+
+										if (h < 0.5) {
+											Intent intent = new Intent(
+													rootl2.this, wordsl2.class);
+											startActivity(intent);
+
+											// playmusic(1);
+
+											stopshape();
+											finish();
+										} else {
+											Intent intent = new Intent(
+													rootl2.this,
+													definitionl2.class);
+											startActivity(intent);
+
+											stopshape();
+											finish();
+										}
+
+									}
+
+									if (myapp.getrepeatcontrol() == 0) { // 在part1
+																			// 中
+
+										myapp.set(4,
+												Integer.toString(wordnum + 1));
+										double h = Math.random();
+
+										if (h < 0.5) {
+											Intent intent = new Intent(
+													rootl2.this, wordsl2.class);
+											startActivity(intent);
+
+											// playmusic(1);
+
+											stopshape();
+											finish();
+										} else {
+											Intent intent = new Intent(
+													rootl2.this,
+													definitionl2.class);
+											startActivity(intent);
+
+											stopshape();
+											finish();
+										}
+
+									}
+								}
+
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) {
+
+							rootdef2.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+
+						}
+					}
+				}
+			});
+
+			rootdef3.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					String k = (String) rootdef3.getText();
+					// timer.cancel();
+					if (wcon == 1) {
+
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
+							defrepeat(0);
+							rootdef3.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+
+							// 变色
+
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(rootnum + 2));
+
+								Intent intent = new Intent(rootl2.this,
+										rootl2.class);
+
+								startActivity(intent);
+
+								stopshape();
+								finish();
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+								double h = Math.random();
+
+								if (h < 0.5) {
+
+									Intent intent = new Intent(rootl2.this,
+											wordsl2.class);
+									startActivity(intent);
+
+									stopshape();
+									finish();
+
+								} else {
+									Intent intent = new Intent(rootl2.this,
+											definitionl2.class);
+									startActivity(intent);
+
+									stopshape();
+									finish();
+								}
+
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // 选错了
+
+							rootdef3.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+
+						}
+
+					}
+
+					if (wcon == 0) {
+
+						if (k.equals(words[wordnum - 1][rootnum + 1])) {
+							defrepeat(0);
+							rootdef3.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(rootnum + 2));
+
+								Intent intent = new Intent(rootl2.this,
+										rootl2.class);
+
+								startActivity(intent);
+
+								// playmusic(1);
+
+								stopshape();
+								finish();
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+
+								// 这条选择代表root后没有root了代表走到头啦
+
+								if (wordnum % 5 == 0) { // 代表走到5个词了
+
+									if (myapp.getrepeatcontrol() == 1) { // 在part2中
+
+										myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+										double h = Math.random();
+
+										if (h < 0.5) {
+											Intent intent = new Intent(
+													rootl2.this, wordsl2.class);
+											startActivity(intent);
+
+											// playmusic(1);
+
+											stopshape();
+											finish();
+										} else {
+											Intent intent = new Intent(
+													rootl2.this,
+													definitionl2.class);
+
+											startActivity(intent);
+
+											stopshape();
+											finish();
+
+										}
+
+									}
+
+									if (myapp.getrepeatcontrol() == 0) { // 判断进入part2
+
+										myapp.set(4,
+												Integer.toString(wordnum + 1));
+										myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+										myapp.setrepreatcontrol(1);
+										Intent intent = new Intent(rootl2.this,
+												idroortsl2.class);
+										startActivity(intent);
+
+										// playmusic(1);
+
+										stopshape();
+										finish();
+
+									}
+
+								}
+								if (wordnum % 5 != 0) {
+
+									myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+									if (myapp.getrepeatcontrol() == 1) { // 在part2中
+										double h = Math.random();
+
+										if (h < 0.5) {
+											Intent intent = new Intent(
+													rootl2.this, wordsl2.class);
+											startActivity(intent);
+
+											// playmusic(1);
+
+											stopshape();
+											finish();
+										} else {
+											Intent intent = new Intent(
+													rootl2.this,
+													definitionl2.class);
+											startActivity(intent);
+
+											stopshape();
+											finish();
+										}
+
+									}
+
+									if (myapp.getrepeatcontrol() == 0) { // 在part1
+																			// 中
+
+										myapp.set(4,
+												Integer.toString(wordnum + 1));
+										double h = Math.random();
+
+										if (h < 0.5) {
+											Intent intent = new Intent(
+													rootl2.this, wordsl2.class);
+											startActivity(intent);
+
+											// playmusic(1);
+
+											stopshape();
+											finish();
+										} else {
+											Intent intent = new Intent(
+													rootl2.this,
+													definitionl2.class);
+											startActivity(intent);
+
+											stopshape();
+											finish();
+										}
+
+									}
+								}
+
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) {
+
+							rootdef3.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+
+						}
+					}
+				}
+			});
+
+			rootdef4.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					String k = (String) rootdef4.getText();
+					// timer.cancel();
+					if (wcon == 1) {
+
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
+							defrepeat(0);
+							rootdef4.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+
+							// 变色
+
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(rootnum + 2));
+
+								Intent intent = new Intent(rootl2.this,
+										rootl2.class);
+
+								startActivity(intent);
+
+								stopshape();
+								finish();
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+								double h = Math.random();
+
+								if (h < 0.5) {
+
+									Intent intent = new Intent(rootl2.this,
+											wordsl2.class);
+									startActivity(intent);
+
+									stopshape();
+									finish();
+
+								} else {
+									Intent intent = new Intent(rootl2.this,
+											definitionl2.class);
+									startActivity(intent);
+
+									stopshape();
+									finish();
+								}
+
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // 选错了
+
+							rootdef4.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+
+						}
+
+					}
+
+					if (wcon == 0) {
+
+						if (k.equals(words[wordnum - 1][rootnum + 1])) {
+							defrepeat(0);
+							rootdef4.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(rootnum + 2));
+
+								Intent intent = new Intent(rootl2.this,
+										rootl2.class);
+
+								startActivity(intent);
+
+								// playmusic(1);
+
+								stopshape();
+								finish();
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+
+								// 这条选择代表root后没有root了代表走到头啦
+
+								if (wordnum % 5 == 0) { // 代表走到5个词了
+
+									if (myapp.getrepeatcontrol() == 1) { // 在part2中
+
+										myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+										double h = Math.random();
+
+										if (h < 0.5) {
+											Intent intent = new Intent(
+													rootl2.this, wordsl2.class);
+											startActivity(intent);
+
+											// playmusic(1);
+
+											stopshape();
+											finish();
+										} else {
+											Intent intent = new Intent(
+													rootl2.this,
+													definitionl2.class);
+
+											startActivity(intent);
+
+											stopshape();
+											finish();
+
+										}
+
+									}
+
+									if (myapp.getrepeatcontrol() == 0) { // 判断进入part2
+
+										myapp.set(4,
+												Integer.toString(wordnum + 1));
+										myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+										myapp.setrepreatcontrol(1);
+										Intent intent = new Intent(rootl2.this,
+												idroortsl2.class);
+										startActivity(intent);
+
+										// playmusic(1);
+
+										stopshape();
+										finish();
+
+									}
+
+								}
+								if (wordnum % 5 != 0) {
+
+									myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+									if (myapp.getrepeatcontrol() == 1) { // 在part2中
+										double h = Math.random();
+
+										if (h < 0.5) {
+											Intent intent = new Intent(
+													rootl2.this, wordsl2.class);
+											startActivity(intent);
+
+											// playmusic(1);
+
+											stopshape();
+											finish();
+										} else {
+											Intent intent = new Intent(
+													rootl2.this,
+													definitionl2.class);
+											startActivity(intent);
+
+											stopshape();
+											finish();
+										}
+
+									}
+
+									if (myapp.getrepeatcontrol() == 0) { // 在part1
+																			// 中
+
+										myapp.set(4,
+												Integer.toString(wordnum + 1));
+										double h = Math.random();
+
+										if (h < 0.5) {
+											Intent intent = new Intent(
+													rootl2.this, wordsl2.class);
+											startActivity(intent);
+
+											// playmusic(1);
+
+											stopshape();
+											finish();
+										} else {
+											Intent intent = new Intent(
+													rootl2.this,
+													definitionl2.class);
+											startActivity(intent);
+
+											stopshape();
+											finish();
+										}
+
+									}
+								}
+
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) {
+
+							rootdef4.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+
+						}
+					}
+				}
+			});
+
+			rootdef5.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					String k = (String) rootdef5.getText();
+					// timer.cancel();
+					if (wcon == 1) {
+
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
+							defrepeat(0);
+							rootdef5.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+
+							// 变色
+
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(rootnum + 2));
+
+								Intent intent = new Intent(rootl2.this,
+										rootl2.class);
+
+								startActivity(intent);
+
+								stopshape();
+								finish();
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+								double h = Math.random();
+
+								if (h < 0.5) {
+
+									Intent intent = new Intent(rootl2.this,
+											wordsl2.class);
+									startActivity(intent);
+
+									stopshape();
+									finish();
+
+								} else {
+									Intent intent = new Intent(rootl2.this,
+											definitionl2.class);
+									startActivity(intent);
+
+									stopshape();
+									finish();
+								}
+
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // 选错了
+
+							rootdef5.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+
+						}
+
+					}
+
+					if (wcon == 0) {
+
+						if (k.equals(words[wordnum - 1][rootnum + 1])) {
+							defrepeat(0);
+							rootdef5.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(rootnum + 2));
+
+								Intent intent = new Intent(rootl2.this,
+										rootl2.class);
+
+								startActivity(intent);
+
+								// playmusic(1);
+
+								stopshape();
+								finish();
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+
+								// 这条选择代表root后没有root了代表走到头啦
+
+								if (wordnum % 5 == 0) { // 代表走到5个词了
+
+									if (myapp.getrepeatcontrol() == 1) { // 在part2中
+
+										myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+										double h = Math.random();
+
+										if (h < 0.5) {
+											Intent intent = new Intent(
+													rootl2.this, wordsl2.class);
+											startActivity(intent);
+
+											// playmusic(1);
+
+											stopshape();
+											finish();
+										} else {
+											Intent intent = new Intent(
+													rootl2.this,
+													definitionl2.class);
+
+											startActivity(intent);
+
+											stopshape();
+											finish();
+
+										}
+
+									}
+
+									if (myapp.getrepeatcontrol() == 0) { // 判断进入part2
+
+										myapp.set(4,
+												Integer.toString(wordnum + 1));
+										myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+										myapp.setrepreatcontrol(1);
+										Intent intent = new Intent(rootl2.this,
+												idroortsl2.class);
+										startActivity(intent);
+
+										// playmusic(1);
+
+										stopshape();
+										finish();
+
+									}
+
+								}
+								if (wordnum % 5 != 0) {
+
+									myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+									if (myapp.getrepeatcontrol() == 1) { // 在part2中
+										double h = Math.random();
+
+										if (h < 0.5) {
+											Intent intent = new Intent(
+													rootl2.this, wordsl2.class);
+											startActivity(intent);
+
+											// playmusic(1);
+
+											stopshape();
+											finish();
+										} else {
+											Intent intent = new Intent(
+													rootl2.this,
+													definitionl2.class);
+											startActivity(intent);
+
+											stopshape();
+											finish();
+										}
+
+									}
+
+									if (myapp.getrepeatcontrol() == 0) { // 在part1
+																			// 中
+
+										myapp.set(4,
+												Integer.toString(wordnum + 1));
+										double h = Math.random();
+
+										if (h < 0.5) {
+											Intent intent = new Intent(
+													rootl2.this, wordsl2.class);
+											startActivity(intent);
+
+											// playmusic(1);
+
+											stopshape();
+											finish();
+										} else {
+											Intent intent = new Intent(
+													rootl2.this,
+													definitionl2.class);
+											startActivity(intent);
+
+											stopshape();
+											finish();
+										}
+
+									}
+								}
+
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) {
+
+							rootdef5.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+
+						}
+					}
+				}
+			});
+
+			rootdef6.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					String k = (String) rootdef6.getText();
+					// timer.cancel();
+					if (wcon == 1) {
+
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
+							defrepeat(0);
+							rootdef6.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+
+							// 变色
+
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(rootnum + 2));
+
+								Intent intent = new Intent(rootl2.this,
+										rootl2.class);
+
+								startActivity(intent);
+
+								stopshape();
+								finish();
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+								double h = Math.random();
+
+								if (h < 0.5) {
+
+									Intent intent = new Intent(rootl2.this,
+											wordsl2.class);
+									startActivity(intent);
+
+									stopshape();
+									finish();
+
+								} else {
+									Intent intent = new Intent(rootl2.this,
+											definitionl2.class);
+									startActivity(intent);
+
+									stopshape();
+									finish();
+								}
+
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // 选错了
+
+							rootdef6.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+
+						}
+
+					}
+
+					if (wcon == 0) {
+
+						if (k.equals(words[wordnum - 1][rootnum + 1])) {
+							defrepeat(0);
+							rootdef6.setBackgroundResource(R.drawable.green);
+							myapp.playmusic(1);
+
+							if (!words[wordnum - 1][rootnum + 2].equals("")) {
+
+								myapp.set(5, Integer.toString(rootnum + 2));
+
+								Intent intent = new Intent(rootl2.this,
+										rootl2.class);
+
+								startActivity(intent);
+
+								// playmusic(1);
+
+								stopshape();
+								finish();
+							}
+
+							if (words[wordnum - 1][rootnum + 2].equals("")) {
+
+								// 这条选择代表root后没有root了代表走到头啦
+
+								if (wordnum % 5 == 0) { // 代表走到5个词了
+
+									if (myapp.getrepeatcontrol() == 1) { // 在part2中
+
+										myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+										double h = Math.random();
+
+										if (h < 0.5) {
+											Intent intent = new Intent(
+													rootl2.this, wordsl2.class);
+											startActivity(intent);
+
+											// playmusic(1);
+
+											stopshape();
+											finish();
+										} else {
+											Intent intent = new Intent(
+													rootl2.this,
+													definitionl2.class);
+
+											startActivity(intent);
+
+											stopshape();
+											finish();
+
+										}
+
+									}
+
+									if (myapp.getrepeatcontrol() == 0) { // 判断进入part2
+
+										myapp.set(4,
+												Integer.toString(wordnum + 1));
+										myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+										myapp.setrepreatcontrol(1);
+										Intent intent = new Intent(rootl2.this,
+												idroortsl2.class);
+										startActivity(intent);
+
+										// playmusic(1);
+
+										stopshape();
+										finish();
+
+									}
+
+								}
+								if (wordnum % 5 != 0) {
+
+									myapp.set(5, Integer.toString(2)); // root没有了，需要重置
+
+									if (myapp.getrepeatcontrol() == 1) { // 在part2中
+										double h = Math.random();
+
+										if (h < 0.5) {
+											Intent intent = new Intent(
+													rootl2.this, wordsl2.class);
+											startActivity(intent);
+
+											// playmusic(1);
+
+											stopshape();
+											finish();
+										} else {
+											Intent intent = new Intent(
+													rootl2.this,
+													definitionl2.class);
+											startActivity(intent);
+
+											stopshape();
+											finish();
+										}
+
+									}
+
+									if (myapp.getrepeatcontrol() == 0) { // 在part1
+																			// 中
+
+										myapp.set(4,
+												Integer.toString(wordnum + 1));
+										double h = Math.random();
+
+										if (h < 0.5) {
+											Intent intent = new Intent(
+													rootl2.this, wordsl2.class);
+											startActivity(intent);
+
+											// playmusic(1);
+
+											stopshape();
+											finish();
+										} else {
+											Intent intent = new Intent(
+													rootl2.this,
+													definitionl2.class);
+											startActivity(intent);
+
+											stopshape();
+											finish();
+										}
+
+									}
+								}
+
+							}
+
+						}
+
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) {
+
+							rootdef6.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+							myapp.playmusic(0);
+
+						}
+					}
+				}
+			});
+		}
+		wenhaoButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				String k = (String) rootdef5.getText();
-
-				if (wcon == 1) {
-
-					if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
-
-						defrepeat(0);
-						rootdef5.setBackgroundResource(R.drawable.green);
-						myapp.playmusic(1);
-						// playmusic(1); // 变色
-
-						if (!words[wordnum - 1][rootnum + 2].equals("")) {
-
-							myapp.set(5, Integer.toString(rootnum + 2));
-
-							Intent intent = new Intent(rootl2.this, rootl2.class);
-
-							startActivity(intent);
-
-							// playmusic(1);
-							finish();
-						}
-
-						if (words[wordnum - 1][rootnum + 2].equals("")) {
-
-							myapp.set(5, Integer.toString(2)); // root没有了，需要重置
-
-							System.out.println("wcon" + wcon);
-							System.out.println("进入word步骤");
-
-							double h = Math.random();
-
-							 if (h < 0.5) {
-							/*
-							 * if (wcon == 1) { Intent intent = new
-							 * Intent(rootl2.this, WrongWord.class);
-							 * startActivity(intent); finish(); } if (wcon == 0)
-							 * {
-							 */
-
-							Intent intent = new Intent(rootl2.this, wordsl2.class);
-							startActivity(intent);
-
-							// playmusic(1);
-							finish();
-
-							 } else {
-							 Intent intent = new Intent(rootl2.this,
-							 definitionl2.class);
-							 startActivity(intent); finish();
-							 }
-
-						}
-
-					}
-
-					if (!k.equals(words[wordnum - 1][rootnum + 1])) {
-
-						defrepeat(1);
-						rootdef5.setBackgroundResource(R.drawable.red);
-						myapp.playmusic(0);
-
-						// myapp.addwrongword(words[wordnum-1]);
-
-						Intent intent = new Intent(rootl2.this, rootl2.class);
-						startActivity(intent);
-
-						// playmusic(0);
-
-						finish();
-
-					}
-
+				stopshape();
+				if (myapp.gethelpcontrol(3) == 0) {
+					myapp.sethelpcontrol(3, 1);
 				}
 
-				if (wcon == 0) {
+				alertdDialog = new AlertDialog.Builder(rootl2.this)
+						.setTitle("Instruction")
+						.setMessage(getString(R.string.roothelp))
+						.setIcon(R.drawable.ic_launcher)
+						.setPositiveButton("OK",
+								new DialogInterface.OnClickListener() {
 
-					if (k.equals(words[wordnum - 1][rootnum + 1])) {
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										// TODO Auto-generated method stub
 
-						defrepeat(0);
-						rootdef5.setBackgroundResource(R.drawable.green);
-						myapp.playmusic(1);
+										alertdDialog.cancel();
 
-						if (!words[wordnum - 1][rootnum + 2].equals("")) {
+									}
+								}).create();
 
-							myapp.set(5, Integer.toString(rootnum + 2));
+				alertdDialog.show();
 
-							Intent intent = new Intent(rootl2.this, rootl2.class);
-
-							startActivity(intent);
-
-							// playmusic(1);
-							finish();
-						}
-
-						if (words[wordnum - 1][rootnum + 2].equals("")) {
-							repeattt5();
-						}
-
-					}
-
-					if (!k.equals(words[wordnum - 1][rootnum + 1])) {
-
-						defrepeat(1);
-						rootdef5.setBackgroundResource(R.drawable.red);
-						myapp.playmusic(0);
-
-						myapp.addwrongword(words[wordnum - 1]);
-
-						Intent intent = new Intent(rootl2.this, rootl2.class);
-						startActivity(intent);
-
-						// playmusic(0);
-
-						finish();
-
-					}
-
-				}
-			}
-		});
-
-		rootdef6.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				String k = (String) rootdef6.getText();
-
-				if (wcon == 1) {
-
-					if (k.equals(words[wordnum - 1][rootnum + 1])) { // 选对了
-
-						defrepeat(0);
-						rootdef6.setBackgroundResource(R.drawable.green);
-						myapp.playmusic(1);
-						// 变色
-
-						if (!words[wordnum - 1][rootnum + 2].equals("")) {
-
-							myapp.set(5, Integer.toString(rootnum + 2));
-
-							Intent intent = new Intent(rootl2.this, rootl2.class);
-
-							startActivity(intent);
-
-							// playmusic(1);
-							finish();
-						}
-
-						if (words[wordnum - 1][rootnum + 2].equals("")) {
-
-							myapp.set(5, Integer.toString(2)); // root没有了，需要重置
-
-							System.out.println("wcon" + wcon);
-							System.out.println("进入word步骤");
-
-							double h = Math.random();
-
-							 if (h < 0.5) {
-							/*
-							 * if (wcon == 1) { Intent intent = new
-							 * Intent(rootl2.this, WrongWord.class);
-							 * startActivity(intent); finish(); } if (wcon == 0)
-							 * {
-							 */
-
-							Intent intent = new Intent(rootl2.this, wordsl2.class);
-							startActivity(intent);
-
-							// playmusic(1);
-							finish();
-
-							 } else {
-							 Intent intent = new Intent(rootl2.this,
-							 definitionl2.class);
-							 startActivity(intent); finish();
-							 }
-
-						}
-
-					}
-
-					if (!k.equals(words[wordnum - 1][rootnum + 1])) {
-
-						defrepeat(1);
-						rootdef6.setBackgroundResource(R.drawable.red);
-						myapp.playmusic(0);
-
-						// myapp.addwrongword(words[wordnum-1]);
-
-						Intent intent = new Intent(rootl2.this, rootl2.class);
-						startActivity(intent);
-
-						// playmusic(0);
-
-						finish();
-
-					}
-
-				}
-
-				if (wcon == 0) {
-
-					if (k.equals(words[wordnum - 1][rootnum + 1])) {
-
-						defrepeat(0);
-						rootdef6.setBackgroundResource(R.drawable.green);
-						myapp.playmusic(1);
-
-						if (!words[wordnum - 1][rootnum + 2].equals("")) {
-
-							myapp.set(5, Integer.toString(rootnum + 2));
-
-							Intent intent = new Intent(rootl2.this, rootl2.class);
-
-							startActivity(intent);
-
-							// playmusic(1);
-							finish();
-						}
-
-						if (words[wordnum - 1][rootnum + 2].equals("")) {
-							repeattt5();
-						}
-
-					}
-
-					if (!k.equals(words[wordnum - 1][rootnum + 1])) {
-
-						defrepeat(1);
-						rootdef6.setBackgroundResource(R.drawable.red);
-						myapp.playmusic(0);
-
-						myapp.addwrongword(words[wordnum - 1]);
-
-						Intent intent = new Intent(rootl2.this, rootl2.class);
-						startActivity(intent);
-
-						// playmusic(0);
-
-						finish();
-
-					}
-
-				}
 			}
 		});
 
@@ -933,8 +2606,10 @@ public class rootl2 extends Activity {
 
 			method(6);
 		}
-		/*adapter = new ArrayAdapter<>(this,
-				android.R.layout.simple_list_item_single_choice, list);*/
+		/*
+		 * adapter = new ArrayAdapter<>(this,
+		 * android.R.layout.simple_list_item_single_choice, list);
+		 */
 
 	}
 
@@ -969,7 +2644,7 @@ public class rootl2 extends Activity {
 			}
 
 		}
-		
+
 		for (int i = 0; i < 20; i++) {
 
 			if (!words[i][7].equals("")) {
@@ -978,7 +2653,7 @@ public class rootl2 extends Activity {
 			}
 
 		}
-		
+
 		for (int i = 0; i < 20; i++) {
 
 			if (!words[i][9].equals("")) {
@@ -991,18 +2666,11 @@ public class rootl2 extends Activity {
 		return roots;
 	}
 
-	/*
-	 * private int rand() { double h = Math.random() * numroot;
-	 * 
-	 * int k = (int) h; return k;
-	 * 
-	 * }
-	 */
-
 	private void defrepeat(int key) {
 
 		if (key == 0) {
 			myapp.set(6, Integer.toString(0));
+			timergreencontrol = true;
 		}
 
 		if (key == 1) {
@@ -1084,9 +2752,9 @@ public class rootl2 extends Activity {
 
 			if (Integer.parseInt(myapp.get(6)) == 2) {
 				rootdef1.setBackgroundResource(R.drawable.green);
-			//	myapp.playmusic(1);
+				// myapp.playmusic(1);
 				// //playmusic(1);
-				defrepeat(0);
+				// defrepeat(0);
 			}
 		}
 
@@ -1100,9 +2768,9 @@ public class rootl2 extends Activity {
 
 			if (Integer.parseInt(myapp.get(6)) == 2) {
 				rootdef2.setBackgroundResource(R.drawable.green);
-			//	myapp.playmusic(1);
+				// myapp.playmusic(1);
 				// //playmusic(1);
-				defrepeat(0);
+				// defrepeat(0);
 			}
 		}
 
@@ -1115,9 +2783,9 @@ public class rootl2 extends Activity {
 			rootdef2.setText(roots[a3]);
 			if (Integer.parseInt(myapp.get(6)) == 2) {
 				rootdef3.setBackgroundResource(R.drawable.green);
-			//	myapp.playmusic(1);
+				// myapp.playmusic(1);
 				// //playmusic(1);
-				defrepeat(0);
+				// defrepeat(0);
 			}
 		}
 		if (key == 4) {
@@ -1129,9 +2797,9 @@ public class rootl2 extends Activity {
 			rootdef3.setText(roots[a4]);
 			if (Integer.parseInt(myapp.get(6)) == 2) {
 				rootdef4.setBackgroundResource(R.drawable.green);
-			//	myapp.playmusic(1);
+				// myapp.playmusic(1);
 				// //playmusic(1);
-				defrepeat(0);
+				// defrepeat(0);
 			}
 		}
 
@@ -1144,9 +2812,9 @@ public class rootl2 extends Activity {
 			rootdef4.setText(roots[a5]);
 			if (Integer.parseInt(myapp.get(6)) == 2) {
 				rootdef5.setBackgroundResource(R.drawable.green);
-			//	myapp.playmusic(1);
+				// myapp.playmusic(1);
 				// //playmusic(1);
-				defrepeat(0);
+				// defrepeat(0);
 			}
 		}
 
@@ -1159,9 +2827,9 @@ public class rootl2 extends Activity {
 			rootdef5.setText(roots[a6]);
 			if (Integer.parseInt(myapp.get(6)) == 2) {
 				rootdef6.setBackgroundResource(R.drawable.green);
-				//myapp.playmusic(1);
+				// myapp.playmusic(1);
 				// //playmusic(1);
-				defrepeat(0);
+				// defrepeat(0);
 			}
 		}
 
@@ -1172,39 +2840,69 @@ public class rootl2 extends Activity {
 
 		if (wordnum % 5 == 0) { // 代表走到5个词了
 
-			if (myapp.getrepeatcontrol() == 1) { // 判断是否进入tt循环 //在TT循环中
+			if (myapp.getrepeatcontrol() == 1) { // 在part2中
 
 				myapp.set(5, Integer.toString(2)); // root没有了，需要重置
 
 				double h = Math.random();
 
-				 if (h < 0.5) {
-				Intent intent = new Intent(rootl2.this, wordsl2.class);
-				startActivity(intent);
+				if (h < 0.5) {
+					intent = new Intent(rootl2.this, wordsl2.class);
 
-				// playmusic(1);
+					myapp.setscore(0, clicknum + 1);
+					myapp.setrootscore(0, rootclicknum + 1);
+					stopshape();
+					timergreen = new Timer();
+					timergreen.schedule(new TimerTask() {
 
-				finish();
-				 } else {
-				 Intent intent = new Intent(rootl2.this,
-				 definitionl2.class);
-				
-				 startActivity(intent); finish();
-				 
-				 }
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							startActivity(intent);
+							finish();
+						}
+					}, sleeptime);
+				} else {
+					intent = new Intent(rootl2.this, definitionl2.class);
+
+					myapp.setscore(0, clicknum + 1);
+					myapp.setrootscore(0, rootclicknum + 1);
+					stopshape();
+					timergreen = new Timer();
+					timergreen.schedule(new TimerTask() {
+
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							startActivity(intent);
+							finish();
+						}
+					}, sleeptime);
+
+				}
 
 			}
 
-			if (myapp.getrepeatcontrol() == 0) { // 判断进入tt循环
+			if (myapp.getrepeatcontrol() == 0) { // 在part1中
 
-				myapp.set(4, Integer.toString(wordnum - 4));
+				myapp.set(4, Integer.toString(wordnum + 1));
 				myapp.set(5, Integer.toString(2)); // root没有了，需要重置
 				myapp.setrepreatcontrol(1);
-				Intent intent = new Intent(rootl2.this, rootl2.class);
-				startActivity(intent);
+				intent = new Intent(rootl2.this, idroortsl2.class);
 
-				// playmusic(1);
-				finish();
+				myapp.setscore(0, clicknum + 1);
+				myapp.setrootscore(0, rootclicknum + 1);
+				stopshape();
+				timergreen = new Timer();
+				timergreen.schedule(new TimerTask() {
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						startActivity(intent);
+						finish();
+					}
+				}, sleeptime);
 
 			}
 
@@ -1213,80 +2911,191 @@ public class rootl2 extends Activity {
 
 			myapp.set(5, Integer.toString(2)); // root没有了，需要重置
 
-			if (myapp.getrepeatcontrol() == 1) { // 证明在tt循环中
+			if (myapp.getrepeatcontrol() == 1) { // 在part2中
 				double h = Math.random();
 
-				 if (h < 0.5) {
-				Intent intent = new Intent(rootl2.this, wordsl2.class);
-				startActivity(intent);
+				if (h < 0.5) {
+					intent = new Intent(rootl2.this, wordsl2.class);
 
-				// playmusic(1);
-				finish();
-				 } else {
-				 Intent intent = new Intent(rootl2.this,
-				 definitionl2.class);
-				 startActivity(intent); finish();
-				 }
+					myapp.setscore(0, clicknum + 1);
+					myapp.setrootscore(0, rootclicknum + 1);
+					stopshape();
+					timergreen = new Timer();
+					timergreen.schedule(new TimerTask() {
+
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							startActivity(intent);
+							finish();
+						}
+					}, sleeptime);
+				} else {
+					intent = new Intent(rootl2.this, definitionl2.class);
+
+					myapp.setscore(0, clicknum + 1);
+					myapp.setrootscore(0, rootclicknum + 1);
+					stopshape();
+					timergreen = new Timer();
+					timergreen.schedule(new TimerTask() {
+
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							startActivity(intent);
+							finish();
+						}
+					}, sleeptime);
+				}
 
 			}
 
-			if (myapp.getrepeatcontrol() == 0) {
+			if (myapp.getrepeatcontrol() == 0) { // 在part1 中
 
 				myapp.set(4, Integer.toString(wordnum + 1));
 				double h = Math.random();
 
-				 if (h < 0.5) {
-				Intent intent = new Intent(rootl2.this, wordsl2.class);
-				startActivity(intent);
+				if (h < 0.5) {
+					intent = new Intent(rootl2.this, wordsl2.class);
 
-				// playmusic(1);
-				finish();
-				 } else {
-				 Intent intent = new Intent(rootl2.this,
-				 definitionl2.class);
-				 startActivity(intent); finish();
-				 }
+					myapp.setscore(0, clicknum + 1);
+					myapp.setrootscore(0, rootclicknum + 1);
+					stopshape();
+					timergreen = new Timer();
+					timergreen.schedule(new TimerTask() {
+
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							startActivity(intent);
+							finish();
+						}
+					}, sleeptime);
+				} else {
+					intent = new Intent(rootl2.this, definitionl2.class);
+
+					myapp.setscore(0, clicknum + 1);
+					myapp.setrootscore(0, rootclicknum + 1);
+					stopshape();
+					timergreen = new Timer();
+					timergreen.schedule(new TimerTask() {
+
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							startActivity(intent);
+							finish();
+						}
+					}, sleeptime);
+				}
 
 			}
 		}
 
 	}
 
-	public void playmusic(int key) {
+	private SpannableStringBuilder getchangeword() { // 本方法自动创建相对应的缺失root的字符串
+		// TODO Auto-generated method stub
+		// 起始root的地点
+		String word = words[wordnum - 1][0];
 
-		if (key == 1) {
+		String changeword = words[wordnum - 1][rootnum];
 
-			myapp.playmusic(1);
+		int start = word.indexOf(changeword);
 
-			/*
-			 * sp.play(musicright, 1, 1, 0, 0, 1);
-			 * 
-			 * Timer timer=new Timer();
-			 * 
-			 * TimerTask task=new TimerTask() {
-			 * 
-			 * @Override public void run() { // TODO Auto-generated method stub
-			 * sp.unload(musicright); } };
-			 * 
-			 * timer.schedule(task, 900); timer.cancel();
-			 */
+		int end = start + changeword.length();
 
-		} else if (key == 0) {
+		SpannableStringBuilder style = new SpannableStringBuilder(word);
 
-			myapp.playmusic(0);
+		style.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.root)), start, end,
+				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-			/*
-			 * sp.play(musicwrong, 1, 1, 0, 0, 1);
-			 * 
-			 * Timer timer=new Timer();
-			 * 
-			 * TimerTask task=new TimerTask() {
-			 * 
-			 * @Override public void run() { // TODO Auto-generated method stub
-			 * sp.release(); sp.unload(musicwrong); } };
-			 * 
-			 * timer.schedule(task, 900); timer.cancel();
-			 */
+		return style;
+	}
+
+	private int wordnum() {
+		int k = 0;
+		for (int i = 0; i < words.length; i++) {
+			if (!words[i][0].equals("")) {
+				k++;
+			}
+		}
+
+		return k;
+	}
+
+	private void stopshape() {
+		timerhelp.cancel();
+
+		if (p1) {
+			helpshape.cancel();
+		}
+
+		wenhaoButton.setImageResource(R.drawable.wenhao);
+
+	}
+
+	public String underlineclear(String key) {
+		String flag = key.replace("_", " ");
+		return flag;
+	}
+	@Override
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		super.onRestart();
+		myapp.startlevelmusic();
+
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+
+	}
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		getApplicationContext().unregisterReceiver(receiver);
+
+	}
+
+	protected class HomeKeyEventBroadCastReceiver extends BroadcastReceiver {
+
+		static final String SYSTEM_REASON = "reason";
+		static final String SYSTEM_HOME_KEY = "homekey";// home key
+		static final String SYSTEM_RECENT_APPS = "recentapps";// long home key
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String action = intent.getAction();
+			if (action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
+				String reason = intent.getStringExtra(SYSTEM_REASON);
+				if (reason != null) {
+					if (reason.equals(SYSTEM_HOME_KEY)) {
+						myapp.pauselevelmusic(); // home key处理点
+
+					} else if (reason.equals(SYSTEM_RECENT_APPS)) {
+						myapp.pauselevelmusic();// long home key处理点
+					}
+				}
+			}
 		}
 
 	}
@@ -1295,6 +3104,12 @@ public class rootl2 extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			// timer.cancel();
+			stopshape();
+			myapp.pauselevelmusic();
+			if (timergreencontrol) {
+				timergreen.cancel();
+			}
 			alertdDialog = new AlertDialog.Builder(this)
 					.setTitle("EXIT LEVEL")
 					.setMessage("Do you want to exit this level learning？")
@@ -1306,6 +3121,7 @@ public class rootl2 extends Activity {
 								public void onClick(DialogInterface dialog,
 										int which) {
 									// TODO Auto-generated method stub
+									myapp.stoplevelmusic();
 									myapp.empty();
 
 									Intent intent = new Intent(rootl2.this,
@@ -1322,12 +3138,26 @@ public class rootl2 extends Activity {
 								public void onClick(DialogInterface dialog,
 										int which) {
 									// TODO Auto-generated method stub
-									/*
-									 * Intent intent= new
-									 * Intent(Word.this,Play.class);
-									 * startActivity(intent);
-									 */
+
 									alertdDialog.cancel();
+									myapp.startlevelmusic();
+									if (Integer.parseInt(myapp.get(6)) < 2) {
+										if (timergreencontrol) {
+											timergreen = new Timer();
+											timergreen.schedule(
+													new TimerTask() {
+
+														@Override
+														public void run() {
+															// TODO
+
+															startActivity(intent);
+															finish();
+														}
+													}, sleeptime);
+										}
+
+									}
 								}
 							}).create();
 
@@ -1338,8 +3168,136 @@ public class rootl2 extends Activity {
 		return super.onKeyDown(keyCode, event);
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
 
-	
-	
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.game, menu);
 
+		MenuItem musicsound = menu.add(101, 1, 1, "musicsound");
+		MenuItem buttonsound = menu.add(101, 2, 2, "buttonsound");
+		musicsound.setCheckable(true);
+		buttonsound.setCheckable(true);
+		if (myapp.getmusic(0) == 0) {
+			buttonsound.setChecked(false);
+
+		} else {
+			buttonsound.setChecked(true);
+		}
+		if (myapp.getmusic(1) == 0) {
+			musicsound.setChecked(false);
+
+		} else {
+			musicsound.setChecked(true);
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.level) {
+			stopshape();
+			if (timergreencontrol) {
+				timergreen.cancel();
+			}
+			myapp.stoplevelmusic();
+			myapp.empty();
+			Intent intent = new Intent(rootl2.this, play.class);
+			startActivity(intent);
+			finish();
+		}
+
+		
+		if (id == R.id.PlayStudyReview) {
+			stopshape();
+			if (timergreencontrol) {
+				timergreen.cancel();
+			}
+			myapp.stoplevelmusic();
+			myapp.empty();
+			Intent intent = new Intent(rootl2.this, list.class);
+			startActivity(intent);
+			finish();
+		}
+
+		if (id == R.id.listpage) {
+			stopshape();
+			if (timergreencontrol) {
+				timergreen.cancel();
+			}
+			myapp.stoplevelmusic();
+			myapp.empty();
+			Intent intent = new Intent(rootl2.this, listselectactivity.class);
+			startActivity(intent);
+			finish();
+		}
+
+		if (id == R.id.coursepage) {
+			stopshape();
+			if (timergreencontrol) {
+				timergreen.cancel();
+			}
+			myapp.stoplevelmusic();
+			myapp.empty();
+			Intent intent = new Intent(rootl2.this, MainActivity.class);
+			startActivity(intent);
+			finish();
+		}
+		if (id == R.id.Exit) {
+
+			System.exit(0);
+
+			return true;
+		}
+		if (id == 1) { // musicsound
+
+			if (item.isChecked()) {
+				item.setChecked(false);
+				myapp.setmusic(1, 0);
+				myapp.stoplevelmusic();
+
+			} else {
+				item.setChecked(true);
+				myapp.setmusic(1, 1);
+				myapp.startlevelmusic();
+
+			}
+			return true;
+		}
+		
+
+		if (id == 2) {
+
+			if (item.isChecked()) {
+				item.setChecked(false);
+				myapp.setmusic(0, 0);
+			} else {
+				item.setChecked(true);
+				myapp.setmusic(0, 1);
+			}
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+	public void changecolorscore(int key){
+		if (key>=86) {
+			textViewscore.setTextColor(Color.GREEN);
+			
+		}
+		if (key<=64) {
+			textViewscore.setTextColor(Color.RED);
+		}
+		if (key>64&&key<86) 
+			
+	 {
+			textViewscore.setTextColor(Color.YELLOW);
+		}
+	}
+	
 }

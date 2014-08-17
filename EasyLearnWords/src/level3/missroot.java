@@ -1,55 +1,161 @@
 package level3;
 
-
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.easylearnwords.R;
+import com.easylearnwords.R.color;
+
+import com.easylearnwords.MainActivity;
+import com.easylearnwords.list;
+import com.easylearnwords.listselectactivity;
 import com.easylearnwords.mypublicvalue;
 import com.easylearnwords.play;
-import com.easylearnwords.score;
 
-
-
+import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class missroot extends Activity {
 
+	public long sleeptime = 2000;
+
 	private Dialog alertdDialog;
 	private TextView textView1, textView2, missrootwordTextView,
 			missrootworddeftTextView;
-	private TextView root1, root2, root3, root4, root5, root6;
-	private TextView textViewlevel, textViewword, textViewwr;
+	private TextView root1, root2, root3, root4, root5, root6; // 6 options
+	private TextView textViewlevel, textViewword, textViewwr, textViewscore;
 	private String[][] words;
 	private int wordnum;
-	private int rootnum = 0; // 统计这里有多少个root 每个word，跟root（）和word（）里头不一样
+	private int rootnum = 0; // the amount root of every word统计这里有多少个root
+								// 每个word，跟root（）和word（）里头不一样
 	private String[] roots;
 	private int numroot;
-	public int wcon, con; // 错词循环， 不需要TT循环con
-	private int clicknum = 0;
-	private int rootstep;
-	private String[][] ranwords = new String[21][10];
+	public int wcon, con; // 错词循环
+	private int clicknumtouch = 0;
+	private int rootstep = 2;
+	/* private String[][] ranwords = new String[21][10]; */
 	private mypublicvalue myapp;
-	private int controllv3;
+	/* private int controllv3; */
+	private ImageButton wenhaoButton;
+	private double clicknum, rightnum;
+	
+	private boolean b1 = false;
+	private boolean b2 = false;
+	private boolean b3 = false;
+	private boolean b4 = false;
+	private boolean b5 = false;
+	private boolean b6 = false;
+
+	private String[] root = new String[5]; // this array store the click root.
+											// it is used to creat
+											// getresultword();
+	private int rootkey = 0; // the root's index.
+	private Matrix matrix = new Matrix();
+	private CountDownTimer helpshape;
+	private BroadcastReceiver receiver; // home key
+	private Timer timergreen;
+	private Intent intent;
+	private boolean timergreencontrol = false;
+
+	private boolean p1 = false; // 操控help button的控制阀
+
+	CountDownTimer timerhelp = new CountDownTimer(5000, 1000) {
+
+		@Override
+		public void onTick(long millisUntilFinished) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onFinish() {
+
+			p1 = true;
+
+			helpshape = new CountDownTimer(2000, 90) {
+
+				boolean key = true;
+
+				@Override
+				public void onTick(long millisUntilFinished) {
+					// TODO Auto-generated method stub
+
+					Bitmap bitmap = ((BitmapDrawable) (getResources()
+							.getDrawable(R.drawable.wenhaored))).getBitmap();
+
+					if (key) {
+
+						matrix.setRotate(10f);
+						key = false;
+					} else {
+
+						matrix.setRotate(-10f);
+						key = true;
+					}
+
+					bitmap = Bitmap
+							.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+									bitmap.getHeight(), matrix, true);
+					wenhaoButton.setImageBitmap(bitmap);
+
+				}
+
+				@Override
+				public void onFinish() {
+					// TODO Auto-generated method stub
+
+					helpshape.cancel();
+					wenhaoButton.setImageResource(R.drawable.wenhao);
+					timerhelp.start();
+					// helpshape.start();
+
+				}
+			};
+
+			helpshape.start();
+
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.missroot);
-
+		setContentView(R.layout.zmissroot);
+		receiver = new HomeKeyEventBroadCastReceiver();
+		getApplicationContext().registerReceiver(receiver,
+				new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
+		sleeptime = Long.parseLong(this.getString(R.string.sleeptime));
+		wenhaoButton = (ImageButton) this.findViewById(R.id.wenhaobutton);
 		textView1 = (TextView) this.findViewById(R.id.textview1);
 		textView2 = (TextView) this.findViewById(R.id.textview2);
 
 		textViewlevel = (TextView) this.findViewById(R.id.leveltext);
 		textViewword = (TextView) this.findViewById(R.id.wordtext);
 		textViewwr = (TextView) this.findViewById(R.id.wrtext);
+		textViewscore = (TextView) this.findViewById(R.id.scoretext);
+
 		root1 = (TextView) this.findViewById(R.id.wordroot1);
 		root2 = (TextView) this.findViewById(R.id.wordroot2);
 		root3 = (TextView) this.findViewById(R.id.wordroot3);
@@ -57,51 +163,37 @@ public class missroot extends Activity {
 		root5 = (TextView) this.findViewById(R.id.wordroot5);
 		root6 = (TextView) this.findViewById(R.id.wordroot6);
 
+		rootempty(); // root' array clear.
+
 		myapp = (mypublicvalue) getApplication();
-
-		ranwords = myapp.emptywords();
-
-		textView1.setText(myapp.get(0));
+		myapp.startlevelmusic();
+		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
 
 		textViewlevel.setText(" Level: " + myapp.get(3)); // 设定显示level的控件
+		textViewwr.setText("Fill Blank");
 
-		wordnum = Integer.parseInt(myapp.get(4));
-
-		rootstep = Integer.parseInt(myapp.get(5));
-
-		textViewword.setText("Word: " + wordnum + "  "); // 设定显示几号word的控件
+		wordnum = Integer.parseInt(myapp.get(4)); // get the number of word.
 
 		wcon = myapp.getreviewwrongcontrol(); // 复习控制阀值
 		con = myapp.getrepeatcontrol();
 
-		controllv3 = Integer.parseInt(myapp.get(7));
+		clicknum = myapp.getscore(0);
+		rightnum = myapp.getscore(1);
 
-		if (controllv3 == 0) {
+		if (wcon == 0) {
 			words = myapp.getwords();
-			words = getranword();
-
-			System.out.println("ranwords设定" + words[0][0]);
-
-			myapp.setranwords(words);
-
-	
-
-			myapp.set(7, "1");
-
 		}
-		if (controllv3 == 1) {
-			System.out.println("走了controll3 等于1的这一步");
-			words = myapp.getranwords();
-		/*	System.out.println("ranwords读出" + words[0][0]);*/
+		if (wcon == 1) {
+			words = myapp.getCwrongwords();
+			textViewwr.setText("Wrong Reivew");
+			textViewwr.setBackgroundColor(Color.RED);
 		}
+		textViewword.setText("Word: " + wordnum + " / " + wordnum()); // 设定显示几号word的控件
+		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
 
-		/*
-		 * managedb db= new managedb(getBaseContext());
-		 * myapp.setwords(db.getwords());
-		 */
-
-		// myapp.getranword(); //application操作会把所有的值破坏，需要重新赋值
+		textViewscore.setText("Score:"
+				+ (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100) + "%");
 
 		missrootworddeftTextView = (TextView) this
 				.findViewById(R.id.missrootworddefview);
@@ -110,483 +202,1171 @@ public class missroot extends Activity {
 		missrootwordTextView = (TextView) this
 				.findViewById(R.id.missrootwordview);
 
-		if (rootstep == 2) {
-			rootnum = 1;
-			missrootwordTextView.setText(getchangeword(1));
+		for (int i = 0; i < 4; i++) {
+			if (!words[wordnum - 1][rootstep].equals("")) {
+				rootnum++;
+				rootstep = rootstep + 2;
+			} else {
+				break;
+			}
+		}
 
-		}
-		if (rootstep == 4) {
-			rootnum = 2;
-			missrootwordTextView.setText(getchangeword(2));
-		}
-		if (rootstep == 6) {
-			rootnum = 3;
-			missrootwordTextView.setText(getchangeword(3));
-		}
-		if (rootstep == 8) {
-			rootnum = 4;
-			missrootwordTextView.setText(getchangeword(4));
-		}
+		missrootwordTextView.setText(getchangeword(rootnum));
 
 		this.ran();
 
-		root1.setOnClickListener(new View.OnClickListener() {
+		if (myapp.gethelpcontrol(0) == 0) {
+			timerhelp.start();
+		}
 
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				String k = (String) root1.getText();
-				if (k.equals(words[wordnum - 1][2]) // 做对了
-						|| k.equals(words[wordnum - 1][4])
-						|| k.equals(words[wordnum - 1][6])
-						|| k.equals(words[wordnum - 1][8]))
+		if (Integer.parseInt(myapp.get(6)) < 2) {
 
-				{
-					root1.setBackgroundResource(R.drawable.green);
-					myapp.playmusic(1);
-					clicknum++;
+			// timer.start();
 
-					if (clicknum == rootnum) { // 都做对了
+			root1.setOnClickListener(new View.OnClickListener() {
 
-						defrepeat(0);
-						/* System.out.println("过了missroot"); */
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					String k = (String) root1.getText();
 
-						if (words[wordnum - 1][rootstep + 2].equals("")) {
+					if (k.equals(words[wordnum - 1][2]) // 做对了
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
 
-							
+					{
+						root1.setBackgroundResource(R.drawable.green);
+						b1=true;
+						root1.setText(getchangeroot(k));
+						myapp.playmusic(1);
+						myapp.setscore(1, ++rightnum);
+						myapp.setscore(0, ++clicknum);
+						root[rootkey++] = k;
+						missrootwordTextView.setText(getresultword(rootnum));
+						clicknumtouch++;
+
+						if (clicknumtouch == rootnum) { // 都做对了
+
+							defrepeat(0);
+
+							if (words[wordnum][0].equals("")) { // next word is
+																// null
+
+								if (wcon == 0) {
+									myapp.cleanwrongwords();
+								}
+
+								if (wcon == 1) {
+									myapp.cleanCwrongwords();
+								}
+
+								
+								stopshape();
+								intent = new Intent(missroot.this,
+										scorel3.class);
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+
+							}
+							if (!words[wordnum][0].equals("")) { // next word is
+																	// not null
 								myapp.set(4, Integer.toString(wordnum + 1));// 下一个词
-								myapp.set(5, Integer.toString(2)); // root没有了需要重置
+
 							
+								stopshape();
+								intent = new Intent(missroot.this,
+										missroot.class);
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+							}
+
+						}
+
+					} else {
+						
+						if(!b1){
+						root1.setBackgroundResource(R.drawable.red);
+						myapp.Vibrate();
+						stopshape();
+						myapp.playmusic(0);
+
+						if (!timergreencontrol) {
+
+							if (wcon == 0) {
+								myapp.addwrongword(words[wordnum - 1]);
+
+							}
+							if (wcon == 1) {
+								myapp.addwrongwords1(words[wordnum - 1]);
+
+							}
+
+							defrepeat(1);
+							Intent intent = new Intent(missroot.this,
+									missroot.class);
+							startActivity(intent);
+							myapp.setscore(0, ++clicknum);
+							finish();
+						}
+					}
+					}
+				}
+			});
+			root2.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					String k = (String) root2.getText();
+
+					if (k.equals(words[wordnum - 1][2]) // 做对了
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
+
+					{
+						root2.setBackgroundResource(R.drawable.green);
+						b2=true;
+						root2.setText(getchangeroot(k));
+						myapp.playmusic(1);
+						myapp.setscore(1, ++rightnum);
+						myapp.setscore(0, ++clicknum);
+						root[rootkey++] = k;
+						missrootwordTextView.setText(getresultword(rootnum));
+						clicknumtouch++;
+
+						if (clicknumtouch == rootnum) { // 都做对了
+
+							defrepeat(0);
+
 							if (words[wordnum][0].equals("")) {
+
+								if (wcon == 0) {
+									myapp.cleanwrongwords();
+								}
+
+								if (wcon == 1) {
+									myapp.cleanCwrongwords();
+								}
+
+							
+								stopshape();
+								intent = new Intent(missroot.this,
+										scorel3.class);
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+
+							}
+							if (!words[wordnum][0].equals("")) {
+								myapp.set(4, Integer.toString(wordnum + 1));// 下一个词
+
+							
+								stopshape();
+								intent = new Intent(missroot.this,
+										missroot.class);
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+							}
+
+						}
+
+					} else {
+						if(!b2){
+						root2.setBackgroundResource(R.drawable.red);
+						myapp.Vibrate();
+						stopshape();
+						myapp.playmusic(0);
+
+						if (!timergreencontrol) {
+
+							if (wcon == 0) {
+								myapp.addwrongword(words[wordnum - 1]);
+
+							}
+							if (wcon == 1) {
+								myapp.addwrongwords1(words[wordnum - 1]);
+
+							}
+
+							defrepeat(1);
+							Intent intent = new Intent(missroot.this,
+									missroot.class);
+							startActivity(intent);
+							myapp.setscore(0, ++clicknum);
+							finish();
+						}
+					}
+					}
+				}
+			});
+			root3.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					String k = (String) root3.getText();
+					// timer.cancel();
+					if (k.equals(words[wordnum - 1][2]) // 做对了
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
+
+					{
+						root3.setBackgroundResource(R.drawable.green);
+						b3=true;
+						root3.setText(getchangeroot(k));
+						myapp.playmusic(1);
+						myapp.setscore(1, ++rightnum);
+						myapp.setscore(0, ++clicknum);
+						root[rootkey++] = k;
+						missrootwordTextView.setText(getresultword(rootnum));
+						clicknumtouch++;
+
+						if (clicknumtouch == rootnum) { // 都做对了
+
+							defrepeat(0);
+
+							if (words[wordnum][0].equals("")) {
+
+								if (wcon == 0) {
+									myapp.cleanwrongwords();
+								}
+
+								if (wcon == 1) {
+									myapp.cleanCwrongwords();
+								}
+
+							
+								stopshape();
+								intent = new Intent(missroot.this,
+										scorel3.class);
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+
+							}
+							if (!words[wordnum][0].equals("")) {
+								myapp.set(4, Integer.toString(wordnum + 1));// 下一个词
+
+								
+								stopshape();
+								intent = new Intent(missroot.this,
+										missroot.class);
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+							}
+
+						}
+
+					} else {
+						if(!b3){
+						root3.setBackgroundResource(R.drawable.red);
+						myapp.Vibrate();
+						stopshape();
+						myapp.playmusic(0);
+
+						if (!timergreencontrol) {
+
+							if (wcon == 0) {
+								myapp.addwrongword(words[wordnum - 1]);
+
+							}
+							if (wcon == 1) {
+								myapp.addwrongwords1(words[wordnum - 1]);
+
+							}
+
+							defrepeat(1);
+							Intent intent = new Intent(missroot.this,
+									missroot.class);
+							startActivity(intent);
+							myapp.setscore(0, ++clicknum);
+							finish();
+						}
+					}
+					}
+				}
+			});
+			root4.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					String k = (String) root4.getText();
+					// timer.cancel();
+					if (k.equals(words[wordnum - 1][2]) // 做对了
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
+
+					{
+						root4.setBackgroundResource(R.drawable.green);
+						b4=true;
+						root4.setText(getchangeroot(k));
+						myapp.playmusic(1);
+						myapp.setscore(1, ++rightnum);
+						myapp.setscore(0, ++clicknum);
+						root[rootkey++] = k;
+						missrootwordTextView.setText(getresultword(rootnum));
+						clicknumtouch++;
+
+						if (clicknumtouch == rootnum) { // 都做对了
+
+							defrepeat(0);
+
+							if (words[wordnum][0].equals("")) {
+
+								if (wcon == 0) {
+									myapp.cleanwrongwords();
+								}
+
+								if (wcon == 1) {
+									myapp.cleanCwrongwords();
+								}
+
+							
+								stopshape();
+								intent = new Intent(missroot.this,
+										scorel3.class);
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+
+							}
+							if (!words[wordnum][0].equals("")) {
+								myapp.set(4, Integer.toString(wordnum + 1));// 下一个词
+
+								
+								stopshape();
+								intent = new Intent(missroot.this,
+										missroot.class);
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+							}
+
+						}
+
+					} else {
+						if(!b4){
+						root4.setBackgroundResource(R.drawable.red);
+						myapp.Vibrate();
+						stopshape();
+						myapp.playmusic(0);
+
+						if (!timergreencontrol) {
+
+							if (wcon == 0) {
+								myapp.addwrongword(words[wordnum - 1]);
+
+							}
+							if (wcon == 1) {
+								myapp.addwrongwords1(words[wordnum - 1]);
+
+							}
+
+							defrepeat(1);
+							Intent intent = new Intent(missroot.this,
+									missroot.class);
+							startActivity(intent);
+							myapp.setscore(0, ++clicknum);
+							finish();
+						}
+					}
+					}
+				}
+			});
+			root5.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					String k = (String) root5.getText();
+					// timer.cancel();
+					if (k.equals(words[wordnum - 1][2]) // 做对了
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
+
+					{
+						root5.setBackgroundResource(R.drawable.green);
+						b5=true;
+						root5.setText(getchangeroot(k));
+						myapp.playmusic(1);
+						myapp.setscore(1, ++rightnum);
+						myapp.setscore(0, ++clicknum);
+						root[rootkey++] = k;
+						missrootwordTextView.setText(getresultword(rootnum));
+						clicknumtouch++;
+
+						if (clicknumtouch == rootnum) { // 都做对了
+
+							defrepeat(0);
+
+							if (words[wordnum][0].equals("")) {
+
+								if (wcon == 0) {
+									myapp.cleanwrongwords();
+								}
+
+								if (wcon == 1) {
+									myapp.cleanCwrongwords();
+								}
+
+							
+								stopshape();
+								intent = new Intent(missroot.this,
+										scorel3.class);
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+
+							}
+							if (!words[wordnum][0].equals("")) {
+								myapp.set(4, Integer.toString(wordnum + 1));// 下一个词
+
+							
+								stopshape();
+								intent = new Intent(missroot.this,
+										missroot.class);
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+							}
+
+						}
+
+					} else {
+						if(!b5){
+						root5.setBackgroundResource(R.drawable.red);
+						myapp.Vibrate();
+						stopshape();
+						myapp.playmusic(0);
+
+						if (!timergreencontrol) {
+
+							if (wcon == 0) {
+								myapp.addwrongword(words[wordnum - 1]);
+
+							}
+							if (wcon == 1) {
+								myapp.addwrongwords1(words[wordnum - 1]);
+
+							}
+
+							defrepeat(1);
+							Intent intent = new Intent(missroot.this,
+									missroot.class);
+							startActivity(intent);
+							myapp.setscore(0, ++clicknum);
+							finish();
+						}
+					}
+				}
+				}
+			});
+			root6.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					String k = (String) root6.getText();
+					// timer.cancel();
+					if (k.equals(words[wordnum - 1][2]) // 做对了
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
+
+					{
+						root6.setBackgroundResource(R.drawable.green);
+						b6=true;
+						root6.setText(getchangeroot(k));
+						myapp.playmusic(1);
+						myapp.setscore(1, ++rightnum);
+						myapp.setscore(0, ++clicknum);
+						root[rootkey++] = k;
+						missrootwordTextView.setText(getresultword(rootnum));
+						clicknumtouch++;
+
+						if (clicknumtouch == rootnum) { // 都做对了
+
+							defrepeat(0);
+
+							if (words[wordnum][0].equals("")) {
+
+								if (wcon == 0) {
+									myapp.cleanwrongwords();
+								}
+
+								if (wcon == 1) {
+									myapp.cleanCwrongwords();
+								}
+
+							
+								stopshape();
+								intent = new Intent(missroot.this,
+										scorel3.class);
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+
+							}
+							if (!words[wordnum][0].equals("")) {
+								myapp.set(4, Integer.toString(wordnum + 1));// 下一个词
+								
+								stopshape();
+								intent = new Intent(missroot.this,
+										missroot.class);
+								timergreen = new Timer();
+								timergreen.schedule(new TimerTask() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+
+										startActivity(intent);
+										finish();
+									}
+								}, sleeptime);
+
+							}
+
+						}
+
+					} else {
+						if(!b6){
+						root6.setBackgroundResource(R.drawable.red);
+						myapp.Vibrate();
+						stopshape();
+						myapp.playmusic(0);
+
+						if (!timergreencontrol) {
+
+							if (wcon == 0) {
+								myapp.addwrongword(words[wordnum - 1]);
+
+							}
+							if (wcon == 1) {
+								myapp.addwrongwords1(words[wordnum - 1]);
+
+							}
+
+							defrepeat(1);
+							Intent intent = new Intent(missroot.this,
+									missroot.class);
+							startActivity(intent);
+							myapp.setscore(0, ++clicknum);
+							finish();
+						}
+					}
+					}
+				}
+			});
+		}
+
+		if (Integer.parseInt(myapp.get(6)) == 2) {
+			myapp.greentoast();
+			root1.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					String k = (String) root1.getText();
+
+					if (k.equals(words[wordnum - 1][2]) // 做对了
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
+
+					{
+						root1.setBackgroundResource(R.drawable.green);
+						b1=true;
+						root1.setText(getchangeroot(k));
+						myapp.playmusic(1);
+						root[rootkey++] = k;
+						missrootwordTextView.setText(getresultword(rootnum));
+						clicknumtouch++;
+
+						if (clicknumtouch == rootnum) { // 都做对了
+							defrepeat(0);
+
+							if (words[wordnum][0].equals("")) {
+
+								if (wcon == 0) {
+									myapp.cleanwrongwords();
+								}
+
+								if (wcon == 1) {
+									myapp.cleanCwrongwords();
+								}
 								Intent intent = new Intent(missroot.this,
-										score.class);
+										scorel3.class);
 								startActivity(intent);
+								stopshape();
 								finish();
 
 							}
 							if (!words[wordnum][0].equals("")) {
+								myapp.set(4, Integer.toString(wordnum + 1));// 下一个词
 								Intent intent = new Intent(missroot.this,
 										missroot.class);
 								startActivity(intent);
+								stopshape();
 								finish();
 							}
 
 						}
 
-						if (!words[wordnum - 1][rootstep + 2].equals("")) {
-							myapp.set(5, Integer.toString(rootstep + 2));
-							System.out.println("过了missroot");
-							Intent intent = new Intent(missroot.this,
-									missroot.class);
-							startActivity(intent);
-							finish();
+					} else {
+						if (!b1) {
+							root1.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+
+							myapp.playmusic(0);
 						}
-
-						
+					
 
 					}
-
-				} else {
-					root1.setBackgroundResource(R.drawable.red);
-
-					if (wcon == 0) {
-						myapp.addwrongword(words[wordnum - 1]);
-					}
-
-					myapp.playmusic(0);
-					defrepeat(1);
-					Intent intent = new Intent(missroot.this, missroot.class);
-					startActivity(intent);
-					finish();
 
 				}
+			});
+			root2.setOnClickListener(new View.OnClickListener() {
 
-			}
-		});
-		root2.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					String k = (String) root2.getText();
 
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				String k = (String) root2.getText();
-				if (k.equals(words[wordnum - 1][2])
-						|| k.equals(words[wordnum - 1][4])
-						|| k.equals(words[wordnum - 1][6])
-						|| k.equals(words[wordnum - 1][8]))
+					if (k.equals(words[wordnum - 1][2]) // 做对了
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
 
-				{
-					root2.setBackgroundResource(R.drawable.green);
-					myapp.playmusic(1);
-					clicknum++;
+					{
+						root2.setBackgroundResource(R.drawable.green);
+						b2=true;
+						root2.setText(getchangeroot(k));
+						myapp.playmusic(1);
+						root[rootkey++] = k;
+						missrootwordTextView.setText(getresultword(rootnum));
+						clicknumtouch++;
 
-					if (clicknum == rootnum) { // 都做对了
+						if (clicknumtouch == rootnum) { // 都做对了
+							defrepeat(0);
 
-						defrepeat(0);
-						/* System.out.println("过了missroot"); */
-
-						if (words[wordnum - 1][rootstep + 2].equals("")) {
-
-							
-								myapp.set(4, Integer.toString(wordnum + 1));// 下一个词
-								myapp.set(5, Integer.toString(2)); // root没有了需要重置
-							
 							if (words[wordnum][0].equals("")) {
+
+								if (wcon == 0) {
+									myapp.cleanwrongwords();
+								}
+
+								if (wcon == 1) {
+									myapp.cleanCwrongwords();
+								}
 								Intent intent = new Intent(missroot.this,
-										score.class);
+										scorel3.class);
 								startActivity(intent);
+								stopshape();
 								finish();
 
 							}
 							if (!words[wordnum][0].equals("")) {
+								myapp.set(4, Integer.toString(wordnum + 1));// 下一个词
 								Intent intent = new Intent(missroot.this,
 										missroot.class);
 								startActivity(intent);
+								stopshape();
 								finish();
 							}
 
 						}
 
-						if (!words[wordnum - 1][rootstep + 2].equals("")) {
-							myapp.set(5, Integer.toString(rootstep + 2));
-							System.out.println("过了missroot");
-							Intent intent = new Intent(missroot.this,
-									missroot.class);
-							startActivity(intent);
-							finish();
-						}
+					} else {
+						if (!b2) {
+							root2.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
 
+							myapp.playmusic(0);
+						}
 						
 
 					}
 
-				} else {
-					root2.setBackgroundResource(R.drawable.red);
-					if (wcon == 0) {
-						myapp.addwrongword(words[wordnum - 1]);
-					}
-					myapp.playmusic(0);
-					defrepeat(1);
-					Intent intent = new Intent(missroot.this, missroot.class);
-					startActivity(intent);
-					finish();
 				}
+			});
+			root3.setOnClickListener(new View.OnClickListener() {
 
-			}
-		});
-		root3.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					String k = (String) root3.getText();
 
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+					if (k.equals(words[wordnum - 1][2]) // 做对了
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
 
-				String k = (String) root3.getText();
-				if (k.equals(words[wordnum - 1][2])
-						|| k.equals(words[wordnum - 1][4])
-						|| k.equals(words[wordnum - 1][6])
-						|| k.equals(words[wordnum - 1][8]))
+					{
+						root3.setBackgroundResource(R.drawable.green);
+						b3=true;
+						root3.setText(getchangeroot(k));
+						myapp.playmusic(1);
+						root[rootkey++] = k;
+						missrootwordTextView.setText(getresultword(rootnum));
+						clicknumtouch++;
 
-				{
-					root3.setBackgroundResource(R.drawable.green);
-					myapp.playmusic(1);
-					clicknum++;
+						if (clicknumtouch == rootnum) { // 都做对了
+							defrepeat(0);
 
-					if (clicknum == rootnum) { // 都做对了
-
-						defrepeat(0);
-						/* System.out.println("过了missroot"); */
-
-						if (words[wordnum - 1][rootstep + 2].equals("")) {
-
-							
-								myapp.set(4, Integer.toString(wordnum + 1));// 下一个词
-								myapp.set(5, Integer.toString(2)); // root没有了需要重置
-							
 							if (words[wordnum][0].equals("")) {
+
+								if (wcon == 0) {
+									myapp.cleanwrongwords();
+								}
+
+								if (wcon == 1) {
+									myapp.cleanCwrongwords();
+								}
 								Intent intent = new Intent(missroot.this,
-										score.class);
+										scorel3.class);
 								startActivity(intent);
+								stopshape();
 								finish();
 
 							}
 							if (!words[wordnum][0].equals("")) {
+								myapp.set(4, Integer.toString(wordnum + 1));// 下一个词
 								Intent intent = new Intent(missroot.this,
 										missroot.class);
 								startActivity(intent);
+								stopshape();
 								finish();
 							}
 
 						}
 
-						if (!words[wordnum - 1][rootstep + 2].equals("")) {
-							myapp.set(5, Integer.toString(rootstep + 2));
-							System.out.println("过了missroot");
-							Intent intent = new Intent(missroot.this,
-									missroot.class);
-							startActivity(intent);
-							finish();
-						}
+					} else {
+						if (!b3) {
+							root3.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
 
+							myapp.playmusic(0);
+						}
 						
 
 					}
 
-				} else {
-
-					root3.setBackgroundResource(R.drawable.red);
-					if (wcon == 0) {
-						myapp.addwrongword(words[wordnum - 1]);
-					}
-					myapp.playmusic(0);
-					defrepeat(1);
-					Intent intent = new Intent(missroot.this, missroot.class);
-					startActivity(intent);
-					finish();
 				}
+			});
+			root4.setOnClickListener(new View.OnClickListener() {
 
-			}
-		});
-		root4.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					String k = (String) root4.getText();
 
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				String k = (String) root4.getText();
-				if (k.equals(words[wordnum - 1][2])
-						|| k.equals(words[wordnum - 1][4])
-						|| k.equals(words[wordnum - 1][6])
-						|| k.equals(words[wordnum - 1][8]))
+					if (k.equals(words[wordnum - 1][2]) // 做对了
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
 
-				{
-					root4.setBackgroundResource(R.drawable.green);
-					myapp.playmusic(1);
-					clicknum++;
+					{
+						root4.setBackgroundResource(R.drawable.green);
+						b4=true;
+						root4.setText(getchangeroot(k));
+						myapp.playmusic(1);
+						root[rootkey++] = k;
+						missrootwordTextView.setText(getresultword(rootnum));
+						clicknumtouch++;
 
-					if (clicknum == rootnum) { // 都做对了
+						if (clicknumtouch == rootnum) { // 都做对了
+							defrepeat(0);
 
-						defrepeat(0);
-						/* System.out.println("过了missroot"); */
-
-						if (words[wordnum - 1][rootstep + 2].equals("")) {
-
-							
-								myapp.set(4, Integer.toString(wordnum + 1));// 下一个词
-								myapp.set(5, Integer.toString(2)); // root没有了需要重置
-							
 							if (words[wordnum][0].equals("")) {
+
+								if (wcon == 0) {
+									myapp.cleanwrongwords();
+								}
+
+								if (wcon == 1) {
+									myapp.cleanCwrongwords();
+								}
 								Intent intent = new Intent(missroot.this,
-										score.class);
+										scorel3.class);
 								startActivity(intent);
+								stopshape();
 								finish();
 
 							}
 							if (!words[wordnum][0].equals("")) {
+								myapp.set(4, Integer.toString(wordnum + 1));// 下一个词
 								Intent intent = new Intent(missroot.this,
 										missroot.class);
 								startActivity(intent);
+								stopshape();
 								finish();
 							}
 
 						}
 
-						if (!words[wordnum - 1][rootstep + 2].equals("")) {
-							myapp.set(5, Integer.toString(rootstep + 2));
-							System.out.println("过了missroot");
-							Intent intent = new Intent(missroot.this,
-									missroot.class);
-							startActivity(intent);
-							finish();
+					} else {
+						if (!b4) {
+							root4.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+
+							myapp.playmusic(0);
 						}
-
-						
+					
 
 					}
 
-				} else {
-					root4.setBackgroundResource(R.drawable.red);
-					if (wcon == 0) {
-						myapp.addwrongword(words[wordnum - 1]);
-					}
-					myapp.playmusic(0);
-					defrepeat(1);
-					Intent intent = new Intent(missroot.this, missroot.class);
-					startActivity(intent);
-					finish();
 				}
+			});
+			root5.setOnClickListener(new View.OnClickListener() {
 
-			}
-		});
-		root5.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					String k = (String) root5.getText();
 
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+					if (k.equals(words[wordnum - 1][2]) // 做对了
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
 
-				String k = (String) root5.getText();
-				if (k.equals(words[wordnum - 1][2])
-						|| k.equals(words[wordnum - 1][4])
-						|| k.equals(words[wordnum - 1][6])
-						|| k.equals(words[wordnum - 1][8]))
+					{
+						root5.setBackgroundResource(R.drawable.green);
+						b5=true;
+						root5.setText(getchangeroot(k));
+						myapp.playmusic(1);
+						root[rootkey++] = k;
+						missrootwordTextView.setText(getresultword(rootnum));
+						clicknumtouch++;
 
-				{
-					root5.setBackgroundResource(R.drawable.green);
-					myapp.playmusic(1);
-					clicknum++;
+						if (clicknumtouch == rootnum) { // 都做对了
+							defrepeat(0);
 
-					if (clicknum == rootnum) { // 都做对了
-
-						defrepeat(0);
-						/* System.out.println("过了missroot"); */
-
-						if (words[wordnum - 1][rootstep + 2].equals("")) {
-
-							
-								myapp.set(4, Integer.toString(wordnum + 1));// 下一个词
-								myapp.set(5, Integer.toString(2)); // root没有了需要重置
-							
 							if (words[wordnum][0].equals("")) {
+
+								if (wcon == 0) {
+									myapp.cleanwrongwords();
+								}
+
+								if (wcon == 1) {
+									myapp.cleanCwrongwords();
+								}
 								Intent intent = new Intent(missroot.this,
-										score.class);
+										scorel3.class);
 								startActivity(intent);
+								stopshape();
 								finish();
 
 							}
 							if (!words[wordnum][0].equals("")) {
+								myapp.set(4, Integer.toString(wordnum + 1));// 下一个词
 								Intent intent = new Intent(missroot.this,
 										missroot.class);
 								startActivity(intent);
+								stopshape();
 								finish();
 							}
 
 						}
 
-						if (!words[wordnum - 1][rootstep + 2].equals("")) {
-							myapp.set(5, Integer.toString(rootstep + 2));
-							System.out.println("过了missroot");
-							Intent intent = new Intent(missroot.this,
-									missroot.class);
-							startActivity(intent);
-							finish();
+					} else {
+						if (!b5) {
+							root5.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
+
+							myapp.playmusic(0);
 						}
-
-						
+					
 
 					}
 
-				} else {
-					root5.setBackgroundResource(R.drawable.red);
-					if (wcon == 0) {
-						myapp.addwrongword(words[wordnum - 1]);
-					}
-					myapp.playmusic(0);
-					defrepeat(1);
-					Intent intent = new Intent(missroot.this, missroot.class);
-					startActivity(intent);
-					finish();
 				}
+			});
+			root6.setOnClickListener(new View.OnClickListener() {
 
-			}
-		});
-		root6.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					String k = (String) root6.getText();
 
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				String k = (String) root6.getText();
-				if (k.equals(words[wordnum - 1][2])
-						|| k.equals(words[wordnum - 1][4])
-						|| k.equals(words[wordnum - 1][6])
-						|| k.equals(words[wordnum - 1][8]))
+					if (k.equals(words[wordnum - 1][2]) // 做对了
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
 
-				{
-					root6.setBackgroundResource(R.drawable.green);
-					myapp.playmusic(1);
-					clicknum++;
+					{
+						root6.setBackgroundResource(R.drawable.green);
+						b6=true;
+						root6.setText(getchangeroot(k));
+						myapp.playmusic(1);
+						root[rootkey++] = k;
+						missrootwordTextView.setText(getresultword(rootnum));
+						clicknumtouch++;
 
-					if (clicknum == rootnum) { // 都做对了
+						if (clicknumtouch == rootnum) { // 都做对了
+							defrepeat(0);
 
-						defrepeat(0);
-						/* System.out.println("过了missroot"); */
-
-						if (words[wordnum - 1][rootstep + 2].equals("")) {
-
-							
-								myapp.set(4, Integer.toString(wordnum + 1));// 下一个词
-								myapp.set(5, Integer.toString(2)); // root没有了需要重置
-							
 							if (words[wordnum][0].equals("")) {
+
+								if (wcon == 0) {
+									myapp.cleanwrongwords();
+								}
+
+								if (wcon == 1) {
+									myapp.cleanCwrongwords();
+								}
 								Intent intent = new Intent(missroot.this,
-										score.class);
+										scorel3.class);
 								startActivity(intent);
+								stopshape();
 								finish();
 
 							}
 							if (!words[wordnum][0].equals("")) {
+								myapp.set(4, Integer.toString(wordnum + 1));// 下一个词
 								Intent intent = new Intent(missroot.this,
 										missroot.class);
 								startActivity(intent);
+								stopshape();
 								finish();
 							}
 
 						}
 
-						if (!words[wordnum - 1][rootstep + 2].equals("")) {
-							myapp.set(5, Integer.toString(rootstep + 2));
-							System.out.println("过了missroot");
-							Intent intent = new Intent(missroot.this,
-									missroot.class);
-							startActivity(intent);
-							finish();
-						}
+					} else {
+						if (!b6) {
+							root6.setBackgroundResource(R.drawable.red);
+							myapp.Vibrate();
 
+							myapp.playmusic(0);
+						}
 						
 
 					}
 
-				} else {
-					root6.setBackgroundResource(R.drawable.red); // 做错了的情况
-					if (wcon == 0) {
-						myapp.addwrongword(words[wordnum - 1]);
-					}
-					myapp.playmusic(0);
-					defrepeat(1);
-					Intent intent = new Intent(missroot.this, missroot.class);
-					startActivity(intent);
-					finish();
 				}
+			});
+		}
+		wenhaoButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				stopshape();
+				if (myapp.gethelpcontrol(0) == 0) {
+					myapp.sethelpcontrol(0, 1);
+				}
+
+				alertdDialog = new AlertDialog.Builder(missroot.this)
+						.setTitle("Instruction")
+						.setMessage(getString(R.string.missroothelp))
+						.setIcon(R.drawable.ic_launcher)
+						.setPositiveButton("OK",
+								new DialogInterface.OnClickListener() {
+
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										// TODO Auto-generated method stub
+
+										alertdDialog.cancel();
+										// textViewwr.setBackgroundColor(Color.TRANSPARENT);
+										// timer.start();
+
+									}
+								}).create();
+
+				alertdDialog.show();
 
 			}
 		});
 
 	}
 
-	private String getchangeword(int key) { // 本方法自动创建相对应的缺失root的字符串
+	private String getresultword(int key) { // 本方法自动创建相对应的缺失root的字符串
 		// TODO Auto-generated method stub
-		int k = 2;  //起始root的地点
+
 		String word = words[wordnum - 1][0];
-		for (int i = 0; i < key; i++) {
-			String changeword = words[wordnum - 1][k];
-			String targetword = "";
 
-			for (int j = 0; j < changeword.length(); j++) {
-				targetword = targetword + "_";
+		for (int k = 2; k < 9; k = k + 2) {
+
+			boolean F = false;
+			for (int i = 0; i < key; i++) {
+
+				if (root[i].equals("")) {
+					break;
+				}
+
+				if (!root[i].equals("")) {
+
+					if (words[wordnum - 1][k].equals(root[i])) {
+						F = true;
+
+					}
+				}
+
 			}
-                targetword=targetword+" ";
-			word = word.replace(changeword, targetword);
 
-			k = k + 2;
+			if (!F) {
+				String changeword = words[wordnum - 1][k];
+				String targetword = "";
+
+				for (int j = 0; j < changeword.length(); j++) {
+					targetword = targetword + "_";
+				}
+				// targetword = targetword + " ";
+				word = word.replace(changeword, targetword);
+			}
+
 		}
 
 		System.out.println("替换的字符串" + word);
 
-		/* String changeword = words[wordnum - 1][2]; */
+		return word;
+	}
 
-		/* String targetword = ""; */
-		/*
-		 * for (int i = 0; i < changeword.length(); i++) { targetword =
-		 * targetword + "_"; }
-		 * 
-		 * String word = words[wordnum - 1][0].replace(changeword, targetword);
-		 */
+	private String getchangeword(int key) { // 本方法自动创建相对应的缺失root的字符串
+		// TODO Auto-generated method stub
+		int k = 2; // 起始root的地点
+		String word = words[wordnum - 1][0];
+		String[] changeword = new String[4];
+
+		for (int i = 0; i < changeword.length; i++) {
+			changeword[i] = "";
+		}
+
+		for (int i = 0; i < key; i++) {
+			changeword[i] = words[wordnum - 1][k];
+			k = k + 2;
+		}
+
+		for (int i = 0; i < key - 1; i++) {
+			int x = i;
+
+			for (int j = i + 1; j < key; j++) {
+				if (changeword[x].length() < changeword[j].length()) {
+
+					String p = changeword[x];
+					changeword[x] = changeword[j];
+					changeword[j] = p;
+					x = j;
+
+				}
+
+			}
+		}
+
+		for (int i = 0; i < key; i++) {
+			String targetword = "";
+
+			for (int j = 0; j < changeword[i].length(); j++) {
+				targetword = targetword + "_";
+			}
+			targetword = targetword + " ";
+			// System.out.println("注意"+word);
+			word = word.replace(changeword[i], targetword);
+
+		}
+
+		System.out.println("替换的字符串" + word);
 
 		return word;
 	}
@@ -650,13 +1430,13 @@ public class missroot extends Activity {
 		a5 = 0;
 		a6 = 0;
 
-		// System.out.println(a1+"+"+a2+"+"+a3+"+"+a4+"+"+a5+"+"+a6);
 		System.out.println("多少个root+" + numroot);
 
 		for (int i = 0; i < numroot; i++) {
 
 			if (words[wordnum - 1][2].equals(roots[i])) { // 确定4个root
 				a1 = i;
+				System.out.println("a1拿到");
 				break;
 			}
 		}
@@ -665,6 +1445,7 @@ public class missroot extends Activity {
 
 			if (words[wordnum - 1][4].equals(roots[i])) {
 				a2 = i;
+				System.out.println("a2拿到");
 				break;
 			}
 		}
@@ -673,6 +1454,7 @@ public class missroot extends Activity {
 
 			if (words[wordnum - 1][6].equals(roots[i])) {
 				a3 = i;
+				System.out.println("a3拿到");
 				break;
 			}
 		}
@@ -681,22 +1463,10 @@ public class missroot extends Activity {
 
 			if (words[wordnum - 1][8].equals(roots[i])) {
 				a4 = i;
+				System.out.println("a4拿到");
 				break;
 			}
 		}
-
-		System.out.println(a1 + "+" + a2 + "+" + a3 + "+" + a4 + "+" + a5 + "+"
-				+ a6);
-
-		/* if (a2==0) { */
-
-		/*
-		 * } if (a2 != 0 && a3 == 0) { rootnum=2; } if (a2 != 0 && a3 != 0 && a4
-		 * == 0) { rootnum=3; } if (a2 != 0 && a3 != 0 && a4 != 0 && a5 == 0) {
-		 * rootnum=4; }
-		 */
-
-		System.out.println("本次循环过");
 
 		if (rootnum == 1) { // 证明只有一个root
 
@@ -753,9 +1523,9 @@ public class missroot extends Activity {
 
 				if (Integer.parseInt(myapp.get(6)) == 2) {
 					root1.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 
@@ -769,9 +1539,9 @@ public class missroot extends Activity {
 
 				if (Integer.parseInt(myapp.get(6)) == 2) {
 					root2.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 
@@ -784,9 +1554,9 @@ public class missroot extends Activity {
 				root2.setText(roots[a3]);
 				if (Integer.parseInt(myapp.get(6)) == 2) {
 					root3.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 			if (key == 4) {
@@ -798,9 +1568,9 @@ public class missroot extends Activity {
 				root3.setText(roots[a4]);
 				if (Integer.parseInt(myapp.get(6)) == 2) {
 					root4.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 
@@ -813,9 +1583,9 @@ public class missroot extends Activity {
 				root4.setText(roots[a5]);
 				if (Integer.parseInt(myapp.get(6)) == 2) {
 					root5.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 
@@ -828,9 +1598,9 @@ public class missroot extends Activity {
 				root5.setText(roots[a6]);
 				if (Integer.parseInt(myapp.get(6)) == 2) {
 					root6.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 		}
@@ -884,9 +1654,9 @@ public class missroot extends Activity {
 				if (Integer.parseInt(myapp.get(6)) == 2) {
 					root1.setBackgroundResource(R.drawable.green); // a1
 					root2.setBackgroundResource(R.drawable.green); // a2
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 
@@ -901,9 +1671,9 @@ public class missroot extends Activity {
 				if (Integer.parseInt(myapp.get(6)) == 2) {
 					root2.setBackgroundResource(R.drawable.green);
 					root4.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 
@@ -918,9 +1688,9 @@ public class missroot extends Activity {
 					root3.setBackgroundResource(R.drawable.green);
 					root1.setBackgroundResource(R.drawable.green);
 
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 			if (key == 4) {
@@ -933,9 +1703,9 @@ public class missroot extends Activity {
 				if (Integer.parseInt(myapp.get(6)) == 2) {
 					root4.setBackgroundResource(R.drawable.green);
 					root5.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 
@@ -949,9 +1719,9 @@ public class missroot extends Activity {
 				if (Integer.parseInt(myapp.get(6)) == 2) {
 					root5.setBackgroundResource(R.drawable.green);
 					root6.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 
@@ -965,9 +1735,9 @@ public class missroot extends Activity {
 				if (Integer.parseInt(myapp.get(6)) == 2) {
 					root6.setBackgroundResource(R.drawable.green);
 					root3.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 
@@ -1017,9 +1787,9 @@ public class missroot extends Activity {
 					root2.setBackgroundResource(R.drawable.green);
 					root3.setBackgroundResource(R.drawable.green);
 
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 
@@ -1035,9 +1805,9 @@ public class missroot extends Activity {
 					root2.setBackgroundResource(R.drawable.green);
 					root4.setBackgroundResource(R.drawable.green);
 					root6.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 
@@ -1052,9 +1822,9 @@ public class missroot extends Activity {
 					root3.setBackgroundResource(R.drawable.green);
 					root4.setBackgroundResource(R.drawable.green);
 					root5.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 			if (key == 4) {
@@ -1068,9 +1838,9 @@ public class missroot extends Activity {
 					root4.setBackgroundResource(R.drawable.green);
 					root2.setBackgroundResource(R.drawable.green);
 					root6.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 
@@ -1085,9 +1855,9 @@ public class missroot extends Activity {
 					root5.setBackgroundResource(R.drawable.green);
 					root1.setBackgroundResource(R.drawable.green);
 					root4.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 
@@ -1102,9 +1872,9 @@ public class missroot extends Activity {
 					root6.setBackgroundResource(R.drawable.green);
 					root2.setBackgroundResource(R.drawable.green);
 					root3.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 
@@ -1146,9 +1916,9 @@ public class missroot extends Activity {
 					root4.setBackgroundResource(R.drawable.green);
 					root6.setBackgroundResource(R.drawable.green);
 					root3.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 
@@ -1165,9 +1935,9 @@ public class missroot extends Activity {
 					root5.setBackgroundResource(R.drawable.green);
 					root1.setBackgroundResource(R.drawable.green);
 					root3.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 
@@ -1183,9 +1953,9 @@ public class missroot extends Activity {
 					root4.setBackgroundResource(R.drawable.green);
 					root2.setBackgroundResource(R.drawable.green);
 					root5.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 			if (key == 4) {
@@ -1200,9 +1970,9 @@ public class missroot extends Activity {
 					root6.setBackgroundResource(R.drawable.green);
 					root2.setBackgroundResource(R.drawable.green);
 					root1.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 
@@ -1218,9 +1988,9 @@ public class missroot extends Activity {
 					root4.setBackgroundResource(R.drawable.green);
 					root6.setBackgroundResource(R.drawable.green);
 					root3.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 
@@ -1236,9 +2006,9 @@ public class missroot extends Activity {
 					root1.setBackgroundResource(R.drawable.green);
 					root5.setBackgroundResource(R.drawable.green);
 					root3.setBackgroundResource(R.drawable.green);
-					// myapp.playmusic(1);
+					// myapp.playmusic(1);myapp.setscore(1, rightnum+1);
 					// //playmusic(1);
-					defrepeat(0);
+					// defrepeat(0);
 				}
 			}
 
@@ -1298,128 +2068,22 @@ public class missroot extends Activity {
 
 	}
 
-	public void randword(int key) {
-
-		System.out.println(words[0][0]);
-		System.out.println(words[1][0]);
-		System.out.println(words[2][0]);
-		System.out.println(words[3][0]);
-		System.out.println(words[4][0]);
-
-		System.out.println("————————————————");
-		if (key == 5) {
-			int r = 0;
-			int len = 5;
-
-			int k = 0;
-			int x = 0;
-			boolean[] f = new boolean[20];
-			for (int i = 0; i < f.length; i++) {
-				f[i] = true;
-			}
-
-			for (int i = 0; i < len; i++) {
-
-				boolean find = false;
-
-				while (!find) {
-					double h = Math.random() * 20;
-					x = (int) h;
-
-					find = f[x];
-					r = x;
-
-				}
-
-				f[r] = false;
-
-				System.out.println("随机数" + r);
-
-				if (words[x][0].equals("")) {
-					len++;
-				}
-				if (!words[x][0].equals("")) {
-					ranwords[k] = words[x];
-
-					System.out.println(ranwords[k][0]);
-					k++;
-				}
-
-			}
-
-		}
-
-		if (key == 10) {
-			int r = 0;
-			int len = 10;
-
-			int k = 0;
-			int x = 0;
-			boolean[] f = new boolean[20];
-			for (int i = 0; i < f.length; i++) {
-				f[i] = true;
-			}
-
-			for (int i = 0; i < len; i++) {
-
-				boolean find = false;
-
-				while (!find) {
-					double h = Math.random() * 20;
-					x = (int) h;
-
-					find = f[x];
-					r = x;
-
-				}
-
-				f[r] = false;
-
-				System.out.println("随机数" + r);
-
-				if (words[x][0].equals("")) {
-					len++;
-				}
-				if (!words[x][0].equals("")) {
-					ranwords[k] = words[x];
-
-					System.out.println(ranwords[k][0]);
-					k++;
-				}
-
-			}
-
-		}
-
-	}
-
-	public String[][] getranword() {
-		int numwords = 0;
-
+	private int wordnum() {
+		int k = 0;
 		for (int i = 0; i < words.length; i++) {
 			if (!words[i][0].equals("")) {
-
-				numwords++;
-
+				k++;
 			}
 		}
 
-		if (numwords == 5) {
-			randword(5);
-		}
-
-		if (numwords >= 10) {
-			randword(10);
-		}
-
-		return ranwords;
-
+		return k;
 	}
 
 	private void defrepeat(int key) {
 
 		if (key == 0) {
 			myapp.set(6, Integer.toString(0));
+			timergreencontrol = true;
 		}
 
 		if (key == 1) {
@@ -1429,9 +2093,115 @@ public class missroot extends Activity {
 
 	}
 
+	private void rootempty() {
+
+		for (int i = 0; i < root.length; i++) {
+			root[i] = "";
+		}
+
+	}
+
+	private String getchangeroot(String key) {
+		String k = "";
+		for (int i = 2; i < 9; i = i + 2) {
+			if (words[wordnum - 1][i].equals(key)) {
+				k = words[wordnum - 1][i] + ": " + words[wordnum - 1][i + 1];
+				break;
+			}
+
+		}
+
+		return k;
+	}
+
+	private void stopshape() {
+		timerhelp.cancel();
+
+		if (p1) {
+			helpshape.cancel();
+		}
+
+		wenhaoButton.setImageResource(R.drawable.wenhao);
+
+	}
+
+	public String underlineclear(String key) {
+		String flag = key.replace("_", " ");
+		return flag;
+	}
+
+	@Override
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		super.onRestart();
+		myapp.startlevelmusic();
+
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+
+	}
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		getApplicationContext().unregisterReceiver(receiver);
+
+	}
+
+	protected class HomeKeyEventBroadCastReceiver extends BroadcastReceiver {
+
+		static final String SYSTEM_REASON = "reason";
+		static final String SYSTEM_HOME_KEY = "homekey";// home key
+		static final String SYSTEM_RECENT_APPS = "recentapps";// long home key
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String action = intent.getAction();
+			if (action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
+				String reason = intent.getStringExtra(SYSTEM_REASON);
+				if (reason != null) {
+					if (reason.equals(SYSTEM_HOME_KEY)) {
+						myapp.pauselevelmusic(); // home key处理点
+
+					} else if (reason.equals(SYSTEM_RECENT_APPS)) {
+						myapp.pauselevelmusic();// long home key处理点
+					}
+				}
+			}
+		}
+
+	}
+
+	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			// timer.cancel();
+			myapp.pauselevelmusic();
+			stopshape();
+			if (timergreencontrol) {
+				timergreen.cancel();
+			}
+
 			alertdDialog = new AlertDialog.Builder(this)
 					.setTitle("EXIT LEVEL")
 					.setMessage("Do you want to exit this level learning？")
@@ -1443,8 +2213,8 @@ public class missroot extends Activity {
 								public void onClick(DialogInterface dialog,
 										int which) {
 									// TODO Auto-generated method stub
+									myapp.stoplevelmusic();
 									myapp.empty();
-
 									Intent intent = new Intent(missroot.this,
 											play.class);
 									startActivity(intent);
@@ -1459,12 +2229,26 @@ public class missroot extends Activity {
 								public void onClick(DialogInterface dialog,
 										int which) {
 									// TODO Auto-generated method stub
-									/*
-									 * Intent intent= new
-									 * Intent(Word.this,Play.class);
-									 * startActivity(intent);
-									 */
+									// timer.start();
 									alertdDialog.cancel();
+									myapp.startlevelmusic();
+									if (Integer.parseInt(myapp.get(6)) < 2) {
+										if (timergreencontrol) {
+											timergreen = new Timer();
+											timergreen.schedule(
+													new TimerTask() {
+
+														@Override
+														public void run() {
+															// TODO
+
+															startActivity(intent);
+															finish();
+														}
+													}, sleeptime);
+										}
+
+									}
 								}
 							}).create();
 
@@ -1473,6 +2257,140 @@ public class missroot extends Activity {
 		}
 
 		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.game, menu);
+
+		MenuItem musicsound = menu.add(101, 1, 1, "musicsound");
+		MenuItem buttonsound = menu.add(101, 2, 2, "buttonsound");
+		musicsound.setCheckable(true);
+		buttonsound.setCheckable(true);
+		if (myapp.getmusic(0) == 0) {
+			buttonsound.setChecked(false);
+
+		} else {
+			buttonsound.setChecked(true);
+		}
+		if (myapp.getmusic(1) == 0) {
+			musicsound.setChecked(false);
+
+		} else {
+			musicsound.setChecked(true);
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+
+		if (id == R.id.level) {
+			stopshape();
+			if (timergreencontrol) {
+				timergreen.cancel();
+			}
+			myapp.stoplevelmusic();
+			myapp.empty();
+			Intent intent = new Intent(missroot.this, play.class);
+			startActivity(intent);
+			finish();
+		}
+
+		if (id == R.id.PlayStudyReview) {
+			stopshape();
+			if (timergreencontrol) {
+				timergreen.cancel();
+			}
+			myapp.stoplevelmusic();
+			myapp.empty();
+			Intent intent = new Intent(missroot.this, list.class);
+			startActivity(intent);
+			finish();
+		}
+
+		if (id == R.id.listpage) {
+			stopshape();
+			if (timergreencontrol) {
+				timergreen.cancel();
+			}
+			myapp.stoplevelmusic();
+			myapp.empty();
+			Intent intent = new Intent(missroot.this, listselectactivity.class);
+			startActivity(intent);
+			finish();
+		}
+
+		if (id == R.id.coursepage) {
+			stopshape();
+			if (timergreencontrol) {
+				timergreen.cancel();
+			}
+			myapp.stoplevelmusic();
+			myapp.empty();
+			Intent intent = new Intent(missroot.this, MainActivity.class);
+			startActivity(intent);
+			finish();
+		}
+
+		if (id == R.id.Exit) {
+
+			System.exit(0);
+
+			return true;
+		}
+
+		if (id == 1) { // musicsound
+
+			if (item.isChecked()) {
+				item.setChecked(false);
+				myapp.setmusic(1, 0);
+				myapp.stoplevelmusic();
+
+			} else {
+				item.setChecked(true);
+				myapp.setmusic(1, 1);
+				myapp.startlevelmusic();
+
+			}
+			return true;
+		}
+
+		if (id == 2) {
+
+			if (item.isChecked()) {
+				item.setChecked(false);
+				myapp.setmusic(0, 0);
+			} else {
+				item.setChecked(true);
+				myapp.setmusic(0, 1);
+			}
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
+	public void changecolorscore(int key) {
+		if (key >= 86) {
+			textViewscore.setTextColor(Color.GREEN);
+
+		}
+		if (key <= 64) {
+			textViewscore.setTextColor(Color.RED);
+		}
+		if (key > 64 && key < 86)
+
+		{
+			textViewscore.setTextColor(Color.YELLOW);
+		}
 	}
 
 }

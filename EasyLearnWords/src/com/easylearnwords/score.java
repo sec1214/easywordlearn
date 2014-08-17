@@ -3,19 +3,26 @@ package com.easylearnwords;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.R.integer;
+import level2.definitionl2;
+import level2.wordsl2;
+
+import Database.managedb;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,25 +30,50 @@ public class score extends Activity {
 
 	private mypublicvalue myapp;
 	private Dialog alertdDialog;
-	private TextView finish, score, review;
-	private ListView correct, incorret;
+	private TextView score, review;
+	private ListView correct, incorret;  // listview to show correct and incorrect wordlist.
 	private ArrayAdapter<String> adaptercorrect;
 	private ArrayAdapter<String> adapterincorrect;
 	private String[][] wrongwords;
 	private String[][] words;
 	private boolean[] f = new boolean[21];
+	private LinearLayout defwordline, idrootline, rootline; // accoring to different level ,we can close relevent score record.
+	private TextView textView1, textView2, textViewlevel;
+	private int wcon; // review control.  
+	private TextView main;
+	private int scorenum, defwordscorenum, rootscorenum;
 
-	private int wcon; // 复习控制阀
+	private TextView defwordscore, rootscore, idrootscore;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.score);
+		setContentView(R.layout.zscore);
+		textView1 = (TextView) this.findViewById(R.id.textview1);
+		textView2 = (TextView) this.findViewById(R.id.textview2);
+		textViewlevel = (TextView) this.findViewById(R.id.leveltext);
+		idrootline = (LinearLayout) this.findViewById(R.id.idrootline);
+		idrootline.setVisibility(View.GONE);
 
-		finish = (TextView) this.findViewById(R.id.finish);
+		defwordscore = (TextView) this.findViewById(R.id.defwordscore);
+		rootscore = (TextView) this.findViewById(R.id.rootscore);
+		idrootscore = (TextView) this.findViewById(R.id.idrootscore);
 		score = (TextView) this.findViewById(R.id.score);
 		review = (TextView) this.findViewById(R.id.reviewbutton);
+		main = (TextView) this.findViewById(R.id.mainbutton);
+
+		main.setOnClickListener(new View.OnClickListener() { // main button to list.class
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(score.this, list.class);
+				myapp.empty();
+				startActivity(intent);
+				finish();
+			}
+		});
 
 		correct = (ListView) this.findViewById(R.id.Listlistviewcorrect);
 		incorret = (ListView) this.findViewById(R.id.Listlistviewincorrect);
@@ -50,14 +82,17 @@ public class score extends Activity {
 		List<String> listincorrect = new ArrayList<String>();
 
 		myapp = (mypublicvalue) getApplication();
-
-		wcon = myapp.getreviewwrongcontrol();
+		myapp.stoplevelmusic();
+		textView1.setText(underlineclear(myapp.get(0))); // course 
+		textView2.setText(myapp.get(1)); // list 
+		textViewlevel.setText(" Level: " + myapp.get(3));// level
+		wcon = myapp.getreviewwrongcontrol(); // review control
 
 		if (wcon == 0) {
 
 			words = myapp.getwordslv1();
 			wrongwords = myapp.getCwrongwords();
-			bool();
+			bool(); // this method is used to define when words is "". the f is false.
 		}
 
 		if (wcon == 1) {
@@ -67,10 +102,24 @@ public class score extends Activity {
 
 		}
 
-		int k = (int) (myapp.getscore(1) / myapp.getscore(0));
+		scorenum = (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100);
 
+		defwordscorenum = (int) ((myapp.getdefwordscore(1) / myapp
+				.getdefwordscore(0)) * 100);
+
+		rootscorenum = (int) ((myapp.getrootscore(1) / myapp.getrootscore(0)) * 100);
+
+		dbmg();  // store every score into databse
+//
+		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
 		score.setText((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100)
 				+ "%");
+
+		defwordscore.setText((int) ((myapp.getdefwordscore(1) / myapp
+				.getdefwordscore(0)) * 100) + "%");
+		rootscore
+				.setText((int) ((myapp.getrootscore(1) / myapp.getrootscore(0)) * 100)
+						+ "%");
 
 		for (int i = 0; i < wrongwords.length; i++) {
 
@@ -80,7 +129,7 @@ public class score extends Activity {
 
 		}
 
-		for (int i = 0; i < words.length; i++) {
+		for (int i = 0; i < words.length; i++) { // this is used to select right words.
 
 			for (int j = 0; j < wrongwords.length; j++) {
 
@@ -112,9 +161,7 @@ public class score extends Activity {
 		correct.setAdapter(adaptercorrect);
 
 		if (wcon == 1) {
-			
-			
-			
+
 			correct.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
@@ -123,15 +170,15 @@ public class score extends Activity {
 					// TODO Auto-generated method stub
 					Intent intent = new Intent(score.this, scoreword.class);
 
-					String value = (String) correct.getItemAtPosition(position) // postion
-																				// 1号位
-																				// 从0开始算
+					String value = correct.getItemAtPosition(position) // postion
+																		// 1号位
+																		// 从0开始算
 							.toString();
 
 					for (int i = 0; i < words.length; i++) {
 						if (value.equals(words[i][0])) {
 
-							intent.putExtra("name", words[i][0]);
+							intent.putExtra("name", words[i][0]);  // deliever string by intent method.
 
 							String string = null;
 
@@ -161,7 +208,7 @@ public class score extends Activity {
 											+ words[i][9] + ".\n" + "\n";
 								}
 
-								intent.putExtra("string", string);
+								intent.putExtra("string", string);   
 
 							}
 							break;
@@ -171,7 +218,7 @@ public class score extends Activity {
 
 				}
 			});
-			
+
 			incorret.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
@@ -180,9 +227,9 @@ public class score extends Activity {
 					// TODO Auto-generated method stub
 					Intent intent = new Intent(score.this, scoreword.class);
 
-					String value = (String) incorret.getItemAtPosition(position) // postion
-																				// 1号位
-																				// 从0开始算
+					String value = incorret.getItemAtPosition(position) // postion
+																		// 1号位
+																		// 从0开始算
 							.toString();
 
 					for (int i = 0; i < wrongwords.length; i++) {
@@ -194,8 +241,8 @@ public class score extends Activity {
 
 							if (!wrongwords[i][0].equals("")) {
 
-								string = "Definition: " + wrongwords[i][1] + ".\n"
-										+ "\n";
+								string = "Definition: " + wrongwords[i][1]
+										+ ".\n" + "\n";
 
 								if (!wrongwords[i][2].equals("")) {
 
@@ -228,36 +275,32 @@ public class score extends Activity {
 
 				}
 			});
-			
-			
-			
-			
-			
-			
-			review.setText("End");
+
+			review.setText("Next Level"); // go to next level
 			review.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-
-					Intent intent = new Intent(score.this, list.class);
 					myapp.empty();
-					startActivity(intent);
-					finish();
-				}
-			});
+					managedb db = new managedb(getBaseContext());
+					myapp.setwords(db.getwords());
 
-			finish.setOnClickListener(new View.OnClickListener() {
+					myapp.set(3, Integer.toString(2));
 
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
+					double h = Math.random();
 
-					Intent intent = new Intent(score.this, list.class);
-					myapp.empty();
-					startActivity(intent);
+					if (h < 0.5) {
+						Intent intent = new Intent(score.this, wordsl2.class);
 
+						startActivity(intent);
+
+						// finish();
+					} else {
+						Intent intent = new Intent(score.this,
+								definitionl2.class);
+						startActivity(intent);
+					}
 					finish();
 				}
 			});
@@ -274,9 +317,9 @@ public class score extends Activity {
 					// TODO Auto-generated method stub
 					Intent intent = new Intent(score.this, scoreword.class);
 
-					String value = (String) correct.getItemAtPosition(position) // postion
-																				// 1号位
-																				// 从0开始算
+					String value = correct.getItemAtPosition(position) // postion
+																		// 1号位
+																		// 从0开始算
 							.toString();
 
 					for (int i = 0; i < words.length; i++) {
@@ -322,7 +365,7 @@ public class score extends Activity {
 
 				}
 			});
-			
+
 			incorret.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
@@ -331,9 +374,9 @@ public class score extends Activity {
 					// TODO Auto-generated method stub
 					Intent intent = new Intent(score.this, scoreword.class);
 
-					String value = (String) incorret.getItemAtPosition(position) // postion
-																				// 1号位
-																				// 从0开始算
+					String value = incorret.getItemAtPosition(position) // postion
+																		// 1号位
+																		// 从0开始算
 							.toString();
 
 					for (int i = 0; i < wrongwords.length; i++) {
@@ -345,8 +388,8 @@ public class score extends Activity {
 
 							if (!wrongwords[i][0].equals("")) {
 
-								string = "Definition: " + wrongwords[i][1] + ".\n"
-										+ "\n";
+								string = "Definition: " + wrongwords[i][1]
+										+ ".\n" + "\n";
 
 								if (!wrongwords[i][2].equals("")) {
 
@@ -379,42 +422,42 @@ public class score extends Activity {
 
 				}
 			});
-			
-			
 
-			if (k == 100) {
+			if (scorenum == 100) {  // it means if socre is 100. there is not review condition.
 
-				myapp.empty();
-				review.setText("End");
+				review.setText("Next Level");
 				review.setOnClickListener(new View.OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
+						myapp.empty();
+						managedb db = new managedb(getBaseContext());
+						myapp.setwords(db.getwords());
 
-						Intent intent = new Intent(score.this, list.class);
-						startActivity(intent);
-						finish();
-					}
-				});
+						myapp.set(3, Integer.toString(2));
 
-				finish.setOnClickListener(new View.OnClickListener() {
+						double h = Math.random();
 
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
+						if (h < 0.5) {
+							Intent intent = new Intent(score.this,
+									wordsl2.class);
 
-						Intent intent = new Intent(score.this, list.class);
+							startActivity(intent);
 
-						startActivity(intent);
-
+							// finish();
+						} else {
+							Intent intent = new Intent(score.this,
+									definitionl2.class);
+							startActivity(intent);
+						}
 						finish();
 					}
 				});
 
 			}
 
-			if (k < 100) {
+			if (scorenum < 100) {
 
 				myapp.empty1();
 
@@ -432,19 +475,6 @@ public class score extends Activity {
 					}
 				});
 
-				finish.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-
-						Intent intent = new Intent(score.this, root.class);
-
-						startActivity(intent);
-
-						finish();
-					}
-				});
 			}
 
 		}
@@ -462,13 +492,43 @@ public class score extends Activity {
 		}
 
 	}
-	
+
+	public void dbmg() {
+
+		managedb db = new managedb(getBaseContext());
+
+		if (db.coursexist(myapp.get(0))) { // judge weather exist the table in database .判断数据库存在否
+			System.out.println("数据库有");
+		} else {
+
+			System.out.println("数据库无");
+			db.coursereivewcreate(myapp.get(0)); // if not exist, create it. 创建数据
+			System.out.println("创建成功");
+		}
+
+		if (wcon == 0) {  // delete the order record.
+			db.deletewrongworddb(); // 删除原来的错词
+			System.out.println("删除成功");
+		}
+		db.insertscore(scorenum, defwordscorenum, rootscorenum, 0, 0); // store every score.
+		db.insertdb(wrongwords, "0"); // store worngwords in databse  第二个参数为默认参数不用管 写入数据库
+		System.out.println("输入成功");
+
+		db.cleantdata(); // 清扫数据库 clean wrongwords when it is ""；
+		System.out.println("清扫数据库");
+
+	}
+
+	public String underlineclear(String key) {
+		String flag = key.replace("_", " ");
+		return flag;
+	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			 alertdDialog = new AlertDialog.Builder(this)
+			alertdDialog = new AlertDialog.Builder(this)
 					.setTitle("EXIT LEVEL")
 					.setMessage("Do you want to exit this level learning？")
 					.setIcon(R.drawable.ic_launcher)
@@ -507,5 +567,87 @@ public class score extends Activity {
 		return super.onKeyDown(keyCode, event);
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
 
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+
+		MenuItem musicsound = menu.add(101, 1, 1, "musicsound");
+		MenuItem buttonsound = menu.add(101, 2, 2, "buttonsound");
+		musicsound.setCheckable(true);
+		buttonsound.setCheckable(true);
+		if (myapp.getmusic(0) == 0) {
+			buttonsound.setChecked(false);
+
+		} else {
+			buttonsound.setChecked(true);
+		}
+		if (myapp.getmusic(1) == 0) {
+			musicsound.setChecked(false);
+
+		} else {
+			musicsound.setChecked(true);
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+
+		if (id == R.id.Exit) {
+
+			System.exit(0);
+
+			return true;
+		}
+
+		if (id == 1) { // musicsound
+
+			if (item.isChecked()) {
+				item.setChecked(false);
+				myapp.setmusic(1, 0);
+
+			} else {
+				item.setChecked(true);
+				myapp.setmusic(1, 1);
+
+			}
+			return true;
+		}
+
+		if (id == 2) {
+
+			if (item.isChecked()) {
+				item.setChecked(false);
+				myapp.setmusic(0, 0);
+			} else {
+				item.setChecked(true);
+				myapp.setmusic(0, 1);
+			}
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+	public void changecolorscore(int key){
+		if (key>=86) {
+			score.setTextColor(Color.GREEN);
+			
+		}
+		if (key<=64) {
+			score.setTextColor(Color.RED);
+		}
+		if (key>64&&key<86) 
+			
+	 {
+			score.setTextColor(Color.YELLOW);
+		}
+	}
+	
 }
