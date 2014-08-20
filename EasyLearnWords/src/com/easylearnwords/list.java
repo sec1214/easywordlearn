@@ -1,5 +1,8 @@
 package com.easylearnwords;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
+
 import review.reviwlevel;
 import Database.managedb;
 import android.app.Activity;
@@ -72,6 +75,18 @@ public class list extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				
+				 EasyTracker easyTracker = EasyTracker.getInstance(list.this);
+
+				  // MapBuilder.createEvent().build() returns a Map of event fields and values
+				  // that are set and sent with the hit.
+				  easyTracker.send(MapBuilder
+				      .createEvent(myapp.get(0),     // Event category (required)
+				                   "button_press_to_play",  // Event action (required)
+				                   myapp.get(1),   // Event label
+				                   null)            // Event value
+				      .build()
+				  );
 
 				playButton.setBackgroundResource(R.drawable.green);
 				myapp.playmusic(1);

@@ -4,12 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.easylearnwords.R;
-import com.easylearnwords.list;
-import com.easylearnwords.mypublicvalue;
-
-import com.easylearnwords.scoreword;
-
 import Database.managedb;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -26,11 +20,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.easylearnwords.R;
+import com.easylearnwords.list;
+import com.easylearnwords.mypublicvalue;
+import com.easylearnwords.scoreword;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
 
 public class reviewscore extends Activity {
 
@@ -148,6 +149,45 @@ public class reviewscore extends Activity {
 		defwordscore.setText(Integer.toString(k[2])+"%");
 		rootscore.setText(Integer.toString(k[1])+"%");
 		idrootscore.setText(Integer.toString(k[3])+"%");
+		
+		
+		long s0 = (long)k[0];
+
+		
+		  EasyTracker easyTracker = EasyTracker.getInstance(this);
+
+		  // MapBuilder.createEvent().build() returns a Map of event fields and values
+		  // that are set and sent with the hit.
+		  easyTracker.send(MapBuilder
+		      .createEvent("Total Average Score",     // Event category (required)
+		    		  myapp.get(0),  // Event action (required)
+		    		  myapp.get(1),   // Event label
+		    		  s0)            // Event value
+		      .build()
+		  );
+		  
+
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
 
 		for (int i = 0; i < wrongwords.length; i++) {
 
