@@ -3,10 +3,6 @@ package com.easylearnwords;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.easylearnwords.play.HomeKeyEventBroadCastReceiver;
-
-import level3.missroot;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -19,21 +15,19 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
-
 import android.os.Bundle;
 import android.os.CountDownTimer;
-
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
-
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.google.analytics.tracking.android.EasyTracker;
 
 public class root extends Activity {
 
@@ -126,6 +120,8 @@ public class root extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+
+        EasyTracker.getInstance(this).activityStart(this);
 		setContentView(R.layout.zroot);
 		receiver = new HomeKeyEventBroadCastReceiver();
 		getApplicationContext().registerReceiver(receiver,
@@ -3065,7 +3061,7 @@ public class root extends Activity {
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-
+		EasyTracker.getInstance(this).activityStop(this);
 	}
 
 	@Override

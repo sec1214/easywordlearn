@@ -792,6 +792,12 @@ containing a value of this type.
         public static final int abc_config_allowActionMenuItemTextWithIcon=0x7f070004;
         public static final int abc_config_showMenuShortcutsWhenKeyboardPresent=0x7f070003;
         public static final int abc_split_action_bar_is_narrow=0x7f070002;
+        /** Enable automatic activity tracking
+         */
+        public static final int ga_autoActivityTracking=0x7f070006;
+        /** Enable automatic exception tracking
+         */
+        public static final int ga_reportUncaughtExceptions=0x7f070007;
     }
     public static final class color {
         public static final int abc_search_url_text_holo=0x7f080011;
@@ -1181,6 +1187,7 @@ containing a value of this type.
          showAsAction="ifRoom" items can fit. "always" items can override this. 
          */
         public static final int abc_max_action_buttons=0x7f0a0000;
+        public static final int ga_dispatchPeriod=0x7f0a0001;
     }
     public static final class layout {
         public static final int abc_action_bar_decor=0x7f030000;
@@ -1299,27 +1306,30 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0b000b;
-        public static final int action_settings=0x7f0b0010;
-        public static final int app_name=0x7f0b000d;
-        public static final int app_name_label=0x7f0b000e;
-        public static final int buttonvolume=0x7f0b0020;
-        public static final int course=0x7f0b0011;
-        public static final int defwordhelp=0x7f0b001a;
-        public static final int greenhelp=0x7f0b001e;
-        public static final int hello_world=0x7f0b000f;
-        public static final int idroothelp=0x7f0b001c;
-        public static final int level1=0x7f0b0012;
-        public static final int level2=0x7f0b0013;
-        public static final int level3=0x7f0b0014;
-        public static final int level4=0x7f0b0015;
-        public static final int level5=0x7f0b0016;
-        public static final int level6=0x7f0b0017;
-        public static final int level7=0x7f0b0018;
-        public static final int level8=0x7f0b0019;
-        public static final int missroothelp=0x7f0b001d;
-        public static final int musicvolume=0x7f0b0021;
-        public static final int roothelp=0x7f0b001b;
-        public static final int sleeptime=0x7f0b001f;
+        public static final int action_settings=0x7f0b0011;
+        public static final int app_name=0x7f0b000e;
+        public static final int app_name_label=0x7f0b000f;
+        public static final int buttonvolume=0x7f0b0021;
+        public static final int course=0x7f0b0012;
+        public static final int defwordhelp=0x7f0b001b;
+        /** Replace placeholder ID with your tracking ID
+         */
+        public static final int ga_trackingId=0x7f0b000d;
+        public static final int greenhelp=0x7f0b001f;
+        public static final int hello_world=0x7f0b0010;
+        public static final int idroothelp=0x7f0b001d;
+        public static final int level1=0x7f0b0013;
+        public static final int level2=0x7f0b0014;
+        public static final int level3=0x7f0b0015;
+        public static final int level4=0x7f0b0016;
+        public static final int level5=0x7f0b0017;
+        public static final int level6=0x7f0b0018;
+        public static final int level7=0x7f0b0019;
+        public static final int level8=0x7f0b001a;
+        public static final int missroothelp=0x7f0b001e;
+        public static final int musicvolume=0x7f0b0022;
+        public static final int roothelp=0x7f0b001c;
+        public static final int sleeptime=0x7f0b0020;
     }
     public static final class style {
         /** 
