@@ -13,6 +13,6 @@
     <item name="red_pink" type="color">#FF0099</item>
     <item name="yellow" type="color">#FFFF00</item>
     <item name="idroot" type="color">#FFFF4444</item>
-    <item name="root" type="color">#FFFF4444</item>
+    <item name="root" type="color">#000000</item>
 
 </resources>

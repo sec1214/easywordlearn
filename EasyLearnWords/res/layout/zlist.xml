@@ -22,6 +22,14 @@
         android:gravity="center_horizontal"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
+       <TextView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:background="@color/brown"
+       android:padding="10dp"
+       android:text="Etymology is the study of the evolution of words. Learning where words come from will help you create associations to remember them and even understand vocabulary you’ve never seen before… And its tons of fun."
+       android:textColor="@color/white"
+       android:textSize="20dp" />
    <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,16 +60,8 @@
     
  
     </LinearLayout>
-    
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:background="@color/blue"
-        android:padding="10dp"
-        android:text="Etymology is the study of the evolution of words. Learning where words come from will help you create associations to remember them and even understand vocabulary you’ve never seen before… And its tons of fun."
-        android:textColor="@color/white"
-        android:textSize="20dp" />
+
+
     
     <LinearLayout
         android:layout_width="match_parent"

@@ -182,7 +182,8 @@ public class definitionl2 extends Activity {
 			}
 			if (con == 1) {
 				textViewwr.setText("Part2");
-				textViewwr.setBackgroundColor(Color.GREEN);
+				//textViewwr.setTextColor(Color.WHITE);
+				//textViewwr.setBackgroundColor(Color.GREEN);
 
 			}
 

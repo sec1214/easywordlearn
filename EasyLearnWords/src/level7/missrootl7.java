@@ -250,8 +250,8 @@ public class missrootl7 extends Activity {
 		}
 		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
 		textViewword.setText("Word: " + wordnum + " / " + wordnum()); // 设定显示几号word的控件
-		textViewscore.setText("Score:"
-				+ (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100) + "%");
+		textViewscore.setText(
+				 (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100) + "%");
 
 		missrootworddeftTextView = (TextView) this
 				.findViewById(R.id.missrootworddefview);
