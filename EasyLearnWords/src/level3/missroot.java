@@ -3,16 +3,6 @@ package level3;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.easylearnwords.R;
-import com.easylearnwords.R.color;
-
-import com.easylearnwords.MainActivity;
-import com.easylearnwords.list;
-import com.easylearnwords.listselectactivity;
-import com.easylearnwords.mypublicvalue;
-import com.easylearnwords.play;
-
-import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -21,20 +11,26 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.easylearnwords.MainActivity;
+import com.easylearnwords.R;
+import com.easylearnwords.list;
+import com.easylearnwords.listselectactivity;
+import com.easylearnwords.mypublicvalue;
+import com.easylearnwords.play;
+import com.google.analytics.tracking.android.EasyTracker;
 
 public class missroot extends Activity {
 
@@ -142,6 +138,7 @@ public class missroot extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		EasyTracker.getInstance(this).activityStart(this);
 		setContentView(R.layout.zmissroot);
 		receiver = new HomeKeyEventBroadCastReceiver();
 		getApplicationContext().registerReceiver(receiver,
@@ -2149,7 +2146,7 @@ public class missroot extends Activity {
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-
+		EasyTracker.getInstance(this).activityStop(this);
 	}
 
 	@Override

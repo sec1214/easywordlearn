@@ -4,12 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import level5.idroortsl5;
-import com.easylearnwords.R;
-import com.easylearnwords.list;
-import com.easylearnwords.mypublicvalue;
-import com.easylearnwords.play;
-import com.easylearnwords.scoreword;
-
 import Database.managedb;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -23,10 +17,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.easylearnwords.R;
+import com.easylearnwords.list;
+import com.easylearnwords.mypublicvalue;
+import com.easylearnwords.play;
+import com.easylearnwords.scoreword;
+import com.google.analytics.tracking.android.EasyTracker;
 
 public class scorel4 extends Activity {
 
@@ -45,11 +46,14 @@ public class scorel4 extends Activity {
 	private int wcon; // ¸´Ï°¿ØÖÆ·§
 	private TextView main;
 	private int scorenum, defwordscorenum, rootscorenum, idrootscorenum;
+	
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.zscore);
 
 		defwordscore = (TextView) this.findViewById(R.id.defwordscore);

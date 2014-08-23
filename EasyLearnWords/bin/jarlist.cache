@@ -1,5 +1,7 @@
 # cache for current jar dependency. DO NOT EDIT.
 # format is <lastModified> <length> <SHA-1> <path>
 # Encoding is UTF-8
-1403471244981 627582 cb6883d96005bc85b3e868f204507ea5b4fa9bbf F:\COMPUTER WORK\EasyLearnWords\libs\android-support-v4.jar
-1389979890000 627582 cb6883d96005bc85b3e868f204507ea5b4fa9bbf F:\COMPUTER WORK\appcompat_v7\libs\android-support-v4.jar
+1394401032000 511310 db1e65d9e3ee616f871cb23120fbea8f18ad3e4c C:\Users\alex\Desktop\aa\EasyLearnWords\libs\libGoogleAnalyticsServices.jar
+1394401032000 511310 db1e65d9e3ee616f871cb23120fbea8f18ad3e4c C:\Users\alex\Desktop\aa\appcompat_v7\libs\libGoogleAnalyticsServices.jar
+1403410046000 627582 cb6883d96005bc85b3e868f204507ea5b4fa9bbf C:\Users\alex\Desktop\aa\EasyLearnWords\libs\android-support-v4.jar
+1389918690000 627582 cb6883d96005bc85b3e868f204507ea5b4fa9bbf C:\Users\alex\Desktop\aa\appcompat_v7\libs\android-support-v4.jar

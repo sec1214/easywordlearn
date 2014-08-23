@@ -4,16 +4,6 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import level3.missroot;
-
-import com.easylearnwords.R;
-
-import com.easylearnwords.MainActivity;
-import com.easylearnwords.list;
-import com.easylearnwords.listselectactivity;
-import com.easylearnwords.mypublicvalue;
-import com.easylearnwords.play;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -34,6 +24,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.easylearnwords.MainActivity;
+import com.easylearnwords.R;
+import com.easylearnwords.list;
+import com.easylearnwords.listselectactivity;
+import com.easylearnwords.mypublicvalue;
+import com.easylearnwords.play;
+import com.google.analytics.tracking.android.EasyTracker;
 
 public class wordsl4 extends Activity {
 
@@ -181,6 +179,7 @@ public class wordsl4 extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		EasyTracker.getInstance(this).activityStart(this);
 		setContentView(R.layout.zword);
 		
 		sleeptime =Long.parseLong(this.getString(R.string.sleeptime));
@@ -1159,6 +1158,7 @@ public class wordsl4 extends Activity {
 		// TODO Auto-generated method stub
 		super.onStop();
 		System.out.println("Stop");
+		EasyTracker.getInstance(this).activityStop(this);
 
 	}
 

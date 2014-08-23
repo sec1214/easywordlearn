@@ -4,10 +4,6 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.easylearnwords.play.HomeKeyEventBroadCastReceiver;
-
-import level3.missroot;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -20,16 +16,16 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
-
 import android.os.Bundle;
 import android.os.CountDownTimer;
-
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.google.analytics.tracking.android.EasyTracker;
 
 public class words extends Activity {
 
@@ -123,6 +119,7 @@ public class words extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		EasyTracker.getInstance(this).activityStart(this);
 		setContentView(R.layout.zword);
 		System.out.println("Word.class Æô¶¯");
 		receiver = new HomeKeyEventBroadCastReceiver();
@@ -1923,6 +1920,7 @@ public class words extends Activity {
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);
 
 	}
 
