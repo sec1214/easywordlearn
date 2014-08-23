@@ -25,6 +25,8 @@ public class mypublicvalue extends Application {
 	
 	public float buttonvolume;
 	public float musicvolume;
+	public float splashmusicvolume;
+
 
 	public String tablename; // 0 代表表名 1代表list名 2代表几号list的阿拉伯数字
 	public String listname;
@@ -928,7 +930,7 @@ public class mypublicvalue extends Application {
 	public void startsplashmusic() {
 
 		if (musicsound == 1) {
-			mediaPlayer.setVolume(musicvolume, musicvolume);
+			mediaPlayer.setVolume(splashmusicvolume, splashmusicvolume);
 			mediaPlayer.start();
 			
 		}
@@ -995,6 +997,8 @@ public class mypublicvalue extends Application {
 		buttonvolume=Float.parseFloat(getResources().getString(R.string.buttonvolume));
 
 	    musicvolume=Float.parseFloat(getResources().getString(R.string.musicvolume));
+	    splashmusicvolume=Float.parseFloat(getResources().getString(R.string.splashmusicvolume));
+
 		
 		mediaPlayer = MediaPlayer.create(this, R.raw.splashmusic);		
 		mediaPlayer.setLooping(true);		
