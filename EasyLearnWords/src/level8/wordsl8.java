@@ -82,6 +82,7 @@ public class wordsl8 extends Activity {
 
 			if (k == 5) {
 				textViewwr.setBackgroundColor(Color.RED);
+				textViewwr.setTextColor(Color.WHITE);
 			}
 			if (k <= 5) {
 				myapp.playmusic(2);
