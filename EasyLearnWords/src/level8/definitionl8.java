@@ -219,8 +219,8 @@ public class definitionl8 extends Activity {
 		}
 
 		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
-		textViewscore.setText("Score:"
-				+ (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100) + "%");
+		textViewscore.setText(
+			  (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100) + "%");
 
 		wordnum = Integer.parseInt(myapp.get(4));
 

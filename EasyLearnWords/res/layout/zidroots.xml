@@ -13,8 +13,6 @@
         android:gravity="center_horizontal"
         android:textColor="@android:color/white"
         android:textSize="30sp" />
-
-    
     
        <TableLayout
         android:layout_width="match_parent"

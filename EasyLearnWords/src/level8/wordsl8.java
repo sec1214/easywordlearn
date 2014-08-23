@@ -218,8 +218,8 @@ public class wordsl8 extends Activity {
 			textViewwr.setBackgroundColor(Color.RED);
 		}
 		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
-		textViewscore.setText("Score:"
-				+ (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100) + "%");
+		textViewscore.setText(
+				 (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100) + "%");
 
 		wordnum = Integer.parseInt(myapp.get(4));
 		textViewword.setText("Word: " + wordnum + " / " + wordnum()); // 设定显示几号word的控件

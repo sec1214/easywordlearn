@@ -208,8 +208,8 @@ public class rootl2 extends Activity {
 			textViewword.setText("Word: " + wordnum + " / " + wordnum()); // 设定显示几号word的控件
 		}
 		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
-		textViewscore.setText("Score:"
-				+ (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100)
+		textViewscore.setText(
+				(int) ((myapp.getscore(1) / myapp.getscore(0)) * 100)
 				+ "%");
 		worddefview.setText(words[wordnum - 1][1]);
 		rootTextView = (TextView) this.findViewById(R.id.roottestview);
