@@ -197,7 +197,7 @@ public class idroortsl2 extends Activity {
 			}
 			if (con == 1) {
 				textViewwr.setText("Part2");
-				textViewwr.setBackgroundColor(Color.GREEN);
+				//textViewwr.setBackgroundColor(Color.GREEN);
 			}
 
 		}
