@@ -14,7 +14,7 @@
         android:background="@color/blue"
         android:gravity="center_horizontal"
         android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:textSize="30sp" />
     
     
     <ListView 
