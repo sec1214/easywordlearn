@@ -45,15 +45,19 @@ public class reviwlevel extends Activity {
 		receiver = new HomeKeyEventBroadCastReceiver();
 		getApplicationContext().registerReceiver(receiver,
 				new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
-		textView1 = (TextView) this.findViewById(R.id.textview1);
-		textView2 = (TextView) this.findViewById(R.id.textview2);
+		textView1 = (TextView) this.findViewById(R.id.textview1);  //course name
+		textView2 = (TextView) this.findViewById(R.id.textview2);  //level name
 
 		myapp = (mypublicvalue) getApplication();
 
-		managedb db = new managedb(getBaseContext());
+		managedb db = new managedb(getBaseContext()); 	//store 20 words in
+														// public value
+														//
+		
+		
 		myapp.setwords(db.getwords());
 
-		textView1.setText(myapp.get(0));
+		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
 
 		levelListView = (ListView) this.findViewById(R.id.levellist);
@@ -95,6 +99,8 @@ public class reviwlevel extends Activity {
 		});
 
 	}
+	
+
 
 	private void addlistinformation() {
 
@@ -114,6 +120,11 @@ public class reviwlevel extends Activity {
 
 	}
 
+	public String underlineclear(String key) {
+		String flag = key.replace("_", " ");
+		return flag;
+	}
+	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub

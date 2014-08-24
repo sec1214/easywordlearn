@@ -51,6 +51,9 @@ public class reviewscore extends Activity {
 
 	private int level;
 	private BroadcastReceiver receiver;
+	
+	
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
