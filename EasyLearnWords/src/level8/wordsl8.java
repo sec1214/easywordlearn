@@ -74,7 +74,7 @@ public class wordsl8 extends Activity {
 
 			int k = (int) (millisUntilFinished / 1000);
 
-			textViewwr.setText("Time: " + k + "'s");
+			textViewwr.setText(k + "'s");
 
 			if (k > 5) {
 				myapp.playmusic(4);
