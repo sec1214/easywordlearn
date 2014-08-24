@@ -334,7 +334,7 @@ public class MainActivity extends Activity {
 
 			alertdDialog = new AlertDialog.Builder(this)
 					.setTitle("Delete Review Record")
-					.setMessage("Do you want to delete review record?")
+					.setMessage("Do you want to delete the review record?")
 					.setIcon(R.drawable.ic_launcher)
 					.setPositiveButton("Confirm",
 							new DialogInterface.OnClickListener() {
