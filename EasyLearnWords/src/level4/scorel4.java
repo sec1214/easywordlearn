@@ -529,7 +529,7 @@ public class scorel4 extends Activity {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			alertdDialog = new AlertDialog.Builder(this)
 					.setTitle("EXIT LEVEL")
-					.setMessage("Do you want to exit this level learning£¿")
+					.setMessage("Do you want to exit?")
 					.setIcon(R.drawable.ic_launcher)
 					.setPositiveButton("Confirm",
 							new DialogInterface.OnClickListener() {

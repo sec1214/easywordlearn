@@ -42,16 +42,18 @@
                 android:id="@+id/leveltext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+		        android:textColor="@android:color/white"	
                 android:gravity="center"
                 android:textSize="15sp"
-                   android:layout_weight="1"/>
+         		android:layout_weight="1"/>
             <TextView 
                 android:id="@+id/wordtext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+		        android:textColor="@android:color/white"
                 android:gravity="center"
                 android:textSize="15sp"
-                   android:layout_weight="1"/>
+                android:layout_weight="1"/>
                 
             
              
