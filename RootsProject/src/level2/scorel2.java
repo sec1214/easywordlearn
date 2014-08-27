@@ -22,11 +22,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.easylearnwords.R;
-import com.easylearnwords.list;
-import com.easylearnwords.mypublicvalue;
-import com.easylearnwords.play;
-import com.easylearnwords.scoreword;
+import com.rootsproject.R;
+import com.rootsproject.list;
+import com.rootsproject.mypublicvalue;
+import com.rootsproject.play;
+import com.rootsproject.scoreword;
 import com.google.analytics.tracking.android.EasyTracker;
 
 public class scorel2 extends Activity {

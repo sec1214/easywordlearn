@@ -1,7 +1,7 @@
 package level4;
 
-import com.easylearnwords.R;
-import com.easylearnwords.mypublicvalue;
+import com.rootsproject.R;
+import com.rootsproject.mypublicvalue;
 import Database.managedb;
 import android.app.Activity;
 import android.os.Bundle;

@@ -1,8 +1,8 @@
 package level4;
 
-import com.easylearnwords.MainActivity;
-import com.easylearnwords.R;
-import com.easylearnwords.mypublicvalue;
+import com.rootsproject.MainActivity;
+import com.rootsproject.R;
+import com.rootsproject.mypublicvalue;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -28,7 +28,7 @@ public class testvideo extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(com.easylearnwords.R.layout.video);
+		setContentView(com.rootsproject.R.layout.video);
 		
 		
 		
@@ -44,7 +44,7 @@ public class testvideo extends Activity {
 		ignore = (CheckBox) this.findViewById(R.id.ignore);
 		
 		mediaController = new MediaController(this);
-		video.setVideoURI(Uri.parse("android.resource://com.easylearnwords/"
+		video.setVideoURI(Uri.parse("android.resource://com.rootsproject/"
 				+ R.raw.testvid));
 		video.setMediaController(mediaController);
 		video.requestFocus();

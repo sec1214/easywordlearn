@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.easylearnwords.mypublicvalue;
+import com.rootsproject.mypublicvalue;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -25,7 +25,7 @@ public class managedb {
 
 	public static final String WRONG_NAME = "wrong.mp3";
 	public static final String RIGHT_NAME = "right.mp3";
-	public static final String PACKAGE_NAME = "com.easylearnwords";// 工程包名
+	public static final String PACKAGE_NAME = "com.rootsproject";// 工程包名
 	public static final String DB_PATH = "/data"
 			+ Environment.getDataDirectory().getAbsolutePath() + "/"
 			+ PACKAGE_NAME + "/databases"; // 在手机里存放数据库的位置

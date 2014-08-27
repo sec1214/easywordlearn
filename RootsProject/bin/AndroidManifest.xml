@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.easylearnwords"
+    package="com.rootsproject"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -12,12 +12,12 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name=".mypublicvalue"
+        android:name="com.rootsproject.mypublicvalue"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity android:name="com.easylearnwords.videointro" >
+        <activity android:name="com.rootsproject.videointro" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,64 +25,64 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.easylearnwords.MainActivity"
+            android:name="com.rootsproject.MainActivity"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>
         <activity android:name="level4.testvideo" >
         </activity>
         <activity
-            android:name=".listselectactivity"
+            android:name="com.rootsproject.listselectactivity"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.easylearnwords.list"
+            android:name="com.rootsproject.list"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.easylearnwords.studyword"
+            android:name="com.rootsproject.studyword"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.easylearnwords.studywordcolor"
+            android:name="com.rootsproject.studywordcolor"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.easylearnwords.play"
+            android:name="com.rootsproject.play"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.easylearnwords.definition"
+            android:name="com.rootsproject.definition"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.easylearnwords.words"
+            android:name="com.rootsproject.words"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.easylearnwords.root"
+            android:name="com.rootsproject.root"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.easylearnwords.score"
+            android:name="com.rootsproject.score"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.easylearnwords.wrongword"
+            android:name="com.rootsproject.wrongword"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.easylearnwords.scoreword"
+            android:name="com.rootsproject.scoreword"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>

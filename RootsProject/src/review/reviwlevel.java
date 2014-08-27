@@ -3,11 +3,11 @@ package review;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.easylearnwords.MainActivity;
-import com.easylearnwords.R;
-import com.easylearnwords.list;
-import com.easylearnwords.listselectactivity;
-import com.easylearnwords.mypublicvalue;
+import com.rootsproject.MainActivity;
+import com.rootsproject.R;
+import com.rootsproject.list;
+import com.rootsproject.listselectactivity;
+import com.rootsproject.mypublicvalue;
 import Database.managedb;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
