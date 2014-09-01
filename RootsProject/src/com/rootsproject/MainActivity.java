@@ -73,7 +73,6 @@ public class MainActivity extends Activity {
 		splash = (LinearLayout) findViewById(R.id.splashscreen);
 
 		myapp = (mypublicvalue) getApplication(); // public value call; 公共变量传值
-		myapp.setdefault();
 		myapp.startsplashmusic();         
 
 		if (!myapp.getsplashscreen()) {     // this getsplashscreen ensure that splashscreen only display once. 

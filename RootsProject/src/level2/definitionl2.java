@@ -192,7 +192,7 @@ public class definitionl2 extends Activity {
 		if (wcon == 1) { // review condition 错误情况下， 取用错词
 			/* lwords = myapp.getwords(); */
 			words = myapp.getCwrongwords();
-			textViewwr.setText("Wrong Reivew");
+			textViewwr.setText("Wrong Review");
 			textViewwr.setTextColor(Color.WHITE);
 			textViewwr.setBackgroundColor(Color.RED);
 		

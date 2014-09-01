@@ -241,8 +241,10 @@ public class rootl6 extends Activity {
 		if (wcon == 1) { // 错误情况下， 取用错词
 			/* lwords = myapp.getwords(); */
 			words = myapp.getCwrongwords();
-			textViewwr.setText("Wrong Reivew");
+			textViewwr.setText("Wrong Review");
 			textViewwr.setBackgroundColor(Color.RED);
+			textViewwr.setTextColor(Color.WHITE);
+
 			
 
 		}

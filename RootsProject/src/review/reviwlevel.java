@@ -53,7 +53,7 @@ public class reviwlevel extends Activity {
 		managedb db = new managedb(getBaseContext());
 		myapp.setwords(db.getwords());
 
-		textView1.setText(myapp.get(0));
+		textView1.setText(underlineclear(myapp.get(0))); // course 
 		textView2.setText(myapp.get(1));
 
 		levelListView = (ListView) this.findViewById(R.id.levellist);
@@ -114,6 +114,11 @@ public class reviwlevel extends Activity {
 
 	}
 
+	public String underlineclear(String key) {
+		String flag = key.replace("_", " ");
+		return flag;
+	}
+	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub

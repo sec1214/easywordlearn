@@ -68,23 +68,20 @@
         android:layout_height="match_parent"
       android:orientation="vertical"
       >
- 
- 
-        
-        
 
         <Button
             android:id="@+id/button1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignLeft="@+id/button3"
-            android:background="@color/green"
-            android:text="Play" 
-            android:textColor="@color/white"
-            android:layout_weight="1"
             android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:text="Play"
+            android:textColor="@color/white" 
+            android:textSize="20dp"
             
             />
+
         <Button
             android:id="@+id/button2"
             android:layout_width="match_parent"
@@ -96,6 +93,7 @@
 			android:textColor="@color/white"
 			android:layout_weight="1"
 			android:layout_margin="1dp"
+			android:textSize="20dp"
 			
 			
             />
@@ -111,6 +109,8 @@
             android:textColor="@color/white"
             android:layout_weight="1"
             android:layout_margin="1dp"
+            android:textSize="20dp"
+            
             
 
             />

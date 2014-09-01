@@ -224,8 +224,10 @@ public class wordsl4 extends Activity {
 		}
 		if (wcon == 1) {
 			words = myapp.getCwrongwords();
-			textViewwr.setText("Wrong Reivew");
+			textViewwr.setText("Wrong Review");
 			textViewwr.setBackgroundColor(Color.RED);
+			textViewwr.setTextColor(Color.WHITE);
+
 		}
 		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
 		textViewscore.setText(

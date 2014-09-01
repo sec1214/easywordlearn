@@ -196,7 +196,7 @@ public class rootl2 extends Activity {
 
 			words = myapp.getCwrongwords();
 
-			textViewwr.setText("Wrong Reivew");
+			textViewwr.setText("Wrong Review");
 			textViewwr.setTextColor(Color.WHITE);
 			textViewwr.setBackgroundColor(Color.RED);
 			

@@ -83,8 +83,7 @@ public class reviewscore extends Activity {
 		rootline = (LinearLayout) this.findViewById(R.id.rootline);
 
 		myapp = (mypublicvalue) getApplication();
-
-		textView1.setText(myapp.get(0));
+		textView1.setText(underlineclear(myapp.get(0))); // course 
 		textView2.setText(myapp.get(1));
 		textViewlevel.setText(" Level: " + myapp.get(3));
 
@@ -592,6 +591,12 @@ public class reviewscore extends Activity {
 		random = null;
 
 		return word;
+	}
+	
+	
+	public String underlineclear(String key) {
+		String flag = key.replace("_", " ");
+		return flag;
 	}
 
 	@Override
