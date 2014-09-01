@@ -71,13 +71,14 @@ public class rootl6 extends Activity {
 
 			int k = (int) (millisUntilFinished / 1000);
 
-			textViewwr.setText("Time: " + k + "'s");
+			textViewwr.setText(  k + "'s");
 
 			if (k > 5) {
 				myapp.playmusic(4);
 			}
 
 			if (k == 5) {
+				textViewwr.setTextColor(Color.WHITE);
 				textViewwr.setBackgroundColor(Color.RED);
 			}
 			if (k <= 5) {
@@ -225,7 +226,7 @@ public class rootl6 extends Activity {
 				myapp.cleanrootwords();
 				words = myapp.getrootword();
 				myapp.set(8, Integer.toString(1));
-				textViewscore.setText("Score:" + 0 * 100 + "%");
+				textViewscore.setText( 0 * 100 + "%");
 
 			}
 
@@ -246,8 +247,8 @@ public class rootl6 extends Activity {
 
 		}
 		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
-		textViewscore.setText("Score:"
-				+ (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100)
+		textViewscore.setText(
+				(int) ((myapp.getscore(1) / myapp.getscore(0)) * 100)
 				+ "%");
 		textViewword.setText("Word: " + wordnum + " / " + wordnum()); // 设定显示几号word的控件
 		worddefview.setVisibility(View.GONE);
@@ -269,7 +270,7 @@ public class rootl6 extends Activity {
 
 		if (Integer.parseInt(myapp.get(6)) < 2) {
 
-			textViewwr.setText("Time: " + 15 + "'s");
+			textViewwr.setText( 15 + "'s");
 			timer.start();
 
 			rootdef1.setOnClickListener(new View.OnClickListener() {
@@ -1976,7 +1977,7 @@ public class rootl6 extends Activity {
 
 			alertdDialog = new AlertDialog.Builder(this)
 					.setTitle("EXIT LEVEL")
-					.setMessage("Do you want to exit this level learning？")
+					.setMessage("Do you want to exit?")
 					.setIcon(R.drawable.ic_launcher)
 					.setPositiveButton("Confirm",
 							new DialogInterface.OnClickListener() {

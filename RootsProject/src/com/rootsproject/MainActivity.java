@@ -207,7 +207,7 @@ public class MainActivity extends Activity {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {   // Back key event
 			alertdDialog = new AlertDialog.Builder(this)
 					.setTitle("EXIT")
-					.setMessage("Do you want to exit complete£¿")
+					.setMessage("Do you want to exit?")
 					.setIcon(R.drawable.ic_launcher)
 					.setPositiveButton("Confirm",
 							new DialogInterface.OnClickListener() {

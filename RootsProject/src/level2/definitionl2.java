@@ -182,6 +182,7 @@ public class definitionl2 extends Activity {
 			}
 			if (con == 1) {
 				textViewwr.setText("Part2");
+				textViewwr.setTextColor(Color.WHITE);
 				textViewwr.setBackgroundColor(Color.GREEN);
 
 			}
@@ -192,12 +193,13 @@ public class definitionl2 extends Activity {
 			/* lwords = myapp.getwords(); */
 			words = myapp.getCwrongwords();
 			textViewwr.setText("Wrong Reivew");
+			textViewwr.setTextColor(Color.WHITE);
 			textViewwr.setBackgroundColor(Color.RED);
 		
 
 		}
 		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
-		textViewscore.setText("Score:"
+		textViewscore.setText(
 				+ (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100)
 				+ "%");
 		wordnum = Integer.parseInt(myapp.get(4));
@@ -1645,7 +1647,7 @@ public class definitionl2 extends Activity {
 			}
 			alertdDialog = new AlertDialog.Builder(this)
 					.setTitle("EXIT LEVEL")
-					.setMessage("Do you want to exit this level learning£¿")
+					.setMessage("Do you want to exit?")
 					.setIcon(R.drawable.ic_launcher)
 					.setPositiveButton("Confirm",
 							new DialogInterface.OnClickListener() {

@@ -184,12 +184,13 @@ public class missroot extends Activity {
 		if (wcon == 1) {
 			words = myapp.getCwrongwords();
 			textViewwr.setText("Wrong Reivew");
+			textViewwr.setTextColor(Color.WHITE);
 			textViewwr.setBackgroundColor(Color.RED);
 		}
 		textViewword.setText("Word: " + wordnum + " / " + wordnum()); // 设定显示几号word的控件
 		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
 
-		textViewscore.setText("Score:"
+		textViewscore.setText(
 				+ (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100) + "%");
 
 		missrootworddeftTextView = (TextView) this
@@ -2201,7 +2202,7 @@ public class missroot extends Activity {
 
 			alertdDialog = new AlertDialog.Builder(this)
 					.setTitle("EXIT LEVEL")
-					.setMessage("Do you want to exit this level learning？")
+					.setMessage("Do you want to exit?")
 					.setIcon(R.drawable.ic_launcher)
 					.setPositiveButton("Confirm",
 							new DialogInterface.OnClickListener() {

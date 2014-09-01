@@ -11,8 +11,8 @@
     <item name="white" type="color">#FFFFFF</item>  
     <item name="dark_grey" type="color">#333333</item>
     <item name="red_pink" type="color">#FF0099</item>
-    <item name="yellow" type="color">#FFFF00</item>
-    <item name="idroot" type="color">#FFFF4444</item>
-    <item name="root" type="color">#FFFF4444</item>
+    <item name="yellow" type="color">#FFCC00</item>
+    <item name="idroot" type="color">#00CCFF</item>
+    <item name="root" type="color">#00CCFF</item>
 
 </resources>

@@ -73,12 +73,13 @@ public class definitionl4 extends Activity {
 
 			int k = (int) (millisUntilFinished / 1000);
 
-			textViewwr.setText("Time: " + k + "'s");
+			textViewwr.setText( k + "'s");
 			if (k > 5) {
 				myapp.playmusic(4);
 			}
 
 			if (k == 5) {
+				textViewwr.setTextColor(Color.WHITE);
 				textViewwr.setBackgroundColor(Color.RED);
 			}
 			if (k <= 5) {
@@ -217,10 +218,11 @@ public class definitionl4 extends Activity {
 		if (wcon == 1) {
 			words = myapp.getCwrongwords();
 			textViewwr.setText("Wrong Reivew");
+			textViewwr.setTextColor(Color.WHITE);
 			textViewwr.setBackgroundColor(Color.RED);
 		}
 		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
-		textViewscore.setText("Score:"
+		textViewscore.setText(
 				+ (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100) + "%");
 
 		wordnum = Integer.parseInt(myapp.get(4));
@@ -243,7 +245,7 @@ public class definitionl4 extends Activity {
 
 		if (Integer.parseInt(myapp.get(6)) < 2) {
 
-			textViewwr.setText("Time: " + 15 + "'s"); // this time test, here add count time function.
+			textViewwr.setText( 15 + "'s"); // this time test, here add count time function.
 			timer.start();
 
 			textViewdef1.setOnClickListener(new View.OnClickListener() {
@@ -1080,7 +1082,7 @@ public class definitionl4 extends Activity {
 
 			alertdDialog = new AlertDialog.Builder(this)
 					.setTitle("EXIT LEVEL")
-					.setMessage("Do you want to exit this level learning£¿")
+					.setMessage("Do you want to exit?")
 					.setIcon(R.drawable.ic_launcher)
 					.setPositiveButton("Confirm",
 							new DialogInterface.OnClickListener() {

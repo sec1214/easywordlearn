@@ -24,11 +24,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#60c0ff"
+        android:background="@color/blue"
         android:gravity="center_horizontal"
         android:text="@string/course"
         android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:textSize="30sp" />
 
     <ListView
         android:id="@+id/listview"

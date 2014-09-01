@@ -81,13 +81,14 @@ public class idroortsl4 extends Activity {
 
 			int k = (int) (millisUntilFinished / 1000);
 
-			textViewwr.setText("Time: " + k + "'s");
+			textViewwr.setText(  k + "'s");
 			if (k > 5) {
 				myapp.playmusic(4);
 			}
 
 			if (k == 5) {
 				textViewwr.setBackgroundColor(Color.RED);
+				textViewwr.setTextColor(Color.WHITE);
 			}
 			if (k <= 5) {
 				myapp.playmusic(2);
@@ -242,7 +243,7 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 		}
 		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
 		textViewword.setText("Word: " + wordnum + " / " + wordnum()); // 设定显示几号word的控件
-		textViewscore.setText("Score:"
+		textViewscore.setText(
 				+ (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100) + "%");
 
 		worddefview.setText(words[wordnum - 1][1]);
@@ -261,7 +262,7 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 
 		if (Integer.parseInt(myapp.get(6)) < 2) {
 
-			textViewwr.setText("Time: " + 15 + "'s");
+			textViewwr.setText(  15 + "'s");
 			timer.start();
 
 			root1.setOnClickListener(new View.OnClickListener() {
@@ -1902,7 +1903,7 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 
 			alertdDialog = new AlertDialog.Builder(this)
 					.setTitle("EXIT LEVEL")
-					.setMessage("Do you want to exit this level learning？")
+					.setMessage("Do you want to exit?")
 					.setIcon(R.drawable.ic_launcher)
 					.setPositiveButton("Confirm",
 							new DialogInterface.OnClickListener() {
