@@ -1330,6 +1330,7 @@ containing a value of this type.
         public static final int musicvolume=0x7f0b0022;
         public static final int roothelp=0x7f0b001c;
         public static final int sleeptime=0x7f0b0020;
+        public static final int splashmusicvolume=0x7f0b0023;
     }
     public static final class style {
         /** 

@@ -21,6 +21,7 @@
     <string name="greenhelp">construction </string>
     <string name="sleeptime">1000</string>    
     <string name="buttonvolume">1.0</string>
-    <string name="musicvolume">0.1</string>
+    <string name="musicvolume">0.0</string>
+    <string name="splashmusicvolume">0.1</string>
 
 </resources>

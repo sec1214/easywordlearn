@@ -508,6 +508,7 @@ int string missroothelp 0x7f0b001e
 int string musicvolume 0x7f0b0022
 int string roothelp 0x7f0b001c
 int string sleeptime 0x7f0b0020
+int string splashmusicvolume 0x7f0b0023
 int style AppBaseTheme 0x7f0c0083
 int style AppTheme 0x7f0c0084
 int style TextAppearance_AppCompat_Base_CompactMenu_Dialog 0x7f0c0063
