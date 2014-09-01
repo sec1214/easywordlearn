@@ -35,7 +35,7 @@
         android:text="play with words"
         android:textSize="20dp" 
         android:textColor="@color/white"
-        android:background="@color/brown"
+        android:background="@color/black"
         android:layout_weight="1"
         android:textStyle="bold"
         />
@@ -57,11 +57,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:background="@color/blue"
+        android:background="@color/black"
         android:padding="10dp"
         android:text="Etymology is the study of the evolution of words. Learning where words come from will help you create associations to remember them and even understand vocabulary you’ve never seen before… And its tons of fun."
         android:textColor="@color/white"
-        android:textSize="20dp" />
+        android:textSize="14dp" />
     
     <LinearLayout
         android:layout_width="match_parent"

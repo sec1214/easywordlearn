@@ -82,7 +82,6 @@
                 android:gravity="center"
                 android:textSize="40sp"
                 android:layout_weight="1"
-                android:text="time"
                    
                    />
     
@@ -91,7 +90,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="0%"
                 android:textSize="40sp"
                 android:layout_weight="1"
                    
@@ -108,7 +106,6 @@
             android:background="@color/grey"
             android:gravity="center"
 			android:padding="5dp"
-            android:text="The study of life"
             android:textSize="25sp" 
             android:textColor="@color/white"
             />
@@ -127,7 +124,6 @@
             android:background="@color/blue"
             android:textColor="@color/white"
             android:gravity="center"
-            android:text="____logy"
             android:textSize="40sp" 
             android:padding="5dp"
             />

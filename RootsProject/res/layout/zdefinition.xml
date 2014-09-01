@@ -88,7 +88,6 @@
                 android:layout_height="match_parent"
                 android:textSize="40dp" 
                 android:textColor="@color/black"
-                android:text="time"
                 android:layout_weight="1"
                 android:gravity="center"
                 />
@@ -115,7 +114,6 @@
             android:layout_height="wrap_content"
             android:background="@color/blue"
             android:gravity="center"
-            android:text="WORD"
             android:textSize="45dp" 
             android:textColor="@color/white"
             />
@@ -138,7 +136,6 @@
                 android:layout_margin="1dp"
                 android:background="@color/green"
                 android:gravity="center"
-                android:text="test"
                 android:textColor="@color/white"
                 android:textSize="25dp" 
                 />
