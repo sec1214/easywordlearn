@@ -5,10 +5,13 @@ import java.util.List;
 
 import level6.rootl6;
 
+import com.rootsproject.MainActivity;
 import com.rootsproject.R;
 import com.rootsproject.list;
+import com.rootsproject.listselectactivity;
 import com.rootsproject.mypublicvalue;
 import com.rootsproject.play;
+import com.rootsproject.score;
 import com.rootsproject.scoreword;
 
 import Database.managedb;
@@ -543,11 +546,12 @@ public class scorel5 extends Activity {
 		return super.onKeyDown(keyCode, event);
 	}
 
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.game, menu);
 
 		MenuItem musicsound = menu.add(101, 1, 1, "musicsound");
 		MenuItem buttonsound = menu.add(101, 2, 2, "buttonsound");
@@ -575,7 +579,39 @@ public class scorel5 extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
+		if (id == R.id.level) {
+		
+			myapp.stoplevelmusic();
+			myapp.empty();
+			Intent intent = new Intent(scorel5.this, play.class);
+			startActivity(intent);
+			finish();
+		}
 
+		
+		if (id == R.id.PlayStudyReview) {
+			myapp.stoplevelmusic();
+			myapp.empty();
+			Intent intent = new Intent(scorel5.this, list.class);
+			startActivity(intent);
+			finish();
+		}
+
+		if (id == R.id.listpage) {
+			myapp.stoplevelmusic();
+			myapp.empty();
+			Intent intent = new Intent(scorel5.this, listselectactivity.class);
+			startActivity(intent);
+			finish();
+		}
+
+		if (id == R.id.coursepage) {
+			myapp.stoplevelmusic();
+			myapp.empty();
+			Intent intent = new Intent(scorel5.this, MainActivity.class);
+			startActivity(intent);
+			finish();
+		}
 		if (id == R.id.Exit) {
 
 			System.exit(0);
@@ -588,10 +624,12 @@ public class scorel5 extends Activity {
 			if (item.isChecked()) {
 				item.setChecked(false);
 				myapp.setmusic(1, 0);
+				myapp.stoplevelmusic();
 
 			} else {
 				item.setChecked(true);
 				myapp.setmusic(1, 1);
+				myapp.startlevelmusic();
 
 			}
 			return true;
@@ -613,16 +651,22 @@ public class scorel5 extends Activity {
 	}
 	public void changecolorscore(int key){
 		if (key>=86) {
-			score.setTextColor(Color.GREEN);
+			score.setTextColor(Color.WHITE);
+			score.setBackgroundColor(Color.GREEN);
+
 			
 		}
 		if (key<=64) {
-			score.setTextColor(Color.RED);
+			score.setTextColor(Color.WHITE);
+			score.setBackgroundColor(Color.RED);
+
 		}
 		if (key>64&&key<86) 
 			
 	 {
-			score.setTextColor(Color.YELLOW);
+			score.setTextColor(Color.WHITE);
+			score.setBackgroundColor(Color.YELLOW);
+
 		}
 	}
 	

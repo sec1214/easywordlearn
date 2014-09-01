@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+//import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -99,11 +100,12 @@ public class scoreword extends Activity {
 		return super.onKeyDown(keyCode, event);
 	}
 
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.game, menu);
 
 		MenuItem musicsound = menu.add(101, 1, 1, "musicsound");
 		MenuItem buttonsound = menu.add(101, 2, 2, "buttonsound");
@@ -131,7 +133,39 @@ public class scoreword extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
+		if (id == R.id.level) {
+		
+			myapp.stoplevelmusic();
+			myapp.empty();
+			Intent intent = new Intent(scoreword.this, play.class);
+			startActivity(intent);
+			finish();
+		}
 
+		
+		if (id == R.id.PlayStudyReview) {
+			myapp.stoplevelmusic();
+			myapp.empty();
+			Intent intent = new Intent(scoreword.this, list.class);
+			startActivity(intent);
+			finish();
+		}
+
+		if (id == R.id.listpage) {
+			myapp.stoplevelmusic();
+			myapp.empty();
+			Intent intent = new Intent(scoreword.this, listselectactivity.class);
+			startActivity(intent);
+			finish();
+		}
+
+		if (id == R.id.coursepage) {
+			myapp.stoplevelmusic();
+			myapp.empty();
+			Intent intent = new Intent(scoreword.this, MainActivity.class);
+			startActivity(intent);
+			finish();
+		}
 		if (id == R.id.Exit) {
 
 			System.exit(0);
@@ -144,10 +178,12 @@ public class scoreword extends Activity {
 			if (item.isChecked()) {
 				item.setChecked(false);
 				myapp.setmusic(1, 0);
+				myapp.stoplevelmusic();
 
 			} else {
 				item.setChecked(true);
 				myapp.setmusic(1, 1);
+				myapp.startlevelmusic();
 
 			}
 			return true;
@@ -167,5 +203,6 @@ public class scoreword extends Activity {
 
 		return super.onOptionsItemSelected(item);
 	}
+
 
 }

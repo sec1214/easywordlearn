@@ -12,7 +12,7 @@
         android:background="@color/blue"
         android:gravity="center_horizontal"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="30sp" />
 
     <TextView
         android:id="@+id/textview2"
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:background="#60c0ff"
         android:gravity="center_horizontal"
-        android:textColor="@color/brown"
+        android:textColor="@color/white"
         android:textSize="20sp" />
     
     

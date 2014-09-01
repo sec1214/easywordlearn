@@ -1816,16 +1816,23 @@ public class definition extends Activity {
 	}
 	public void changecolorscore(int key){
 		if (key>=86) {
-			textViewscore.setTextColor(Color.GREEN);
+			textViewscore.setTextColor(Color.WHITE);
+			textViewscore.setBackgroundColor(Color.GREEN);
+
+			
 			
 		}
 		if (key<=64) {
-			textViewscore.setTextColor(Color.RED);
+			textViewscore.setTextColor(Color.WHITE);
+			textViewscore.setBackgroundColor(Color.RED);
+
 		}
 		if (key>64&&key<86) 
 			
 	 {
-			textViewscore.setTextColor(Color.YELLOW);
+			textViewscore.setTextColor(Color.WHITE);
+			textViewscore.setBackgroundColor(Color.YELLOW);
+
 		}
 	}
 	

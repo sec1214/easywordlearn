@@ -168,7 +168,7 @@ public class missroot extends Activity {
 		textView2.setText(myapp.get(1));
 
 		textViewlevel.setText(" Level: " + myapp.get(3)); // 设定显示level的控件
-		textViewwr.setText("Fill Blank");
+		textViewwr.setText("Fill in the Blank");
 
 		wordnum = Integer.parseInt(myapp.get(4)); // get the number of word.
 
@@ -2376,18 +2376,24 @@ public class missroot extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void changecolorscore(int key) {
-		if (key >= 86) {
-			textViewscore.setTextColor(Color.GREEN);
+	public void changecolorscore(int key){
+		if (key>=86) {
+			textViewscore.setTextColor(Color.WHITE);
+			textViewscore.setBackgroundColor(Color.GREEN);
+
+			
+		}
+		if (key<=64) {
+			textViewscore.setTextColor(Color.WHITE);
+			textViewscore.setBackgroundColor(Color.RED);
 
 		}
-		if (key <= 64) {
-			textViewscore.setTextColor(Color.RED);
-		}
-		if (key > 64 && key < 86)
+		if (key>64&&key<86) 
+			
+	 {
+			textViewscore.setTextColor(Color.WHITE);
+			textViewscore.setBackgroundColor(Color.YELLOW);
 
-		{
-			textViewscore.setTextColor(Color.YELLOW);
 		}
 	}
 
