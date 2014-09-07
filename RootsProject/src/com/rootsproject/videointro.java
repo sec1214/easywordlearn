@@ -25,7 +25,7 @@ public class videointro extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(com.rootsproject.R.layout.video);
+		setContentView(com.rootsproject.R.layout.zvideo);
 		
 		
 		
@@ -75,7 +75,9 @@ public class videointro extends Activity {
 				// TODO Auto-generated method stub
 				if (ignore.isChecked()) {
 					myapp.setvideo();
-				}		
+				}						
+				
+				video.stopPlayback ();
 				Intent intent=new Intent(videointro.this,MainActivity.class);
 				startActivity(intent);
 				finish();

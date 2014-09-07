@@ -1238,8 +1238,9 @@ containing a value of this type.
         public static final int zroot=0x7f03002d;
         public static final int zscore=0x7f03002e;
         public static final int zscoreword=0x7f03002f;
-        public static final int zword=0x7f030030;
-        public static final int zwordlist=0x7f030031;
+        public static final int zvideo=0x7f030030;
+        public static final int zword=0x7f030031;
+        public static final int zwordlist=0x7f030032;
     }
     public static final class menu {
         public static final int game=0x7f0d0000;

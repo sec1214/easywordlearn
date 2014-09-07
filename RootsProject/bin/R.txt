@@ -451,8 +451,9 @@ int layout zplay 0x7f03002c
 int layout zroot 0x7f03002d
 int layout zscore 0x7f03002e
 int layout zscoreword 0x7f03002f
-int layout zword 0x7f030030
-int layout zwordlist 0x7f030031
+int layout zvideo 0x7f030030
+int layout zword 0x7f030031
+int layout zwordlist 0x7f030032
 int menu game 0x7f0d0000
 int menu list 0x7f0d0001
 int menu listselect 0x7f0d0002
