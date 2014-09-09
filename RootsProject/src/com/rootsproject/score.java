@@ -672,19 +672,17 @@ public class score extends Activity {
 	}
 	public void changecolorscore(int key){
 		if (key>=86) {
-			score.setTextColor(Color.WHITE);
-			score.setBackgroundColor(Color.GREEN);
+			score.setTextColor(Color.GREEN);
+			
 		}
 		if (key<=64) {
-			score.setTextColor(Color.WHITE);
-			score.setBackgroundColor(Color.RED);
+			score.setTextColor(Color.RED);		
 
 		}
 		if (key>64&&key<86) 
 			
 	 {
-			score.setTextColor(Color.WHITE);
-			score.setBackgroundColor(Color.YELLOW);
+			score.setTextColor(Color.YELLOW);
 
 		}
 	}
