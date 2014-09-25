@@ -877,50 +877,50 @@ public class mypublicvalue extends Application {
 			if (level.equals("1")) {
 				mediaPlayerlv1.stop();
 				mediaPlayerlv1.release();
-				mediaPlayerlv1 = MediaPlayer.create(this, R.raw.arch_vid2);
+				mediaPlayerlv1 = MediaPlayer.create(this, R.raw.tick);
 				mediaPlayerlv1.setLooping(true);
 			}
 			if (level.equals("2")) {
 				mediaPlayerlv2.stop();
 				mediaPlayerlv2.release();
-				mediaPlayerlv2 = MediaPlayer.create(this, R.raw.newbutold);
+				mediaPlayerlv2 = MediaPlayer.create(this, R.raw.tick);
 				mediaPlayerlv2.setLooping(true);
 			}
 			if (level.equals("3")) {
 				mediaPlayerlv3.stop();
 				mediaPlayerlv3.release();
-				mediaPlayerlv3 = MediaPlayer.create(this, R.raw.outofharlem);
+				mediaPlayerlv3 = MediaPlayer.create(this, R.raw.tick);
 				mediaPlayerlv3.setLooping(true);
 			}
 
 			if (level.equals("4")) {
 				mediaPlayerlv4.stop();
 				mediaPlayerlv4.release();
-				mediaPlayerlv4 = MediaPlayer.create(this, R.raw.neworleans);
+				mediaPlayerlv4 = MediaPlayer.create(this, R.raw.tick);
 				mediaPlayerlv4.setLooping(true);
 			}
 			if (level.equals("5")) {
 				mediaPlayerlv5.stop();
 				mediaPlayerlv5.release();
-				mediaPlayerlv5 = MediaPlayer.create(this, R.raw.reincarnation);
+				mediaPlayerlv5 = MediaPlayer.create(this, R.raw.tick);
 				mediaPlayerlv5.setLooping(true);
 			}
 			if (level.equals("6")) {
 				mediaPlayerlv6.stop();
 				mediaPlayerlv6.release();
-				mediaPlayerlv6 = MediaPlayer.create(this, R.raw.rootstheme);
+				mediaPlayerlv6 = MediaPlayer.create(this, R.raw.tick);
 				mediaPlayerlv6.setLooping(true);
 			}
 			if (level.equals("7")) {
 				mediaPlayerlv7.stop();
 				mediaPlayerlv7.release();
-				mediaPlayerlv7 = MediaPlayer.create(this, R.raw.snownewness);
+				mediaPlayerlv7 = MediaPlayer.create(this, R.raw.tick);
 				mediaPlayerlv7.setLooping(true);
 			}
 			if (level.equals("8")) {
 				mediaPlayerlv8.stop();
 				mediaPlayerlv8.release();
-				mediaPlayerlv8 = MediaPlayer.create(this, R.raw.summertimegreen3);
+				mediaPlayerlv8 = MediaPlayer.create(this, R.raw.tick);
 				mediaPlayerlv8.setLooping(true);
 			}
 
@@ -1001,21 +1001,21 @@ public class mypublicvalue extends Application {
 		
 		mediaPlayer = MediaPlayer.create(this, R.raw.splashmusic);		
 		mediaPlayer.setLooping(true);		
-		mediaPlayerlv1 = MediaPlayer.create(this, R.raw.arch_vid2);
+		mediaPlayerlv1 = MediaPlayer.create(this, R.raw.tick);
 		mediaPlayerlv1.setLooping(true);
-		mediaPlayerlv2 = MediaPlayer.create(this, R.raw.newbutold);
+		mediaPlayerlv2 = MediaPlayer.create(this, R.raw.tick);
 		mediaPlayerlv2.setLooping(true);
-		mediaPlayerlv3 = MediaPlayer.create(this, R.raw.outofharlem);
+		mediaPlayerlv3 = MediaPlayer.create(this, R.raw.tick);
 		mediaPlayerlv3.setLooping(true);
-		mediaPlayerlv4 = MediaPlayer.create(this, R.raw.neworleans);
+		mediaPlayerlv4 = MediaPlayer.create(this, R.raw.tick);
 		mediaPlayerlv4.setLooping(true);
-		mediaPlayerlv5 = MediaPlayer.create(this, R.raw.reincarnation);
+		mediaPlayerlv5 = MediaPlayer.create(this, R.raw.tick);
 		mediaPlayerlv5.setLooping(true);
-		mediaPlayerlv6 = MediaPlayer.create(this, R.raw.rootstheme);
+		mediaPlayerlv6 = MediaPlayer.create(this, R.raw.tick);
 		mediaPlayerlv6.setLooping(true);
-		mediaPlayerlv7 = MediaPlayer.create(this, R.raw.snownewness);
+		mediaPlayerlv7 = MediaPlayer.create(this, R.raw.tick);
 		mediaPlayerlv7.setLooping(true);
-		mediaPlayerlv8 = MediaPlayer.create(this, R.raw.summertimegreen3);
+		mediaPlayerlv8 = MediaPlayer.create(this, R.raw.tick);
 		mediaPlayerlv8.setLooping(true);
 		
 		

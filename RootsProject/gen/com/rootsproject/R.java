@@ -1250,21 +1250,13 @@ containing a value of this type.
         public static final int play=0x7f0d0004;
     }
     public static final class raw {
-        public static final int arch_vid2=0x7f050000;
-        public static final int failure=0x7f050001;
-        public static final int newbutold=0x7f050002;
-        public static final int neworleans=0x7f050003;
-        public static final int outofharlem=0x7f050004;
-        public static final int reincarnation=0x7f050005;
-        public static final int right=0x7f050006;
-        public static final int rootstheme=0x7f050007;
-        public static final int snownewness=0x7f050008;
-        public static final int splashmusic=0x7f050009;
-        public static final int summertimegreen3=0x7f05000a;
-        public static final int testvid=0x7f05000b;
-        public static final int tick=0x7f05000c;
-        public static final int timealarm=0x7f05000d;
-        public static final int wrong=0x7f05000e;
+        public static final int failure=0x7f050000;
+        public static final int right=0x7f050001;
+        public static final int splashmusic=0x7f050002;
+        public static final int testvid=0x7f050003;
+        public static final int tick=0x7f050004;
+        public static final int timealarm=0x7f050005;
+        public static final int wrong=0x7f050006;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
