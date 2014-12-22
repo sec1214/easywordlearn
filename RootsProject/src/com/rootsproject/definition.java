@@ -18,12 +18,17 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ImageView;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.rootsproject.R;
@@ -232,6 +237,17 @@ public class definition extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String key = (String) textViewdef1.getText();
+					
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (key.equals(words[wordnum - 1][1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
 					if (wcon == 1) { // in  review condition     错词循环下
 
@@ -465,6 +481,17 @@ public class definition extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String key = (String) textViewdef2.getText();
+					
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (key.equals(words[wordnum - 1][1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
 					if (wcon == 1) { // 错词循环下
 
@@ -705,6 +732,17 @@ public class definition extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String key = (String) textViewdef3.getText();
+					
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (key.equals(words[wordnum - 1][1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
 					if (wcon == 1) { // 错词循环下
 
@@ -950,6 +988,17 @@ public class definition extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String key = (String) textViewdef1.getText();
+					
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (key.equals(words[wordnum - 1][1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
 					if (wcon == 1) { // in review condition 错词循环下
 
@@ -1073,6 +1122,16 @@ public class definition extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String key = (String) textViewdef2.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (key.equals(words[wordnum - 1][1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
 					if (wcon == 1) { // 错词循环下
 
@@ -1195,6 +1254,17 @@ public class definition extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String key = (String) textViewdef3.getText();
+					
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (key.equals(words[wordnum - 1][1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
 					if (wcon == 1) { // 错词循环下
 

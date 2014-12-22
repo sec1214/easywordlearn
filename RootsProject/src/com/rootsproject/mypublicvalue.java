@@ -11,11 +11,15 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ImageView;
+import android.view.Gravity;
+
 import com.rootsproject.R;
 
 public class mypublicvalue extends Application {
@@ -95,6 +99,66 @@ public class mypublicvalue extends Application {
 	
 	public int video;
 	
+	/*added by xiaoqian yu, 2014-12-22, start*/
+	int constantCorrectCount;
+	//increment of constantCorrectCount and judge if pop out a praise
+	public void judgeAndCalculateConstantCorrectCount()
+	{
+		constantCorrectCount++;
+		if(constantCorrectCount > 7)
+		{
+			constantCorrectCount = 0;
+		}
+		if(constantCorrectCount > 1)
+		{
+			final Toast showImageToast=new Toast(getBaseContext());
+			ImageView imageView=new ImageView(getBaseContext());
+			//imageView.setImageResource(R.drawable.icon);
+			//showImageToast.setView(imageView);
+			//showImageToast.setGravity(Gravity.CENTER, 0, 0);
+			//showImageToast.setDuration(Toast.LENGTH_LONG);
+			//showImageToast.show();
+			
+			if(2 == constantCorrectCount)
+			{
+				imageView.setImageResource(R.drawable.goodjob);
+			}
+		
+			if(3 == constantCorrectCount)
+			{
+				imageView.setImageResource(R.drawable.nice);
+			}
+			
+			if(5 == constantCorrectCount)
+			{
+				imageView.setImageResource(R.drawable.wonderful);
+			}
+			
+			if(7 == constantCorrectCount)
+			{
+				imageView.setImageResource(R.drawable.perfect);
+			}
+			showImageToast.setView(imageView);
+			showImageToast.setGravity(Gravity.CENTER, 0, 0);
+			showImageToast.setDuration(Toast.LENGTH_SHORT);
+			showImageToast.show();
+			
+			Handler handler = new Handler();
+	        handler.postDelayed(new Runnable() {
+	           @Override
+	           public void run() {
+	        	   showImageToast.cancel(); 
+	           }
+	        }, 500);
+		}
+		else
+		{}
+	}
+	public void judgeAndCalculateConstantErrorCount()
+	{
+		constantCorrectCount = 0;
+	}
+	/*added by xiaoqian yu, 2014-12-22, over*/
 	
 	public int getvideo(){
 		return video;

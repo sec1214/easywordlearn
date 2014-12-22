@@ -3,6 +3,9 @@ package com.rootsproject;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
+
 import level2.definitionl2;
 import level2.wordsl2;
 
@@ -88,6 +91,21 @@ public class score extends Activity {
 		textView2.setText(myapp.get(1)); // list 
 		textViewlevel.setText(" Level: " + myapp.get(3));// level
 		wcon = myapp.getreviewwrongcontrol(); // review control
+		
+        /*added by xiaoqian yu, 2014-12-21, start*/
+		EasyTracker easyTracker = EasyTracker.getInstance(score.this);
+		String eventLabel =  myapp.get(0) + "_" + myapp.get(1) + "_level" + myapp.get(3);
+		long eventValue = (long)((myapp.getscore(1) / myapp.getscore(0)) * 100);
+		// MapBuilder.createEvent().build() returns a Map of event fields and values
+        // that are set and sent with the hit.
+		easyTracker.send(MapBuilder
+	      .createEvent("score_output",     // Event category (required)
+	                   "final_percentage_output",  // Event action (required)
+	                   eventLabel,   // Event label
+	                   eventValue)            // Event value
+		   .build()
+		);
+		/*added by xiaoqian yu, 2014-12-21, over*/
 
 		if (wcon == 0) {
 

@@ -254,6 +254,16 @@ public class wordsl4 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String key = (String) wordTextView1.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (key.equals(words[wordnum - 1][0]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 
 					if (key.equals(words[wordnum - 1][0])) { // 做对了
 
@@ -351,6 +361,16 @@ public class wordsl4 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String key = (String) wordTextView2.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (key.equals(words[wordnum - 1][0]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 
 					if (key.equals(words[wordnum - 1][0])) {
 
@@ -445,6 +465,16 @@ public class wordsl4 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String key = (String) wordTextView3.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (key.equals(words[wordnum - 1][0]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 
 					if (key.equals(words[wordnum - 1][0])) {
 
@@ -539,6 +569,16 @@ public class wordsl4 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String key = (String) wordTextView4.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (key.equals(words[wordnum - 1][0]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 
 					if (key.equals(words[wordnum - 1][0])) {
 
@@ -635,6 +675,16 @@ public class wordsl4 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String key = (String) wordTextView1.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (key.equals(words[wordnum - 1][0]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 
 					if (key.equals(words[wordnum - 1][0])) { // 做对了
 						defrepeat(0);
@@ -687,6 +737,16 @@ public class wordsl4 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String key = (String) wordTextView2.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (key.equals(words[wordnum - 1][0]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 
 					if (key.equals(words[wordnum - 1][0])) { // 做对了
 						defrepeat(0);
@@ -738,6 +798,16 @@ public class wordsl4 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String key = (String) wordTextView3.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (key.equals(words[wordnum - 1][0]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 
 					if (key.equals(words[wordnum - 1][0])) { // 做对了
 						defrepeat(0);
@@ -790,6 +860,16 @@ public class wordsl4 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String key = (String) wordTextView4.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (key.equals(words[wordnum - 1][0]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 
 					if (key.equals(words[wordnum - 1][0])) { // 做对了
 						defrepeat(0);

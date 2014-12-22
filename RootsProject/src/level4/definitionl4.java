@@ -254,6 +254,16 @@ public class definitionl4 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String key = (String) textViewdef1.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (key.equals(words[wordnum - 1][1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 
 					if (key.equals(words[wordnum - 1][1])) { // 做对了
 
@@ -355,6 +365,16 @@ public class definitionl4 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String key = (String) textViewdef2.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (key.equals(words[wordnum - 1][1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 
 					if (key.equals(words[wordnum - 1][1])) {
 
@@ -455,6 +475,16 @@ public class definitionl4 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String key = (String) textViewdef3.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (key.equals(words[wordnum - 1][1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 
 					if (key.equals(words[wordnum - 1][1])) {
 
@@ -559,6 +589,16 @@ public class definitionl4 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String key = (String) textViewdef1.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (key.equals(words[wordnum - 1][1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 
 					if (key.equals(words[wordnum - 1][1])) { // 做对了
 
@@ -615,6 +655,16 @@ public class definitionl4 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String key = (String) textViewdef2.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (key.equals(words[wordnum - 1][1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 
 					if (key.equals(words[wordnum - 1][1])) { // 做对了
 						defrepeat(0);
@@ -668,6 +718,16 @@ public class definitionl4 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String key = (String) textViewdef3.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (key.equals(words[wordnum - 1][1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 
 					if (key.equals(words[wordnum - 1][1])) { // 做对了
 						defrepeat(0);

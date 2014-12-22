@@ -235,6 +235,16 @@ public class rootl2 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String k = (String) rootdef1.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][rootnum + 1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
 					if (wcon == 1) {
 
@@ -403,6 +413,16 @@ public class rootl2 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String k = (String) rootdef2.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][rootnum + 1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
 					if (wcon == 1) {
 
@@ -572,6 +592,16 @@ public class rootl2 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String k = (String) rootdef3.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][rootnum + 1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
 					if (wcon == 1) {
 
@@ -741,6 +771,16 @@ public class rootl2 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String k = (String) rootdef4.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][rootnum + 1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
 					if (wcon == 1) {
 
@@ -910,6 +950,16 @@ public class rootl2 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String k = (String) rootdef5.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][rootnum + 1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
 					if (wcon == 1) {
 
@@ -1079,6 +1129,16 @@ public class rootl2 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String k = (String) rootdef6.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][rootnum + 1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
 					if (wcon == 1) {
 
@@ -1251,6 +1311,16 @@ public class rootl2 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String k = (String) rootdef1.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][rootnum + 1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
 					if (wcon == 1) {
 
@@ -1461,6 +1531,16 @@ public class rootl2 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String k = (String) rootdef2.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][rootnum + 1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
 					if (wcon == 1) {
 
@@ -1675,6 +1755,16 @@ public class rootl2 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String k = (String) rootdef3.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][rootnum + 1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
 					if (wcon == 1) {
 
@@ -1889,6 +1979,16 @@ public class rootl2 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String k = (String) rootdef4.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][rootnum + 1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
 					if (wcon == 1) {
 
@@ -2103,6 +2203,16 @@ public class rootl2 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String k = (String) rootdef5.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][rootnum + 1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
 					if (wcon == 1) {
 
@@ -2317,6 +2427,16 @@ public class rootl2 extends Activity {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					String k = (String) rootdef6.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][rootnum + 1]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
 					if (wcon == 1) {
 

@@ -273,7 +273,20 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
 					String k = (String) root1.getText();
-					if (k.equals(words[wordnum - 1][2]) // 做对了
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][2]) // ������
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
+					if (k.equals(words[wordnum - 1][2]) // ������
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -351,6 +364,19 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
 					String k = (String) root2.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][2]) // ������
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					if (k.equals(words[wordnum - 1][2])
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
@@ -428,6 +454,19 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 					// TODO Auto-generated method stub
 
 					String k = (String) root3.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][2]) // ������
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					if (k.equals(words[wordnum - 1][2])
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
@@ -504,6 +543,19 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
 					String k = (String) root4.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][2]) // ������
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					if (k.equals(words[wordnum - 1][2])
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
@@ -581,6 +633,19 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 					// TODO Auto-generated method stub
 
 					String k = (String) root5.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][2]) // ������
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					if (k.equals(words[wordnum - 1][2])
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
@@ -657,6 +722,19 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
 					String k = (String) root6.getText();
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][2]) // ������
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
 					if (k.equals(words[wordnum - 1][2])
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
@@ -736,7 +814,20 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
 					String k = (String) root1.getText();
-					if (k.equals(words[wordnum - 1][2]) // 做对了
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][2]) // ������
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
+					if (k.equals(words[wordnum - 1][2]) // ������
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -775,7 +866,20 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
 					String k = (String) root2.getText();
-					if (k.equals(words[wordnum - 1][2]) // 做对了
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][2]) // ������
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
+					if (k.equals(words[wordnum - 1][2]) // ������
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -814,7 +918,20 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
 					String k = (String) root3.getText();
-					if (k.equals(words[wordnum - 1][2]) // 做对了
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][2]) // ������
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
+					if (k.equals(words[wordnum - 1][2]) // ������
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -853,7 +970,20 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
 					String k = (String) root4.getText();
-					if (k.equals(words[wordnum - 1][2]) // 做对了
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][2]) // ������
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
+					if (k.equals(words[wordnum - 1][2]) // ������
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -892,7 +1022,20 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
 					String k = (String) root5.getText();
-					if (k.equals(words[wordnum - 1][2]) // 做对了
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][2]) // ������
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
+					if (k.equals(words[wordnum - 1][2]) // ������
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -931,7 +1074,20 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
 					String k = (String) root6.getText();
-					if (k.equals(words[wordnum - 1][2]) // 做对了
+					/*added by xiaoqian yu, 2014-12-22, start*/
+					if (k.equals(words[wordnum - 1][2]) // ������
+							|| k.equals(words[wordnum - 1][4])
+							|| k.equals(words[wordnum - 1][6])
+							|| k.equals(words[wordnum - 1][8]))
+					{
+						myapp.judgeAndCalculateConstantCorrectCount();
+					}
+					else
+					{
+						myapp.judgeAndCalculateConstantErrorCount();
+					}
+					/*added by xiaoqian yu, 2014-12-22, over*/
+					if (k.equals(words[wordnum - 1][2]) // ������
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
