@@ -3,6 +3,9 @@ package com.rootsproject;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
+
 import Database.managedb;
 import android.app.Activity;
 
@@ -98,6 +101,20 @@ public class listselectactivity extends Activity {
 				// myapp.setwords(db.getwords());
 
 				Toast.makeText(listselectactivity.this, myapp.get(1), 1).show();
+				
+				/*added by xiaoqian yu, 2014-12-21, start*/
+				EasyTracker easyTracker = EasyTracker.getInstance(listselectactivity.this);
+                String category = "ListSelectionOf_" + myapp.get(0);
+			    // MapBuilder.createEvent().build() returns a Map of event fields and values
+			    // that are set and sent with the hit.
+			    easyTracker.send(MapBuilder
+			      .createEvent(category,     // Event category (required)
+			                   "button_press_to_select_list",  // Event action (required)
+			                   myapp.get(1),   // Event label
+			                   null)            // Event value
+			      .build()
+				);
+				/*added by xiaoqian yu, 2014-12-21, end*/
 
 				Intent intent = new Intent(listselectactivity.this,
 						com.rootsproject.list.class);

@@ -3,6 +3,9 @@ package com.rootsproject;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
+
 import Database.managedb;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -131,6 +134,20 @@ public class MainActivity extends Activity {
 
 				Toast.makeText(MainActivity.this, myapp.get(0), 1).show(); // Toast show choiced table name  显示点击的课程也就是表名
 
+				/*added by xiaoqian yu, 2014-12-21, start*/
+				EasyTracker easyTracker = EasyTracker.getInstance(MainActivity.this);
+
+				  // MapBuilder.createEvent().build() returns a Map of event fields and values
+				  // that are set and sent with the hit.
+				  easyTracker.send(MapBuilder
+				      .createEvent("Category_Selection",     // Event category (required)
+				                   "button_press_to_choose_category",  // Event action (required)
+				                   myapp.get(0),   // Event label
+				                   null)            // Event value
+				      .build()
+				);
+				/*added by xiaoqian yu, 2014-12-21, end*/
+				
 				Intent intent = new Intent(MainActivity.this,
 						listselectactivity.class);
 

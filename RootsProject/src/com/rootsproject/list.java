@@ -61,7 +61,21 @@ public class list extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-
+				
+				/*added by xiaoqian yu, 2014-12-21, start*/
+				EasyTracker easyTracker = EasyTracker.getInstance(list.this);
+				String category =  "PlayStudyReviewSelection";
+				String eventLabel =  "study_button";
+				  // MapBuilder.createEvent().build() returns a Map of event fields and values
+				  // that are set and sent with the hit.
+				  easyTracker.send(MapBuilder
+				      .createEvent(category,     // Event category (required)
+				                   "button_press",  // Event action (required)
+				                   eventLabel,   // Event label
+				                   null)            // Event value
+				      .build()
+				);
+				/*added by xiaoqian yu, 2014-12-21, end*/
 				studyButton.setBackgroundResource(R.drawable.green);  // when press the button, its background will change color.
 				myapp.playmusic(1);  // button sound
 				Intent intent = new Intent(list.this, studywordcolor.class);
@@ -78,16 +92,17 @@ public class list extends Activity {
 				// TODO Auto-generated method stub
 				
 				 EasyTracker easyTracker = EasyTracker.getInstance(list.this);
-
-				  // MapBuilder.createEvent().build() returns a Map of event fields and values
-				  // that are set and sent with the hit.
-				  easyTracker.send(MapBuilder
-				      .createEvent(myapp.get(0),     // Event category (required)
-				                   "button_press_to_play",  // Event action (required)
-				                   myapp.get(1),   // Event label
-				                   null)            // Event value
-				      .build()
-				  );
+				 String category =  "PlayStudyReviewSelection";
+				 String eventLabel =  "play_button";
+		    	  // MapBuilder.createEvent().build() returns a Map of event fields and values
+					  // that are set and sent with the hit.
+					  easyTracker.send(MapBuilder
+					      .createEvent(category,     // Event category (required)
+					                   "button_press",  // Event action (required)
+					                   eventLabel,   // Event label
+					                   null)            // Event value
+					      .build()
+					);
 
 				playButton.setBackgroundResource(R.drawable.green);
 				myapp.playmusic(1);
@@ -102,7 +117,21 @@ public class list extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				// TODO Auto-generated method stub				
+				/*added by xiaoqian yu, 2014-12-21, start*/
+				EasyTracker easyTracker = EasyTracker.getInstance(list.this);
+				String category =  "PlayStudyReviewSelection";
+				String eventLabel =  "review_button";
+		    	  // MapBuilder.createEvent().build() returns a Map of event fields and values
+					  // that are set and sent with the hit.
+					  easyTracker.send(MapBuilder
+					      .createEvent(category,     // Event category (required)
+					                   "button_press",  // Event action (required)
+					                   eventLabel,   // Event label
+					                   null)            // Event value
+					      .build()
+					);
+				/*added by xiaoqian yu, 2014-12-21, end*/
 				reviewButton.setBackgroundResource(R.drawable.green);
 				myapp.playmusic(1);
 				Intent intent = new Intent(list.this, reviwlevel.class);
