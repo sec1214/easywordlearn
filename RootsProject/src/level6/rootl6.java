@@ -21,11 +21,14 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.rootsproject.MainActivity;
 import com.rootsproject.R;
+import com.rootsproject.definition;
 import com.rootsproject.list;
 import com.rootsproject.listselectactivity;
 import com.rootsproject.mypublicvalue;
@@ -50,7 +53,7 @@ public class rootl6 extends Activity {
 	public int wcon, con, lv1;
 	private double clicknum, rightnum;
 	private ImageButton wenhaoButton;
-	private boolean p1 = false; // ²Ù¿Øhelp buttonµÄ¿ØÖÆ·§
+	private boolean p1 = false; // ï¿½Ù¿ï¿½help buttonï¿½Ä¿ï¿½ï¿½Æ·ï¿½
 
 	public  long sleeptime = 2000;
 	private Timer timergreen;
@@ -60,7 +63,7 @@ public class rootl6 extends Activity {
 	private Intent intent;
 
 	private Matrix matrix = new Matrix();
-
+	private Animation mAnimationRight;
 	private BroadcastReceiver receiver;
 	private CountDownTimer helpshape;
 	CountDownTimer timer = new CountDownTimer(10000, 1000) {
@@ -93,7 +96,7 @@ public class rootl6 extends Activity {
 			textViewwr.setText("Time over");
 			if (Integer.parseInt(myapp.get(6)) == 1) {
 
-				myapp.playmusic(3); // Ê§°ÜÒôÀÖ
+				myapp.playmusic(3); // Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			}
 
 			Intent intent = new Intent(rootl6.this, rootl6.class);
@@ -206,19 +209,19 @@ public class rootl6 extends Activity {
 		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
 
-		textViewlevel.setText(" Level: " + myapp.get(3)); // Éè¶¨ÏÔÊ¾levelµÄ¿Ø¼þ
+		textViewlevel.setText(" Level: " + myapp.get(3)); // ï¿½è¶¨ï¿½ï¿½Ê¾levelï¿½Ä¿Ø¼ï¿½
 
 		wordnum = Integer.parseInt(myapp.get(4));
 
 		clicknum = myapp.getscore(0);
 		rightnum = myapp.getscore(1);
 
-		wcon = myapp.getreviewwrongcontrol(); // ¸´Ï°¿ØÖÆ·§Öµ
+		wcon = myapp.getreviewwrongcontrol(); // ï¿½ï¿½Ï°ï¿½ï¿½ï¿½Æ·ï¿½Öµ
 		con = myapp.getrepeatcontrol();
 
 		lv1 = Integer.parseInt(myapp.get(8));
 
-		if (wcon == 0) { // ±ê×¼Çé¿öÏÂ words È¡ÓÃ
+		if (wcon == 0) { // ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½ words È¡ï¿½ï¿½
 
 			if (lv1 == 0) {
 
@@ -238,7 +241,7 @@ public class rootl6 extends Activity {
 
 		}
 
-		if (wcon == 1) { // ´íÎóÇé¿öÏÂ£¬ È¡ÓÃ´í´Ê
+		if (wcon == 1) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ È¡ï¿½Ã´ï¿½ï¿½
 			/* lwords = myapp.getwords(); */
 			words = myapp.getCwrongwords();
 			textViewwr.setText("Wrong Review");
@@ -252,7 +255,14 @@ public class rootl6 extends Activity {
 		textViewscore.setText(
 				(int) ((myapp.getscore(1) / myapp.getscore(0)) * 100)
 				+ "%");
-		textViewword.setText("Word: " + wordnum + " / " + wordnum()); // Éè¶¨ÏÔÊ¾¼¸ºÅwordµÄ¿Ø¼þ
+		/*added by xiaoqian yu, 2014-12-23, start*/
+		mAnimationRight = AnimationUtils.loadAnimation(
+                rootl6.this, 
+                myapp.calculateViewAnimationID(myapp.setPulseTimeInterval(myapp.getscore(1), 
+                		                                                  myapp.getscore(0))));
+		textViewscore.startAnimation(mAnimationRight);
+		/*added by xiaoqian yu, 2014-12-23, over*/
+		textViewword.setText("Word: " + wordnum + " / " + wordnum()); // ï¿½è¶¨ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½wordï¿½Ä¿Ø¼ï¿½
 		worddefview.setVisibility(View.GONE);
 
 		rootTextView = (TextView) this.findViewById(R.id.roottestview);
@@ -292,13 +302,13 @@ public class rootl6 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 
-					if (k.equals(words[wordnum - 1][1])) { // Ñ¡¶ÔÁË
+					if (k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 						defrepeat(0);
 						rootdef1.setBackgroundResource(R.drawable.green);
 						myapp.playmusic(1);
 						myapp.setscore(1, rightnum + 1);
-						// ±äÉ«
+						// ï¿½ï¿½É«
 
 						if (!words[wordnum][0].equals("")) {
 
@@ -346,7 +356,7 @@ public class rootl6 extends Activity {
 
 					}
 
-					if (!k.equals(words[wordnum - 1][1])) { // Ñ¡´íÁË
+					if (!k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 						
 						rootdef1.setBackgroundResource(R.drawable.red);
@@ -390,13 +400,13 @@ public class rootl6 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 
-					if (k.equals(words[wordnum - 1][1])) { // Ñ¡¶ÔÁË
+					if (k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 						defrepeat(0);
 						rootdef2.setBackgroundResource(R.drawable.green);
 						myapp.playmusic(1);
 						myapp.setscore(1, rightnum + 1);
-						// ±äÉ«
+						// ï¿½ï¿½É«
 
 						if (!words[wordnum][0].equals("")) {
 
@@ -444,7 +454,7 @@ public class rootl6 extends Activity {
 
 					}
 
-					if (!k.equals(words[wordnum - 1][1])) { // Ñ¡´íÁË
+					if (!k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 						
 						rootdef2.setBackgroundResource(R.drawable.red);
@@ -488,13 +498,13 @@ public class rootl6 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 
-					if (k.equals(words[wordnum - 1][1])) { // Ñ¡¶ÔÁË
+					if (k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 						defrepeat(0);
 						rootdef3.setBackgroundResource(R.drawable.green);
 						myapp.playmusic(1);
 						myapp.setscore(1, rightnum + 1);
-						// ±äÉ«
+						// ï¿½ï¿½É«
 
 						if (!words[wordnum][0].equals("")) {
 
@@ -542,7 +552,7 @@ public class rootl6 extends Activity {
 
 					}
 
-					if (!k.equals(words[wordnum - 1][1])) { // Ñ¡´íÁË
+					if (!k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 						
 						rootdef3.setBackgroundResource(R.drawable.red);
@@ -586,13 +596,13 @@ public class rootl6 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 
-					if (k.equals(words[wordnum - 1][1])) { // Ñ¡¶ÔÁË
+					if (k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 						defrepeat(0);
 						rootdef4.setBackgroundResource(R.drawable.green);
 						myapp.playmusic(1);
 						myapp.setscore(1, rightnum + 1);
-						// ±äÉ«
+						// ï¿½ï¿½É«
 
 						if (!words[wordnum][0].equals("")) {
 
@@ -640,7 +650,7 @@ public class rootl6 extends Activity {
 
 					}
 
-					if (!k.equals(words[wordnum - 1][1])) { // Ñ¡´íÁË
+					if (!k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 						
 						rootdef4.setBackgroundResource(R.drawable.red);
@@ -684,13 +694,13 @@ public class rootl6 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 
-					if (k.equals(words[wordnum - 1][1])) { // Ñ¡¶ÔÁË
+					if (k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 						defrepeat(0);
 						rootdef5.setBackgroundResource(R.drawable.green);
 						myapp.playmusic(1);
 						myapp.setscore(1, rightnum + 1);
-						// ±äÉ«
+						// ï¿½ï¿½É«
 
 						if (!words[wordnum][0].equals("")) {
 
@@ -738,7 +748,7 @@ public class rootl6 extends Activity {
 
 					}
 
-					if (!k.equals(words[wordnum - 1][1])) { // Ñ¡´íÁË
+					if (!k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 						
 						rootdef5.setBackgroundResource(R.drawable.red);
@@ -782,13 +792,13 @@ public class rootl6 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 
-					if (k.equals(words[wordnum - 1][1])) { // Ñ¡¶ÔÁË
+					if (k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 						defrepeat(0);
 						rootdef6.setBackgroundResource(R.drawable.green);
 						myapp.playmusic(1);
 						myapp.setscore(1, rightnum + 1);
-						// ±äÉ«
+						// ï¿½ï¿½É«
 
 						if (!words[wordnum][0].equals("")) {
 
@@ -836,7 +846,7 @@ public class rootl6 extends Activity {
 
 					}
 
-					if (!k.equals(words[wordnum - 1][1])) { // Ñ¡´íÁË
+					if (!k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 						
 						rootdef6.setBackgroundResource(R.drawable.red);
@@ -885,13 +895,13 @@ public class rootl6 extends Activity {
 
 					if (wcon == 0) {
 
-						if (k.equals(words[wordnum - 1][1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 
 							rootdef1.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum][0].equals("")) {
 
@@ -921,7 +931,7 @@ public class rootl6 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							rootdef1.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -933,13 +943,13 @@ public class rootl6 extends Activity {
 
 					if (wcon == 1) {
 
-						if (k.equals(words[wordnum - 1][1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 
 							rootdef1.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum][0].equals("")) {
 
@@ -969,7 +979,7 @@ public class rootl6 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							rootdef1.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1004,13 +1014,13 @@ public class rootl6 extends Activity {
 
 					if (wcon == 0) {
 
-						if (k.equals(words[wordnum - 1][1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 
 							rootdef2.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum][0].equals("")) {
 
@@ -1040,7 +1050,7 @@ public class rootl6 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							rootdef2.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1052,13 +1062,13 @@ public class rootl6 extends Activity {
 
 					if (wcon == 1) {
 
-						if (k.equals(words[wordnum - 1][1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 
 							rootdef2.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum][0].equals("")) {
 
@@ -1088,7 +1098,7 @@ public class rootl6 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							rootdef2.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1123,13 +1133,13 @@ public class rootl6 extends Activity {
 
 					if (wcon == 0) {
 
-						if (k.equals(words[wordnum - 1][1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 
 							rootdef3.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum][0].equals("")) {
 
@@ -1159,7 +1169,7 @@ public class rootl6 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							rootdef3.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1171,13 +1181,13 @@ public class rootl6 extends Activity {
 
 					if (wcon == 1) {
 
-						if (k.equals(words[wordnum - 1][1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 
 							rootdef3.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum][0].equals("")) {
 
@@ -1207,7 +1217,7 @@ public class rootl6 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							rootdef3.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1242,13 +1252,13 @@ public class rootl6 extends Activity {
 
 					if (wcon == 0) {
 
-						if (k.equals(words[wordnum - 1][1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 
 							rootdef4.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum][0].equals("")) {
 
@@ -1278,7 +1288,7 @@ public class rootl6 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							rootdef4.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1290,13 +1300,13 @@ public class rootl6 extends Activity {
 
 					if (wcon == 1) {
 
-						if (k.equals(words[wordnum - 1][1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 
 							rootdef4.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum][0].equals("")) {
 
@@ -1326,7 +1336,7 @@ public class rootl6 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							rootdef4.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1361,13 +1371,13 @@ public class rootl6 extends Activity {
 
 					if (wcon == 0) {
 
-						if (k.equals(words[wordnum - 1][1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 
 							rootdef5.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum][0].equals("")) {
 
@@ -1397,7 +1407,7 @@ public class rootl6 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							rootdef5.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1409,13 +1419,13 @@ public class rootl6 extends Activity {
 
 					if (wcon == 1) {
 
-						if (k.equals(words[wordnum - 1][1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 
 							rootdef5.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum][0].equals("")) {
 
@@ -1445,7 +1455,7 @@ public class rootl6 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							rootdef5.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1480,13 +1490,13 @@ public class rootl6 extends Activity {
 
 					if (wcon == 0) {
 
-						if (k.equals(words[wordnum - 1][1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 
 							rootdef6.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum][0].equals("")) {
 
@@ -1516,7 +1526,7 @@ public class rootl6 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							rootdef6.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1528,13 +1538,13 @@ public class rootl6 extends Activity {
 
 					if (wcon == 1) {
 
-						if (k.equals(words[wordnum - 1][1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 
 							rootdef6.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum][0].equals("")) {
 
@@ -1564,7 +1574,7 @@ public class rootl6 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							rootdef6.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1622,7 +1632,7 @@ public class rootl6 extends Activity {
 
 	private void ran() {
 
-		numroot = 0; // ·ÀÖ¹ ×îºó³öÏÖ²»¹»20 ³öÏÖµÄÇé¿ö
+		numroot = 0; // ï¿½ï¿½Ö¹ ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½20 ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
 
 		this.getroots();
 
@@ -1809,7 +1819,7 @@ public class rootl6 extends Activity {
 		a5 = 0;
 		a6 = 0;
 
-		System.out.println("¶àÉÙ¸öroot+" + numroot);
+		System.out.println("ï¿½ï¿½ï¿½Ù¸ï¿½root+" + numroot);
 
 		for (int i = 0; i < numroot; i++) {
 
@@ -1819,7 +1829,7 @@ public class rootl6 extends Activity {
 			}
 		}
 
-		System.out.println("±¾´ÎÑ­»·¹ý");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½");
 
 		h = Math.random() * numroot;
 		a2 = (int) h;
@@ -2065,7 +2075,7 @@ public class rootl6 extends Activity {
 					if (reason.equals(SYSTEM_HOME_KEY)) {
 						myapp.pauselevelmusic();
 						timer.cancel();
-						stopshape(); // home key´¦Àíµã
+						stopshape(); // home keyï¿½ï¿½ï¿½ï¿½ï¿½
 						if (timergreencontrol) {
 							timergreen.cancel();
 						}
@@ -2077,7 +2087,7 @@ public class rootl6 extends Activity {
 						if (timergreencontrol) {
 							timergreen.cancel();
 						}
-						// long home key´¦Àíµã
+						// long home keyï¿½ï¿½ï¿½ï¿½ï¿½
 					}
 				}
 			}

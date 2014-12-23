@@ -21,11 +21,14 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.rootsproject.MainActivity;
 import com.rootsproject.R;
+import com.rootsproject.definition;
 import com.rootsproject.list;
 import com.rootsproject.listselectactivity;
 import com.rootsproject.mypublicvalue;
@@ -42,11 +45,11 @@ public class definitionl8 extends Activity {
 	private String[][] words;
 	private int wordnum;
 
-	public int wcon; // ¸´Ï°¿ØÖÆ·§
+	public int wcon; // ï¿½ï¿½Ï°ï¿½ï¿½ï¿½Æ·ï¿½
 	private String[] roots;
 	private int numroot;
 
-	private boolean p1 = false; // ²Ù¿Øhelp buttonµÄ¿ØÖÆ·§
+	private boolean p1 = false; // ï¿½Ù¿ï¿½help buttonï¿½Ä¿ï¿½ï¿½Æ·ï¿½
 
 	private Timer timergreen;
 
@@ -64,7 +67,7 @@ public class definitionl8 extends Activity {
 	private CountDownTimer helpshape;
 
 	private BroadcastReceiver receiver;
-
+	private Animation mAnimationRight;
 	CountDownTimer timer = new CountDownTimer(10000, 1000) {
 
 		@Override
@@ -95,7 +98,7 @@ public class definitionl8 extends Activity {
 			textViewwr.setText("Time over");
 			if (Integer.parseInt(myapp.get(6)) == 1) {
 
-				myapp.playmusic(3); // Ê§°ÜÒôÀÖ
+				myapp.playmusic(3); // Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			}
 
 			Intent intent = new Intent(definitionl8.this, definitionl8.class);
@@ -202,13 +205,13 @@ public class definitionl8 extends Activity {
 		clicknum = myapp.getscore(0);
 		rightnum = myapp.getscore(1);
 
-		textViewlevel.setText(" Level: " + myapp.get(3)); // Éè¶¨ÏÔÊ¾levelµÄ¿Ø¼þ
+		textViewlevel.setText(" Level: " + myapp.get(3)); // ï¿½è¶¨ï¿½ï¿½Ê¾levelï¿½Ä¿Ø¼ï¿½
 
-		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));textViewword.setText("Word: " + wordnum + "  "); // Éè¶¨ÏÔÊ¾¼¸ºÅwordµÄ¿Ø¼þ
+		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));textViewword.setText("Word: " + wordnum + "  "); // ï¿½è¶¨ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½wordï¿½Ä¿Ø¼ï¿½
 
 		/* words = myapp.getwords(); */
 
-		wcon = myapp.getreviewwrongcontrol(); // ¸´Ï°¿ØÖÆ·§Öµ
+		wcon = myapp.getreviewwrongcontrol(); // ï¿½ï¿½Ï°ï¿½ï¿½ï¿½Æ·ï¿½Öµ
 
 		if (wcon == 0) {
 			words = myapp.getwords();
@@ -223,20 +226,26 @@ public class definitionl8 extends Activity {
 		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
 		textViewscore.setText("Score:"
 				+ (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100) + "%");
-
+		/*added by xiaoqian yu, 2014-12-23, start*/
+		mAnimationRight = AnimationUtils.loadAnimation(
+                definitionl8.this, 
+                myapp.calculateViewAnimationID(myapp.setPulseTimeInterval(myapp.getscore(1), 
+                		                                                  myapp.getscore(0))));
+		textViewscore.startAnimation(mAnimationRight);
+		/*added by xiaoqian yu, 2014-12-23, over*/
 		wordnum = Integer.parseInt(myapp.get(4));
 
 		
-		textViewword.setText("Word: " + wordnum + " / " + wordnum()); // Éè¶¨ÏÔÊ¾¼¸ºÅwordµÄ¿Ø¼þ
+		textViewword.setText("Word: " + wordnum + " / " + wordnum()); // ï¿½è¶¨ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½wordï¿½Ä¿Ø¼ï¿½
 		String word = words[wordnum - 1][0];
 		wordtTextView.setText(word);
 
-		System.out.println("definition TT Ñ­»·¿ØÖÆ·§ ±äÁ¿ con "
+		System.out.println("definition TT Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ ï¿½ï¿½ï¿½ï¿½ con "
 				+ myapp.getrepeatcontrol());
-		System.out.println("definition wrong Ñ­»·¿ØÖÆ·§ ±äÁ¿ wcon "
+		System.out.println("definition wrong Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ ï¿½ï¿½ï¿½ï¿½ wcon "
 				+ myapp.getreviewwrongcontrol());
 
-		System.out.println("ranÇ°Ò»²½");
+		System.out.println("ranÇ°Ò»ï¿½ï¿½");
 
 		this.ran();
 		if (myapp.gethelpcontrol(1) == 0) {
@@ -267,7 +276,7 @@ public class definitionl8 extends Activity {
 
 					if (wcon == 0) {
 
-						if (key.equals(words[wordnum - 1][1])) { // ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][1])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							textViewdef1
 									.setBackgroundResource(R.drawable.green);
@@ -277,7 +286,7 @@ public class definitionl8 extends Activity {
 							defrepeat(0);
 							if (!words[wordnum][0].equals("")) {
 
-								System.out.println("Ñ­»·ÏÂÒ»¸ö");
+								System.out.println("Ñ­ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½");
 								myapp.set(4, Integer.toString(wordnum + 1));
 
 								double h = Math.random();
@@ -309,9 +318,9 @@ public class definitionl8 extends Activity {
 
 							}
 
-							if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+							if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-								System.out.println("Ñ­»·½áÊø");
+								System.out.println("Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 								intent = new Intent(definitionl8.this,
 										scorel8.class);
 								myapp.cleanwrongwords();
@@ -334,7 +343,7 @@ public class definitionl8 extends Activity {
 
 						}
 
-						if (!key.equals(words[wordnum - 1][1])) { // Ñ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][1])) { // Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							textViewdef1.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -342,7 +351,7 @@ public class definitionl8 extends Activity {
 							stopshape();
 							if (!timergreencontrol) {
 							myapp.addwrongword(words[wordnum - 1]);
-							defrepeat(1); // ÕâÊÇ×ö´íÁË¼Ó1
+							defrepeat(1); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½1
 							Intent intent = new Intent(definitionl8.this,
 									definitionl8.class);
 							startActivity(intent);
@@ -355,7 +364,7 @@ public class definitionl8 extends Activity {
 
 					if (wcon == 1) {
 
-						if (key.equals(words[wordnum - 1][1])) { // ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][1])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							textViewdef1
 									.setBackgroundResource(R.drawable.green);
@@ -365,7 +374,7 @@ public class definitionl8 extends Activity {
 							defrepeat(0);
 							if (!words[wordnum][0].equals("")) {
 
-								System.out.println("Ñ­»·ÏÂÒ»¸ö");
+								System.out.println("Ñ­ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½");
 								myapp.set(4, Integer.toString(wordnum + 1));
 
 								double h = Math.random();
@@ -397,9 +406,9 @@ public class definitionl8 extends Activity {
 
 							}
 
-							if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+							if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-								System.out.println("Ñ­»·½áÊø");
+								System.out.println("Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 								intent = new Intent(definitionl8.this,
 										scorel8.class);
 								myapp.cleanCwrongwords();
@@ -423,7 +432,7 @@ public class definitionl8 extends Activity {
 
 						}
 
-						if (!key.equals(words[wordnum - 1][1])) { // Ñ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][1])) { // Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							textViewdef1.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -431,7 +440,7 @@ public class definitionl8 extends Activity {
 							stopshape();
 							if (!timergreencontrol) {
 							myapp.addwrongwords1(words[wordnum - 1]);
-							defrepeat(1); // ÕâÊÇ×ö´íÁË¼Ó1
+							defrepeat(1); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½1
 							Intent intent = new Intent(definitionl8.this,
 									definitionl8.class);
 							startActivity(intent);
@@ -464,7 +473,7 @@ public class definitionl8 extends Activity {
 
 					if (wcon == 0) {
 
-						if (key.equals(words[wordnum - 1][1])) { // ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][1])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							textViewdef2
 									.setBackgroundResource(R.drawable.green);
@@ -474,7 +483,7 @@ public class definitionl8 extends Activity {
 							defrepeat(0);
 							if (!words[wordnum][0].equals("")) {
 
-								System.out.println("Ñ­»·ÏÂÒ»¸ö");
+								System.out.println("Ñ­ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½");
 								myapp.set(4, Integer.toString(wordnum + 1));
 
 								double h = Math.random();
@@ -506,9 +515,9 @@ public class definitionl8 extends Activity {
 
 							}
 
-							if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+							if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-								System.out.println("Ñ­»·½áÊø");
+								System.out.println("Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 								intent = new Intent(definitionl8.this,
 										scorel8.class);
 								myapp.cleanwrongwords();
@@ -531,7 +540,7 @@ public class definitionl8 extends Activity {
 
 						}
 
-						if (!key.equals(words[wordnum - 1][1])) { // Ñ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][1])) { // Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							textViewdef2.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -539,7 +548,7 @@ public class definitionl8 extends Activity {
 							stopshape();
 							if (!timergreencontrol) {
 							myapp.addwrongword(words[wordnum - 1]);
-							defrepeat(1); // ÕâÊÇ×ö´íÁË¼Ó1
+							defrepeat(1); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½1
 							Intent intent = new Intent(definitionl8.this,
 									definitionl8.class);
 							startActivity(intent);
@@ -552,7 +561,7 @@ public class definitionl8 extends Activity {
 
 					if (wcon == 1) {
 
-						if (key.equals(words[wordnum - 1][1])) { // ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][1])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							textViewdef2
 									.setBackgroundResource(R.drawable.green);
@@ -562,7 +571,7 @@ public class definitionl8 extends Activity {
 							defrepeat(0);
 							if (!words[wordnum][0].equals("")) {
 
-								System.out.println("Ñ­»·ÏÂÒ»¸ö");
+								System.out.println("Ñ­ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½");
 								myapp.set(4, Integer.toString(wordnum + 1));
 
 								double h = Math.random();
@@ -594,9 +603,9 @@ public class definitionl8 extends Activity {
 
 							}
 
-							if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+							if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-								System.out.println("Ñ­»·½áÊø");
+								System.out.println("Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 								intent = new Intent(definitionl8.this,
 										scorel8.class);
 								myapp.cleanCwrongwords();
@@ -620,7 +629,7 @@ public class definitionl8 extends Activity {
 
 						}
 
-						if (!key.equals(words[wordnum - 1][1])) { // Ñ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][1])) { // Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							textViewdef2.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -628,7 +637,7 @@ public class definitionl8 extends Activity {
 							stopshape();
 							if (!timergreencontrol) {
 							myapp.addwrongwords1(words[wordnum - 1]);
-							defrepeat(1); // ÕâÊÇ×ö´íÁË¼Ó1
+							defrepeat(1); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½1
 							Intent intent = new Intent(definitionl8.this,
 									definitionl8.class);
 							startActivity(intent);
@@ -660,7 +669,7 @@ public class definitionl8 extends Activity {
 
 					if (wcon == 0) {
 
-						if (key.equals(words[wordnum - 1][1])) { // ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][1])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							textViewdef3
 									.setBackgroundResource(R.drawable.green);
@@ -670,7 +679,7 @@ public class definitionl8 extends Activity {
 							defrepeat(0);
 							if (!words[wordnum][0].equals("")) {
 
-								System.out.println("Ñ­»·ÏÂÒ»¸ö");
+								System.out.println("Ñ­ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½");
 								myapp.set(4, Integer.toString(wordnum + 1));
 
 								double h = Math.random();
@@ -702,9 +711,9 @@ public class definitionl8 extends Activity {
 
 							}
 
-							if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+							if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-								System.out.println("Ñ­»·½áÊø");
+								System.out.println("Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 								intent = new Intent(definitionl8.this,
 										scorel8.class);
 								myapp.cleanwrongwords();
@@ -727,7 +736,7 @@ public class definitionl8 extends Activity {
 
 						}
 
-						if (!key.equals(words[wordnum - 1][1])) { // Ñ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][1])) { // Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							textViewdef3.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -735,7 +744,7 @@ public class definitionl8 extends Activity {
 							stopshape();
 							if (!timergreencontrol) {
 							myapp.addwrongword(words[wordnum - 1]);
-							defrepeat(1); // ÕâÊÇ×ö´íÁË¼Ó1
+							defrepeat(1); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½1
 							Intent intent = new Intent(definitionl8.this,
 									definitionl8.class);
 							startActivity(intent);
@@ -748,7 +757,7 @@ public class definitionl8 extends Activity {
 
 					if (wcon == 1) {
 
-						if (key.equals(words[wordnum - 1][1])) { // ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][1])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							textViewdef3
 									.setBackgroundResource(R.drawable.green);
@@ -758,7 +767,7 @@ public class definitionl8 extends Activity {
 							defrepeat(0);
 							if (!words[wordnum][0].equals("")) {
 
-								System.out.println("Ñ­»·ÏÂÒ»¸ö");
+								System.out.println("Ñ­ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½");
 								myapp.set(4, Integer.toString(wordnum + 1));
 
 								double h = Math.random();
@@ -790,9 +799,9 @@ public class definitionl8 extends Activity {
 
 							}
 
-							if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+							if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-								System.out.println("Ñ­»·½áÊø");
+								System.out.println("Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 								intent = new Intent(definitionl8.this,
 										scorel8.class);
 								myapp.cleanCwrongwords();
@@ -816,7 +825,7 @@ public class definitionl8 extends Activity {
 
 						}
 
-						if (!key.equals(words[wordnum - 1][1])) { // Ñ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][1])) { // Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							textViewdef3.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -824,7 +833,7 @@ public class definitionl8 extends Activity {
 							stopshape();
 							if (!timergreencontrol) {
 							myapp.addwrongwords1(words[wordnum - 1]);
-							defrepeat(1); // ÕâÊÇ×ö´íÁË¼Ó1
+							defrepeat(1); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½1
 							Intent intent = new Intent(definitionl8.this,
 									definitionl8.class);
 							startActivity(intent);
@@ -861,7 +870,7 @@ public class definitionl8 extends Activity {
 
 					if (wcon == 0) {
 
-						if (key.equals(words[wordnum - 1][1])) { // ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][1])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							textViewdef1
 									.setBackgroundResource(R.drawable.green);
@@ -891,7 +900,7 @@ public class definitionl8 extends Activity {
 
 							}
 
-							if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+							if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 								Intent intent = new Intent(definitionl8.this,
 										scorel8.class);
@@ -904,7 +913,7 @@ public class definitionl8 extends Activity {
 
 						}
 
-						if (!key.equals(words[wordnum - 1][1])) { // Ñ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][1])) { // Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							textViewdef1.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -915,7 +924,7 @@ public class definitionl8 extends Activity {
 
 					if (wcon == 1) {
 
-						if (key.equals(words[wordnum - 1][1])) { // ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][1])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							textViewdef1
 									.setBackgroundResource(R.drawable.green);
@@ -945,7 +954,7 @@ public class definitionl8 extends Activity {
 
 							}
 
-							if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+							if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 								Intent intent = new Intent(definitionl8.this,
 										scorel8.class);
@@ -959,7 +968,7 @@ public class definitionl8 extends Activity {
 
 						}
 
-						if (!key.equals(words[wordnum - 1][1])) { // Ñ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][1])) { // Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							textViewdef1.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -990,7 +999,7 @@ public class definitionl8 extends Activity {
 
 					if (wcon == 0) {
 
-						if (key.equals(words[wordnum - 1][1])) { // ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][1])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							textViewdef2
 									.setBackgroundResource(R.drawable.green);
@@ -1020,7 +1029,7 @@ public class definitionl8 extends Activity {
 
 							}
 
-							if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+							if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 								Intent intent = new Intent(definitionl8.this,
 										scorel8.class);
@@ -1033,7 +1042,7 @@ public class definitionl8 extends Activity {
 
 						}
 
-						if (!key.equals(words[wordnum - 1][1])) { // Ñ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][1])) { // Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							textViewdef2.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1044,7 +1053,7 @@ public class definitionl8 extends Activity {
 
 					if (wcon == 1) {
 
-						if (key.equals(words[wordnum - 1][1])) { // ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][1])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							textViewdef2
 									.setBackgroundResource(R.drawable.green);
@@ -1074,7 +1083,7 @@ public class definitionl8 extends Activity {
 
 							}
 
-							if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+							if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 								Intent intent = new Intent(definitionl8.this,
 										scorel8.class);
@@ -1088,7 +1097,7 @@ public class definitionl8 extends Activity {
 
 						}
 
-						if (!key.equals(words[wordnum - 1][1])) { // Ñ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][1])) { // Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							textViewdef2.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1118,7 +1127,7 @@ public class definitionl8 extends Activity {
 
 					if (wcon == 0) {
 
-						if (key.equals(words[wordnum - 1][1])) { // ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][1])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							textViewdef3
 									.setBackgroundResource(R.drawable.green);
@@ -1148,7 +1157,7 @@ public class definitionl8 extends Activity {
 
 							}
 
-							if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+							if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 								Intent intent = new Intent(definitionl8.this,
 										scorel8.class);
@@ -1161,7 +1170,7 @@ public class definitionl8 extends Activity {
 
 						}
 
-						if (!key.equals(words[wordnum - 1][1])) { // Ñ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][1])) { // Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							textViewdef3.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1172,7 +1181,7 @@ public class definitionl8 extends Activity {
 
 					if (wcon == 1) {
 
-						if (key.equals(words[wordnum - 1][1])) { // ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][1])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							textViewdef3
 									.setBackgroundResource(R.drawable.green);
@@ -1202,7 +1211,7 @@ public class definitionl8 extends Activity {
 
 							}
 
-							if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+							if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 								Intent intent = new Intent(definitionl8.this,
 										scorel8.class);
@@ -1216,7 +1225,7 @@ public class definitionl8 extends Activity {
 
 						}
 
-						if (!key.equals(words[wordnum - 1][1])) { // Ñ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][1])) { // Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							textViewdef3.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1284,19 +1293,19 @@ public class definitionl8 extends Activity {
 	}
 
 	private void ran() {
-		numroot = 0; // ·ÀÖ¹ ×îºó³öÏÖ²»¹»20 ³öÏÖµÄÇé¿ö
+		numroot = 0; // ï¿½ï¿½Ö¹ ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½20 ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
 
 		this.getroots();
 
 		/* if (wcon == 0) { */
 		for (int i = 0; i < 20; i++) {
 
-			if (!roots[i].equals("")) { // ËÀÑ­»·ÎÊÌâ
+			if (!roots[i].equals("")) { // ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				numroot = i + 1;
 			}
 		}
 
-		double h = Math.random() * 3; // Ëæ»úÎª0µ½1Ö®¼ä£¬ ÕâÀïÓÐ4¸ö°´Å¥£¬ËùÒÔÑ¡4
+		double h = Math.random() * 3; // ï¿½ï¿½ï¿½Îª0ï¿½ï¿½1Ö®ï¿½ä£¬ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4ï¿½ï¿½ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡4
 
 		// System.out.println((int) h);
 		int k = (int) h;
@@ -1334,7 +1343,7 @@ public class definitionl8 extends Activity {
 				break;
 			}
 		}
-		System.out.println("wordËÀÑ­»·" + numroot);
+		System.out.println("wordï¿½ï¿½Ñ­ï¿½ï¿½" + numroot);
 
 		h = Math.random() * numroot;
 		a2 = (int) h;
@@ -1408,7 +1417,7 @@ public class definitionl8 extends Activity {
 			roots[i] = "";
 
 		}
-		System.out.println("root¶¨Òå");
+		System.out.println("rootï¿½ï¿½ï¿½ï¿½");
 		//
 
 		int k = 0;
@@ -1538,7 +1547,7 @@ public class definitionl8 extends Activity {
 					if (reason.equals(SYSTEM_HOME_KEY)) {
 						myapp.pauselevelmusic();
 						timer.cancel();
-						stopshape(); // home key´¦Àíµã
+						stopshape(); // home keyï¿½ï¿½ï¿½ï¿½ï¿½
 						if (timergreencontrol) {
 							timergreen.cancel();
 						}
@@ -1550,7 +1559,7 @@ public class definitionl8 extends Activity {
 						if (timergreencontrol) {
 							timergreen.cancel();
 						}
-						// long home key´¦Àíµã
+						// long home keyï¿½ï¿½ï¿½ï¿½ï¿½
 					}
 				}
 			}

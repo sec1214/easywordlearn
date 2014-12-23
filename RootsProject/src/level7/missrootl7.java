@@ -21,11 +21,14 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.rootsproject.MainActivity;
 import com.rootsproject.R;
+import com.rootsproject.definition;
 import com.rootsproject.list;
 import com.rootsproject.listselectactivity;
 import com.rootsproject.mypublicvalue;
@@ -42,10 +45,10 @@ public class missrootl7 extends Activity {
 	private TextView textViewlevel, textViewword, textViewwr, textViewscore;
 	private String[][] words;
 	private int wordnum;
-	private int rootnum = 0; // Í³¼ÆÕâÀïÓÐ¶àÉÙ¸öroot Ã¿¸öword£¬¸úroot£¨£©ºÍword£¨£©ÀïÍ·²»Ò»Ñù
+	private int rootnum = 0; // Í³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ù¸ï¿½root Ã¿ï¿½ï¿½wordï¿½ï¿½ï¿½ï¿½rootï¿½ï¿½ï¿½ï¿½ï¿½ï¿½wordï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½Ò»ï¿½ï¿½
 	private String[] roots;
 	private int numroot;
-	public int wcon, con; // ´í´ÊÑ­»·£¬ ²»ÐèÒªTTÑ­»·con
+	public int wcon, con; // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ÒªTTÑ­ï¿½ï¿½con
 	private int clicknumtouch = 0;
 	private int rootstep = 2;
 	/* private String[][] ranwords = new String[21][10]; */
@@ -77,7 +80,8 @@ public class missrootl7 extends Activity {
 
 	private Intent intent;
 
-	private boolean p1 = false; // ²Ù¿Øhelp buttonµÄ¿ØÖÆ·§
+	private boolean p1 = false; // ï¿½Ù¿ï¿½help buttonï¿½Ä¿ï¿½ï¿½Æ·ï¿½
+	private Animation mAnimationRight;
 
 	CountDownTimer timer = new CountDownTimer(10000, 1000) {
 
@@ -110,7 +114,7 @@ public class missrootl7 extends Activity {
 			textViewwr.setText("Time over");
 			if (Integer.parseInt(myapp.get(6)) == 1) {
 
-				myapp.playmusic(3); // Ê§°ÜÒôÀÖ
+				myapp.playmusic(3); // Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			}
 
 			Intent intent = new Intent(missrootl7.this, missrootl7.class);
@@ -225,14 +229,14 @@ public class missrootl7 extends Activity {
 		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
 
-		textViewlevel.setText(" Level: " + myapp.get(3)); // Éè¶¨ÏÔÊ¾levelµÄ¿Ø¼þ
+		textViewlevel.setText(" Level: " + myapp.get(3)); // ï¿½è¶¨ï¿½ï¿½Ê¾levelï¿½Ä¿Ø¼ï¿½
 		textViewwr.setText("Fill Blank");
 
 		wordnum = Integer.parseInt(myapp.get(4));
 
 		// rootstep = Integer.parseInt(myapp.get(5));
 
-		wcon = myapp.getreviewwrongcontrol(); // ¸´Ï°¿ØÖÆ·§Öµ
+		wcon = myapp.getreviewwrongcontrol(); // ï¿½ï¿½Ï°ï¿½ï¿½ï¿½Æ·ï¿½Öµ
 		con = myapp.getrepeatcontrol();
 
 		clicknum = myapp.getscore(0);
@@ -252,10 +256,16 @@ public class missrootl7 extends Activity {
 
 		}
 		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
-		textViewword.setText("Word: " + wordnum + " / " + wordnum()); // Éè¶¨ÏÔÊ¾¼¸ºÅwordµÄ¿Ø¼þ
+		textViewword.setText("Word: " + wordnum + " / " + wordnum()); // ï¿½è¶¨ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½wordï¿½Ä¿Ø¼ï¿½
 		textViewscore.setText(
 				 (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100) + "%");
-
+		/*added by xiaoqian yu, 2014-12-23, start*/
+		mAnimationRight = AnimationUtils.loadAnimation(
+                missrootl7.this, 
+                myapp.calculateViewAnimationID(myapp.setPulseTimeInterval(myapp.getscore(1), 
+                		                                                  myapp.getscore(0))));
+		textViewscore.startAnimation(mAnimationRight);
+		/*added by xiaoqian yu, 2014-12-23, over*/
 		missrootworddeftTextView = (TextView) this
 				.findViewById(R.id.missrootworddefview);
 		missrootworddeftTextView.setText(words[wordnum - 1][1]);
@@ -292,7 +302,7 @@ public class missrootl7 extends Activity {
 					// TODO Auto-generated method stub
 					String k = (String) root1.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
-					if (k.equals(words[wordnum - 1][2]) // „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+					if (k.equals(words[wordnum - 1][2]) // ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -305,7 +315,7 @@ public class missrootl7 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 					// System.out.println(k);
-					if (k.equals(words[wordnum - 1][2]) // ×ö¶ÔÁË
+					if (k.equals(words[wordnum - 1][2]) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -321,7 +331,7 @@ public class missrootl7 extends Activity {
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
 
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 
@@ -352,7 +362,7 @@ public class missrootl7 extends Activity {
 
 							}
 							if (!words[wordnum][0].equals("")) {
-								myapp.set(4, Integer.toString(wordnum + 1));// ÏÂÒ»¸ö´Ê
+								myapp.set(4, Integer.toString(wordnum + 1));// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
 
 								timer.cancel();
 								stopshape();
@@ -408,7 +418,7 @@ public class missrootl7 extends Activity {
 					// TODO Auto-generated method stub
 					String k = (String) root2.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
-					if (k.equals(words[wordnum - 1][2]) // „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+					if (k.equals(words[wordnum - 1][2]) // ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -421,7 +431,7 @@ public class missrootl7 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 					// System.out.println(k);
-					if (k.equals(words[wordnum - 1][2]) // ×ö¶ÔÁË
+					if (k.equals(words[wordnum - 1][2]) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -437,7 +447,7 @@ public class missrootl7 extends Activity {
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
 
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 
@@ -468,7 +478,7 @@ public class missrootl7 extends Activity {
 
 							}
 							if (!words[wordnum][0].equals("")) {
-								myapp.set(4, Integer.toString(wordnum + 1));// ÏÂÒ»¸ö´Ê
+								myapp.set(4, Integer.toString(wordnum + 1));// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
 
 								timer.cancel();
 								stopshape();
@@ -523,7 +533,7 @@ public class missrootl7 extends Activity {
 					// TODO Auto-generated method stub
 					String k = (String) root3.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
-					if (k.equals(words[wordnum - 1][2]) // „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+					if (k.equals(words[wordnum - 1][2]) // ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -535,7 +545,7 @@ public class missrootl7 extends Activity {
 						myapp.judgeAndCalculateConstantErrorCount();
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
-					if (k.equals(words[wordnum - 1][2]) // „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+					if (k.equals(words[wordnum - 1][2]) // ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -551,7 +561,7 @@ public class missrootl7 extends Activity {
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
 
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 
@@ -582,7 +592,7 @@ public class missrootl7 extends Activity {
 
 							}
 							if (!words[wordnum][0].equals("")) {
-								myapp.set(4, Integer.toString(wordnum + 1));// ÏÂÒ»¸ö´Ê
+								myapp.set(4, Integer.toString(wordnum + 1));// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
 
 								timer.cancel();
 								stopshape();
@@ -637,7 +647,7 @@ public class missrootl7 extends Activity {
 					// TODO Auto-generated method stub
 					String k = (String) root4.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
-					if (k.equals(words[wordnum - 1][2]) // „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+					if (k.equals(words[wordnum - 1][2]) // ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -649,7 +659,7 @@ public class missrootl7 extends Activity {
 						myapp.judgeAndCalculateConstantErrorCount();
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
-					if (k.equals(words[wordnum - 1][2]) // „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+					if (k.equals(words[wordnum - 1][2]) // ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -665,7 +675,7 @@ public class missrootl7 extends Activity {
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
 
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 
@@ -696,7 +706,7 @@ public class missrootl7 extends Activity {
 
 							}
 							if (!words[wordnum][0].equals("")) {
-								myapp.set(4, Integer.toString(wordnum + 1));// ÏÂÒ»¸ö´Ê
+								myapp.set(4, Integer.toString(wordnum + 1));// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
 
 								timer.cancel();
 								stopshape();
@@ -750,7 +760,7 @@ public class missrootl7 extends Activity {
 					// TODO Auto-generated method stub
 					String k = (String) root5.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
-					if (k.equals(words[wordnum - 1][2]) // „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+					if (k.equals(words[wordnum - 1][2]) // ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -762,7 +772,7 @@ public class missrootl7 extends Activity {
 						myapp.judgeAndCalculateConstantErrorCount();
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
-					if (k.equals(words[wordnum - 1][2]) // „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+					if (k.equals(words[wordnum - 1][2]) // ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -778,7 +788,7 @@ public class missrootl7 extends Activity {
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
 
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 
@@ -809,7 +819,7 @@ public class missrootl7 extends Activity {
 
 							}
 							if (!words[wordnum][0].equals("")) {
-								myapp.set(4, Integer.toString(wordnum + 1));// ÏÂÒ»¸ö´Ê
+								myapp.set(4, Integer.toString(wordnum + 1));// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
 
 								timer.cancel();
 								stopshape();
@@ -863,7 +873,7 @@ public class missrootl7 extends Activity {
 					// TODO Auto-generated method stub
 					String k = (String) root6.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
-					if (k.equals(words[wordnum - 1][2]) // „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+					if (k.equals(words[wordnum - 1][2]) // ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -875,7 +885,7 @@ public class missrootl7 extends Activity {
 						myapp.judgeAndCalculateConstantErrorCount();
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
-					if (k.equals(words[wordnum - 1][2]) // „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+					if (k.equals(words[wordnum - 1][2]) // ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -891,7 +901,7 @@ public class missrootl7 extends Activity {
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
 
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 
@@ -922,7 +932,7 @@ public class missrootl7 extends Activity {
 
 							}
 							if (!words[wordnum][0].equals("")) {
-								myapp.set(4, Integer.toString(wordnum + 1));// ÏÂÒ»¸ö´Ê
+								myapp.set(4, Integer.toString(wordnum + 1));// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
 
 								timer.cancel();
 								stopshape();
@@ -983,7 +993,7 @@ public class missrootl7 extends Activity {
 					// TODO Auto-generated method stub
 					String k = (String) root1.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
-					if (k.equals(words[wordnum - 1][2]) // „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+					if (k.equals(words[wordnum - 1][2]) // ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -996,7 +1006,7 @@ public class missrootl7 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 					// System.out.println(k);
-					if (k.equals(words[wordnum - 1][2]) // ×ö¶ÔÁË
+					if (k.equals(words[wordnum - 1][2]) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -1010,7 +1020,7 @@ public class missrootl7 extends Activity {
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
 
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 							if (words[wordnum][0].equals("")) {
@@ -1029,7 +1039,7 @@ public class missrootl7 extends Activity {
 
 							}
 							if (!words[wordnum][0].equals("")) {
-								myapp.set(4, Integer.toString(wordnum + 1));// ÏÂÒ»¸ö´Ê
+								myapp.set(4, Integer.toString(wordnum + 1));// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
 								Intent intent = new Intent(missrootl7.this,
 										missrootl7.class);
 								startActivity(intent);
@@ -1059,7 +1069,7 @@ public class missrootl7 extends Activity {
 					// TODO Auto-generated method stub
 					String k = (String) root2.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
-					if (k.equals(words[wordnum - 1][2]) // „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+					if (k.equals(words[wordnum - 1][2]) // ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -1072,7 +1082,7 @@ public class missrootl7 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 					// System.out.println(k);
-					if (k.equals(words[wordnum - 1][2]) // ×ö¶ÔÁË
+					if (k.equals(words[wordnum - 1][2]) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -1086,7 +1096,7 @@ public class missrootl7 extends Activity {
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
 
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1105,7 +1115,7 @@ public class missrootl7 extends Activity {
 
 							}
 							if (!words[wordnum][0].equals("")) {
-								myapp.set(4, Integer.toString(wordnum + 1));// ÏÂÒ»¸ö´Ê
+								myapp.set(4, Integer.toString(wordnum + 1));// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
 								Intent intent = new Intent(missrootl7.this,
 										missrootl7.class);
 								startActivity(intent);
@@ -1135,7 +1145,7 @@ public class missrootl7 extends Activity {
 					// TODO Auto-generated method stub
 					String k = (String) root3.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
-					if (k.equals(words[wordnum - 1][2]) // „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+					if (k.equals(words[wordnum - 1][2]) // ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -1148,7 +1158,7 @@ public class missrootl7 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 					// System.out.println(k);
-					if (k.equals(words[wordnum - 1][2]) // ×ö¶ÔÁË
+					if (k.equals(words[wordnum - 1][2]) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -1162,7 +1172,7 @@ public class missrootl7 extends Activity {
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
 
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1181,7 +1191,7 @@ public class missrootl7 extends Activity {
 
 							}
 							if (!words[wordnum][0].equals("")) {
-								myapp.set(4, Integer.toString(wordnum + 1));// ÏÂÒ»¸ö´Ê
+								myapp.set(4, Integer.toString(wordnum + 1));// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
 								Intent intent = new Intent(missrootl7.this,
 										missrootl7.class);
 								startActivity(intent);
@@ -1211,7 +1221,7 @@ public class missrootl7 extends Activity {
 					// TODO Auto-generated method stub
 					String k = (String) root4.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
-					if (k.equals(words[wordnum - 1][2]) // „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+					if (k.equals(words[wordnum - 1][2]) // ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -1224,7 +1234,7 @@ public class missrootl7 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 					// System.out.println(k);
-					if (k.equals(words[wordnum - 1][2]) // ×ö¶ÔÁË
+					if (k.equals(words[wordnum - 1][2]) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -1238,7 +1248,7 @@ public class missrootl7 extends Activity {
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
 
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1257,7 +1267,7 @@ public class missrootl7 extends Activity {
 
 							}
 							if (!words[wordnum][0].equals("")) {
-								myapp.set(4, Integer.toString(wordnum + 1));// ÏÂÒ»¸ö´Ê
+								myapp.set(4, Integer.toString(wordnum + 1));// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
 								Intent intent = new Intent(missrootl7.this,
 										missrootl7.class);
 								startActivity(intent);
@@ -1287,7 +1297,7 @@ public class missrootl7 extends Activity {
 					// TODO Auto-generated method stub
 					String k = (String) root5.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
-					if (k.equals(words[wordnum - 1][2]) // „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+					if (k.equals(words[wordnum - 1][2]) // ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -1300,7 +1310,7 @@ public class missrootl7 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 					// System.out.println(k);
-					if (k.equals(words[wordnum - 1][2]) // ×ö¶ÔÁË
+					if (k.equals(words[wordnum - 1][2]) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -1314,7 +1324,7 @@ public class missrootl7 extends Activity {
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
 
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1333,7 +1343,7 @@ public class missrootl7 extends Activity {
 
 							}
 							if (!words[wordnum][0].equals("")) {
-								myapp.set(4, Integer.toString(wordnum + 1));// ÏÂÒ»¸ö´Ê
+								myapp.set(4, Integer.toString(wordnum + 1));// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
 								Intent intent = new Intent(missrootl7.this,
 										missrootl7.class);
 								startActivity(intent);
@@ -1363,7 +1373,7 @@ public class missrootl7 extends Activity {
 					// TODO Auto-generated method stub
 					String k = (String) root6.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
-					if (k.equals(words[wordnum - 1][2]) // „1¤7„1¤7„1¤7„1¤7„1¤7„1¤7
+					if (k.equals(words[wordnum - 1][2]) // ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7ï¿½1ï¿½7
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -1376,7 +1386,7 @@ public class missrootl7 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 					// System.out.println(k);
-					if (k.equals(words[wordnum - 1][2]) // ×ö¶ÔÁË
+					if (k.equals(words[wordnum - 1][2]) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -1390,7 +1400,7 @@ public class missrootl7 extends Activity {
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
 
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1409,7 +1419,7 @@ public class missrootl7 extends Activity {
 
 							}
 							if (!words[wordnum][0].equals("")) {
-								myapp.set(4, Integer.toString(wordnum + 1));// ÏÂÒ»¸ö´Ê
+								myapp.set(4, Integer.toString(wordnum + 1));// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
 								Intent intent = new Intent(missrootl7.this,
 										missrootl7.class);
 								startActivity(intent);
@@ -1474,7 +1484,7 @@ public class missrootl7 extends Activity {
 
 	}
 
-	private String getresultword(int key) { // ±¾·½·¨×Ô¶¯´´½¨Ïà¶ÔÓ¦µÄÈ±Ê§rootµÄ×Ö·û´®
+	private String getresultword(int key) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½È±Ê§rootï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 		// TODO Auto-generated method stub
 
 		String word = words[wordnum - 1][0];
@@ -1511,14 +1521,14 @@ public class missrootl7 extends Activity {
 
 		}
 
-		System.out.println("Ìæ»»µÄ×Ö·û´®" + word);
+		System.out.println("ï¿½æ»»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½" + word);
 
 		return word;
 	}
 
-	private String getchangeword(int key) { // ±¾·½·¨×Ô¶¯´´½¨Ïà¶ÔÓ¦µÄÈ±Ê§rootµÄ×Ö·û´®
+	private String getchangeword(int key) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½È±Ê§rootï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 		// TODO Auto-generated method stub
-		int k = 2; // ÆðÊ¼rootµÄµØµã
+		int k = 2; // ï¿½ï¿½Ê¼rootï¿½ÄµØµï¿½
 		String word = words[wordnum - 1][0];
 		String[] changeword = new String[4];
 
@@ -1554,25 +1564,25 @@ public class missrootl7 extends Activity {
 				targetword = targetword + "_";
 			}
 			targetword = targetword + " ";
-			// System.out.println("×¢Òâ"+word);
+			// System.out.println("×¢ï¿½ï¿½"+word);
 			word = word.replace(changeword[i], targetword);
 
 		}
 
-		System.out.println("Ìæ»»µÄ×Ö·û´®" + word);
+		System.out.println("ï¿½æ»»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½" + word);
 
 		return word;
 	}
 
 	private void ran() {
 		// TODO Auto-generated method stub
-		numroot = 0; // ·ÀÖ¹ ×îºó³öÏÖ²»¹»20 ³öÏÖµÄÇé¿ö
+		numroot = 0; // ï¿½ï¿½Ö¹ ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½20 ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
 
 		this.getroots();
 
-		for (int i = 0; i < 80; i++) { // root×î¶à80¸ö
+		for (int i = 0; i < 80; i++) { // rootï¿½ï¿½ï¿½80ï¿½ï¿½
 
-			if (!roots[i].equals("")) { // Ò»¹²È¡µÃÁË¶àÉÙ¸ö¿ÉÓÃµÄROOT
+			if (!roots[i].equals("")) { // Ò»ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ë¶ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½Ãµï¿½ROOT
 				numroot = i + 1;
 			}
 
@@ -1623,13 +1633,13 @@ public class missrootl7 extends Activity {
 		a5 = 0;
 		a6 = 0;
 
-		System.out.println("¶àÉÙ¸öroot+" + numroot);
+		System.out.println("ï¿½ï¿½ï¿½Ù¸ï¿½root+" + numroot);
 
 		for (int i = 0; i < numroot; i++) {
 
-			if (words[wordnum - 1][2].equals(roots[i])) { // È·¶¨4¸öroot
+			if (words[wordnum - 1][2].equals(roots[i])) { // È·ï¿½ï¿½4ï¿½ï¿½root
 				a1 = i;
-				System.out.println("a1ÄÃµ½");
+				System.out.println("a1ï¿½Ãµï¿½");
 				break;
 			}
 		}
@@ -1638,7 +1648,7 @@ public class missrootl7 extends Activity {
 
 			if (words[wordnum - 1][4].equals(roots[i])) {
 				a2 = i;
-				System.out.println("a2ÄÃµ½");
+				System.out.println("a2ï¿½Ãµï¿½");
 				break;
 			}
 		}
@@ -1647,7 +1657,7 @@ public class missrootl7 extends Activity {
 
 			if (words[wordnum - 1][6].equals(roots[i])) {
 				a3 = i;
-				System.out.println("a3ÄÃµ½");
+				System.out.println("a3ï¿½Ãµï¿½");
 				break;
 			}
 		}
@@ -1656,14 +1666,14 @@ public class missrootl7 extends Activity {
 
 			if (words[wordnum - 1][8].equals(roots[i])) {
 				a4 = i;
-				System.out.println("a4ÄÃµ½");
+				System.out.println("a4ï¿½Ãµï¿½");
 				break;
 			}
 		}
 
-		System.out.println("±¾´ÎÑ­»·¹ý");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½");
 
-		if (rootnum == 1) { // Ö¤Ã÷Ö»ÓÐÒ»¸öroot
+		if (rootnum == 1) { // Ö¤ï¿½ï¿½Ö»ï¿½ï¿½Ò»ï¿½ï¿½root
 
 			System.out.println("rootnum   " + 1);
 
@@ -1800,7 +1810,7 @@ public class missrootl7 extends Activity {
 			}
 		}
 
-		if (rootnum == 2) { // Ö¤Ã÷ÓÐ2¸öroot ·Ö±ðÊÇa1 ºÍ a2
+		if (rootnum == 2) { // Ö¤ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½root ï¿½Ö±ï¿½ï¿½ï¿½a1 ï¿½ï¿½ a2
 
 			System.out.println("rootnum   " + 2);
 
@@ -1938,7 +1948,7 @@ public class missrootl7 extends Activity {
 
 		}
 
-		if (rootnum == 3) { // Ö¤Ã÷ÓÐ3¸öroot
+		if (rootnum == 3) { // Ö¤ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½root
 
 			System.out.println("rootnum   " + 3);
 
@@ -2075,7 +2085,7 @@ public class missrootl7 extends Activity {
 
 		}
 
-		if (rootnum == 4) { // 4¸öroot
+		if (rootnum == 4) { // 4ï¿½ï¿½root
 
 			System.out.println("rootnum   " + 4);
 
@@ -2411,7 +2421,7 @@ public class missrootl7 extends Activity {
 					if (reason.equals(SYSTEM_HOME_KEY)) {
 						myapp.pauselevelmusic();
 						timer.cancel();
-						stopshape(); // home key´¦Àíµã
+						stopshape(); // home keyï¿½ï¿½ï¿½ï¿½ï¿½
 						if (timergreencontrol) {
 							timergreen.cancel();
 						}
@@ -2423,7 +2433,7 @@ public class missrootl7 extends Activity {
 						if (timergreencontrol) {
 							timergreen.cancel();
 						}
-						// long home key´¦Àíµã
+						// long home keyï¿½ï¿½ï¿½ï¿½ï¿½
 					}
 				}
 			}

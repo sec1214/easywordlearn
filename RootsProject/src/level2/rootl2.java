@@ -24,11 +24,14 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.rootsproject.MainActivity;
 import com.rootsproject.R;
+import com.rootsproject.definition;
 import com.rootsproject.list;
 import com.rootsproject.listselectactivity;
 import com.rootsproject.mypublicvalue;
@@ -55,14 +58,14 @@ public class rootl2 extends Activity {
 	private double rootclicknum, rootrightnum;
 	private TextView worddefview;
 
-	private boolean p1 = false; // ²Ù¿Øhelp buttonµÄ¿ØÖÆ·§
+	private boolean p1 = false; // ï¿½Ù¿ï¿½help buttonï¿½Ä¿ï¿½ï¿½Æ·ï¿½
 
 	public  long sleeptime;
 	private Timer timergreen;
 	private Intent intent;
 	private boolean timergreencontrol = false;
 	private Matrix matrix = new Matrix();
-
+	private Animation mAnimationRight;
 	private CountDownTimer helpshape;
 
 	CountDownTimer timerhelp = new CountDownTimer(5000, 1000) {
@@ -150,7 +153,7 @@ public class rootl2 extends Activity {
 		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
 
-		textViewlevel.setText(" Level: " + myapp.get(3)); // Éè¶¨ÏÔÊ¾levelµÄ¿Ø¼þ
+		textViewlevel.setText(" Level: " + myapp.get(3)); // ï¿½è¶¨ï¿½ï¿½Ê¾levelï¿½Ä¿Ø¼ï¿½
 
 		wordnum = Integer.parseInt(myapp.get(4));
 
@@ -160,12 +163,12 @@ public class rootl2 extends Activity {
 		rootclicknum = myapp.getrootscore(0);
 		rootrightnum = myapp.getrootscore(1);
 
-		wcon = myapp.getreviewwrongcontrol(); // ¸´Ï°¿ØÖÆ·§Öµ
+		wcon = myapp.getreviewwrongcontrol(); // ï¿½ï¿½Ï°ï¿½ï¿½ï¿½Æ·ï¿½Öµ
 		con = myapp.getrepeatcontrol();
 
 		lv1 = Integer.parseInt(myapp.get(8));
 
-		if (wcon == 0) { // ±ê×¼Çé¿öÏÂ words È¡ÓÃ
+		if (wcon == 0) { // ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½ words È¡ï¿½ï¿½
 
 			if (lv1 == 0) {
 				words = myapp.getwords();
@@ -192,7 +195,7 @@ public class rootl2 extends Activity {
 
 		}
 
-		if (wcon == 1) { // ´íÎóÇé¿öÏÂ£¬ È¡ÓÃ´í´Ê
+		if (wcon == 1) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ È¡ï¿½Ã´ï¿½ï¿½
 
 			words = myapp.getCwrongwords();
 
@@ -204,15 +207,22 @@ public class rootl2 extends Activity {
 		}
 
 		if (wcon == 0) {
-			textViewword.setText("Word: " + (wordnum - 10) + " / " + wordnum()); // Éè¶¨ÏÔÊ¾¼¸ºÅwordµÄ¿Ø¼þ
+			textViewword.setText("Word: " + (wordnum - 10) + " / " + wordnum()); // ï¿½è¶¨ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½wordï¿½Ä¿Ø¼ï¿½
 		}
 		if (wcon == 1) {
-			textViewword.setText("Word: " + wordnum + " / " + wordnum()); // Éè¶¨ÏÔÊ¾¼¸ºÅwordµÄ¿Ø¼þ
+			textViewword.setText("Word: " + wordnum + " / " + wordnum()); // ï¿½è¶¨ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½wordï¿½Ä¿Ø¼ï¿½
 		}
 		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
 		textViewscore.setText(
 				+ (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100)
 				+ "%");
+		/*added by xiaoqian yu, 2014-12-23, start*/
+		mAnimationRight = AnimationUtils.loadAnimation(
+                rootl2.this, 
+                myapp.calculateViewAnimationID(myapp.setPulseTimeInterval(myapp.getscore(1), 
+                		                                                  myapp.getscore(0))));
+		textViewscore.startAnimation(mAnimationRight);
+		/*added by xiaoqian yu, 2014-12-23, over*/
 		worddefview.setText(words[wordnum - 1][1]);
 		rootTextView = (TextView) this.findViewById(R.id.roottestview);
 
@@ -248,14 +258,14 @@ public class rootl2 extends Activity {
 					// timer.cancel();
 					if (wcon == 1) {
 
-						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 							rootdef1.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 							myapp.setscore(1, rightnum + 1);
 							myapp.setrootscore(1, rootrightnum + 1);
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum - 1][rootnum + 2].equals("")) {
 
@@ -280,10 +290,10 @@ public class rootl2 extends Activity {
 
 							if (words[wordnum - 1][rootnum + 2].equals("")) {
 
-								myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+								myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
 								System.out.println("wcon" + wcon);
-								System.out.println("½øÈëworddef²½Öè");
+								System.out.println("ï¿½ï¿½ï¿½ï¿½worddefï¿½ï¿½ï¿½ï¿½");
 
 								double h = Math.random();
 
@@ -328,7 +338,7 @@ public class rootl2 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							
 							rootdef1.setBackgroundResource(R.drawable.red);
@@ -351,7 +361,7 @@ public class rootl2 extends Activity {
 
 					if (wcon == 0) {
 
-						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 							rootdef1.setBackgroundResource(R.drawable.green);
@@ -426,14 +436,14 @@ public class rootl2 extends Activity {
 					// timer.cancel();
 					if (wcon == 1) {
 
-						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 							rootdef2.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 							myapp.setscore(1, rightnum + 1);
 							myapp.setrootscore(1, rootrightnum + 1);
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum - 1][rootnum + 2].equals("")) {
 
@@ -458,10 +468,10 @@ public class rootl2 extends Activity {
 
 							if (words[wordnum - 1][rootnum + 2].equals("")) {
 
-								myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+								myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
 								System.out.println("wcon" + wcon);
-								System.out.println("½øÈëworddef²½Öè");
+								System.out.println("ï¿½ï¿½ï¿½ï¿½worddefï¿½ï¿½ï¿½ï¿½");
 
 								double h = Math.random();
 
@@ -506,7 +516,7 @@ public class rootl2 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							
 							rootdef2.setBackgroundResource(R.drawable.red);
@@ -529,7 +539,7 @@ public class rootl2 extends Activity {
 
 					if (wcon == 0) {
 
-						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 							rootdef2.setBackgroundResource(R.drawable.green);
@@ -605,14 +615,14 @@ public class rootl2 extends Activity {
 					// timer.cancel();
 					if (wcon == 1) {
 
-						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 							rootdef3.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 							myapp.setscore(1, rightnum + 1);
 							myapp.setrootscore(1, rootrightnum + 1);
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum - 1][rootnum + 2].equals("")) {
 
@@ -637,10 +647,10 @@ public class rootl2 extends Activity {
 
 							if (words[wordnum - 1][rootnum + 2].equals("")) {
 
-								myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+								myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
 								System.out.println("wcon" + wcon);
-								System.out.println("½øÈëworddef²½Öè");
+								System.out.println("ï¿½ï¿½ï¿½ï¿½worddefï¿½ï¿½ï¿½ï¿½");
 
 								double h = Math.random();
 
@@ -685,7 +695,7 @@ public class rootl2 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							
 							rootdef3.setBackgroundResource(R.drawable.red);
@@ -708,7 +718,7 @@ public class rootl2 extends Activity {
 
 					if (wcon == 0) {
 
-						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 							rootdef3.setBackgroundResource(R.drawable.green);
@@ -784,14 +794,14 @@ public class rootl2 extends Activity {
 					// timer.cancel();
 					if (wcon == 1) {
 
-						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 							rootdef4.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 							myapp.setscore(1, rightnum + 1);
 							myapp.setrootscore(1, rootrightnum + 1);
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum - 1][rootnum + 2].equals("")) {
 
@@ -816,10 +826,10 @@ public class rootl2 extends Activity {
 
 							if (words[wordnum - 1][rootnum + 2].equals("")) {
 
-								myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+								myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
 								System.out.println("wcon" + wcon);
-								System.out.println("½øÈëworddef²½Öè");
+								System.out.println("ï¿½ï¿½ï¿½ï¿½worddefï¿½ï¿½ï¿½ï¿½");
 
 								double h = Math.random();
 
@@ -864,7 +874,7 @@ public class rootl2 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							
 							rootdef4.setBackgroundResource(R.drawable.red);
@@ -887,7 +897,7 @@ public class rootl2 extends Activity {
 
 					if (wcon == 0) {
 
-						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 							rootdef4.setBackgroundResource(R.drawable.green);
@@ -963,14 +973,14 @@ public class rootl2 extends Activity {
 					// timer.cancel();
 					if (wcon == 1) {
 
-						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 							rootdef5.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 							myapp.setscore(1, rightnum + 1);
 							myapp.setrootscore(1, rootrightnum + 1);
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum - 1][rootnum + 2].equals("")) {
 
@@ -995,10 +1005,10 @@ public class rootl2 extends Activity {
 
 							if (words[wordnum - 1][rootnum + 2].equals("")) {
 
-								myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+								myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
 								System.out.println("wcon" + wcon);
-								System.out.println("½øÈëworddef²½Öè");
+								System.out.println("ï¿½ï¿½ï¿½ï¿½worddefï¿½ï¿½ï¿½ï¿½");
 
 								double h = Math.random();
 
@@ -1043,7 +1053,7 @@ public class rootl2 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							
 							rootdef5.setBackgroundResource(R.drawable.red);
@@ -1066,7 +1076,7 @@ public class rootl2 extends Activity {
 
 					if (wcon == 0) {
 
-						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 							rootdef5.setBackgroundResource(R.drawable.green);
@@ -1142,14 +1152,14 @@ public class rootl2 extends Activity {
 					// timer.cancel();
 					if (wcon == 1) {
 
-						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 							rootdef6.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 							myapp.setscore(1, rightnum + 1);
 							myapp.setrootscore(1, rootrightnum + 1);
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum - 1][rootnum + 2].equals("")) {
 
@@ -1174,10 +1184,10 @@ public class rootl2 extends Activity {
 
 							if (words[wordnum - 1][rootnum + 2].equals("")) {
 
-								myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+								myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
 								System.out.println("wcon" + wcon);
-								System.out.println("½øÈëworddef²½Öè");
+								System.out.println("ï¿½ï¿½ï¿½ï¿½worddefï¿½ï¿½ï¿½ï¿½");
 
 								double h = Math.random();
 
@@ -1222,7 +1232,7 @@ public class rootl2 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							
 							rootdef6.setBackgroundResource(R.drawable.red);
@@ -1245,7 +1255,7 @@ public class rootl2 extends Activity {
 
 					if (wcon == 0) {
 
-						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 							rootdef6.setBackgroundResource(R.drawable.green);
@@ -1324,12 +1334,12 @@ public class rootl2 extends Activity {
 					// timer.cancel();
 					if (wcon == 1) {
 
-						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							rootdef1.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum - 1][rootnum + 2].equals("")) {
 
@@ -1346,7 +1356,7 @@ public class rootl2 extends Activity {
 
 							if (words[wordnum - 1][rootnum + 2].equals("")) {
 
-								myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+								myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
 								double h = Math.random();
 
@@ -1372,7 +1382,7 @@ public class rootl2 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							rootdef1.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1406,13 +1416,13 @@ public class rootl2 extends Activity {
 
 							if (words[wordnum - 1][rootnum + 2].equals("")) {
 
-								// ÕâÌõÑ¡Ôñ´ú±írootºóÃ»ÓÐrootÁË´ú±í×ßµ½Í·À²
+								// ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½rootï¿½ï¿½Ã»ï¿½ï¿½rootï¿½Ë´ï¿½ï¿½ï¿½ï¿½ßµï¿½Í·ï¿½ï¿½
 
-								if (wordnum % 5 == 0) { // ´ú±í×ßµ½5¸ö´ÊÁË
+								if (wordnum % 5 == 0) { // ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-									if (myapp.getrepeatcontrol() == 1) { // ÔÚpart2ÖÐ
+									if (myapp.getrepeatcontrol() == 1) { // ï¿½ï¿½part2ï¿½ï¿½
 
-										myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+										myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
 										double h = Math.random();
 
@@ -1443,7 +1453,7 @@ public class rootl2 extends Activity {
 
 										myapp.set(4,
 												Integer.toString(wordnum + 1));
-										myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+										myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 										myapp.setrepreatcontrol(1);
 										Intent intent = new Intent(rootl2.this,
 												idroortsl2.class);
@@ -1459,9 +1469,9 @@ public class rootl2 extends Activity {
 								}
 								if (wordnum % 5 != 0) {
 
-									myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+									myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
-									if (myapp.getrepeatcontrol() == 1) { // ÔÚpart2ÖÐ
+									if (myapp.getrepeatcontrol() == 1) { // ï¿½ï¿½part2ï¿½ï¿½
 										double h = Math.random();
 
 										if (h < 0.5) {
@@ -1483,8 +1493,8 @@ public class rootl2 extends Activity {
 
 									}
 
-									if (myapp.getrepeatcontrol() == 0) { // ÔÚpart1
-																			// ÖÐ
+									if (myapp.getrepeatcontrol() == 0) { // ï¿½ï¿½part1
+																			// ï¿½ï¿½
 
 										myapp.set(4,
 												Integer.toString(wordnum + 1));
@@ -1544,12 +1554,12 @@ public class rootl2 extends Activity {
 					// timer.cancel();
 					if (wcon == 1) {
 
-						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							rootdef2.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum - 1][rootnum + 2].equals("")) {
 
@@ -1566,7 +1576,7 @@ public class rootl2 extends Activity {
 
 							if (words[wordnum - 1][rootnum + 2].equals("")) {
 
-								myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+								myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
 								double h = Math.random();
 
@@ -1592,7 +1602,7 @@ public class rootl2 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							rootdef2.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1626,13 +1636,13 @@ public class rootl2 extends Activity {
 
 							if (words[wordnum - 1][rootnum + 2].equals("")) {
 
-								// ÕâÌõÑ¡Ôñ´ú±írootºóÃ»ÓÐrootÁË´ú±í×ßµ½Í·À²
+								// ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½rootï¿½ï¿½Ã»ï¿½ï¿½rootï¿½Ë´ï¿½ï¿½ï¿½ï¿½ßµï¿½Í·ï¿½ï¿½
 
-								if (wordnum % 5 == 0) { // ´ú±í×ßµ½5¸ö´ÊÁË
+								if (wordnum % 5 == 0) { // ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-									if (myapp.getrepeatcontrol() == 1) { // ÔÚpart2ÖÐ
+									if (myapp.getrepeatcontrol() == 1) { // ï¿½ï¿½part2ï¿½ï¿½
 
-										myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+										myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
 										double h = Math.random();
 
@@ -1659,11 +1669,11 @@ public class rootl2 extends Activity {
 
 									}
 
-									if (myapp.getrepeatcontrol() == 0) { // ÅÐ¶Ï½øÈëpart2
+									if (myapp.getrepeatcontrol() == 0) { // ï¿½Ð¶Ï½ï¿½ï¿½ï¿½part2
 
 										myapp.set(4,
 												Integer.toString(wordnum + 1));
-										myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+										myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 										myapp.setrepreatcontrol(1);
 										Intent intent = new Intent(rootl2.this,
 												idroortsl2.class);
@@ -1679,9 +1689,9 @@ public class rootl2 extends Activity {
 								}
 								if (wordnum % 5 != 0) {
 
-									myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+									myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
-									if (myapp.getrepeatcontrol() == 1) { // ÔÚpart2ÖÐ
+									if (myapp.getrepeatcontrol() == 1) { // ï¿½ï¿½part2ï¿½ï¿½
 										double h = Math.random();
 
 										if (h < 0.5) {
@@ -1705,8 +1715,8 @@ public class rootl2 extends Activity {
 
 									}
 
-									if (myapp.getrepeatcontrol() == 0) { // ÔÚpart1
-																			// ÖÐ
+									if (myapp.getrepeatcontrol() == 0) { // ï¿½ï¿½part1
+																			// ï¿½ï¿½
 
 										myapp.set(4,
 												Integer.toString(wordnum + 1));
@@ -1768,12 +1778,12 @@ public class rootl2 extends Activity {
 					// timer.cancel();
 					if (wcon == 1) {
 
-						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							rootdef3.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum - 1][rootnum + 2].equals("")) {
 
@@ -1790,7 +1800,7 @@ public class rootl2 extends Activity {
 
 							if (words[wordnum - 1][rootnum + 2].equals("")) {
 
-								myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+								myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
 								double h = Math.random();
 
@@ -1816,7 +1826,7 @@ public class rootl2 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							rootdef3.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1850,13 +1860,13 @@ public class rootl2 extends Activity {
 
 							if (words[wordnum - 1][rootnum + 2].equals("")) {
 
-								// ÕâÌõÑ¡Ôñ´ú±írootºóÃ»ÓÐrootÁË´ú±í×ßµ½Í·À²
+								// ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½rootï¿½ï¿½Ã»ï¿½ï¿½rootï¿½Ë´ï¿½ï¿½ï¿½ï¿½ßµï¿½Í·ï¿½ï¿½
 
-								if (wordnum % 5 == 0) { // ´ú±í×ßµ½5¸ö´ÊÁË
+								if (wordnum % 5 == 0) { // ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-									if (myapp.getrepeatcontrol() == 1) { // ÔÚpart2ÖÐ
+									if (myapp.getrepeatcontrol() == 1) { // ï¿½ï¿½part2ï¿½ï¿½
 
-										myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+										myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
 										double h = Math.random();
 
@@ -1883,11 +1893,11 @@ public class rootl2 extends Activity {
 
 									}
 
-									if (myapp.getrepeatcontrol() == 0) { // ÅÐ¶Ï½øÈëpart2
+									if (myapp.getrepeatcontrol() == 0) { // ï¿½Ð¶Ï½ï¿½ï¿½ï¿½part2
 
 										myapp.set(4,
 												Integer.toString(wordnum + 1));
-										myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+										myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 										myapp.setrepreatcontrol(1);
 										Intent intent = new Intent(rootl2.this,
 												idroortsl2.class);
@@ -1903,9 +1913,9 @@ public class rootl2 extends Activity {
 								}
 								if (wordnum % 5 != 0) {
 
-									myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+									myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
-									if (myapp.getrepeatcontrol() == 1) { // ÔÚpart2ÖÐ
+									if (myapp.getrepeatcontrol() == 1) { // ï¿½ï¿½part2ï¿½ï¿½
 										double h = Math.random();
 
 										if (h < 0.5) {
@@ -1929,8 +1939,8 @@ public class rootl2 extends Activity {
 
 									}
 
-									if (myapp.getrepeatcontrol() == 0) { // ÔÚpart1
-																			// ÖÐ
+									if (myapp.getrepeatcontrol() == 0) { // ï¿½ï¿½part1
+																			// ï¿½ï¿½
 
 										myapp.set(4,
 												Integer.toString(wordnum + 1));
@@ -1992,12 +2002,12 @@ public class rootl2 extends Activity {
 					// timer.cancel();
 					if (wcon == 1) {
 
-						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							rootdef4.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum - 1][rootnum + 2].equals("")) {
 
@@ -2014,7 +2024,7 @@ public class rootl2 extends Activity {
 
 							if (words[wordnum - 1][rootnum + 2].equals("")) {
 
-								myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+								myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
 								double h = Math.random();
 
@@ -2040,7 +2050,7 @@ public class rootl2 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							rootdef4.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -2074,13 +2084,13 @@ public class rootl2 extends Activity {
 
 							if (words[wordnum - 1][rootnum + 2].equals("")) {
 
-								// ÕâÌõÑ¡Ôñ´ú±írootºóÃ»ÓÐrootÁË´ú±í×ßµ½Í·À²
+								// ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½rootï¿½ï¿½Ã»ï¿½ï¿½rootï¿½Ë´ï¿½ï¿½ï¿½ï¿½ßµï¿½Í·ï¿½ï¿½
 
-								if (wordnum % 5 == 0) { // ´ú±í×ßµ½5¸ö´ÊÁË
+								if (wordnum % 5 == 0) { // ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-									if (myapp.getrepeatcontrol() == 1) { // ÔÚpart2ÖÐ
+									if (myapp.getrepeatcontrol() == 1) { // ï¿½ï¿½part2ï¿½ï¿½
 
-										myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+										myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
 										double h = Math.random();
 
@@ -2107,11 +2117,11 @@ public class rootl2 extends Activity {
 
 									}
 
-									if (myapp.getrepeatcontrol() == 0) { // ÅÐ¶Ï½øÈëpart2
+									if (myapp.getrepeatcontrol() == 0) { // ï¿½Ð¶Ï½ï¿½ï¿½ï¿½part2
 
 										myapp.set(4,
 												Integer.toString(wordnum + 1));
-										myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+										myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 										myapp.setrepreatcontrol(1);
 										Intent intent = new Intent(rootl2.this,
 												idroortsl2.class);
@@ -2127,9 +2137,9 @@ public class rootl2 extends Activity {
 								}
 								if (wordnum % 5 != 0) {
 
-									myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+									myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
-									if (myapp.getrepeatcontrol() == 1) { // ÔÚpart2ÖÐ
+									if (myapp.getrepeatcontrol() == 1) { // ï¿½ï¿½part2ï¿½ï¿½
 										double h = Math.random();
 
 										if (h < 0.5) {
@@ -2153,8 +2163,8 @@ public class rootl2 extends Activity {
 
 									}
 
-									if (myapp.getrepeatcontrol() == 0) { // ÔÚpart1
-																			// ÖÐ
+									if (myapp.getrepeatcontrol() == 0) { // ï¿½ï¿½part1
+																			// ï¿½ï¿½
 
 										myapp.set(4,
 												Integer.toString(wordnum + 1));
@@ -2216,12 +2226,12 @@ public class rootl2 extends Activity {
 					// timer.cancel();
 					if (wcon == 1) {
 
-						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							rootdef5.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum - 1][rootnum + 2].equals("")) {
 
@@ -2238,7 +2248,7 @@ public class rootl2 extends Activity {
 
 							if (words[wordnum - 1][rootnum + 2].equals("")) {
 
-								myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+								myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
 								double h = Math.random();
 
@@ -2264,7 +2274,7 @@ public class rootl2 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							rootdef5.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -2298,13 +2308,13 @@ public class rootl2 extends Activity {
 
 							if (words[wordnum - 1][rootnum + 2].equals("")) {
 
-								// ÕâÌõÑ¡Ôñ´ú±írootºóÃ»ÓÐrootÁË´ú±í×ßµ½Í·À²
+								// ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½rootï¿½ï¿½Ã»ï¿½ï¿½rootï¿½Ë´ï¿½ï¿½ï¿½ï¿½ßµï¿½Í·ï¿½ï¿½
 
-								if (wordnum % 5 == 0) { // ´ú±í×ßµ½5¸ö´ÊÁË
+								if (wordnum % 5 == 0) { // ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-									if (myapp.getrepeatcontrol() == 1) { // ÔÚpart2ÖÐ
+									if (myapp.getrepeatcontrol() == 1) { // ï¿½ï¿½part2ï¿½ï¿½
 
-										myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+										myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
 										double h = Math.random();
 
@@ -2331,11 +2341,11 @@ public class rootl2 extends Activity {
 
 									}
 
-									if (myapp.getrepeatcontrol() == 0) { // ÅÐ¶Ï½øÈëpart2
+									if (myapp.getrepeatcontrol() == 0) { // ï¿½Ð¶Ï½ï¿½ï¿½ï¿½part2
 
 										myapp.set(4,
 												Integer.toString(wordnum + 1));
-										myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+										myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 										myapp.setrepreatcontrol(1);
 										Intent intent = new Intent(rootl2.this,
 												idroortsl2.class);
@@ -2351,9 +2361,9 @@ public class rootl2 extends Activity {
 								}
 								if (wordnum % 5 != 0) {
 
-									myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+									myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
-									if (myapp.getrepeatcontrol() == 1) { // ÔÚpart2ÖÐ
+									if (myapp.getrepeatcontrol() == 1) { // ï¿½ï¿½part2ï¿½ï¿½
 										double h = Math.random();
 
 										if (h < 0.5) {
@@ -2377,8 +2387,8 @@ public class rootl2 extends Activity {
 
 									}
 
-									if (myapp.getrepeatcontrol() == 0) { // ÔÚpart1
-																			// ÖÐ
+									if (myapp.getrepeatcontrol() == 0) { // ï¿½ï¿½part1
+																			// ï¿½ï¿½
 
 										myapp.set(4,
 												Integer.toString(wordnum + 1));
@@ -2440,12 +2450,12 @@ public class rootl2 extends Activity {
 					// timer.cancel();
 					if (wcon == 1) {
 
-						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡¶ÔÁË
+						if (k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							rootdef6.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							// ±äÉ«
+							// ï¿½ï¿½É«
 
 							if (!words[wordnum - 1][rootnum + 2].equals("")) {
 
@@ -2462,7 +2472,7 @@ public class rootl2 extends Activity {
 
 							if (words[wordnum - 1][rootnum + 2].equals("")) {
 
-								myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+								myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
 								double h = Math.random();
 
@@ -2488,7 +2498,7 @@ public class rootl2 extends Activity {
 
 						}
 
-						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡´íÁË
+						if (!k.equals(words[wordnum - 1][rootnum + 1])) { // Ñ¡ï¿½ï¿½ï¿½ï¿½
 
 							rootdef6.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -2522,13 +2532,13 @@ public class rootl2 extends Activity {
 
 							if (words[wordnum - 1][rootnum + 2].equals("")) {
 
-								// ÕâÌõÑ¡Ôñ´ú±írootºóÃ»ÓÐrootÁË´ú±í×ßµ½Í·À²
+								// ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½rootï¿½ï¿½Ã»ï¿½ï¿½rootï¿½Ë´ï¿½ï¿½ï¿½ï¿½ßµï¿½Í·ï¿½ï¿½
 
-								if (wordnum % 5 == 0) { // ´ú±í×ßµ½5¸ö´ÊÁË
+								if (wordnum % 5 == 0) { // ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-									if (myapp.getrepeatcontrol() == 1) { // ÔÚpart2ÖÐ
+									if (myapp.getrepeatcontrol() == 1) { // ï¿½ï¿½part2ï¿½ï¿½
 
-										myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+										myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
 										double h = Math.random();
 
@@ -2555,11 +2565,11 @@ public class rootl2 extends Activity {
 
 									}
 
-									if (myapp.getrepeatcontrol() == 0) { // ÅÐ¶Ï½øÈëpart2
+									if (myapp.getrepeatcontrol() == 0) { // ï¿½Ð¶Ï½ï¿½ï¿½ï¿½part2
 
 										myapp.set(4,
 												Integer.toString(wordnum + 1));
-										myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+										myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 										myapp.setrepreatcontrol(1);
 										Intent intent = new Intent(rootl2.this,
 												idroortsl2.class);
@@ -2575,9 +2585,9 @@ public class rootl2 extends Activity {
 								}
 								if (wordnum % 5 != 0) {
 
-									myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+									myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
-									if (myapp.getrepeatcontrol() == 1) { // ÔÚpart2ÖÐ
+									if (myapp.getrepeatcontrol() == 1) { // ï¿½ï¿½part2ï¿½ï¿½
 										double h = Math.random();
 
 										if (h < 0.5) {
@@ -2601,8 +2611,8 @@ public class rootl2 extends Activity {
 
 									}
 
-									if (myapp.getrepeatcontrol() == 0) { // ÔÚpart1
-																			// ÖÐ
+									if (myapp.getrepeatcontrol() == 0) { // ï¿½ï¿½part1
+																			// ï¿½ï¿½
 
 										myapp.set(4,
 												Integer.toString(wordnum + 1));
@@ -2681,7 +2691,7 @@ public class rootl2 extends Activity {
 
 	private void ran() {
 
-		numroot = 0; // ·ÀÖ¹ ×îºó³öÏÖ²»¹»20 ³öÏÖµÄÇé¿ö
+		numroot = 0; // ï¿½ï¿½Ö¹ ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½20 ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
 
 		this.getroots();
 
@@ -2809,7 +2819,7 @@ public class rootl2 extends Activity {
 		a5 = 0;
 		a6 = 0;
 
-		System.out.println("¶àÉÙ¸öroot+" + numroot);
+		System.out.println("ï¿½ï¿½ï¿½Ù¸ï¿½root+" + numroot);
 
 		for (int i = 0; i < numroot; i++) {
 
@@ -2819,7 +2829,7 @@ public class rootl2 extends Activity {
 			}
 		}
 
-		System.out.println("±¾´ÎÑ­»·¹ý");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½");
 
 		h = Math.random() * numroot;
 		a2 = (int) h;
@@ -2954,13 +2964,13 @@ public class rootl2 extends Activity {
 	}
 
 	public void repeattt5() {
-		// ÕâÌõÑ¡Ôñ´ú±írootºóÃ»ÓÐrootÁË´ú±í×ßµ½Í·À²
+		// ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½rootï¿½ï¿½Ã»ï¿½ï¿½rootï¿½Ë´ï¿½ï¿½ï¿½ï¿½ßµï¿½Í·ï¿½ï¿½
 
-		if (wordnum % 5 == 0) { // ´ú±í×ßµ½5¸ö´ÊÁË
+		if (wordnum % 5 == 0) { // ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-			if (myapp.getrepeatcontrol() == 1) { // ÔÚpart2ÖÐ
+			if (myapp.getrepeatcontrol() == 1) { // ï¿½ï¿½part2ï¿½ï¿½
 
-				myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+				myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
 				double h = Math.random();
 
@@ -3001,10 +3011,10 @@ public class rootl2 extends Activity {
 
 			}
 
-			if (myapp.getrepeatcontrol() == 0) { // ÔÚpart1ÖÐ
+			if (myapp.getrepeatcontrol() == 0) { // ï¿½ï¿½part1ï¿½ï¿½
 
 				myapp.set(4, Integer.toString(wordnum + 1));
-				myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+				myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 				myapp.setrepreatcontrol(1);
 				intent = new Intent(rootl2.this, idroortsl2.class);
 
@@ -3027,9 +3037,9 @@ public class rootl2 extends Activity {
 		}
 		if (wordnum % 5 != 0) {
 
-			myapp.set(5, Integer.toString(2)); // rootÃ»ÓÐÁË£¬ÐèÒªÖØÖÃ
+			myapp.set(5, Integer.toString(2)); // rootÃ»ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
 
-			if (myapp.getrepeatcontrol() == 1) { // ÔÚpart2ÖÐ
+			if (myapp.getrepeatcontrol() == 1) { // ï¿½ï¿½part2ï¿½ï¿½
 				double h = Math.random();
 
 				if (h < 0.5) {
@@ -3068,7 +3078,7 @@ public class rootl2 extends Activity {
 
 			}
 
-			if (myapp.getrepeatcontrol() == 0) { // ÔÚpart1 ÖÐ
+			if (myapp.getrepeatcontrol() == 0) { // ï¿½ï¿½part1 ï¿½ï¿½
 
 				myapp.set(4, Integer.toString(wordnum + 1));
 				double h = Math.random();
@@ -3112,9 +3122,9 @@ public class rootl2 extends Activity {
 
 	}
 
-	private SpannableStringBuilder getchangeword() { // ±¾·½·¨×Ô¶¯´´½¨Ïà¶ÔÓ¦µÄÈ±Ê§rootµÄ×Ö·û´®
+	private SpannableStringBuilder getchangeword() { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½È±Ê§rootï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 		// TODO Auto-generated method stub
-		// ÆðÊ¼rootµÄµØµã
+		// ï¿½ï¿½Ê¼rootï¿½ÄµØµï¿½
 		String word = words[wordnum - 1][0];
 
 		String changeword = words[wordnum - 1][rootnum];
@@ -3208,10 +3218,10 @@ public class rootl2 extends Activity {
 				String reason = intent.getStringExtra(SYSTEM_REASON);
 				if (reason != null) {
 					if (reason.equals(SYSTEM_HOME_KEY)) {
-						myapp.pauselevelmusic(); // home key´¦Àíµã
+						myapp.pauselevelmusic(); // home keyï¿½ï¿½ï¿½ï¿½ï¿½
 
 					} else if (reason.equals(SYSTEM_RECENT_APPS)) {
-						myapp.pauselevelmusic();// long home key´¦Àíµã
+						myapp.pauselevelmusic();// long home keyï¿½ï¿½ï¿½ï¿½ï¿½
 					}
 				}
 			}

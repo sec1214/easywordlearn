@@ -22,11 +22,14 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.rootsproject.MainActivity;
 import com.rootsproject.R;
+import com.rootsproject.definition;
 import com.rootsproject.list;
 import com.rootsproject.listselectactivity;
 import com.rootsproject.mypublicvalue;
@@ -44,24 +47,24 @@ public class wordsl2 extends Activity {
 
 	private String[] roots;
 
-	private int wordnum; // µÚ¼¸¸öword
+	private int wordnum; // ï¿½Ú¼ï¿½ï¿½ï¿½word
 	private int numroot;
 
-	public int con; // TT Ñ­»·¿ØÖÆ·§
-	public int wcon; // ¸´Ï°¿ØÖÆ·§
+	public int con; // TT Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½
+	public int wcon; // ï¿½ï¿½Ï°ï¿½ï¿½ï¿½Æ·ï¿½
 	private BroadcastReceiver receiver; // home key
 	private int lv1;
 	private ImageButton wenhaoButton;
 	private double clicknum, rightnum;
 	private double defwordclicknum, defwordrightnum;
 
-	private boolean p1 = false; // ²Ù¿Øhelp buttonµÄ¿ØÖÆ·§
+	private boolean p1 = false; // ï¿½Ù¿ï¿½help buttonï¿½Ä¿ï¿½ï¿½Æ·ï¿½
 	private Timer timergreen;
 	public long sleeptime;
 	private Intent intent;
 	private boolean timergreencontrol = false;
 	private Matrix matrix = new Matrix();
-
+	private Animation mAnimationRight;
 	private CountDownTimer helpshape;
 	CountDownTimer timerhelp = new CountDownTimer(5000, 1000) {
 
@@ -121,7 +124,7 @@ public class wordsl2 extends Activity {
 		EasyTracker.getInstance(this).activityStart(this);
 		
 		setContentView(R.layout.zword);
-		System.out.println("Wordsl2.class Æô¶¯");
+		System.out.println("Wordsl2.class ï¿½ï¿½ï¿½ï¿½");
 		receiver = new HomeKeyEventBroadCastReceiver();
 		getApplicationContext().registerReceiver(receiver,
 				new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
@@ -145,7 +148,7 @@ public class wordsl2 extends Activity {
 		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
 
-		textViewlevel.setText(" Level: " + myapp.get(3)); // Éè¶¨ÏÔÊ¾levelµÄ¿Ø¼þ
+		textViewlevel.setText(" Level: " + myapp.get(3)); // ï¿½è¶¨ï¿½ï¿½Ê¾levelï¿½Ä¿Ø¼ï¿½
 
 		clicknum = myapp.getscore(0);
 		rightnum = myapp.getscore(1);
@@ -153,13 +156,13 @@ public class wordsl2 extends Activity {
 		defwordclicknum = myapp.getdefwordscore(0);
 		defwordrightnum = myapp.getdefwordscore(1);
 
-		wcon = myapp.getreviewwrongcontrol(); // ¸´Ï°¿ØÖÆ·§Öµ
+		wcon = myapp.getreviewwrongcontrol(); // ï¿½ï¿½Ï°ï¿½ï¿½ï¿½Æ·ï¿½Öµ
 
-		con = myapp.getrepeatcontrol(); // TTÑ­»·¿ØÖÆ·§
+		con = myapp.getrepeatcontrol(); // TTÑ­ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½
 
 		lv1 = Integer.parseInt(myapp.get(8));
 
-		if (wcon == 0) { // ±ê×¼Çé¿öÏÂ words È¡ÓÃ
+		if (wcon == 0) { // ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½ words È¡ï¿½ï¿½
 
 			if (lv1 == 0) {
 				words = myapp.getwords();
@@ -167,8 +170,8 @@ public class wordsl2 extends Activity {
 				myapp.setwordslv2(words);
 
 				myapp.set(4, Integer.toString(11));
-				myapp.set(8, Integer.toString(1)); // µÚÒ»´Îµ÷ÓÃ Íê±Ï£¬ÖÃ1 ±íÊ¾µÚ¶þ´Î²»ÔÚµ÷ÓÃ
-													// Ëæ»úget10ranwords£¨£©·½·¨
+				myapp.set(8, Integer.toString(1)); // ï¿½ï¿½Ò»ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½Ï£ï¿½ï¿½ï¿½1 ï¿½ï¿½Ê¾ï¿½Ú¶ï¿½ï¿½Î²ï¿½ï¿½Úµï¿½ï¿½ï¿½
+													// ï¿½ï¿½ï¿½get10ranwordsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 			}
 
@@ -194,7 +197,7 @@ public class wordsl2 extends Activity {
 
 		}
 
-		if (wcon == 1) { // ´íÎóÇé¿öÏÂ£¬ È¡ÓÃ´í´Ê
+		if (wcon == 1) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ È¡ï¿½Ã´ï¿½ï¿½
 			/* lwords = myapp.getwords(); */
 			words = myapp.getCwrongwords();
 			textViewwr.setText("Wrong Review");
@@ -207,13 +210,20 @@ public class wordsl2 extends Activity {
 		textViewscore.setText(
 				+ (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100)
 				+ "%");
+		/*added by xiaoqian yu, 2014-12-23, start*/
+		mAnimationRight = AnimationUtils.loadAnimation(
+                wordsl2.this, 
+                myapp.calculateViewAnimationID(myapp.setPulseTimeInterval(myapp.getscore(1), 
+                		                                                  myapp.getscore(0))));
+		textViewscore.startAnimation(mAnimationRight);
+		/*added by xiaoqian yu, 2014-12-23, over*/
 		wordnum = Integer.parseInt(myapp.get(4));
 
 		if (wcon == 0) {
-			textViewword.setText("Word: " + (wordnum - 10) + " / " + wordnum()); // Éè¶¨ÏÔÊ¾¼¸ºÅwordµÄ¿Ø¼þ
+			textViewword.setText("Word: " + (wordnum - 10) + " / " + wordnum()); // ï¿½è¶¨ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½wordï¿½Ä¿Ø¼ï¿½
 		}
 		if (wcon == 1) {
-			textViewword.setText("Word: " + wordnum + " / " + wordnum()); // Éè¶¨ÏÔÊ¾¼¸ºÅwordµÄ¿Ø¼þ
+			textViewword.setText("Word: " + wordnum + " / " + wordnum()); // ï¿½è¶¨ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½wordï¿½Ä¿Ø¼ï¿½
 		}
 
 		defTextView.setText(words[wordnum - 1][1]);
@@ -243,9 +253,9 @@ public class wordsl2 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
-					if (wcon == 1) { // ´í´ÊÑ­»·ÏÂ
+					if (wcon == 1) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½
 
-						if (key.equals(words[wordnum - 1][0])) { // ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							wordTextView1
 									.setBackgroundResource(R.drawable.green);
@@ -256,7 +266,7 @@ public class wordsl2 extends Activity {
 							defrepeat(0);
 							if (!words[wordnum][0].equals("")) {
 
-								System.out.println("´í´ÊÑ­»·ÏÂÒ»¸ö");
+								System.out.println("ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½");
 								myapp.set(4, Integer.toString(wordnum + 1));
 								intent = new Intent(wordsl2.this,
 										idroortsl2.class);
@@ -278,9 +288,9 @@ public class wordsl2 extends Activity {
 
 							}
 
-							if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+							if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-								System.out.println("´í´ÊÑ­»·½áÊø");
+								System.out.println("ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 								intent = new Intent(wordsl2.this, scorel2.class);
 
 								myapp.cleanCwrongwords();
@@ -303,7 +313,7 @@ public class wordsl2 extends Activity {
 
 						}
 
-						if (!key.equals(words[wordnum - 1][0])) { // ´í´ÊÑ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							wordTextView1.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -312,7 +322,7 @@ public class wordsl2 extends Activity {
 							
 							if (!timergreencontrol) {
 							myapp.addwrongwords1(words[wordnum - 1]);
-							defrepeat(1); // ÕâÊÇ×ö´íÁË¼Ó1
+							defrepeat(1); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½1
 							Intent intent = new Intent(wordsl2.this,
 									wordsl2.class);
 							startActivity(intent);
@@ -324,9 +334,9 @@ public class wordsl2 extends Activity {
 
 					}
 
-					if (wcon == 0) { // ±ê×¼Ñ­»·ÏÂ
+					if (wcon == 0) { // ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½
 
-						if (key.equals(words[wordnum - 1][0])) {// ±ê×¼Ñ­»·ÏÂ ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][0])) {// ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 							wordTextView1
@@ -337,7 +347,7 @@ public class wordsl2 extends Activity {
 
 							if (con == 1) { // PART2
 
-								if (wordnum % 5 != 0) { // Ã»ÓÐ×ßÍê5¸öµ¥´Ê
+								if (wordnum % 5 != 0) { // Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 									myapp.set(4, Integer.toString(wordnum + 1));
 									intent = new Intent(wordsl2.this,
@@ -361,27 +371,27 @@ public class wordsl2 extends Activity {
 
 								}
 
-								if (wordnum % 5 == 0) { // ×ßÍê5¸öµ¥´ÊÁË
+								if (wordnum % 5 == 0) { // ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 									myapp.set(4, Integer.toString(wordnum + 1));
-									// myapp.setrepreatcontrol(0); // TTÑ­»·µ½Í·£¬
-									// Çå¿Õ¿ØÖÆ·§
+									// myapp.setrepreatcontrol(0); // TTÑ­ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½
+									// ï¿½ï¿½Õ¿ï¿½ï¿½Æ·ï¿½
 
-									if (words[wordnum][0].equals("")) { // ÅÐ¶Ï½áÊø
-										// Õû¸ölistµÄÇ°Á½¸ösequence²Ù×÷½áÊø
-										// ½øÈë¸´Ï° wrong
-										// words Á÷³Ì¡£
-										myapp.cleanwrongwords(); // ¿ìËÙËã·¨ÅÅÐò
-																	// ÇåÀíwrongwords
+									if (words[wordnum][0].equals("")) { // ï¿½Ð¶Ï½ï¿½ï¿½ï¿½
+										// ï¿½ï¿½ï¿½ï¿½listï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½sequenceï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+										// ï¿½ï¿½ï¿½ë¸´Ï° wrong
+										// words ï¿½ï¿½ï¿½Ì¡ï¿½
+										myapp.cleanwrongwords(); // ï¿½ï¿½ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½
+																	// ï¿½ï¿½ï¿½ï¿½wrongwords
 
-										myapp.set(4, Integer.toString(1)); // ½øÈëreview
+										myapp.set(4, Integer.toString(1)); // ï¿½ï¿½ï¿½ï¿½review
 																			// wrong
-																			// Ñ­»·
+																			// Ñ­ï¿½ï¿½
 																			// wordnumber
-																			// ¸ø1
+																			// ï¿½ï¿½1
 
 										// myapp.setreviewwrongcontrol(1); //
-										// Éè¶¨½øÈëreviewwrong
-										// wcon¸³ÖµÎª1
+										// ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½reviewwrong
+										// wconï¿½ï¿½ÖµÎª1
 
 										intent = new Intent(wordsl2.this,
 												scorel2.class);
@@ -408,7 +418,7 @@ public class wordsl2 extends Activity {
 								}
 							}
 
-							if (con == 0) { // part1²¿·Ö
+							if (con == 0) { // part1ï¿½ï¿½ï¿½ï¿½
 
 								if (wordnum % 5 != 0) {
 									intent = new Intent(wordsl2.this,
@@ -456,7 +466,7 @@ public class wordsl2 extends Activity {
 							}
 
 						}
-						if (!key.equals(words[wordnum - 1][0])) { // ±ê×¼Ñ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							
 							wordTextView1.setBackgroundResource(R.drawable.red);
@@ -497,9 +507,9 @@ public class wordsl2 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
-					if (wcon == 1) { // ´í´ÊÑ­»·ÏÂ
+					if (wcon == 1) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½
 
-						if (key.equals(words[wordnum - 1][0])) { // ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							wordTextView2
 									.setBackgroundResource(R.drawable.green);
@@ -510,7 +520,7 @@ public class wordsl2 extends Activity {
 							defrepeat(0);
 							if (!words[wordnum][0].equals("")) {
 
-								System.out.println("´í´ÊÑ­»·ÏÂÒ»¸ö");
+								System.out.println("ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½");
 								myapp.set(4, Integer.toString(wordnum + 1));
 								intent = new Intent(wordsl2.this,
 										idroortsl2.class);
@@ -532,9 +542,9 @@ public class wordsl2 extends Activity {
 
 							}
 
-							if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+							if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-								System.out.println("´í´ÊÑ­»·½áÊø");
+								System.out.println("ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 								intent = new Intent(wordsl2.this, scorel2.class);
 
 								myapp.cleanCwrongwords();
@@ -557,7 +567,7 @@ public class wordsl2 extends Activity {
 
 						}
 
-						if (!key.equals(words[wordnum - 1][0])) { // ´í´ÊÑ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							wordTextView2.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -566,7 +576,7 @@ public class wordsl2 extends Activity {
 							
 							if (!timergreencontrol) {
 							myapp.addwrongwords1(words[wordnum - 1]);
-							defrepeat(1); // ÕâÊÇ×ö´íÁË¼Ó1
+							defrepeat(1); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½1
 							Intent intent = new Intent(wordsl2.this,
 									wordsl2.class);
 							startActivity(intent);
@@ -578,9 +588,9 @@ public class wordsl2 extends Activity {
 
 					}
 
-					if (wcon == 0) { // ±ê×¼Ñ­»·ÏÂ
+					if (wcon == 0) { // ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½
 
-						if (key.equals(words[wordnum - 1][0])) {// ±ê×¼Ñ­»·ÏÂ ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][0])) {// ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 							wordTextView2
@@ -591,7 +601,7 @@ public class wordsl2 extends Activity {
 
 							if (con == 1) { // PART2
 
-								if (wordnum % 5 != 0) { // Ã»ÓÐ×ßÍê5¸öµ¥´Ê
+								if (wordnum % 5 != 0) { // Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 									myapp.set(4, Integer.toString(wordnum + 1));
 									intent = new Intent(wordsl2.this,
@@ -615,27 +625,27 @@ public class wordsl2 extends Activity {
 
 								}
 
-								if (wordnum % 5 == 0) { // ×ßÍê5¸öµ¥´ÊÁË
+								if (wordnum % 5 == 0) { // ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 									myapp.set(4, Integer.toString(wordnum + 1));
-									// myapp.setrepreatcontrol(0); // TTÑ­»·µ½Í·£¬
-									// Çå¿Õ¿ØÖÆ·§
+									// myapp.setrepreatcontrol(0); // TTÑ­ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½
+									// ï¿½ï¿½Õ¿ï¿½ï¿½Æ·ï¿½
 
-									if (words[wordnum][0].equals("")) { // ÅÐ¶Ï½áÊø
-										// Õû¸ölistµÄÇ°Á½¸ösequence²Ù×÷½áÊø
-										// ½øÈë¸´Ï° wrong
-										// words Á÷³Ì¡£
-										myapp.cleanwrongwords(); // ¿ìËÙËã·¨ÅÅÐò
-																	// ÇåÀíwrongwords
+									if (words[wordnum][0].equals("")) { // ï¿½Ð¶Ï½ï¿½ï¿½ï¿½
+										// ï¿½ï¿½ï¿½ï¿½listï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½sequenceï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+										// ï¿½ï¿½ï¿½ë¸´Ï° wrong
+										// words ï¿½ï¿½ï¿½Ì¡ï¿½
+										myapp.cleanwrongwords(); // ï¿½ï¿½ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½
+																	// ï¿½ï¿½ï¿½ï¿½wrongwords
 
-										myapp.set(4, Integer.toString(1)); // ½øÈëreview
+										myapp.set(4, Integer.toString(1)); // ï¿½ï¿½ï¿½ï¿½review
 																			// wrong
-																			// Ñ­»·
+																			// Ñ­ï¿½ï¿½
 																			// wordnumber
-																			// ¸ø1
+																			// ï¿½ï¿½1
 
 										// myapp.setreviewwrongcontrol(1); //
-										// Éè¶¨½øÈëreviewwrong
-										// wcon¸³ÖµÎª1
+										// ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½reviewwrong
+										// wconï¿½ï¿½ÖµÎª1
 
 										intent = new Intent(wordsl2.this,
 												scorel2.class);
@@ -662,7 +672,7 @@ public class wordsl2 extends Activity {
 								}
 							}
 
-							if (con == 0) { // part1²¿·Ö
+							if (con == 0) { // part1ï¿½ï¿½ï¿½ï¿½
 
 								if (wordnum % 5 != 0) {
 									intent = new Intent(wordsl2.this,
@@ -710,7 +720,7 @@ public class wordsl2 extends Activity {
 							}
 
 						}
-						if (!key.equals(words[wordnum - 1][0])) { // ±ê×¼Ñ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							
 							wordTextView2.setBackgroundResource(R.drawable.red);
@@ -750,9 +760,9 @@ public class wordsl2 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
-					if (wcon == 1) { // ´í´ÊÑ­»·ÏÂ
+					if (wcon == 1) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½
 
-						if (key.equals(words[wordnum - 1][0])) { // ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							wordTextView3
 									.setBackgroundResource(R.drawable.green);
@@ -763,7 +773,7 @@ public class wordsl2 extends Activity {
 							defrepeat(0);
 							if (!words[wordnum][0].equals("")) {
 
-								System.out.println("´í´ÊÑ­»·ÏÂÒ»¸ö");
+								System.out.println("ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½");
 								myapp.set(4, Integer.toString(wordnum + 1));
 								intent = new Intent(wordsl2.this,
 										idroortsl2.class);
@@ -785,9 +795,9 @@ public class wordsl2 extends Activity {
 
 							}
 
-							if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+							if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-								System.out.println("´í´ÊÑ­»·½áÊø");
+								System.out.println("ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 								intent = new Intent(wordsl2.this, scorel2.class);
 
 								myapp.cleanCwrongwords();
@@ -810,7 +820,7 @@ public class wordsl2 extends Activity {
 
 						}
 
-						if (!key.equals(words[wordnum - 1][0])) { // ´í´ÊÑ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							wordTextView3.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -819,7 +829,7 @@ public class wordsl2 extends Activity {
 							
 							if (!timergreencontrol) {
 							myapp.addwrongwords1(words[wordnum - 1]);
-							defrepeat(1); // ÕâÊÇ×ö´íÁË¼Ó1
+							defrepeat(1); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½1
 							Intent intent = new Intent(wordsl2.this,
 									wordsl2.class);
 							startActivity(intent);
@@ -831,9 +841,9 @@ public class wordsl2 extends Activity {
 
 					}
 
-					if (wcon == 0) { // ±ê×¼Ñ­»·ÏÂ
+					if (wcon == 0) { // ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½
 
-						if (key.equals(words[wordnum - 1][0])) {// ±ê×¼Ñ­»·ÏÂ ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][0])) {// ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 							wordTextView3
@@ -844,7 +854,7 @@ public class wordsl2 extends Activity {
 
 							if (con == 1) { // PART2
 
-								if (wordnum % 5 != 0) { // Ã»ÓÐ×ßÍê5¸öµ¥´Ê
+								if (wordnum % 5 != 0) { // Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 									myapp.set(4, Integer.toString(wordnum + 1));
 									intent = new Intent(wordsl2.this,
@@ -868,27 +878,27 @@ public class wordsl2 extends Activity {
 
 								}
 
-								if (wordnum % 5 == 0) { // ×ßÍê5¸öµ¥´ÊÁË
+								if (wordnum % 5 == 0) { // ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 									myapp.set(4, Integer.toString(wordnum + 1));
-									// myapp.setrepreatcontrol(0); // TTÑ­»·µ½Í·£¬
-									// Çå¿Õ¿ØÖÆ·§
+									// myapp.setrepreatcontrol(0); // TTÑ­ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½
+									// ï¿½ï¿½Õ¿ï¿½ï¿½Æ·ï¿½
 
-									if (words[wordnum][0].equals("")) { // ÅÐ¶Ï½áÊø
-										// Õû¸ölistµÄÇ°Á½¸ösequence²Ù×÷½áÊø
-										// ½øÈë¸´Ï° wrong
-										// words Á÷³Ì¡£
-										myapp.cleanwrongwords(); // ¿ìËÙËã·¨ÅÅÐò
-																	// ÇåÀíwrongwords
+									if (words[wordnum][0].equals("")) { // ï¿½Ð¶Ï½ï¿½ï¿½ï¿½
+										// ï¿½ï¿½ï¿½ï¿½listï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½sequenceï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+										// ï¿½ï¿½ï¿½ë¸´Ï° wrong
+										// words ï¿½ï¿½ï¿½Ì¡ï¿½
+										myapp.cleanwrongwords(); // ï¿½ï¿½ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½
+																	// ï¿½ï¿½ï¿½ï¿½wrongwords
 
-										myapp.set(4, Integer.toString(1)); // ½øÈëreview
+										myapp.set(4, Integer.toString(1)); // ï¿½ï¿½ï¿½ï¿½review
 																			// wrong
-																			// Ñ­»·
+																			// Ñ­ï¿½ï¿½
 																			// wordnumber
-																			// ¸ø1
+																			// ï¿½ï¿½1
 
 										// myapp.setreviewwrongcontrol(1); //
-										// Éè¶¨½øÈëreviewwrong
-										// wcon¸³ÖµÎª1
+										// ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½reviewwrong
+										// wconï¿½ï¿½ÖµÎª1
 
 										intent = new Intent(wordsl2.this,
 												scorel2.class);
@@ -915,7 +925,7 @@ public class wordsl2 extends Activity {
 								}
 							}
 
-							if (con == 0) { // part1²¿·Ö
+							if (con == 0) { // part1ï¿½ï¿½ï¿½ï¿½
 
 								if (wordnum % 5 != 0) {
 									intent = new Intent(wordsl2.this,
@@ -963,7 +973,7 @@ public class wordsl2 extends Activity {
 							}
 
 						}
-						if (!key.equals(words[wordnum - 1][0])) { // ±ê×¼Ñ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							
 							wordTextView3.setBackgroundResource(R.drawable.red);
@@ -1004,9 +1014,9 @@ public class wordsl2 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
-					if (wcon == 1) { // ´í´ÊÑ­»·ÏÂ
+					if (wcon == 1) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½
 
-						if (key.equals(words[wordnum - 1][0])) { // ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							wordTextView4
 									.setBackgroundResource(R.drawable.green);
@@ -1017,7 +1027,7 @@ public class wordsl2 extends Activity {
 							defrepeat(0);
 							if (!words[wordnum][0].equals("")) {
 
-								System.out.println("´í´ÊÑ­»·ÏÂÒ»¸ö");
+								System.out.println("ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½");
 								myapp.set(4, Integer.toString(wordnum + 1));
 								intent = new Intent(wordsl2.this,
 										idroortsl2.class);
@@ -1039,9 +1049,9 @@ public class wordsl2 extends Activity {
 
 							}
 
-							if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+							if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-								System.out.println("´í´ÊÑ­»·½áÊø");
+								System.out.println("ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 								intent = new Intent(wordsl2.this, scorel2.class);
 
 								myapp.cleanCwrongwords();
@@ -1064,7 +1074,7 @@ public class wordsl2 extends Activity {
 
 						}
 
-						if (!key.equals(words[wordnum - 1][0])) { // ´í´ÊÑ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							wordTextView4.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1073,7 +1083,7 @@ public class wordsl2 extends Activity {
 							
 							if (!timergreencontrol) {
 							myapp.addwrongwords1(words[wordnum - 1]);
-							defrepeat(1); // ÕâÊÇ×ö´íÁË¼Ó1
+							defrepeat(1); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½1
 							Intent intent = new Intent(wordsl2.this,
 									wordsl2.class);
 							startActivity(intent);
@@ -1085,9 +1095,9 @@ public class wordsl2 extends Activity {
 
 					}
 
-					if (wcon == 0) { // ±ê×¼Ñ­»·ÏÂ
+					if (wcon == 0) { // ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½
 
-						if (key.equals(words[wordnum - 1][0])) {// ±ê×¼Ñ­»·ÏÂ ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][0])) {// ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 							wordTextView4
@@ -1098,7 +1108,7 @@ public class wordsl2 extends Activity {
 
 							if (con == 1) { // PART2
 
-								if (wordnum % 5 != 0) { // Ã»ÓÐ×ßÍê5¸öµ¥´Ê
+								if (wordnum % 5 != 0) { // Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 									myapp.set(4, Integer.toString(wordnum + 1));
 									intent = new Intent(wordsl2.this,
@@ -1122,27 +1132,27 @@ public class wordsl2 extends Activity {
 
 								}
 
-								if (wordnum % 5 == 0) { // ×ßÍê5¸öµ¥´ÊÁË
+								if (wordnum % 5 == 0) { // ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 									myapp.set(4, Integer.toString(wordnum + 1));
-									// myapp.setrepreatcontrol(0); // TTÑ­»·µ½Í·£¬
-									// Çå¿Õ¿ØÖÆ·§
+									// myapp.setrepreatcontrol(0); // TTÑ­ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½
+									// ï¿½ï¿½Õ¿ï¿½ï¿½Æ·ï¿½
 
-									if (words[wordnum][0].equals("")) { // ÅÐ¶Ï½áÊø
-										// Õû¸ölistµÄÇ°Á½¸ösequence²Ù×÷½áÊø
-										// ½øÈë¸´Ï° wrong
-										// words Á÷³Ì¡£
-										myapp.cleanwrongwords(); // ¿ìËÙËã·¨ÅÅÐò
-																	// ÇåÀíwrongwords
+									if (words[wordnum][0].equals("")) { // ï¿½Ð¶Ï½ï¿½ï¿½ï¿½
+										// ï¿½ï¿½ï¿½ï¿½listï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½sequenceï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+										// ï¿½ï¿½ï¿½ë¸´Ï° wrong
+										// words ï¿½ï¿½ï¿½Ì¡ï¿½
+										myapp.cleanwrongwords(); // ï¿½ï¿½ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½
+																	// ï¿½ï¿½ï¿½ï¿½wrongwords
 
-										myapp.set(4, Integer.toString(1)); // ½øÈëreview
+										myapp.set(4, Integer.toString(1)); // ï¿½ï¿½ï¿½ï¿½review
 																			// wrong
-																			// Ñ­»·
+																			// Ñ­ï¿½ï¿½
 																			// wordnumber
-																			// ¸ø1
+																			// ï¿½ï¿½1
 
 										// myapp.setreviewwrongcontrol(1); //
-										// Éè¶¨½øÈëreviewwrong
-										// wcon¸³ÖµÎª1
+										// ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½reviewwrong
+										// wconï¿½ï¿½ÖµÎª1
 
 										intent = new Intent(wordsl2.this,
 												scorel2.class);
@@ -1169,7 +1179,7 @@ public class wordsl2 extends Activity {
 								}
 							}
 
-							if (con == 0) { // part1²¿·Ö
+							if (con == 0) { // part1ï¿½ï¿½ï¿½ï¿½
 
 								if (wordnum % 5 != 0) {
 									intent = new Intent(wordsl2.this,
@@ -1217,7 +1227,7 @@ public class wordsl2 extends Activity {
 							}
 
 						}
-						if (!key.equals(words[wordnum - 1][0])) { // ±ê×¼Ñ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							
 							wordTextView4.setBackgroundResource(R.drawable.red);
@@ -1261,9 +1271,9 @@ public class wordsl2 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 
-					if (wcon == 1) { // ´í´ÊÑ­»·ÏÂ
+					if (wcon == 1) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½
 
-						if (key.equals(words[wordnum - 1][0])) { // ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							wordTextView1
 									.setBackgroundResource(R.drawable.green);
@@ -1280,7 +1290,7 @@ public class wordsl2 extends Activity {
 
 							}
 
-							if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+							if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 								Intent intent = new Intent(wordsl2.this,
 										scorel2.class);
@@ -1293,7 +1303,7 @@ public class wordsl2 extends Activity {
 
 						}
 
-						if (!key.equals(words[wordnum - 1][0])) { // ´í´ÊÑ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							wordTextView1.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1302,17 +1312,17 @@ public class wordsl2 extends Activity {
 
 					}
 
-					if (wcon == 0) { // ±ê×¼Ñ­»·ÏÂ
+					if (wcon == 0) { // ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½
 
-						if (key.equals(words[wordnum - 1][0])) {// ±ê×¼Ñ­»·ÏÂ ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][0])) {// ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							wordTextView1
 									.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							if (con == 1) { // ±ê×¼Ñ­»·+ TTÑ­»·ÏÂ
+							if (con == 1) { // ï¿½ï¿½×¼Ñ­ï¿½ï¿½+ TTÑ­ï¿½ï¿½ï¿½ï¿½
 
-								if (wordnum % 5 != 0) { // Ã»ÓÐ×ßÍê5¸öµ¥´Ê
+								if (wordnum % 5 != 0) { // Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 									myapp.set(4, Integer.toString(wordnum + 1));
 									Intent intent = new Intent(wordsl2.this,
@@ -1323,10 +1333,10 @@ public class wordsl2 extends Activity {
 
 								}
 
-								if (wordnum % 5 == 0) { // ×ßÍê5¸öµ¥´ÊÁË
+								if (wordnum % 5 == 0) { // ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 									myapp.set(4, Integer.toString(wordnum + 1));
 
-									if (words[wordnum][0].equals("")) { // ÅÐ¶Ï½áÊø
+									if (words[wordnum][0].equals("")) { // ï¿½Ð¶Ï½ï¿½ï¿½ï¿½
 										myapp.cleanwrongwords();
 										myapp.set(4, Integer.toString(1));
 										Intent intent = new Intent(
@@ -1338,7 +1348,7 @@ public class wordsl2 extends Activity {
 								}
 							}
 
-							if (con == 0) { // part1²¿·Ö
+							if (con == 0) { // part1ï¿½ï¿½ï¿½ï¿½
 
 								if (wordnum % 5 != 0) {
 									Intent intent = new Intent(wordsl2.this,
@@ -1360,7 +1370,7 @@ public class wordsl2 extends Activity {
 							}
 
 						}
-						if (!key.equals(words[wordnum - 1][0])) { // ±ê×¼Ñ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							wordTextView1.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1389,9 +1399,9 @@ public class wordsl2 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 
-					if (wcon == 1) { // ´í´ÊÑ­»·ÏÂ
+					if (wcon == 1) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½
 
-						if (key.equals(words[wordnum - 1][0])) { // ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							wordTextView2
 									.setBackgroundResource(R.drawable.green);
@@ -1408,7 +1418,7 @@ public class wordsl2 extends Activity {
 
 							}
 
-							if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+							if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 								Intent intent = new Intent(wordsl2.this,
 										scorel2.class);
@@ -1421,7 +1431,7 @@ public class wordsl2 extends Activity {
 
 						}
 
-						if (!key.equals(words[wordnum - 1][0])) { // ´í´ÊÑ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							wordTextView2.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1430,17 +1440,17 @@ public class wordsl2 extends Activity {
 
 					}
 
-					if (wcon == 0) { // ±ê×¼Ñ­»·ÏÂ
+					if (wcon == 0) { // ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½
 
-						if (key.equals(words[wordnum - 1][0])) {// ±ê×¼Ñ­»·ÏÂ ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][0])) {// ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							wordTextView2
 									.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							if (con == 1) { // ±ê×¼Ñ­»·+ TTÑ­»·ÏÂ
+							if (con == 1) { // ï¿½ï¿½×¼Ñ­ï¿½ï¿½+ TTÑ­ï¿½ï¿½ï¿½ï¿½
 
-								if (wordnum % 5 != 0) { // Ã»ÓÐ×ßÍê5¸öµ¥´Ê
+								if (wordnum % 5 != 0) { // Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 									myapp.set(4, Integer.toString(wordnum + 1));
 									Intent intent = new Intent(wordsl2.this,
@@ -1451,10 +1461,10 @@ public class wordsl2 extends Activity {
 
 								}
 
-								if (wordnum % 5 == 0) { // ×ßÍê5¸öµ¥´ÊÁË
+								if (wordnum % 5 == 0) { // ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 									myapp.set(4, Integer.toString(wordnum + 1));
 
-									if (words[wordnum][0].equals("")) { // ÅÐ¶Ï½áÊø
+									if (words[wordnum][0].equals("")) { // ï¿½Ð¶Ï½ï¿½ï¿½ï¿½
 										myapp.cleanwrongwords();
 										myapp.set(4, Integer.toString(1));
 										Intent intent = new Intent(
@@ -1466,7 +1476,7 @@ public class wordsl2 extends Activity {
 								}
 							}
 
-							if (con == 0) { // part1²¿·Ö
+							if (con == 0) { // part1ï¿½ï¿½ï¿½ï¿½
 
 								if (wordnum % 5 != 0) {
 									Intent intent = new Intent(wordsl2.this,
@@ -1488,7 +1498,7 @@ public class wordsl2 extends Activity {
 							}
 
 						}
-						if (!key.equals(words[wordnum - 1][0])) { // ±ê×¼Ñ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							wordTextView2.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1516,9 +1526,9 @@ public class wordsl2 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 
-					if (wcon == 1) { // ´í´ÊÑ­»·ÏÂ
+					if (wcon == 1) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½
 
-						if (key.equals(words[wordnum - 1][0])) { // ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							wordTextView3
 									.setBackgroundResource(R.drawable.green);
@@ -1535,7 +1545,7 @@ public class wordsl2 extends Activity {
 
 							}
 
-							if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+							if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 								Intent intent = new Intent(wordsl2.this,
 										scorel2.class);
@@ -1548,7 +1558,7 @@ public class wordsl2 extends Activity {
 
 						}
 
-						if (!key.equals(words[wordnum - 1][0])) { // ´í´ÊÑ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							wordTextView3.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1557,17 +1567,17 @@ public class wordsl2 extends Activity {
 
 					}
 
-					if (wcon == 0) { // ±ê×¼Ñ­»·ÏÂ
+					if (wcon == 0) { // ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½
 
-						if (key.equals(words[wordnum - 1][0])) {// ±ê×¼Ñ­»·ÏÂ ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][0])) {// ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							wordTextView3
 									.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							if (con == 1) { // ±ê×¼Ñ­»·+ TTÑ­»·ÏÂ
+							if (con == 1) { // ï¿½ï¿½×¼Ñ­ï¿½ï¿½+ TTÑ­ï¿½ï¿½ï¿½ï¿½
 
-								if (wordnum % 5 != 0) { // Ã»ÓÐ×ßÍê5¸öµ¥´Ê
+								if (wordnum % 5 != 0) { // Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 									myapp.set(4, Integer.toString(wordnum + 1));
 									Intent intent = new Intent(wordsl2.this,
@@ -1578,10 +1588,10 @@ public class wordsl2 extends Activity {
 
 								}
 
-								if (wordnum % 5 == 0) { // ×ßÍê5¸öµ¥´ÊÁË
+								if (wordnum % 5 == 0) { // ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 									myapp.set(4, Integer.toString(wordnum + 1));
 
-									if (words[wordnum][0].equals("")) { // ÅÐ¶Ï½áÊø
+									if (words[wordnum][0].equals("")) { // ï¿½Ð¶Ï½ï¿½ï¿½ï¿½
 										myapp.cleanwrongwords();
 										myapp.set(4, Integer.toString(1));
 										Intent intent = new Intent(
@@ -1593,7 +1603,7 @@ public class wordsl2 extends Activity {
 								}
 							}
 
-							if (con == 0) { // part1²¿·Ö
+							if (con == 0) { // part1ï¿½ï¿½ï¿½ï¿½
 
 								if (wordnum % 5 != 0) {
 									Intent intent = new Intent(wordsl2.this,
@@ -1615,7 +1625,7 @@ public class wordsl2 extends Activity {
 							}
 
 						}
-						if (!key.equals(words[wordnum - 1][0])) { // ±ê×¼Ñ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							wordTextView3.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1644,9 +1654,9 @@ public class wordsl2 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 
-					if (wcon == 1) { // ´í´ÊÑ­»·ÏÂ
+					if (wcon == 1) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½
 
-						if (key.equals(words[wordnum - 1][0])) { // ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							wordTextView4
 									.setBackgroundResource(R.drawable.green);
@@ -1663,7 +1673,7 @@ public class wordsl2 extends Activity {
 
 							}
 
-							if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+							if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 								Intent intent = new Intent(wordsl2.this,
 										scorel2.class);
@@ -1676,7 +1686,7 @@ public class wordsl2 extends Activity {
 
 						}
 
-						if (!key.equals(words[wordnum - 1][0])) { // ´í´ÊÑ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							wordTextView4.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1685,17 +1695,17 @@ public class wordsl2 extends Activity {
 
 					}
 
-					if (wcon == 0) { // ±ê×¼Ñ­»·ÏÂ
+					if (wcon == 0) { // ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½
 
-						if (key.equals(words[wordnum - 1][0])) {// ±ê×¼Ñ­»·ÏÂ ×ö¶ÔÁË
+						if (key.equals(words[wordnum - 1][0])) {// ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							wordTextView4
 									.setBackgroundResource(R.drawable.green);
 							myapp.playmusic(1);
 
-							if (con == 1) { // ±ê×¼Ñ­»·+ TTÑ­»·ÏÂ
+							if (con == 1) { // ï¿½ï¿½×¼Ñ­ï¿½ï¿½+ TTÑ­ï¿½ï¿½ï¿½ï¿½
 
-								if (wordnum % 5 != 0) { // Ã»ÓÐ×ßÍê5¸öµ¥´Ê
+								if (wordnum % 5 != 0) { // Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 									myapp.set(4, Integer.toString(wordnum + 1));
 									Intent intent = new Intent(wordsl2.this,
@@ -1706,10 +1716,10 @@ public class wordsl2 extends Activity {
 
 								}
 
-								if (wordnum % 5 == 0) { // ×ßÍê5¸öµ¥´ÊÁË
+								if (wordnum % 5 == 0) { // ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 									myapp.set(4, Integer.toString(wordnum + 1));
 
-									if (words[wordnum][0].equals("")) { // ÅÐ¶Ï½áÊø
+									if (words[wordnum][0].equals("")) { // ï¿½Ð¶Ï½ï¿½ï¿½ï¿½
 										myapp.cleanwrongwords();
 										myapp.set(4, Integer.toString(1));
 										Intent intent = new Intent(
@@ -1721,7 +1731,7 @@ public class wordsl2 extends Activity {
 								}
 							}
 
-							if (con == 0) { // part1²¿·Ö
+							if (con == 0) { // part1ï¿½ï¿½ï¿½ï¿½
 
 								if (wordnum % 5 != 0) {
 									Intent intent = new Intent(wordsl2.this,
@@ -1743,7 +1753,7 @@ public class wordsl2 extends Activity {
 							}
 
 						}
-						if (!key.equals(words[wordnum - 1][0])) { // ±ê×¼Ñ­»·ÏÂ×ö´íÁË
+						if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½×¼Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							wordTextView4.setBackgroundResource(R.drawable.red);
 							myapp.Vibrate();
@@ -1792,19 +1802,19 @@ public class wordsl2 extends Activity {
 	}
 
 	private void ran() {
-		numroot = 0; // ·ÀÖ¹ ×îºó³öÏÖ²»¹»20 ³öÏÖµÄÇé¿ö
+		numroot = 0; // ï¿½ï¿½Ö¹ ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½20 ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
 
 		this.getroots();
 
 		/* if (wcon == 0) { */
 		for (int i = 0; i < 20; i++) {
 
-			if (!roots[i].equals("")) { // ËÀÑ­»·ÎÊÌâ
+			if (!roots[i].equals("")) { // ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				numroot = i + 1;
 			}
 		}
 
-		double h = Math.random() * 4; // Ëæ»úÎª0µ½1Ö®¼ä£¬ ÕâÀïÓÐ4¸ö°´Å¥£¬ËùÒÔÑ¡4
+		double h = Math.random() * 4; // ï¿½ï¿½ï¿½Îª0ï¿½ï¿½1Ö®ï¿½ä£¬ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4ï¿½ï¿½ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡4
 
 		// System.out.println((int) h);
 		int k = (int) h;
@@ -1877,7 +1887,7 @@ public class wordsl2 extends Activity {
 				wordTextView1.setBackgroundResource(R.drawable.green);
 				// myapp.playmusic(1);myapp.setscore(1, rightnum+1);;
 				// //playmusic(1);
-				// defrepeat(0); ÒòÎª×Ô¶¯Ìø×ªËùÒÔ²»ÔÙÐèÒªÕâÀïÖÃ0£»
+				// defrepeat(0); ï¿½ï¿½Îªï¿½Ô¶ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½
 
 			}
 			wordTextView2.setText(roots[a2]);
@@ -1931,7 +1941,7 @@ public class wordsl2 extends Activity {
 
 	}
 
-	private void defrepeat(int key) { // ÕâÀïÊÇ Êä´í2´ÎµÄ¿ØÖÆ·½·¨
+	private void defrepeat(int key) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½2ï¿½ÎµÄ¿ï¿½ï¿½Æ·ï¿½ï¿½ï¿½
 
 		if (key == 0) {
 			myapp.set(6, Integer.toString(0));
@@ -2073,10 +2083,10 @@ public class wordsl2 extends Activity {
 				String reason = intent.getStringExtra(SYSTEM_REASON);
 				if (reason != null) {
 					if (reason.equals(SYSTEM_HOME_KEY)) {
-						myapp.pauselevelmusic(); // home key´¦Àíµã
+						myapp.pauselevelmusic(); // home keyï¿½ï¿½ï¿½ï¿½ï¿½
 
 					} else if (reason.equals(SYSTEM_RECENT_APPS)) {
-						myapp.pauselevelmusic();// long home key´¦Àíµã
+						myapp.pauselevelmusic();// long home keyï¿½ï¿½ï¿½ï¿½ï¿½
 					}
 				}
 			}

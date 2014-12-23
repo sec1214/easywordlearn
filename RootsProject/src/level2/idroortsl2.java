@@ -25,6 +25,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -47,8 +49,8 @@ public class idroortsl2 extends Activity {
 	private int rootnum; // the amount of word's root.
 	private String[] roots;
 	private int numroot;
-	public int wcon, con; // review control , part control ´í´ÊÑ­»·£¬
-	private int clicknumtouch = 0; // the amount of click root options. ÇÃ»÷Ñ¡ÔñrootµÄÊýÁ¿
+	public int wcon, con; // review control , part control ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½
+	private int clicknumtouch = 0; // the amount of click root options. ï¿½Ã»ï¿½Ñ¡ï¿½ï¿½rootï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private BroadcastReceiver receiver; // home key
 	private int lv1;
 	private ImageButton wenhaoButton;
@@ -64,7 +66,7 @@ public class idroortsl2 extends Activity {
 
 	private mypublicvalue myapp;
 
-	private boolean p1 = false; // ²Ù¿Øhelp buttonµÄ¿ØÖÆ·§
+	private boolean p1 = false; // ï¿½Ù¿ï¿½help buttonï¿½Ä¿ï¿½ï¿½Æ·ï¿½
 
 	private CountDownTimer helpshape;
 
@@ -73,6 +75,7 @@ public class idroortsl2 extends Activity {
 	private Intent intent;
 	private boolean timergreencontrol = false;
 	private Matrix matrix = new Matrix();
+	private Animation mAnimationRight;
 
 	CountDownTimer timerhelp = new CountDownTimer(5000, 1000) {  // 5second, every step is 1 second
 
@@ -158,7 +161,7 @@ public class idroortsl2 extends Activity {
 		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
 
-		textViewlevel.setText(" Level: " + myapp.get(3)); // Éè¶¨ÏÔÊ¾levelµÄ¿Ø¼þ
+		textViewlevel.setText(" Level: " + myapp.get(3)); // ï¿½è¶¨ï¿½ï¿½Ê¾levelï¿½Ä¿Ø¼ï¿½
 
 		wordnum = Integer.parseInt(myapp.get(4));
 
@@ -168,7 +171,7 @@ public class idroortsl2 extends Activity {
 		idrootclicknum = myapp.getidrootscore(0);
 		idrootrightnum = myapp.getidrootscore(1);
 
-		wcon = myapp.getreviewwrongcontrol(); // ¸´Ï°¿ØÖÆ·§Öµ
+		wcon = myapp.getreviewwrongcontrol(); // ï¿½ï¿½Ï°ï¿½ï¿½ï¿½Æ·ï¿½Öµ
 		con = myapp.getrepeatcontrol();
 
 		System.out.println("wcon" + wcon);
@@ -176,7 +179,7 @@ public class idroortsl2 extends Activity {
 
 		lv1 = Integer.parseInt(myapp.get(8));
 
-		if (wcon == 0) { // ±ê×¼Çé¿öÏÂ words È¡ÓÃ
+		if (wcon == 0) { // ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½ words È¡ï¿½ï¿½
 
 			if (lv1 == 0) {
 				words = myapp.getwords();
@@ -203,7 +206,7 @@ public class idroortsl2 extends Activity {
 
 		}
 
-		if (wcon == 1) { // ´íÎóÇé¿öÏÂ£¬ È¡ÓÃ´í´Ê
+		if (wcon == 1) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ È¡ï¿½Ã´ï¿½ï¿½
 
 			words = myapp.getCwrongwords();
 
@@ -215,16 +218,22 @@ public class idroortsl2 extends Activity {
 		}
 
 		if (wcon == 0) {
-			textViewword.setText("Word: " + (wordnum - 10) + " / " + wordnum()); // Éè¶¨ÏÔÊ¾¼¸ºÅwordµÄ¿Ø¼þ
+			textViewword.setText("Word: " + (wordnum - 10) + " / " + wordnum()); // ï¿½è¶¨ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½wordï¿½Ä¿Ø¼ï¿½
 		}
 		if (wcon == 1) {
-			textViewword.setText("Word: " + wordnum + " / " + wordnum()); // Éè¶¨ÏÔÊ¾¼¸ºÅwordµÄ¿Ø¼þ
+			textViewword.setText("Word: " + wordnum + " / " + wordnum()); // ï¿½è¶¨ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½wordï¿½Ä¿Ø¼ï¿½
 		}
 		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
 		textViewscore.setText(
 				+ (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100)
 				+ "%");
-		
+		/*added by xiaoqian yu, 2014-12-23, start*/
+		mAnimationRight = AnimationUtils.loadAnimation(
+                idroortsl2.this, 
+                myapp.calculateViewAnimationID(myapp.setPulseTimeInterval(myapp.getscore(1), 
+                		                                                  myapp.getscore(0))));
+		textViewscore.startAnimation(mAnimationRight);
+		/*added by xiaoqian yu, 2014-12-23, over*/
 
 		worddefview.setText(words[wordnum - 1][1]);
 
@@ -235,7 +244,7 @@ public class idroortsl2 extends Activity {
 
 		this.ran();
 
-		System.out.println("idroots Õâ¸öword¶àÉÙ¸öroot£º " + rootnum);
+		System.out.println("idroots ï¿½ï¿½ï¿½wordï¿½ï¿½ï¿½Ù¸ï¿½rootï¿½ï¿½ " + rootnum);
 
 		if (myapp.gethelpcontrol(2) == 0) {
 			timerhelp.start();
@@ -264,7 +273,7 @@ public class idroortsl2 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
-					if (k.equals(words[wordnum - 1][2]) // chooose right  ×ö¶ÔÁË
+					if (k.equals(words[wordnum - 1][2]) // chooose right  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -280,10 +289,10 @@ public class idroortsl2 extends Activity {
 						myapp.setidrootscore(0, ++idrootclicknum);
 						clicknumtouch++;
 
-						if (clicknumtouch == rootnum) { // all roots are right ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // all roots are right ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
-							System.out.println("¹ýÁËidrootsl2");
+							System.out.println("ï¿½ï¿½ï¿½ï¿½idrootsl2");
 							intent = new Intent(idroortsl2.this, rootl2.class);
 
 							
@@ -369,10 +378,10 @@ public class idroortsl2 extends Activity {
 						myapp.setscore(0, ++clicknum);
 						myapp.setidrootscore(0, ++idrootclicknum);
 						clicknumtouch++;
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
-							System.out.println("¹ýÁËidrootsl2");
+							System.out.println("ï¿½ï¿½ï¿½ï¿½idrootsl2");
 							intent = new Intent(idroortsl2.this, rootl2.class);
 
 							
@@ -459,10 +468,10 @@ public class idroortsl2 extends Activity {
 						myapp.setscore(0, ++clicknum);
 						myapp.setidrootscore(0, ++idrootclicknum);
 						clicknumtouch++;
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
-							System.out.println("¹ýÁËidrootsl2");
+							System.out.println("ï¿½ï¿½ï¿½ï¿½idrootsl2");
 							intent = new Intent(idroortsl2.this, rootl2.class);
 
 						
@@ -548,10 +557,10 @@ public class idroortsl2 extends Activity {
 						myapp.setscore(0, ++clicknum);
 						myapp.setidrootscore(0, ++idrootclicknum);
 						clicknumtouch++;
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
-							System.out.println("¹ýÁËidrootsl2");
+							System.out.println("ï¿½ï¿½ï¿½ï¿½idrootsl2");
 							intent = new Intent(idroortsl2.this, rootl2.class);
 
 						
@@ -638,10 +647,10 @@ public class idroortsl2 extends Activity {
 						myapp.setscore(0, ++clicknum);
 						myapp.setidrootscore(0, ++idrootclicknum);
 						clicknumtouch++;
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
-							System.out.println("¹ýÁËidrootsl2");
+							System.out.println("ï¿½ï¿½ï¿½ï¿½idrootsl2");
 							intent = new Intent(idroortsl2.this, rootl2.class);
 
 					
@@ -727,10 +736,10 @@ public class idroortsl2 extends Activity {
 						myapp.setscore(0, ++clicknum);
 						myapp.setidrootscore(0, ++idrootclicknum);
 						clicknumtouch++;
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
-							System.out.println("¹ýÁËidrootsl2");
+							System.out.println("ï¿½ï¿½ï¿½ï¿½idrootsl2");
 							intent = new Intent(idroortsl2.this, rootl2.class);
 
 							
@@ -804,7 +813,7 @@ public class idroortsl2 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
-					if (k.equals(words[wordnum - 1][2]) // ×ö¶ÔÁË
+					if (k.equals(words[wordnum - 1][2]) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -817,7 +826,7 @@ public class idroortsl2 extends Activity {
 
 						clicknumtouch++;
 
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							defrepeat(0);
 							Intent intent = new Intent(idroortsl2.this,
@@ -860,7 +869,7 @@ public class idroortsl2 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
-					if (k.equals(words[wordnum - 1][2]) // ×ö¶ÔÁË
+					if (k.equals(words[wordnum - 1][2]) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -873,7 +882,7 @@ public class idroortsl2 extends Activity {
 
 						clicknumtouch++;
 
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							Intent intent = new Intent(idroortsl2.this,
 									rootl2.class);
@@ -916,7 +925,7 @@ public class idroortsl2 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
-					if (k.equals(words[wordnum - 1][2]) // ×ö¶ÔÁË
+					if (k.equals(words[wordnum - 1][2]) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -929,7 +938,7 @@ public class idroortsl2 extends Activity {
 
 						clicknumtouch++;
 
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							Intent intent = new Intent(idroortsl2.this,
 									rootl2.class);
@@ -971,7 +980,7 @@ public class idroortsl2 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
-					if (k.equals(words[wordnum - 1][2]) // ×ö¶ÔÁË
+					if (k.equals(words[wordnum - 1][2]) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -984,7 +993,7 @@ public class idroortsl2 extends Activity {
 
 						clicknumtouch++;
 
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							Intent intent = new Intent(idroortsl2.this,
 									rootl2.class);
@@ -1026,7 +1035,7 @@ public class idroortsl2 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
-					if (k.equals(words[wordnum - 1][2]) // ×ö¶ÔÁË
+					if (k.equals(words[wordnum - 1][2]) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -1039,7 +1048,7 @@ public class idroortsl2 extends Activity {
 
 						clicknumtouch++;
 
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							Intent intent = new Intent(idroortsl2.this,
 									rootl2.class);
@@ -1081,7 +1090,7 @@ public class idroortsl2 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 					// timer.cancel();
-					if (k.equals(words[wordnum - 1][2]) // ×ö¶ÔÁË
+					if (k.equals(words[wordnum - 1][2]) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							|| k.equals(words[wordnum - 1][4])
 							|| k.equals(words[wordnum - 1][6])
 							|| k.equals(words[wordnum - 1][8]))
@@ -1094,7 +1103,7 @@ public class idroortsl2 extends Activity {
 
 						clicknumtouch++;
 
-						if (clicknumtouch == rootnum) { // ¶¼×ö¶ÔÁË
+						if (clicknumtouch == rootnum) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							defrepeat(0);
 							Intent intent = new Intent(idroortsl2.this,
 									rootl2.class);
@@ -1156,7 +1165,7 @@ public class idroortsl2 extends Activity {
 
 	private void ran() {
 		// TODO Auto-generated method stub
-		numroot = 0; // ·ÀÖ¹ ×îºó³öÏÖ²»¹»20 ³öÏÖµÄÇé¿ö
+		numroot = 0; // ï¿½ï¿½Ö¹ ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½20 ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
 
 		this.getroots();
 
@@ -1215,11 +1224,11 @@ public class idroortsl2 extends Activity {
 		a5 = 0;
 		a6 = 0;
 
-		System.out.println("¶àÉÙ¸öroot+" + numroot);
+		System.out.println("ï¿½ï¿½ï¿½Ù¸ï¿½root+" + numroot);
 
 		for (int i = 0; i < numroot; i++) {
 
-			if (words[wordnum - 1][2].equals(roots[i])) { // È·¶¨4¸öroot
+			if (words[wordnum - 1][2].equals(roots[i])) { // È·ï¿½ï¿½4ï¿½ï¿½root
 				a1 = i;
 				break;
 			}
@@ -1262,7 +1271,7 @@ public class idroortsl2 extends Activity {
 			rootnum = 4;
 		}
 
-		if (rootnum == 1) { // Ö¤Ã÷Ö»ÓÐÒ»¸öroot
+		if (rootnum == 1) { // Ö¤ï¿½ï¿½Ö»ï¿½ï¿½Ò»ï¿½ï¿½root
 
 			System.out.println("rootnum   " + 1);
 
@@ -1387,7 +1396,7 @@ public class idroortsl2 extends Activity {
 			}
 		}
 
-		if (rootnum == 2) { // Ö¤Ã÷ÓÐ2¸öroot ·Ö±ðÊÇa1 ºÍ a2
+		if (rootnum == 2) { // Ö¤ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½root ï¿½Ö±ï¿½ï¿½ï¿½a1 ï¿½ï¿½ a2
 
 			System.out.println("rootnum   " + 2);
 
@@ -1513,7 +1522,7 @@ public class idroortsl2 extends Activity {
 
 		}
 
-		if (rootnum == 3) { // Ö¤Ã÷ÓÐ3¸öroot
+		if (rootnum == 3) { // Ö¤ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½root
 
 			System.out.println("rootnum   " + 3);
 
@@ -1637,7 +1646,7 @@ public class idroortsl2 extends Activity {
 
 		}
 
-		if (rootnum == 4) { // 4¸öroot
+		if (rootnum == 4) { // 4ï¿½ï¿½root
 
 			System.out.println("rootnum   " + 4);
 
@@ -1838,9 +1847,9 @@ public class idroortsl2 extends Activity {
 		return k;
 	}
 
-	private SpannableStringBuilder getchangeword(String key) { // ±¾·½·¨×Ô¶¯´´½¨Ïà¶ÔÓ¦µÄÈ±Ê§rootµÄ×Ö·û´®
+	private SpannableStringBuilder getchangeword(String key) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½È±Ê§rootï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 		// TODO Auto-generated method stub
-		// ÆðÊ¼rootµÄµØµã
+		// ï¿½ï¿½Ê¼rootï¿½ÄµØµï¿½
 		String word = words[wordnum - 1][0];
 
 		String changeword = key;
@@ -1925,10 +1934,10 @@ public class idroortsl2 extends Activity {
 				String reason = intent.getStringExtra(SYSTEM_REASON);
 				if (reason != null) {
 					if (reason.equals(SYSTEM_HOME_KEY)) {
-						myapp.pauselevelmusic(); // home key´¦Àíµã
+						myapp.pauselevelmusic(); // home keyï¿½ï¿½ï¿½ï¿½ï¿½
 
 					} else if (reason.equals(SYSTEM_RECENT_APPS)) {
-						myapp.pauselevelmusic();// long home key´¦Àíµã
+						myapp.pauselevelmusic();// long home keyï¿½ï¿½ï¿½ï¿½ï¿½
 					}
 				}
 			}

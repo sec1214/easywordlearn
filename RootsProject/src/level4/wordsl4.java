@@ -22,11 +22,14 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.rootsproject.MainActivity;
 import com.rootsproject.R;
+import com.rootsproject.definition;
 import com.rootsproject.list;
 import com.rootsproject.listselectactivity;
 import com.rootsproject.mypublicvalue;
@@ -44,17 +47,17 @@ public class wordsl4 extends Activity {
 
 	private String[] roots;
 
-	private int wordnum; // µÚ¼¸¸öword
+	private int wordnum; // ï¿½Ú¼ï¿½ï¿½ï¿½word
 	private int numroot;
 
-	public int con; // TT Ñ­»·¿ØÖÆ·§
-	public int wcon; // ¸´Ï°¿ØÖÆ·§
+	public int con; // TT Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½
+	public int wcon; // ï¿½ï¿½Ï°ï¿½ï¿½ï¿½Æ·ï¿½
 
 	private double clicknum, rightnum;
 	private double defwordclicknum, defwordrightnum;
 
 	private ImageButton wenhaoButton;
-	private boolean p1 = false; // ²Ù¿Øhelp buttonµÄ¿ØÖÆ·§
+	private boolean p1 = false; // ï¿½Ù¿ï¿½help buttonï¿½Ä¿ï¿½ï¿½Æ·ï¿½
 
 	public  long sleeptime = 2000;
 	private Timer timergreen;
@@ -67,7 +70,7 @@ public class wordsl4 extends Activity {
 
 	private CountDownTimer helpshape;
 	private BroadcastReceiver receiver;
-
+	private Animation mAnimationRight;
 	CountDownTimer timer = new CountDownTimer(15000, 1000) {
 
 		@Override
@@ -97,7 +100,7 @@ public class wordsl4 extends Activity {
 			textViewwr.setText("Time over");
 			if (Integer.parseInt(myapp.get(6)) == 1) {
 
-				myapp.playmusic(3); // Ê§°ÜÒôÀÖ
+				myapp.playmusic(3); // Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			}
 
 			Intent intent = new Intent(wordsl4.this, wordsl4.class);
@@ -207,7 +210,7 @@ public class wordsl4 extends Activity {
 		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
 
-		textViewlevel.setText(" Level: " + myapp.get(3)); // Éè¶¨ÏÔÊ¾levelµÄ¿Ø¼þ
+		textViewlevel.setText(" Level: " + myapp.get(3)); // ï¿½è¶¨ï¿½ï¿½Ê¾levelï¿½Ä¿Ø¼ï¿½
 
 		clicknum = myapp.getscore(0);
 		rightnum = myapp.getscore(1);
@@ -215,9 +218,9 @@ public class wordsl4 extends Activity {
 		defwordclicknum = myapp.getdefwordscore(0);
 		defwordrightnum = myapp.getdefwordscore(1);
 
-		wcon = myapp.getreviewwrongcontrol(); // ¸´Ï°¿ØÖÆ·§Öµ
+		wcon = myapp.getreviewwrongcontrol(); // ï¿½ï¿½Ï°ï¿½ï¿½ï¿½Æ·ï¿½Öµ
 
-		con = myapp.getrepeatcontrol(); // TTÑ­»·¿ØÖÆ·§
+		con = myapp.getrepeatcontrol(); // TTÑ­ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½
 
 		if (wcon == 0) {
 			words = myapp.getwords();
@@ -232,9 +235,15 @@ public class wordsl4 extends Activity {
 		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
 		textViewscore.setText(
 				+ (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100) + "%");
-
+		/*added by xiaoqian yu, 2014-12-23, start*/
+		mAnimationRight = AnimationUtils.loadAnimation(
+                wordsl4.this, 
+                myapp.calculateViewAnimationID(myapp.setPulseTimeInterval(myapp.getscore(1), 
+                		                                                  myapp.getscore(0))));
+		textViewscore.startAnimation(mAnimationRight);
+		/*added by xiaoqian yu, 2014-12-23, over*/
 		wordnum = Integer.parseInt(myapp.get(4));
-		textViewword.setText("Word: " + wordnum + " / " + wordnum()); // Éè¶¨ÏÔÊ¾¼¸ºÅwordµÄ¿Ø¼þ
+		textViewword.setText("Word: " + wordnum + " / " + wordnum()); // ï¿½è¶¨ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½wordï¿½Ä¿Ø¼ï¿½
 		defTextView.setText(words[wordnum - 1][1]);
 
 		this.ran();
@@ -265,7 +274,7 @@ public class wordsl4 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 
-					if (key.equals(words[wordnum - 1][0])) { // ×ö¶ÔÁË
+					if (key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 						wordTextView1.setBackgroundResource(R.drawable.green);
 						myapp.playmusic(1);
@@ -275,7 +284,7 @@ public class wordsl4 extends Activity {
 						defrepeat(0);
 						if (!words[wordnum][0].equals("")) {
 
-							System.out.println("Ñ­»·ÏÂÒ»¸ö");
+							System.out.println("Ñ­ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½");
 							myapp.set(4, Integer.toString(wordnum + 1));
 							intent = new Intent(wordsl4.this, idroortsl4.class);
 
@@ -297,9 +306,9 @@ public class wordsl4 extends Activity {
 
 						}
 
-						if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+						if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-							System.out.println("Ñ­»·½áÊø");
+							System.out.println("Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 							intent = new Intent(wordsl4.this, scorel4.class);
 
 							if (wcon == 0) {
@@ -329,7 +338,7 @@ public class wordsl4 extends Activity {
 
 					}
 
-					if (!key.equals(words[wordnum - 1][0])) { // ´í´ÊÑ­»·ÏÂ×ö´íÁË
+					if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 						wordTextView1.setBackgroundResource(R.drawable.red);
 						myapp.Vibrate();
@@ -342,7 +351,7 @@ public class wordsl4 extends Activity {
 						if (wcon == 1) {
 							myapp.addwrongwords1(words[wordnum - 1]);
 						}
-						defrepeat(1); // ÕâÊÇ×ö´íÁË¼Ó1
+						defrepeat(1); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½1
 						Intent intent = new Intent(wordsl4.this, wordsl4.class);
 						startActivity(intent);
 						myapp.setscore(0, clicknum + 1);
@@ -382,7 +391,7 @@ public class wordsl4 extends Activity {
 						defrepeat(0);
 						if (!words[wordnum][0].equals("")) {
 
-							System.out.println("Ñ­»·ÏÂÒ»¸ö");
+							System.out.println("Ñ­ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½");
 							myapp.set(4, Integer.toString(wordnum + 1));
 							intent = new Intent(wordsl4.this, idroortsl4.class);
 
@@ -406,7 +415,7 @@ public class wordsl4 extends Activity {
 
 						if (words[wordnum][0].equals("")) {
 
-							System.out.println("Ñ­»·½áÊø");
+							System.out.println("Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 							intent = new Intent(wordsl4.this, scorel4.class);
 							if (wcon == 0) {
 								myapp.cleanwrongwords();
@@ -434,7 +443,7 @@ public class wordsl4 extends Activity {
 						}
 
 					}
-					if (!key.equals(words[wordnum - 1][0])) { // ´í´ÊÑ­»·ÏÂ×ö´íÁË
+					if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 						wordTextView2.setBackgroundResource(R.drawable.red);
 						myapp.Vibrate();
@@ -447,7 +456,7 @@ public class wordsl4 extends Activity {
 						if (wcon == 1) {
 							myapp.addwrongwords1(words[wordnum - 1]);
 						}
-						defrepeat(1); // ÕâÊÇ×ö´íÁË¼Ó1
+						defrepeat(1); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½1
 						Intent intent = new Intent(wordsl4.this, wordsl4.class);
 						startActivity(intent);
 						myapp.setscore(0, clicknum + 1);
@@ -537,7 +546,7 @@ public class wordsl4 extends Activity {
 
 					}
 
-					if (!key.equals(words[wordnum - 1][0])) { // ´í´ÊÑ­»·ÏÂ×ö´íÁË
+					if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 						wordTextView3.setBackgroundResource(R.drawable.red);
 						myapp.Vibrate();
@@ -550,7 +559,7 @@ public class wordsl4 extends Activity {
 						if (wcon == 1) {
 							myapp.addwrongwords1(words[wordnum - 1]);
 						}
-						defrepeat(1); // ÕâÊÇ×ö´íÁË¼Ó1
+						defrepeat(1); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½1
 						Intent intent = new Intent(wordsl4.this, wordsl4.class);
 						startActivity(intent);
 						myapp.setscore(0, clicknum + 1);
@@ -640,7 +649,7 @@ public class wordsl4 extends Activity {
 
 					}
 
-					if (!key.equals(words[wordnum - 1][0])) { // ´í´ÊÑ­»·ÏÂ×ö´íÁË
+					if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 						wordTextView4.setBackgroundResource(R.drawable.red);
 						myapp.Vibrate();
@@ -653,7 +662,7 @@ public class wordsl4 extends Activity {
 						if (wcon == 1) {
 							myapp.addwrongwords1(words[wordnum - 1]);
 						}
-						defrepeat(1); // ÕâÊÇ×ö´íÁË¼Ó1
+						defrepeat(1); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½1
 						Intent intent = new Intent(wordsl4.this, wordsl4.class);
 						startActivity(intent);
 						myapp.setscore(0, clicknum + 1);
@@ -686,7 +695,7 @@ public class wordsl4 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 
-					if (key.equals(words[wordnum - 1][0])) { // ×ö¶ÔÁË
+					if (key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						defrepeat(0);
 
 						wordTextView1.setBackgroundResource(R.drawable.green);
@@ -701,7 +710,7 @@ public class wordsl4 extends Activity {
 
 						}
 
-						if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+						if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							Intent intent = new Intent(wordsl4.this,
 									scorel4.class);
@@ -720,7 +729,7 @@ public class wordsl4 extends Activity {
 
 					}
 
-					if (!key.equals(words[wordnum - 1][0])) { // ´í´ÊÑ­»·ÏÂ×ö´íÁË
+					if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 						wordTextView1.setBackgroundResource(R.drawable.red);
 						myapp.Vibrate();
@@ -748,7 +757,7 @@ public class wordsl4 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 
-					if (key.equals(words[wordnum - 1][0])) { // ×ö¶ÔÁË
+					if (key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						defrepeat(0);
 
 						wordTextView2.setBackgroundResource(R.drawable.green);
@@ -763,7 +772,7 @@ public class wordsl4 extends Activity {
 
 						}
 
-						if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+						if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							Intent intent = new Intent(wordsl4.this,
 									scorel4.class);
@@ -782,7 +791,7 @@ public class wordsl4 extends Activity {
 
 					}
 
-					if (!key.equals(words[wordnum - 1][0])) { // ´í´ÊÑ­»·ÏÂ×ö´íÁË
+					if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 						wordTextView2.setBackgroundResource(R.drawable.red);
 						myapp.Vibrate();
@@ -809,7 +818,7 @@ public class wordsl4 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 
-					if (key.equals(words[wordnum - 1][0])) { // ×ö¶ÔÁË
+					if (key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						defrepeat(0);
 
 						wordTextView3.setBackgroundResource(R.drawable.green);
@@ -824,7 +833,7 @@ public class wordsl4 extends Activity {
 
 						}
 
-						if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+						if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							Intent intent = new Intent(wordsl4.this,
 									scorel4.class);
@@ -843,7 +852,7 @@ public class wordsl4 extends Activity {
 
 					}
 
-					if (!key.equals(words[wordnum - 1][0])) { // ´í´ÊÑ­»·ÏÂ×ö´íÁË
+					if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 						wordTextView3.setBackgroundResource(R.drawable.red);
 						myapp.Vibrate();
@@ -871,7 +880,7 @@ public class wordsl4 extends Activity {
 					}
 					/*added by xiaoqian yu, 2014-12-22, over*/
 
-					if (key.equals(words[wordnum - 1][0])) { // ×ö¶ÔÁË
+					if (key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						defrepeat(0);
 
 						wordTextView4.setBackgroundResource(R.drawable.green);
@@ -886,7 +895,7 @@ public class wordsl4 extends Activity {
 
 						}
 
-						if (words[wordnum][0].equals("")) { // ´í´ÊÑ­»·½áÊøÁË
+						if (words[wordnum][0].equals("")) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 							Intent intent = new Intent(wordsl4.this,
 									scorel4.class);
@@ -905,7 +914,7 @@ public class wordsl4 extends Activity {
 
 					}
 
-					if (!key.equals(words[wordnum - 1][0])) { // ´í´ÊÑ­»·ÏÂ×ö´íÁË
+					if (!key.equals(words[wordnum - 1][0])) { // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 						wordTextView4.setBackgroundResource(R.drawable.red);
 						myapp.Vibrate();
@@ -958,19 +967,19 @@ public class wordsl4 extends Activity {
 	}
 
 	private void ran() {
-		numroot = 0; // ·ÀÖ¹ ×îºó³öÏÖ²»¹»20 ³öÏÖµÄÇé¿ö
+		numroot = 0; // ï¿½ï¿½Ö¹ ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½20 ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½
 
 		this.getroots();
 
 		/* if (wcon == 0) { */
 		for (int i = 0; i < 20; i++) {
 
-			if (!roots[i].equals("")) { // ËÀÑ­»·ÎÊÌâ
+			if (!roots[i].equals("")) { // ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				numroot = i + 1;
 			}
 		}
 
-		double h = Math.random() * 4; // Ëæ»úÎª0µ½1Ö®¼ä£¬ ÕâÀïÓÐ4¸ö°´Å¥£¬ËùÒÔÑ¡4
+		double h = Math.random() * 4; // ï¿½ï¿½ï¿½Îª0ï¿½ï¿½1Ö®ï¿½ä£¬ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4ï¿½ï¿½ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡4
 
 		// System.out.println((int) h);
 		int k = (int) h;
@@ -1014,7 +1023,7 @@ public class wordsl4 extends Activity {
 				break;
 			}
 		}
-		System.out.println("wordËÀÑ­»·" + numroot);
+		System.out.println("wordï¿½ï¿½Ñ­ï¿½ï¿½" + numroot);
 
 		h = Math.random() * numroot;
 		a2 = (int) h;
@@ -1046,7 +1055,7 @@ public class wordsl4 extends Activity {
 				wordTextView1.setBackgroundResource(R.drawable.green);
 				// myapp.playmusic(1);myapp.setscore(1, rightnum+1);;
 				// //playmusic(1);
-				// defrepeat(0); ÒòÎª×Ô¶¯Ìø×ªËùÒÔ²»ÔÙÐèÒªÕâÀïÖÃ0£»
+				// defrepeat(0); ï¿½ï¿½Îªï¿½Ô¶ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½
 
 			}
 			wordTextView2.setText(roots[a2]);
@@ -1100,7 +1109,7 @@ public class wordsl4 extends Activity {
 
 	}
 
-	private void defrepeat(int key) { // ÕâÀïÊÇ Êä´í2´ÎµÄ¿ØÖÆ·½·¨
+	private void defrepeat(int key) { // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½2ï¿½ÎµÄ¿ï¿½ï¿½Æ·ï¿½ï¿½ï¿½
 
 		if (key == 0) {
 			myapp.set(6, Integer.toString(0));
@@ -1277,7 +1286,7 @@ public class wordsl4 extends Activity {
 					if (reason.equals(SYSTEM_HOME_KEY)) {
 						myapp.pauselevelmusic();
 						timer.cancel();
-						stopshape(); // home key´¦Àíµã
+						stopshape(); // home keyï¿½ï¿½ï¿½ï¿½ï¿½
 						if (timergreencontrol) {
 							timergreen.cancel();
 						}
@@ -1289,7 +1298,7 @@ public class wordsl4 extends Activity {
 						if (timergreencontrol) {
 							timergreen.cancel();
 						}
-						// long home key´¦Àíµã
+						// long home keyï¿½ï¿½ï¿½ï¿½ï¿½
 					}
 				}
 			}

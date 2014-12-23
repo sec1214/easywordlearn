@@ -5,7 +5,6 @@ import java.io.IOException;
 import Database.managedb;
 import android.R.integer;
 import android.app.Application;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.media.AudioManager;
@@ -19,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ImageView;
 import android.view.Gravity;
+import android.view.animation.AnimationUtils;
 
 import com.rootsproject.R;
 
@@ -32,24 +32,24 @@ public class mypublicvalue extends Application {
 	public float musicvolume;
 	public float splashmusicvolume;
 
-	public String tablename; // 0 ´ú±í±íÃû 1´ú±ílistÃû 2´ú±í¼¸ºÅlistµÄ°¢À­²®Êý×Ö
+	public String tablename; // 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½listï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½listï¿½Ä°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public String listname;
 	public String list;
 	public String[][] words;
 	public String[][] wordslv1;
 	public String[][] wordslv2;
-	public String level; // 3´ú±ílevel¶àÉÙ
-	public String wordnum; // 4´ú±íÑ§µ½¼¸ºÅ´ÊÁË
+	public String level; // 3ï¿½ï¿½ï¿½ï¿½levelï¿½ï¿½ï¿½ï¿½
+	public String wordnum; // 4ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½Å´ï¿½ï¿½ï¿½
 
-	public String step; // ´ú±írootµÄÊ±ºòµÚ¼¸²½£» seq Îª5
+	public String step; // ï¿½ï¿½ï¿½ï¿½rootï¿½ï¿½Ê±ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½ seq Îª5
 
-	public String definitionrepeat; // ÃüÃûÎªdefinition+word+rootÍ¼ÖØ¸´´ÎÊý£¬ seq Îª6
+	public String definitionrepeat; // ï¿½ï¿½ï¿½ï¿½Îªdefinition+word+rootÍ¼ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ seq Îª6
 
-	public String controllv3; // ¿ØÖÆlevel3µÄ¿ØÖÆ·§¡£ seqÎª7.
+	public String controllv3; // ï¿½ï¿½ï¿½ï¿½level3ï¿½Ä¿ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ seqÎª7.
 
-	public String lv1; // ¿ØÖÆlevel1 ºÍ 2µÄ Ëæ»úÈ¡Öµ¿ØÖÆ·§ ¡£ seq ·Ö±ðÎª 8
+	public String lv1; // ï¿½ï¿½ï¿½ï¿½level1 ï¿½ï¿½ 2ï¿½ï¿½ ï¿½ï¿½ï¿½È¡Öµï¿½ï¿½ï¿½Æ·ï¿½ ï¿½ï¿½ seq ï¿½Ö±ï¿½Îª 8
 
-	public int repeatcontrol; // tt Ñ­»·¿ØÖÆ·§Öµ
+	public int repeatcontrol; // tt Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Öµ
 
 	public String[][] wrongwords = new String[300][10];
 	public String[][] wrongwords1 = new String[300][10];
@@ -64,8 +64,8 @@ public class mypublicvalue extends Application {
 	public String[] x = new String[10];
 	public String[] e = new String[10];
 
-	public double clicknum; // µã»÷¶àÉÙ¸öactivity´ÎÊý
-	public double rightnum; // ×ö¶ÔÁË¶àÉÙ¸öactivity´ÎÊý
+	public double clicknum; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¸ï¿½activityï¿½ï¿½ï¿½ï¿½
+	public double rightnum; // ï¿½ï¿½ï¿½ï¿½ï¿½Ë¶ï¿½ï¿½Ù¸ï¿½activityï¿½ï¿½ï¿½ï¿½
 
 	public double idrootclicknum, idrootrightnum;
 	public double rootclicknum, rootrightnum;
@@ -73,13 +73,13 @@ public class mypublicvalue extends Application {
 
 	public int reviewwrongcontrol;
 
-	private SoundPool sp;// ÉùÃ÷Ò»¸öSoundPool
+	private SoundPool sp;// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½SoundPool
 	private MediaPlayer mediaPlayer;
 
 	private MediaPlayer mediaPlayerlv1, mediaPlayerlv2, mediaPlayerlv3,
 			mediaPlayerlv4, mediaPlayerlv5, mediaPlayerlv6, mediaPlayerlv7,
 			mediaPlayerlv8;
-	private int musicright;// ¶¨ÒåÒ»¸öÕûÐÍÓÃload£¨£©£»À´ÉèÖÃsuondID
+	private int musicright;// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½loadï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½suondID
 	private int musicwrong;
 	private int musicalarm;
 	private int musicfailure;
@@ -93,7 +93,7 @@ public class mypublicvalue extends Application {
 	private String[][] rootword;
 	private String[][] crootword = new String[100][10];
 
-	public int numwords; // Ã¿¸ölistÖÐwords²»Îª¿ÕµÄÊýÁ¿
+	public int numwords; // Ã¿ï¿½ï¿½listï¿½ï¿½wordsï¿½ï¿½Îªï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½
 
 	public int listnum;
 	
@@ -154,12 +154,65 @@ public class mypublicvalue extends Application {
 		else
 		{}
 	}
+	public int scorePulseIntervalCount;
 	public void judgeAndCalculateConstantErrorCount()
 	{
 		constantCorrectCount = 0;
 	}
 	/*added by xiaoqian yu, 2014-12-22, over*/
 	
+	/*added by xiaoqian yu, 2014-12-22, start*/
+	public int setPulseTimeInterval(double correctCount, double totalCount)
+	{
+		int rtTimeInterval = 250;
+		if(correctCount > 0 && totalCount > 0)
+		{
+			if((correctCount / totalCount) <= 0.25)
+			{
+				rtTimeInterval = 250;
+			}
+			else if((correctCount / totalCount) > 0.25 &&
+					(correctCount / totalCount) <= 0.5)
+			{
+				rtTimeInterval = 500;
+			}
+			else if((correctCount / totalCount) > 0.5 &&
+					(correctCount / totalCount) <= 0.75)
+			{
+				rtTimeInterval = 1000;
+			}
+			else if((correctCount / totalCount) > 0.75 &&
+					(correctCount / totalCount) <= 1.0)
+			{
+				rtTimeInterval = 2000;
+			}
+		}
+		return rtTimeInterval;
+	}
+	/*added by xiaoqian yu, 2014-12-22, over*/
+	/*added by xiaoqian yu, 2014-12-23, start*/
+	public int calculateViewAnimationID(int timeInterval)
+	{
+		int rtAnimationID = 0;
+		if(timeInterval <= 250)
+		{
+			rtAnimationID = R.anim.textviewscalel1;
+		}
+		else if(timeInterval > 250 && timeInterval <= 500)
+		{
+			rtAnimationID = R.anim.textviewscalel2;
+		}
+		else if(timeInterval > 500 && timeInterval <= 1000)
+		{
+			rtAnimationID = R.anim.textviewscalel3;
+		}
+		else if(timeInterval > 1000 && timeInterval <= 2000)
+		{
+			rtAnimationID = R.anim.textviewscalel4;
+		}
+		return rtAnimationID;
+	}
+	/*added by xiaoqian yu, 2014-12-23, over*/
 	public int getvideo(){
 		return video;
 	}
@@ -432,7 +485,7 @@ public class mypublicvalue extends Application {
 
 	}
 
-	public String[][] emptywords() { // support a empty array. Ìá¹©¿ÕwordsÊý×éµÄ·½·¨
+	public String[][] emptywords() { // support a empty array. ï¿½á¹©ï¿½ï¿½wordsï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
 
 		return emptywords;
 	}
@@ -556,7 +609,7 @@ public class mypublicvalue extends Application {
 
 	}
 
-	public void setwords(String[][] words) { // ¸³ÖµwordsµÄÍ¬Ê±Ò²°ÑwordsÖÐ²»Îª¿ÕµÄÊýÄ¿È·¶¨
+	public void setwords(String[][] words) { // ï¿½ï¿½Öµwordsï¿½ï¿½Í¬Ê±Ò²ï¿½ï¿½wordsï¿½Ð²ï¿½Îªï¿½Õµï¿½ï¿½ï¿½Ä¿È·ï¿½ï¿½
 
 		this.words = words;
 
@@ -574,7 +627,7 @@ public class mypublicvalue extends Application {
 		wrongwordkey1++;
 	}
 
-	public void cleanrootwords() // ×¢ÒâÕâ¸öwrongword¼Ç×¡Ñ­»·µÄ´íÎó½á¹û È»ºóÍ¨¹ý¿ìËÙÅÅÐò£¬È¥µôÖØ¸´µÄÏî
+	public void cleanrootwords() // ×¢ï¿½ï¿½ï¿½ï¿½ï¿½wrongwordï¿½ï¿½×¡Ñ­ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ È»ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	{
 
@@ -626,7 +679,7 @@ public class mypublicvalue extends Application {
 		return i + 1;
 	}
 
-	public void cleanCwrongwords() // ×¢ÒâÕâ¸öwrongword¼Ç×¡Ñ­»·µÄ´íÎó½á¹û È»ºóÍ¨¹ý¿ìËÙÅÅÐò£¬È¥µôÖØ¸´µÄÏî
+	public void cleanCwrongwords() // ×¢ï¿½ï¿½ï¿½ï¿½ï¿½wrongwordï¿½ï¿½×¡Ñ­ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ È»ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	{
 
@@ -648,7 +701,7 @@ public class mypublicvalue extends Application {
 
 	}
 
-	public void cleanwrongwords() // ×¢ÒâÕâ¸öwrongword¼Ç×¡Ñ­»·µÄ´íÎó½á¹û È»ºóÍ¨¹ý¿ìËÙÅÅÐò£¬È¥µôÖØ¸´µÄÏî
+	public void cleanwrongwords() // ×¢ï¿½ï¿½ï¿½ï¿½ï¿½wrongwordï¿½ï¿½×¡Ñ­ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ È»ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	{
 
@@ -732,9 +785,9 @@ public class mypublicvalue extends Application {
 
 	public void empty1() {
 
-		set(4, "1"); // µÚ¼¸ºÅ´Ê¹é1
-		set(5, "2"); // root¹é2 ÒòÎªroot1 ÊÇµÚ¶þÎ»
-		set(6, "0"); // ´í´Ê±äºì¹é0
+		set(4, "1"); // ï¿½Ú¼ï¿½ï¿½Å´Ê¹ï¿½1
+		set(5, "2"); // rootï¿½ï¿½2 ï¿½ï¿½Îªroot1 ï¿½ÇµÚ¶ï¿½Î»
+		set(6, "0"); // ï¿½ï¿½Ê±ï¿½ï¿½ï¿½0
 		set(7, "0");
 		set(8, "0");
 		set(9, "0");
@@ -753,13 +806,13 @@ public class mypublicvalue extends Application {
 
 	}
 
-	public void empty() { // 0´ú±íÇå³ý´í´Ê£¬1´ú±íÍêÈ«¹éÁã
+	public void empty() { // 0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê£ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½
 
-		wrongwordkey = 0; // ´í´Ê¹é0
+		wrongwordkey = 0; // ï¿½ï¿½Ê¹ï¿½0
 		wrongwordkey1 = 0;
-		set(4, "1"); // µÚ¼¸ºÅ´Ê¹é1
-		set(5, "2"); // root¹é2 ÒòÎªroot1 ÊÇµÚ¶þÎ»
-		set(6, "0"); // ´í´Ê±äºì¹é0
+		set(4, "1"); // ï¿½Ú¼ï¿½ï¿½Å´Ê¹ï¿½1
+		set(5, "2"); // rootï¿½ï¿½2 ï¿½ï¿½Îªroot1 ï¿½ÇµÚ¶ï¿½Î»
+		set(6, "0"); // ï¿½ï¿½Ê±ï¿½ï¿½ï¿½0
 		set(7, "0");
 		set(8, "0");
 		set(9, "0");
@@ -776,7 +829,7 @@ public class mypublicvalue extends Application {
 		setrootscore(0, 0);
 		setrootscore(1, 0);
 
-		setrepreatcontrol(0); // TTÑ­»·¿ØÖÆ·§¹é0
+		setrepreatcontrol(0); // TTÑ­ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½0
 
 		for (int i = 0; i < wrongwords.length; i++) {
 			for (int j = 0; j < wrongwords[0].length; j++) {
@@ -791,7 +844,7 @@ public class mypublicvalue extends Application {
 
 		}
 
-		reviewwrongcontrol = 0; // ´í´ÊÑ­»·¿ØÖÆ·§¹é0
+		reviewwrongcontrol = 0; // ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½0
 
 		for (int i = 0; i < Cwrongwords.length; i++) {
 			for (int j = 0; j < Cwrongwords[0].length; j++) {
@@ -1051,9 +1104,9 @@ public class mypublicvalue extends Application {
 
 		vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 
-		sp = new SoundPool(10, AudioManager.STREAM_SYSTEM, 5);// µÚÒ»¸ö²ÎÊýÎªÍ¬Ê±²¥·ÅÊý¾ÝÁ÷µÄ×î´ó¸öÊý£¬µÚ¶þÊý¾ÝÁ÷ÀàÐÍ£¬µÚÈýÎªÉùÒôÖÊÁ¿
-		musicright = sp.load(this, R.raw.right, 1); // °ÑÄãµÄÉùÒôËØ²Ä·Åµ½res/rawÀï£¬µÚ2¸ö²ÎÊý¼´Îª×ÊÔ´ÎÄ¼þ£¬µÚ3¸öÎªÒôÀÖµÄÓÅÏÈ¼¶
-		musicwrong = sp.load(this, R.raw.wrong, 1); // °ÑÄãµÄÉùÒôËØ²Ä·Åµ½res/rawÀï£¬µÚ2¸ö²ÎÊý¼´Îª×ÊÔ´ÎÄ¼þ£¬µÚ3¸öÎªÒôÀÖµÄÓÅÏÈ¼¶\
+		sp = new SoundPool(10, AudioManager.STREAM_SYSTEM, 5);// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÍ¬Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		musicright = sp.load(this, R.raw.right, 1); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø²Ä·Åµï¿½res/rawï¿½ï£¬ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ô´ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½Îªï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½È¼ï¿½
+		musicwrong = sp.load(this, R.raw.wrong, 1); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø²Ä·Åµï¿½res/rawï¿½ï£¬ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ô´ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½Îªï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½È¼ï¿½\
 		musicalarm = sp.load(this, R.raw.timealarm, 1);
 		musicfailure = sp.load(this, R.raw.failure, 1);
 		musictick = sp.load(this, R.raw.tick, 1);
@@ -1110,7 +1163,7 @@ public class mypublicvalue extends Application {
 		setlistnum(0);
 		set(0, "test");
 		set(4, Integer.toString(1));
-		set(5, "2"); // root ÆðÊ¼Î»ÖÃ
+		set(5, "2"); // root ï¿½ï¿½Ê¼Î»ï¿½ï¿½
 		set(6, "0");
 		set(7, "0"); // level3
 		set(8, "0"); // lv1
