@@ -84,6 +84,7 @@ public class mypublicvalue extends Application {
 	private int musicalarm;
 	private int musicfailure;
 	private int musictick;
+	private int musicscorepulse;
 
 	public int misroot, definition, idroot, root, greenhelp;
 
@@ -98,7 +99,7 @@ public class mypublicvalue extends Application {
 	public int listnum;
 	
 	public int video;
-	
+	private int pulseSoundStreamID;
 	/*added by xiaoqian yu, 2014-12-22, start*/
 	int constantCorrectCount;
 	//increment of constantCorrectCount and judge if pop out a praise
@@ -211,6 +212,33 @@ public class mypublicvalue extends Application {
 			rtAnimationID = R.anim.textviewscalel4;
 		}
 		return rtAnimationID;
+	}
+	
+	public void playPulseSound(int timeInterval, int loop)
+	{
+		sp.stop(pulseSoundStreamID);
+		
+		if(timeInterval <= 250)
+		{
+			pulseSoundStreamID = sp.play(musicscorepulse, buttonvolume, buttonvolume, 1, loop, (float)1.5);
+		}
+		else if(timeInterval > 250 && timeInterval <= 500)
+		{			
+			pulseSoundStreamID = sp.play(musicscorepulse, buttonvolume, buttonvolume, 1, loop, (float) 1.25);
+		}
+		else if(timeInterval > 500 && timeInterval <= 1000)
+		{
+			pulseSoundStreamID = sp.play(musicscorepulse, buttonvolume, buttonvolume, 1, loop, (float)1.0);
+		}
+		else if(timeInterval > 1000 && timeInterval <= 2000)
+		{
+			pulseSoundStreamID = sp.play(musicscorepulse, buttonvolume, buttonvolume, 1, loop, (float) 0.5);
+		}
+		
+	}
+	public void stopPulseSound()
+	{
+		sp.stop(pulseSoundStreamID);
 	}
 	/*added by xiaoqian yu, 2014-12-23, over*/
 	public int getvideo(){
@@ -857,7 +885,9 @@ public class mypublicvalue extends Application {
 				Lwrongwords[i][j] = "";
 			}
 		}
-
+		stopPulseSound();
+		pulseSoundStreamID = 0;
+		constantCorrectCount = 0;
 	}
 
 	public String[][] getwrongwords() {
@@ -1110,6 +1140,7 @@ public class mypublicvalue extends Application {
 		musicalarm = sp.load(this, R.raw.timealarm, 1);
 		musicfailure = sp.load(this, R.raw.failure, 1);
 		musictick = sp.load(this, R.raw.tick, 1);
+		musicscorepulse = sp.load(this, R.raw.scorepulse, 1);
 		
 		buttonvolume=Float.parseFloat(getResources().getString(R.string.buttonvolume));
 

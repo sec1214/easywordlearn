@@ -256,6 +256,8 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
                 myapp.calculateViewAnimationID(myapp.setPulseTimeInterval(myapp.getscore(1), 
                 		                                                  myapp.getscore(0))));
 		textViewscore.startAnimation(mAnimationRight);
+		myapp.playPulseSound(myapp.setPulseTimeInterval(myapp.getscore(1), 
+                myapp.getscore(0)), -1);
 		/*added by xiaoqian yu, 2014-12-23, over*/
 		worddefview.setText(words[wordnum - 1][1]);
 		wordTextView = (TextView) this.findViewById(R.id.wordtextview);

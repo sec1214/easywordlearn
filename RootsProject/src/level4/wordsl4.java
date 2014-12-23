@@ -241,6 +241,8 @@ public class wordsl4 extends Activity {
                 myapp.calculateViewAnimationID(myapp.setPulseTimeInterval(myapp.getscore(1), 
                 		                                                  myapp.getscore(0))));
 		textViewscore.startAnimation(mAnimationRight);
+		myapp.playPulseSound(myapp.setPulseTimeInterval(myapp.getscore(1), 
+                myapp.getscore(0)), -1);
 		/*added by xiaoqian yu, 2014-12-23, over*/
 		wordnum = Integer.parseInt(myapp.get(4));
 		textViewword.setText("Word: " + wordnum + " / " + wordnum()); // �趨��ʾ����word�Ŀؼ�

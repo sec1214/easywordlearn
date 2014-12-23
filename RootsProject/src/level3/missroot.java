@@ -201,6 +201,8 @@ public class missroot extends Activity {
                 myapp.calculateViewAnimationID(myapp.setPulseTimeInterval(myapp.getscore(1), 
                 		                                                  myapp.getscore(0))));
 		textViewscore.startAnimation(mAnimationRight);
+		myapp.playPulseSound(myapp.setPulseTimeInterval(myapp.getscore(1), 
+                myapp.getscore(0)), -1);
 		/*added by xiaoqian yu, 2014-12-23, over*/
 		missrootworddeftTextView = (TextView) this
 				.findViewById(R.id.missrootworddefview);
