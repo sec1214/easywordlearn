@@ -3,6 +3,7 @@ package com.rootsproject;
 import java.io.IOException;
 
 import Database.managedb;
+import android.R.bool;
 import android.R.integer;
 import android.app.Application;
 import android.content.BroadcastReceiver;
@@ -14,6 +15,8 @@ import android.os.Handler;
 import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ImageView;
@@ -105,52 +108,74 @@ public class mypublicvalue extends Application {
 	//increment of constantCorrectCount and judge if pop out a praise
 	public void judgeAndCalculateConstantCorrectCount()
 	{
+		boolean showCombo = false;
 		constantCorrectCount++;
 		if(constantCorrectCount > 7)
 		{
-			constantCorrectCount = 0;
+			//constantCorrectCount = 0;
 		}
 		if(constantCorrectCount > 1)
 		{
 			final Toast showImageToast=new Toast(getBaseContext());
-			ImageView imageView=new ImageView(getBaseContext());
+			//ImageView imageView=new ImageView(getBaseContext());
+			
 			//imageView.setImageResource(R.drawable.icon);
 			//showImageToast.setView(imageView);
 			//showImageToast.setGravity(Gravity.CENTER, 0, 0);
 			//showImageToast.setDuration(Toast.LENGTH_LONG);
 			//showImageToast.show();
 			
+			/*new 1223*/
+			LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+			View toastView = inflater.inflate( R.layout.toastcombopraise, null );
+			ImageView imageView = (ImageView)toastView.findViewById(R.id.image);
+
+			/**/
+			
 			if(2 == constantCorrectCount)
 			{
 				imageView.setImageResource(R.drawable.goodjob);
+				showCombo = true;
 			}
 		
 			if(3 == constantCorrectCount)
 			{
 				imageView.setImageResource(R.drawable.nice);
+				showCombo = true;
 			}
 			
 			if(5 == constantCorrectCount)
 			{
 				imageView.setImageResource(R.drawable.wonderful);
+				showCombo = true;
 			}
 			
-			if(7 == constantCorrectCount)
+			if(constantCorrectCount >= 7)
 			{
 				imageView.setImageResource(R.drawable.perfect);
+				showCombo = true;
 			}
-			showImageToast.setView(imageView);
-			showImageToast.setGravity(Gravity.CENTER, 0, 0);
-			showImageToast.setDuration(Toast.LENGTH_SHORT);
-			showImageToast.show();
 			
-			Handler handler = new Handler();
-	        handler.postDelayed(new Runnable() {
-	           @Override
-	           public void run() {
-	        	   showImageToast.cancel(); 
-	           }
-	        }, 500);
+			/*new 1223*/
+			if(showCombo == true)
+			{
+				TextView textView = (TextView)toastView.findViewById(R.id.text);
+				textView.setText(constantCorrectCount + "COMBO!");
+				/**/
+				//showImageToast.setView(imageView);
+				showImageToast.setGravity(Gravity.CENTER, 0, 0);
+				showImageToast.setDuration(Toast.LENGTH_SHORT);
+				showImageToast.setView(toastView);
+				showImageToast.show();
+				
+				Handler handler = new Handler();
+		        handler.postDelayed(new Runnable() {
+		           @Override
+		           public void run() {
+		        	   showImageToast.cancel(); 
+		           }
+		        }, 1000);
+			}
 		}
 		else
 		{}
