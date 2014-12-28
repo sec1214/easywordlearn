@@ -53,7 +53,7 @@ public class listselectactivity extends Activity {
 
 		// myapp.setreceiver(receiver);
 		myapp.startsplashmusic();
-		String tablename = myapp.get(0); // // get the course name µÃµ½±íÃû
+		String tablename = myapp.get(0); // // get the course name ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½
 
 		ListtextView = (TextView) this.findViewById(R.id.Listtextview);
 
@@ -67,8 +67,8 @@ public class listselectactivity extends Activity {
 									// it will be used to control bring 20
 									// words.
 
-		System.out.println("numberlist of the course " + numlist); // ¼ÆËãÓÐ¶àÉÙlist
-																	// ÒòÎªÃ¿¸ö±íÖÁÉÙ°üº¬5¸öµ¥´ÊËùÒÔ±ØÐëÓÐ1¸ölist
+		System.out.println("numberlist of the course " + numlist); // ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½list
+																	// ï¿½ï¿½ÎªÃ¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù°ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½list
 
 		List<String> list = new ArrayList<String>();
 
@@ -95,8 +95,8 @@ public class listselectactivity extends Activity {
 				myapp.playmusic(1); // button sound
 				String value = ListlistView.getItemAtPosition(position)  //	// the begin of postion is 0;
 						.toString();
-				myapp.set(1, value); // store list name to public value  0 ´ú±í´«µÝµÄÊÇ±íÃû£¬1´ú±í´«µÝµÄlistÃû³Æ
-				myapp.set(2, Integer.toString(position + 1)); // store list number to public value ËùÒÔÐèÒª×ª»»Îª+1
+				myapp.set(1, value); // store list name to public value  0 ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½Ç±ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½listï¿½ï¿½ï¿½ï¿½
+				myapp.set(2, Integer.toString(position + 1)); // store list number to public value ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òª×ªï¿½ï¿½Îª+1
 
 				// myapp.setwords(db.getwords());
 
@@ -118,9 +118,8 @@ public class listselectactivity extends Activity {
 
 				Intent intent = new Intent(listselectactivity.this,
 						com.rootsproject.list.class);
-				finish();
 				startActivity(intent);
-
+				finish();
 				// System.out.println(myapp.get(2)+"myapptest");
 
 			}
@@ -212,10 +211,10 @@ public class listselectactivity extends Activity {
 				String reason = intent.getStringExtra(SYSTEM_REASON);
 				if (reason != null) {
 					if (reason.equals(SYSTEM_HOME_KEY)) {
-						myapp.pausesplashmusic(); // home key event ´¦Àíµã
+						myapp.pausesplashmusic(); // home key event ï¿½ï¿½ï¿½ï¿½ï¿½
 
 					} else if (reason.equals(SYSTEM_RECENT_APPS)) {
-						myapp.pausesplashmusic();// long home key event  ´¦Àíµã
+						myapp.pausesplashmusic();// long home key event  ï¿½ï¿½ï¿½ï¿½ï¿½
 					}
 				}
 			}
