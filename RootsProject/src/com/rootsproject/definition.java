@@ -237,7 +237,8 @@ public class definition extends Activity {
 
 		this.ran();   // set the 4 options 
 		if (myapp.gethelpcontrol(1) == 0) {  // control the timerhelp.  it is about remeber funtion of helpbuttoin.
-			timerhelp.start();
+			//comment this line, to Take out the shaking of the question mark
+			//timerhelp.start();
 		}
 		if (Integer.parseInt(myapp.get(6)) < 2) {  //  the frequency in this words.  below 2 times.
 

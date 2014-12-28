@@ -242,7 +242,8 @@ public class wordsl8 extends Activity {
 		this.ran();
 
 		if (myapp.gethelpcontrol(4) == 0) {
-			timerhelp.start();
+			//comment this line, to Take out the shaking of the question mark
+			//timerhelp.start();
 		}
 
 		if (Integer.parseInt(myapp.get(6)) < 2) {

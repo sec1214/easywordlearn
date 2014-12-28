@@ -249,7 +249,8 @@ public class idroortsl2 extends Activity {
 		System.out.println("idroots ���word���ٸ�root�� " + rootnum);
 
 		if (myapp.gethelpcontrol(2) == 0) {
-			timerhelp.start();
+			//comment this line, to Take out the shaking of the question mark
+			//timerhelp.start();
 		}
 
 		if (Integer.parseInt(myapp.get(6)) < 2) {
