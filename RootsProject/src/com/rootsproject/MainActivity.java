@@ -75,7 +75,7 @@ public class MainActivity extends Activity {
 
 		splash = (LinearLayout) findViewById(R.id.splashscreen);
 
-		myapp = (mypublicvalue) getApplication(); // public value call; ¹«¹²±äÁ¿´«Öµ
+		myapp = (mypublicvalue) getApplication(); // public value call; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 		myapp.startsplashmusic();         
 
 		if (!myapp.getsplashscreen()) {     // this getsplashscreen ensure that splashscreen only display once. 
@@ -99,7 +99,7 @@ public class MainActivity extends Activity {
 
 		}
 
-		System.out.println(list); // Êä³öµ¼ÈëµÄÊý¾Ý¿âÖÐµÄ±íÃû³Æ
+		System.out.println(list); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ÐµÄ±ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		// System.out.println("test");
 
@@ -121,18 +121,18 @@ public class MainActivity extends Activity {
 				/* sp.play(music, 1, 1, 0, 0, 1); */
 
 				String value = listView.getItemAtPosition(postion) // postion
-																	// µÚÒ»Î»´Ó0¿ªÊ¼Ëã
+																	// ï¿½ï¿½Ò»Î»ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½
 						.toString();
 
 				value = value.replace(" ", "_");
 
-				myapp.set(0, value); // store table name to public value.   0 ´ú±í´«µÝµÄÊÇ±íÃû
+				myapp.set(0, value); // store table name to public value.   0 ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½Ç±ï¿½ï¿½ï¿½
 
 				exit = false;
 
 				myapp.playmusic(1);   // button sound
 
-				Toast.makeText(MainActivity.this, myapp.get(0), 1).show(); // Toast show choiced table name  ÏÔÊ¾µã»÷µÄ¿Î³ÌÒ²¾ÍÊÇ±íÃû
+				Toast.makeText(MainActivity.this, myapp.get(0), 1).show(); // Toast show choiced table name  ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ä¿Î³ï¿½Ò²ï¿½ï¿½ï¿½Ç±ï¿½ï¿½ï¿½
 
 				/*added by xiaoqian yu, 2014-12-21, start*/
 				EasyTracker easyTracker = EasyTracker.getInstance(MainActivity.this);
@@ -151,7 +151,7 @@ public class MainActivity extends Activity {
 				Intent intent = new Intent(MainActivity.this,
 						listselectactivity.class);
 
-				// myapp.Vibrate(); //Õð¶¯
+				// myapp.Vibrate(); //ï¿½ï¿½
 
 				startActivity(intent);
 
@@ -286,7 +286,7 @@ public class MainActivity extends Activity {
 	}
 
 	@Override
-	public boolean onPrepareOptionsMenu(Menu menu) { //this method will be call before press menu. ²Ëµ¥ÏÔÊ¾Ç° ´¥·¢
+	public boolean onPrepareOptionsMenu(Menu menu) { //this method will be call before press menu. ï¿½Ëµï¿½ï¿½ï¿½Ê¾Ç° ï¿½ï¿½ï¿½ï¿½
 		// TODO Auto-generated method stub
 		if (myapp.getmusic(0) == 0) {
 			buttonsound.setChecked(false);

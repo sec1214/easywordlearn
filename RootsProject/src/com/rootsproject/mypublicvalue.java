@@ -1148,6 +1148,9 @@ public class mypublicvalue extends Application {
 		db = new managedb(this);
 
 		db.CopyDatabase();
+		
+		/*db set default*/
+		db.setdefault();
 
 		int[] k = db.getacount();
 
@@ -1176,6 +1179,7 @@ public class mypublicvalue extends Application {
 		buttonvolume=Float.parseFloat(getResources().getString(R.string.buttonvolume));
 
 	    musicvolume=Float.parseFloat(getResources().getString(R.string.musicvolume));
+	    
 	    splashmusicvolume=Float.parseFloat(getResources().getString(R.string.splashmusicvolume));
 		
 		mediaPlayer = MediaPlayer.create(this, R.raw.splashmusic);		

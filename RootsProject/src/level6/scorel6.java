@@ -3,6 +3,7 @@ package level6;
 import java.util.ArrayList;
 import java.util.List;
 
+import level5.scorel5;
 import level7.missrootl7;
 
 import com.rootsproject.MainActivity;
@@ -47,7 +48,7 @@ public class scorel6 extends Activity {
 	private TextView textView1, textView2, textViewlevel;
 	private LinearLayout defwordline, idrootline, rootline;
 
-	private int wcon; // ¸´Ï°¿ØÖÆ·§
+	private int wcon; // ï¿½ï¿½Ï°ï¿½ï¿½ï¿½Æ·ï¿½
 	private TextView main;
 	private int k;
 
@@ -76,16 +77,29 @@ public class scorel6 extends Activity {
 		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
 		textViewlevel.setText(" Level: " + myapp.get(3));
-
+		main.setText("Skip to Next Level");
+		
 		main.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(scorel6.this, list.class);
+				/*Intent intent = new Intent(scorel6.this, list.class);
 				myapp.empty();
 				startActivity(intent);
+				finish();*/
+				/*added by xiaoqian yu, 2014-12-28, start*/
+				/*combo count returns to zero*/
+				myapp.empty();
+				managedb db = new managedb(getBaseContext());
+				myapp.setComboBeginningState();
+				myapp.setwords(db.getwords());
+				myapp.set(3, Integer.toString(6 + 1));
+				/*jump to next level, level2*/
+				Intent intent = new Intent(scorel6.this, missrootl7.class);
+				startActivity(intent);
 				finish();
+				/*added by xiaoqian yu, 2014-12-28, over*/
 			}
 		});
 		correct = (ListView) this.findViewById(R.id.Listlistviewcorrect);
@@ -166,8 +180,8 @@ public class scorel6 extends Activity {
 					Intent intent = new Intent(scorel6.this, scoreword.class);
 
 					String value = correct.getItemAtPosition(position) // postion
-																		// 1ºÅÎ»
-																		// ´Ó0¿ªÊ¼Ëã
+																		// 1ï¿½ï¿½Î»
+																		// ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½
 							.toString();
 
 					for (int i = 0; i < words.length; i++) {
@@ -222,8 +236,8 @@ public class scorel6 extends Activity {
 					Intent intent = new Intent(scorel6.this, scoreword.class);
 
 					String value = incorret.getItemAtPosition(position) // postion
-																		// 1ºÅÎ»
-																		// ´Ó0¿ªÊ¼Ëã
+																		// 1ï¿½ï¿½Î»
+																		// ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½
 							.toString();
 
 					for (int i = 0; i < wrongwords.length; i++) {
@@ -301,7 +315,7 @@ public class scorel6 extends Activity {
 						// TODO Auto-generated method stub
 						myapp.empty1();
 						Intent intent = new Intent(scorel6.this, rootl6.class);
-						myapp.setreviewwrongcontrol(1); // Éè¶¨½øÈëwrongÑ­»·
+						myapp.setreviewwrongcontrol(1); // ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½wrongÑ­ï¿½ï¿½
 
 						startActivity(intent);
 						finish();
@@ -321,8 +335,8 @@ public class scorel6 extends Activity {
 					Intent intent = new Intent(scorel6.this, scoreword.class);
 
 					String value = correct.getItemAtPosition(position) // postion
-																		// 1ºÅÎ»
-																		// ´Ó0¿ªÊ¼Ëã
+																		// 1ï¿½ï¿½Î»
+																		// ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½
 							.toString();
 
 					for (int i = 0; i < words.length; i++) {
@@ -377,8 +391,8 @@ public class scorel6 extends Activity {
 					Intent intent = new Intent(scorel6.this, scoreword.class);
 
 					String value = incorret.getItemAtPosition(position) // postion
-																		// 1ºÅÎ»
-																		// ´Ó0¿ªÊ¼Ëã
+																		// 1ï¿½ï¿½Î»
+																		// ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½
 							.toString();
 
 					for (int i = 0; i < wrongwords.length; i++) {
@@ -461,25 +475,25 @@ public class scorel6 extends Activity {
 
 		managedb db = new managedb(getBaseContext());
 
-		if (db.coursexist(myapp.get(0))) { // ÅÐ¶ÏÊý¾Ý¿â´æÔÚ·ñ
-			System.out.println("ÓÐ");
+		if (db.coursexist(myapp.get(0))) { // ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½Ú·ï¿½
+			System.out.println("ï¿½ï¿½");
 		} else {
 
-			System.out.println("ÎÞ");
-			db.coursereivewcreate(myapp.get(0)); // ´´½¨Êý¾Ý
-			System.out.println("´´½¨³É¹¦");
+			System.out.println("ï¿½ï¿½");
+			db.coursereivewcreate(myapp.get(0)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
 		}
 
 		if (wcon == 0) {
-			db.deletewrongworddb(); // É¾³ýÔ­À´µÄ´í´Ê
-			System.out.println("É¾³ý³É¹¦");
+			db.deletewrongworddb(); // É¾ï¿½ï¿½Ô­ï¿½ï¿½ï¿½Ä´ï¿½ï¿½
+			System.out.println("É¾ï¿½ï¿½ï¿½É¹ï¿½");
 		}
 		db.insertscore(k, 0, 0, 0, 0);
-		db.insertdb(wrongwords, "0"); // µÚ¶þ¸ö²ÎÊýÎªÄ¬ÈÏ²ÎÊý²»ÓÃ¹Ü Ð´ÈëÊý¾Ý¿â
-		System.out.println("ÊäÈë³É¹¦");
+		db.insertdb(wrongwords, "0"); // ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÄ¬ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¹ï¿½ Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
+		System.out.println("ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
 
-		db.cleantdata(); // ÇåÉ¨Êý¾Ý¿â
-		System.out.println("ÇåÉ¨Êý¾Ý¿â");
+		db.cleantdata(); // ï¿½ï¿½É¨ï¿½ï¿½ï¿½Ý¿ï¿½
+		System.out.println("ï¿½ï¿½É¨ï¿½ï¿½ï¿½Ý¿ï¿½");
 
 	}
 
@@ -494,7 +508,7 @@ public class scorel6 extends Activity {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			alertdDialog = new AlertDialog.Builder(this)
 					.setTitle("EXIT LEVEL")
-					.setMessage("Do you want to exit this level learning£¿")
+					.setMessage("Do you want to exit this level learningï¿½ï¿½")
 					.setIcon(R.drawable.ic_launcher)
 					.setPositiveButton("Confirm",
 							new DialogInterface.OnClickListener() {

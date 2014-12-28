@@ -8,7 +8,6 @@ import com.google.analytics.tracking.android.MapBuilder;
 
 import level2.definitionl2;
 import level2.wordsl2;
-
 import Database.managedb;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -21,13 +20,13 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.rootsproject.R;
 
 public class score extends Activity {
@@ -66,16 +65,40 @@ public class score extends Activity {
 		score = (TextView) this.findViewById(R.id.score);
 		review = (TextView) this.findViewById(R.id.reviewbutton);
 		main = (TextView) this.findViewById(R.id.mainbutton);
-
-		main.setOnClickListener(new View.OnClickListener() { // main button to list.class
+		main.setText("Skip to Next Level");
+		/*added by xiaoqian yu, 2014-12-28, start*/
+		myapp = (mypublicvalue) getApplication();
+		/*added by xiaoqian yu, 2014-12-28, over*/
+		main.setOnClickListener(new View.OnClickListener() { // main button to next level
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				/*
 				Intent intent = new Intent(score.this, list.class);
 				myapp.empty();
 				startActivity(intent);
+				finish();*/
+				/*added by xiaoqian yu, 2014-12-28, start*/
+				/*combo count returns to zero*/
+				myapp.empty();
+				managedb db = new managedb(getBaseContext());
+				myapp.setComboBeginningState();
+				myapp.setwords(db.getwords());
+				myapp.set(3, Integer.toString(1 + 1));
+				/*jump to next level, level2*/
+				double h = Math.random();
+				if (h < 0.5) {
+					Intent intent = new Intent(score.this, wordsl2.class);
+					startActivity(intent);
+					// finish();
+				} else {
+					Intent intent = new Intent(score.this,
+							definitionl2.class);
+					startActivity(intent);
+				}
 				finish();
+				/*added by xiaoqian yu, 2014-12-28, over*/
 			}
 		});
 
@@ -190,8 +213,8 @@ public class score extends Activity {
 					Intent intent = new Intent(score.this, scoreword.class);
 
 					String value = correct.getItemAtPosition(position) // postion
-																		// 1ºÅÎ»
-																		// ´Ó0¿ªÊ¼Ëã
+																		// 1ï¿½ï¿½Î»
+																		// ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½
 							.toString();
 
 					for (int i = 0; i < words.length; i++) {
@@ -247,8 +270,8 @@ public class score extends Activity {
 					Intent intent = new Intent(score.this, scoreword.class);
 
 					String value = incorret.getItemAtPosition(position) // postion
-																		// 1ºÅÎ»
-																		// ´Ó0¿ªÊ¼Ëã
+																		// 1ï¿½ï¿½Î»
+																		// ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½
 							.toString();
 
 					for (int i = 0; i < wrongwords.length; i++) {
@@ -337,8 +360,8 @@ public class score extends Activity {
 					Intent intent = new Intent(score.this, scoreword.class);
 
 					String value = correct.getItemAtPosition(position) // postion
-																		// 1ºÅÎ»
-																		// ´Ó0¿ªÊ¼Ëã
+																		// 1ï¿½ï¿½Î»
+																		// ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½
 							.toString();
 
 					for (int i = 0; i < words.length; i++) {
@@ -394,8 +417,8 @@ public class score extends Activity {
 					Intent intent = new Intent(score.this, scoreword.class);
 
 					String value = incorret.getItemAtPosition(position) // postion
-																		// 1ºÅÎ»
-																		// ´Ó0¿ªÊ¼Ëã
+																		// 1ï¿½ï¿½Î»
+																		// ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½
 							.toString();
 
 					for (int i = 0; i < wrongwords.length; i++) {
@@ -487,7 +510,7 @@ public class score extends Activity {
 						// TODO Auto-generated method stub
 
 						Intent intent = new Intent(score.this, root.class);
-						myapp.setreviewwrongcontrol(1); // Éè¶¨½øÈëwrongÑ­»·
+						myapp.setreviewwrongcontrol(1); // ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½wrongÑ­ï¿½ï¿½
 
 						startActivity(intent);
 						finish();
@@ -516,25 +539,25 @@ public class score extends Activity {
 
 		managedb db = new managedb(getBaseContext());
 
-		if (db.coursexist(myapp.get(0))) { // judge weather exist the table in database .ÅÐ¶ÏÊý¾Ý¿â´æÔÚ·ñ
-			System.out.println("Êý¾Ý¿âÓÐ");
+		if (db.coursexist(myapp.get(0))) { // judge weather exist the table in database .ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½Ú·ï¿½
+			System.out.println("ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½");
 		} else {
 
-			System.out.println("Êý¾Ý¿âÎÞ");
-			db.coursereivewcreate(myapp.get(0)); // if not exist, create it. ´´½¨Êý¾Ý
-			System.out.println("´´½¨³É¹¦");
+			System.out.println("ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½");
+			db.coursereivewcreate(myapp.get(0)); // if not exist, create it. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
 		}
 
 		if (wcon == 0) {  // delete the order record.
-			db.deletewrongworddb(); // É¾³ýÔ­À´µÄ´í´Ê
-			System.out.println("É¾³ý³É¹¦");
+			db.deletewrongworddb(); // É¾ï¿½ï¿½Ô­ï¿½ï¿½ï¿½Ä´ï¿½ï¿½
+			System.out.println("É¾ï¿½ï¿½ï¿½É¹ï¿½");
 		}
 		db.insertscore(scorenum, defwordscorenum, rootscorenum, 0, 0); // store every score.
-		db.insertdb(wrongwords, "0"); // store worngwords in databse  µÚ¶þ¸ö²ÎÊýÎªÄ¬ÈÏ²ÎÊý²»ÓÃ¹Ü Ð´ÈëÊý¾Ý¿â
-		System.out.println("ÊäÈë³É¹¦");
+		db.insertdb(wrongwords, "0"); // store worngwords in databse  ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÄ¬ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¹ï¿½ Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
+		System.out.println("ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
 
-		db.cleantdata(); // ÇåÉ¨Êý¾Ý¿â clean wrongwords when it is ""£»
-		System.out.println("ÇåÉ¨Êý¾Ý¿â");
+		db.cleantdata(); // ï¿½ï¿½É¨ï¿½ï¿½ï¿½Ý¿ï¿½ clean wrongwords when it is ""ï¿½ï¿½
+		System.out.println("ï¿½ï¿½É¨ï¿½ï¿½ï¿½Ý¿ï¿½");
 
 	}
 
@@ -549,7 +572,7 @@ public class score extends Activity {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			alertdDialog = new AlertDialog.Builder(this)
 					.setTitle("EXIT LEVEL")
-					.setMessage("Do you want to exit this level learning£¿")
+					.setMessage("Do you want to exit this level learningï¿½ï¿½")
 					.setIcon(R.drawable.ic_launcher)
 					.setPositiveButton("Confirm",
 							new DialogInterface.OnClickListener() {

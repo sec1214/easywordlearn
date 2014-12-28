@@ -21,21 +21,21 @@ public class managedb {
 	public mypublicvalue myapp;
 	public dbopenhelper helper;
 
-	public static final String DB_NAME = "mydb.db"; // ±£´æµÄÊý¾Ý¿âÎÄ¼þÃû
+	public static final String DB_NAME = "mydb.db"; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
 
 	public static final String WRONG_NAME = "wrong.mp3";
 	public static final String RIGHT_NAME = "right.mp3";
-	public static final String PACKAGE_NAME = "com.rootsproject";// ¹¤³Ì°üÃû
+	public static final String PACKAGE_NAME = "com.rootsproject";// ï¿½ï¿½ï¿½Ì°ï¿½ï¿½ï¿½
 	public static final String DB_PATH = "/data"
 			+ Environment.getDataDirectory().getAbsolutePath() + "/"
-			+ PACKAGE_NAME + "/databases"; // ÔÚÊÖ»úÀï´æ·ÅÊý¾Ý¿âµÄÎ»ÖÃ
+			+ PACKAGE_NAME + "/databases"; // ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Î»ï¿½ï¿½
 	public static final String B_PATH = "/data"
 			+ Environment.getDataDirectory().getAbsolutePath() + "/"
 			+ PACKAGE_NAME;
 
 	private Context context;
 
-	public String[][] words; // 20¸öµ¥´Ê»º´æÔÚÕâ¸ö×Ö·û´®Êý×éÖÐ ÐèÒª21¸ö£¬ÒòÎª×îºóÒ»¸ö¿ÉÒÔµ±×ö½áÊø·û
+	public String[][] words; // 20ï¿½ï¿½ï¿½ï¿½ï¿½Ê»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Òª21ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	public managedb(Context context) {
 		this.context = context;
@@ -47,8 +47,8 @@ public class managedb {
 		String dbfile = DB_PATH + "/" + DB_NAME;
 		File path = new File(dbfile);
 
-		if (!path.exists()) { // ÎÄ¼þ¼Ð²»´æÔÚ±ØÐëÏÈ´´½¨ÎÄ¼þ¼Ð
-			System.out.println("²»´æÔÚ ");
+		if (!path.exists()) { // ï¿½Ä¼ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ");
 			File dbpath = new File(DB_PATH);
 			dbpath.mkdir();
 
@@ -59,7 +59,7 @@ public class managedb {
 
 			try {
 				is = am.open(DB_NAME);//
-				this.context.getResources().getAssets().open(DB_NAME); // //Óûµ¼ÈëµÄÊý¾Ý¿â
+				this.context.getResources().getAssets().open(DB_NAME); // //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
 				fos = new FileOutputStream(dbfile);
 				byte[] buffer = new byte[1024];
 				int length = 0;
@@ -70,9 +70,9 @@ public class managedb {
 				}
 				fos.flush();
 
-				fos.close();// ¹Ø±ÕÊä³öÁ÷
+				fos.close();// ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-				is.close();// ¹Ø±ÕÊäÈëÁ÷
+				is.close();// ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				System.out.println("databse writein success");
 
 			} catch (Exception e) {
@@ -83,7 +83,7 @@ public class managedb {
 		}
 	}
 
-	public List<String> listtablename(String[] selectionArgs) {// ·µ»Ø¶àÌõ¼ÇÂ¼
+	public List<String> listtablename(String[] selectionArgs) {// ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½ï¿½Â¼
 		// TODO Auto-generated method stub
 
 		List<String> list = new ArrayList<String>();
@@ -92,7 +92,7 @@ public class managedb {
 		SQLiteDatabase database = null;
 		try {
 			database = helper.getReadableDatabase();
-			Cursor cursor = database.rawQuery(sql, selectionArgs); // ÐÐ²éÑ¯·µ»ØÊÇÓÎ±ê
+			Cursor cursor = database.rawQuery(sql, selectionArgs); // ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î±ï¿½
 			int colums = cursor.getColumnCount();
 
 			while (cursor.moveToNext()) {
@@ -245,7 +245,7 @@ public class managedb {
 			Cursor cursor = database.rawQuery(sql, null);
 			int colums = cursor.getColumnCount();
 
-			while (cursor.moveToNext()) { // ±ê×¼ÐÎÊ½£¬·ñÔòcursorÓÎ±êÎÞÐ§
+			while (cursor.moveToNext()) { // ï¿½ï¿½×¼ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cursorï¿½Î±ï¿½ï¿½ï¿½Ð§
 				for (int i = 0; i < colums; i++) {
 					String colums_name = cursor.getColumnName(i);
 					int colums_value = cursor.getInt(cursor
@@ -320,7 +320,7 @@ public class managedb {
 			Cursor cursor = database.rawQuery(sql, null);
 			int colums = cursor.getColumnCount();
 
-			while (cursor.moveToNext()) { // ±ê×¼ÐÎÊ½£¬·ñÔòcursorÓÎ±êÎÞÐ§
+			while (cursor.moveToNext()) { // ï¿½ï¿½×¼ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cursorï¿½Î±ï¿½ï¿½ï¿½Ð§
 				for (int i = 0; i < colums; i++) {
 					String colums_name = cursor.getColumnName(i);
 					int colums_value = cursor.getInt(cursor
@@ -415,7 +415,7 @@ public class managedb {
 			Cursor cursor = database.rawQuery(sql, null);
 			int colums = cursor.getColumnCount();
 
-			while (cursor.moveToNext()) { // ±ê×¼ÐÎÊ½£¬·ñÔòcursorÓÎ±êÎÞÐ§
+			while (cursor.moveToNext()) { // ï¿½ï¿½×¼ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cursorï¿½Î±ï¿½ï¿½ï¿½Ð§
 				for (int i = 0; i < colums; i++) {
 					String colums_name = cursor.getColumnName(i);
 					String colums_value = cursor.getString(cursor
@@ -460,7 +460,7 @@ public class managedb {
 			Cursor cursor = database.rawQuery(sql, null);
 			int colums = cursor.getColumnCount();
 
-			while (cursor.moveToNext()) { // ±ê×¼ÐÎÊ½£¬·ñÔòcursorÓÎ±êÎÞÐ§
+			while (cursor.moveToNext()) { // ï¿½ï¿½×¼ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cursorï¿½Î±ï¿½ï¿½ï¿½Ð§
 				for (int i = 0; i < colums; i++) {
 					String colums_name = cursor.getColumnName(i);
 					String colums_value = cursor.getString(cursor
@@ -495,7 +495,7 @@ public class managedb {
 
 		SQLiteDatabase database = null;
 
-		int number = 0; // ÓÃÀ´´¢´æÓÐ¶àÉÙ¸ö×ÖÔÚ±íÀï
+		int number = 0; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½
 		String sql = "select count(*) from " + "'" + tablename + "'";
 
 		try {
@@ -503,7 +503,7 @@ public class managedb {
 			Cursor cursor = database.rawQuery(sql, null);
 			int colums = cursor.getColumnCount();
 
-			while (cursor.moveToNext()) { // ±ê×¼ÐÎÊ½£¬·ñÔòcursorÓÎ±êÎÞÐ§
+			while (cursor.moveToNext()) { // ï¿½ï¿½×¼ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cursorï¿½Î±ï¿½ï¿½ï¿½Ð§
 				for (int i = 0; i < colums; i++) {
 					String colums_name = cursor.getColumnName(i);
 					int colums_value = cursor.getInt(cursor
@@ -522,7 +522,7 @@ public class managedb {
 				database.close();
 		}
 
-		return number / listwordnum; // ÒòÎªÃ¿¸ö±íÖÁÉÙ°üº¬5¸öµ¥´ÊËùÒÔ±ØÐëÓÐ1¸ölist ËùÒÔ¼Ó1ÊÇÕýÈ·µÄ
+		return number / listwordnum; // ï¿½ï¿½ÎªÃ¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù°ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½list ï¿½ï¿½ï¿½Ô¼ï¿½1ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½
 
 	}
 
@@ -534,11 +534,11 @@ public class managedb {
 
 	}
 
-	public String[][] getwrongwords(String key) { // È¡µÃ20¸öµ¥´Ê keyÎªreviewÖµ¡£
+	public String[][] getwrongwords(String key) { // È¡ï¿½ï¿½20ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ keyÎªreviewÖµï¿½ï¿½
 
 		String[][] words = new String[21][10];
 
-		for (int i = 0; i < 21; i++) { // ÕâÀïÊÇ³õÊ¼»¯¸÷¸öµ¥´ÊÎª""£»
+		for (int i = 0; i < 21; i++) { // ï¿½ï¿½ï¿½ï¿½ï¿½Ç³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª""ï¿½ï¿½
 
 			for (int j = 0; j < 10; j++) {
 
@@ -548,7 +548,7 @@ public class managedb {
 
 		String tablename = myapp.get(0);
 		SQLiteDatabase database = null;
-		int k = 0; // ¶þÎ¬×Ö·û´®Êý×éµÚÒ»²ÎÊý
+		int k = 0; // ï¿½ï¿½Î¬ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
 		String sql = "select name, def, froot,fdef,sroot,sdef,troot,tdef,fouthroot,fouthdef from "
 				+ tablename
 				+ "_wrong"
@@ -565,7 +565,7 @@ public class managedb {
 			Cursor cursor = database.rawQuery(sql, null);
 			int colums = cursor.getColumnCount();
 
-			while (cursor.moveToNext()) { // ±ê×¼ÐÎÊ½£¬·ñÔòcursorÓÎ±êÎÞÐ§
+			while (cursor.moveToNext()) { // ï¿½ï¿½×¼ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cursorï¿½Î±ï¿½ï¿½ï¿½Ð§
 				for (int i = 0; i < colums; i++) {
 					String colums_name = cursor.getColumnName(i);
 					String colums_value = cursor.getString(cursor
@@ -623,11 +623,11 @@ public class managedb {
 
 	}
 
-	public String[][] getwords() { //take 20 words  È¡µÃ20¸öµ¥´Ê
+	public String[][] getwords() { //take 20 words  È¡ï¿½ï¿½20ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		words = new String[21][10];
 
-		for (int i = 0; i < 21; i++) { // initial array like "" ÕâÀïÊÇ³õÊ¼»¯¸÷¸öµ¥´ÊÎª""£»
+		for (int i = 0; i < 21; i++) { // initial array like "" ï¿½ï¿½ï¿½ï¿½ï¿½Ç³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª""ï¿½ï¿½
 
 			for (int j = 0; j < 10; j++) {
 
@@ -635,9 +635,9 @@ public class managedb {
 			}
 		}
 
-		int listnum = Integer.parseInt(myapp.get(2)); // get the number of list È¡µÃ¼¸ºÅ±í£¬ÓÃÀ´¼ÆËãÈ¡µ¥´Ê
+		int listnum = Integer.parseInt(myapp.get(2)); // get the number of list È¡ï¿½Ã¼ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 
-		int numlist = myapp.getlistnum(); // get how many list in the course  Ò»¹²ÓÐ¶àÉÙlist
+		int numlist = myapp.getlistnum(); // get how many list in the course  Ò»ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½list
 
 		if (listnum == numlist) {
 			listnum = 0;
@@ -645,7 +645,7 @@ public class managedb {
 
 		String tablename = myapp.get(0); // course name
 		SQLiteDatabase database = null;
-		int k = 0; // ¶þÎ¬×Ö·û´®Êý×éµÚÒ»²ÎÊý
+		int k = 0; // ï¿½ï¿½Î¬ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
 		String sql = "select name, def, froot,fdef,sroot,sdef,troot,tdef,fouthroot,fouthdef from "
 				+ tablename + " where id% " + numlist + " = " + listnum;
 
@@ -654,7 +654,7 @@ public class managedb {
 			Cursor cursor = database.rawQuery(sql, null);
 			int colums = cursor.getColumnCount();
 
-			while (cursor.moveToNext()) { // ±ê×¼ÐÎÊ½£¬·ñÔòcursorÓÎ±êÎÞÐ§
+			while (cursor.moveToNext()) { // ï¿½ï¿½×¼ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cursorï¿½Î±ï¿½ï¿½ï¿½Ð§
 				for (int i = 0; i < colums; i++) {
 					String colums_name = cursor.getColumnName(i);
 					String colums_value = cursor.getString(cursor
