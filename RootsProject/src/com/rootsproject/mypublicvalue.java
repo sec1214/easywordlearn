@@ -245,19 +245,19 @@ public class mypublicvalue extends Application {
 		
 		if(timeInterval <= 250)
 		{
-			pulseSoundStreamID = sp.play(musicscorepulse, buttonvolume, buttonvolume, 1, loop, (float)1.5);
+			//pulseSoundStreamID = sp.play(musicscorepulse, buttonvolume, buttonvolume, 1, loop, (float)1.5);
 		}
 		else if(timeInterval > 250 && timeInterval <= 500)
 		{			
-			pulseSoundStreamID = sp.play(musicscorepulse, buttonvolume, buttonvolume, 1, loop, (float) 1.25);
+			//pulseSoundStreamID = sp.play(musicscorepulse, buttonvolume, buttonvolume, 1, loop, (float) 1.25);
 		}
 		else if(timeInterval > 500 && timeInterval <= 1000)
 		{
-			pulseSoundStreamID = sp.play(musicscorepulse, buttonvolume, buttonvolume, 1, loop, (float)1.0);
+			//pulseSoundStreamID = sp.play(musicscorepulse, buttonvolume, buttonvolume, 1, loop, (float)1.0);
 		}
 		else if(timeInterval > 1000 && timeInterval <= 2000)
 		{
-			pulseSoundStreamID = sp.play(musicscorepulse, buttonvolume, buttonvolume, 1, loop, (float) 0.5);
+			//pulseSoundStreamID = sp.play(musicscorepulse, buttonvolume, buttonvolume, 1, loop, (float) 0.5);
 		}
 		
 	}
@@ -911,6 +911,12 @@ public class mypublicvalue extends Application {
 			}
 		}
 		stopPulseSound();
+		pulseSoundStreamID = 0;
+		constantCorrectCount = 0;
+	}
+	
+	public void setComboBeginningState()
+	{
 		pulseSoundStreamID = 0;
 		constantCorrectCount = 0;
 	}

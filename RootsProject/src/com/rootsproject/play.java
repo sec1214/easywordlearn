@@ -83,7 +83,7 @@ public class play extends Activity {
 		levelListView.setOnItemClickListener(new OnItemClickListener() {
 
 			// managedb db = new managedb(getBaseContext()); ///
-			// ÒòÎªÔÚlistÑ¡Ôñ½çÃæÒÑ¾­µ÷Èëwords
+			// ï¿½ï¿½Îªï¿½ï¿½listÑ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½words
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
@@ -92,13 +92,17 @@ public class play extends Activity {
 
 				myapp.playmusic(1);
 
-				myapp.set(3, Integer.toString(position + 1)); // store level to public value ´æÈëlevelµÈ¼¶
+				myapp.set(3, Integer.toString(position + 1)); // store level to public value ï¿½ï¿½ï¿½ï¿½levelï¿½È¼ï¿½
 
 				myapp.stopsplashmusic();
 
-				// myapp.setwords(db.getwords()); /// ÒòÎªÔÚlistÑ¡Ôñ½çÃæÒÑ¾­µ÷Èëwords
+				// myapp.setwords(db.getwords()); /// ï¿½ï¿½Îªï¿½ï¿½listÑ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½words
 
 				myapp.startlevelmusic();
+				
+				/*combo count returns to zero*/
+				myapp.setComboBeginningState();
+				
 				if (position == 0) {  // level 1
 
 					double h = Math.random();
@@ -275,10 +279,10 @@ public class play extends Activity {
 				String reason = intent.getStringExtra(SYSTEM_REASON);
 				if (reason != null) {
 					if (reason.equals(SYSTEM_HOME_KEY)) {
-						myapp.pausesplashmusic(); // home key´¦Àíµã
+						myapp.pausesplashmusic(); // home keyï¿½ï¿½ï¿½ï¿½ï¿½
 
 					} else if (reason.equals(SYSTEM_RECENT_APPS)) {
-						myapp.pausesplashmusic();// long home key´¦Àíµã
+						myapp.pausesplashmusic();// long home keyï¿½ï¿½ï¿½ï¿½ï¿½
 					}
 				}
 			}
