@@ -17,10 +17,10 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+
 import com.rootsproject.R;
 
 public class studywordcolor extends Activity {
@@ -219,10 +219,10 @@ public class studywordcolor extends Activity {
 				String reason = intent.getStringExtra(SYSTEM_REASON);
 				if (reason != null) {
 					if (reason.equals(SYSTEM_HOME_KEY)) {
-						myapp.pausesplashmusic(); // home key´¦Àíµã
+						myapp.pausesplashmusic(); // home keyï¿½ï¿½ï¿½ï¿½ï¿½
 
 					} else if (reason.equals(SYSTEM_RECENT_APPS)) {
-						myapp.pausesplashmusic();// long home key´¦Àíµã
+						myapp.pausesplashmusic();// long home keyï¿½ï¿½ï¿½ï¿½ï¿½
 					}
 				}
 			}
@@ -234,7 +234,7 @@ public class studywordcolor extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.studywordcolor, menu);
 
 		MenuItem musicsound = menu.add(101, 1, 1, "musicsound");
 		MenuItem buttonsound = menu.add(101, 2, 2, "buttonsound");
@@ -262,8 +262,26 @@ public class studywordcolor extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
+		
+		if (id == R.id.PlayStudyReview) {
+			Intent intent = new Intent(studywordcolor.this, list.class);
+			startActivity(intent);
+			finish();
+		}
 
-		if (id == R.id.Exit) {
+		if (id == R.id.listpage) {
+			Intent intent = new Intent(studywordcolor.this, listselectactivity.class);
+			startActivity(intent);
+			finish();
+		}
+
+		if (id == R.id.coursepage) {
+			Intent intent = new Intent(studywordcolor.this, MainActivity.class);
+			startActivity(intent);
+			finish();
+		}
+
+		if (id 	== R.id.Exit) {
 
 			System.exit(0);
 
