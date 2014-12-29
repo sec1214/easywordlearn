@@ -121,10 +121,10 @@
             android:id="@+id/roottestview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/blue"
+            android:background="@color/white"
             android:gravity="center"
             android:textSize="40sp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
              />
 
     <LinearLayout 
