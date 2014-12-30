@@ -4,10 +4,13 @@ import java.io.IOException;
 
 import Database.managedb;
 import android.R.bool;
+import android.R.drawable;
 import android.R.integer;
 import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
@@ -108,7 +111,7 @@ public class mypublicvalue extends Application {
 	//increment of constantCorrectCount and judge if pop out a praise
 	public void judgeAndCalculateConstantCorrectCount()
 	{
-		boolean showCombo = false;
+		boolean showCombolImage = false;
 		constantCorrectCount++;
 		if(constantCorrectCount > 7)
 		{
@@ -117,55 +120,72 @@ public class mypublicvalue extends Application {
 		if(constantCorrectCount > 1)
 		{
 			final Toast showImageToast=new Toast(getBaseContext());
-			//ImageView imageView=new ImageView(getBaseContext());
-			
-			//imageView.setImageResource(R.drawable.icon);
-			//showImageToast.setView(imageView);
-			//showImageToast.setGravity(Gravity.CENTER, 0, 0);
-			//showImageToast.setDuration(Toast.LENGTH_LONG);
-			//showImageToast.show();
 			
 			/*new 1223*/
 			LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE );
 			View toastView = inflater.inflate( R.layout.toastcombopraise, null );
+			View toastViewWithoutImage = inflater.inflate( R.layout.toastcombocount, null );
 			ImageView imageView = (ImageView)toastView.findViewById(R.id.image);
-
+			toastView.getBackground().setAlpha(0);
 			/**/
-			
-			if(2 == constantCorrectCount)
+			switch(constantCorrectCount)
 			{
-				imageView.setImageResource(R.drawable.goodjob);
-				showCombo = true;
-			}
-		
-			if(3 == constantCorrectCount)
-			{
-				imageView.setImageResource(R.drawable.nice);
-				showCombo = true;
-			}
-			
-			if(5 == constantCorrectCount)
-			{
-				imageView.setImageResource(R.drawable.wonderful);
-				showCombo = true;
-			}
-			
-			if(constantCorrectCount >= 7)
-			{
-				imageView.setImageResource(R.drawable.perfect);
-				showCombo = true;
+				case 2:
+					imageView.setImageResource(R.drawable.rainingroots);
+					showCombolImage = true;
+					break;
+				case 3:
+					imageView.setImageResource(R.drawable.rootasaurus);
+					showCombolImage = true;
+					break;
+				case 5:
+					imageView.setImageResource(R.drawable.rootmoney);
+					showCombolImage = true;
+					break;
+				case 7:
+					imageView.setImageResource(R.drawable.rootstorm);
+					showCombolImage = true;
+					break;
+				case 8:
+					imageView.setImageResource(R.drawable.rootking);
+					showCombolImage = true;
+					break;
+				default:
+					showCombolImage = false;
+					break;
 			}
 			
 			/*new 1223*/
-			if(showCombo == true)
+			if(showCombolImage == true)
 			{
 				TextView textView = (TextView)toastView.findViewById(R.id.text);
-				textView.setText(constantCorrectCount + "COMBO!");
+				Typeface typeFace =Typeface.createFromAsset(getAssets(),"fonts/waltograph.ttf");
+				textView.setTypeface(typeFace);
+				textView.setText(" " +constantCorrectCount + " IN A ROW!! ");
 				/**/
-				//showImageToast.setView(imageView);
 				showImageToast.setGravity(Gravity.CENTER, 0, 0);
-				showImageToast.setDuration(Toast.LENGTH_SHORT);
+				showImageToast.setDuration(Toast.LENGTH_LONG);
 				showImageToast.setView(toastView);
+				showImageToast.show();
+				
+				Handler handler = new Handler();
+		        handler.postDelayed(new Runnable() {
+		           @Override
+		           public void run() {
+		        	   showImageToast.cancel(); 
+		           }
+		        }, 1000);
+			}
+			else
+			{
+				TextView textView = (TextView)toastViewWithoutImage.findViewById(R.id.text);
+				Typeface typeFace =Typeface.createFromAsset(getAssets(),"fonts/waltograph.ttf");
+				textView.setTypeface(typeFace);
+				textView.setText(" " +constantCorrectCount);
+				/**/
+				showImageToast.setGravity(Gravity.CENTER, 0, 0);
+				showImageToast.setDuration(Toast.LENGTH_LONG);
+				showImageToast.setView(toastViewWithoutImage);
 				showImageToast.show();
 				
 				Handler handler = new Handler();
