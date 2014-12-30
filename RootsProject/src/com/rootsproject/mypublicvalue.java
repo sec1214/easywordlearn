@@ -1169,6 +1169,7 @@ public class mypublicvalue extends Application {
 		vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 
 		sp = new SoundPool(10, AudioManager.STREAM_SYSTEM, 5);// ��һ������Ϊͬʱ���������������������ڶ����������ͣ�����Ϊ��������
+		sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 5);
 		musicright = sp.load(this, R.raw.right, 1); // ����������زķŵ�res/raw���2��������Ϊ��Դ�ļ�����3��Ϊ���ֵ����ȼ�
 		musicwrong = sp.load(this, R.raw.wrong, 1); // ����������زķŵ�res/raw���2��������Ϊ��Դ�ļ�����3��Ϊ���ֵ����ȼ�\
 		musicalarm = sp.load(this, R.raw.timealarm, 1);
