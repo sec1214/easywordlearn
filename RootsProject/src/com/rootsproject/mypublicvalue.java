@@ -150,6 +150,10 @@ public class mypublicvalue extends Application {
 					imageView.setImageResource(R.drawable.rootking);
 					showCombolImage = true;
 					break;
+				case 12:
+					imageView.setImageResource(R.drawable.rootcity);
+					showCombolImage = true;
+					break;
 				default:
 					showCombolImage = false;
 					break;

@@ -1020,18 +1020,19 @@ containing a value of this type.
         public static final int rainingroots=0x7f020063;
         public static final int red=0x7f020064;
         public static final int rootasaurus=0x7f020065;
-        public static final int rootking=0x7f020066;
-        public static final int rootmoney=0x7f020067;
-        public static final int rootstorm=0x7f020068;
-        public static final int setbar_bg=0x7f020069;
-        public static final int start=0x7f02006a;
-        public static final int toastborder=0x7f02006b;
-        public static final int transparent=0x7f02006c;
-        public static final int wenhao=0x7f02006d;
-        public static final int wenhaored=0x7f02006e;
-        public static final int white=0x7f02006f;
-        public static final int wonderful=0x7f020070;
-        public static final int word=0x7f020071;
+        public static final int rootcity=0x7f020066;
+        public static final int rootking=0x7f020067;
+        public static final int rootmoney=0x7f020068;
+        public static final int rootstorm=0x7f020069;
+        public static final int setbar_bg=0x7f02006a;
+        public static final int start=0x7f02006b;
+        public static final int toastborder=0x7f02006c;
+        public static final int transparent=0x7f02006d;
+        public static final int wenhao=0x7f02006e;
+        public static final int wenhaored=0x7f02006f;
+        public static final int white=0x7f020070;
+        public static final int wonderful=0x7f020071;
+        public static final int word=0x7f020072;
     }
     public static final class id {
         public static final int Exit=0x7f0a008c;
