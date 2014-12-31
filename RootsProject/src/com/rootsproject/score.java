@@ -153,7 +153,7 @@ public class score extends Activity {
 
 		dbmg();  // store every score into databse
 //
-		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
+		//changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
 		score.setText((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100)
 				+ "%");
 
