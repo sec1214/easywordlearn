@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ImageView;
 import android.view.Gravity;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.rootsproject.R;
@@ -1319,5 +1320,30 @@ public class mypublicvalue extends Application {
 
 			}
 		}
+	}
+	
+	public void toastImage()
+	{
+		final Toast showImageToast=new Toast(getBaseContext());
+		LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+		View toastView = inflater.inflate( R.layout.toastbombimage, null );
+		
+		ImageView imageView = (ImageView)toastView.findViewById(R.id.image);
+		toastView.getBackground().setAlpha(0);
+		
+		imageView.setImageResource(R.drawable.boom);
+		
+		showImageToast.setGravity(Gravity.CENTER, 0, 0);
+		showImageToast.setDuration(Toast.LENGTH_LONG);
+		showImageToast.setView(toastView);
+		showImageToast.show();
+        
+        Handler handlerToast = new Handler();
+        handlerToast.postDelayed(new Runnable() {
+           @Override
+           public void run() {
+        	   showImageToast.cancel(); 
+           }
+        }, 1000);
 	}
 }

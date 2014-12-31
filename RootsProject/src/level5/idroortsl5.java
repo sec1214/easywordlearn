@@ -107,6 +107,9 @@ public class idroortsl5 extends Activity {
 		public void onFinish() {
 			// TODO Auto-generated method stub
 			textViewwr.setText("Time over");
+			
+			myapp.judgeAndCalculateConstantErrorCount();
+			myapp.toastImage();
 
 			if (Integer.parseInt(myapp.get(6)) == 1) {
 
