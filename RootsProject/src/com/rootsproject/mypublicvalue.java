@@ -1,6 +1,7 @@
 package com.rootsproject;
 
 import java.io.IOException;
+import java.util.Random;
 
 import Database.managedb;
 import android.R.bool;
@@ -111,6 +112,7 @@ public class mypublicvalue extends Application {
 	//increment of constantCorrectCount and judge if pop out a praise
 	public void judgeAndCalculateConstantCorrectCount()
 	{
+		int comboGraphicIndex;
 		boolean showCombolImage = false;
 		constantCorrectCount++;
 		if(constantCorrectCount > 7)
@@ -128,40 +130,45 @@ public class mypublicvalue extends Application {
 			ImageView imageView = (ImageView)toastView.findViewById(R.id.image);
 			toastView.getBackground().setAlpha(0);
 			/**/
-			switch(constantCorrectCount)
+			if(constantCorrectCount % 3 == 0 && constantCorrectCount <= 30)
 			{
-				case 2:
-					imageView.setImageResource(R.drawable.rainingroots);
-					showCombolImage = true;
-					break;
-				case 3:
-					imageView.setImageResource(R.drawable.rootasaurus);
-					showCombolImage = true;
-					break;
-				case 5:
-					imageView.setImageResource(R.drawable.rootmoney);
-					showCombolImage = true;
-					break;
-				case 7:
-					imageView.setImageResource(R.drawable.rootstorm);
-					showCombolImage = true;
-					break;
-				case 8:
-					imageView.setImageResource(R.drawable.rootking);
-					showCombolImage = true;
-					break;
-				case 12:
-					imageView.setImageResource(R.drawable.rootcity);
-					showCombolImage = true;
-					break;
-				default:
-					showCombolImage = false;
-					break;
+				showCombolImage = true;
+			}
+			else
+			{
+				showCombolImage = false;
 			}
 			
 			/*new 1223*/
 			if(showCombolImage == true)
 			{
+				Random random = new Random();
+				comboGraphicIndex = random.nextInt(6) + 1;//6 pictures, index from 1 to 6
+				switch(comboGraphicIndex)
+				{
+					case 1:
+						imageView.setImageResource(R.drawable.rainingroots);
+						break;
+					case 2:
+						imageView.setImageResource(R.drawable.rootasaurus);
+						break;
+					case 3:
+						imageView.setImageResource(R.drawable.rootmoney);
+						break;
+					case 4:
+						imageView.setImageResource(R.drawable.rootstorm);
+						break;
+					case 5:
+						imageView.setImageResource(R.drawable.rootking);
+						break;
+					case 6:
+						imageView.setImageResource(R.drawable.rootcity);
+						break;
+				    default:
+				    	imageView.setImageResource(R.drawable.rootasaurus);
+				    	break;
+				}
+				
 				TextView textView = (TextView)toastView.findViewById(R.id.text);
 				Typeface typeFace =Typeface.createFromAsset(getAssets(),"fonts/waltograph.ttf");
 				textView.setTypeface(typeFace);
