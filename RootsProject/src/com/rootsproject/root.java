@@ -231,7 +231,14 @@ public class root extends Activity {
 			//comment this line, to Take out the shaking of the question mark
 			//timerhelp.start();
 		}
-
+		/*added by xiaoqian yu, 2014-12-31, start*/
+		rootdef1.setEnabled(true);
+		rootdef2.setEnabled(true);
+		rootdef3.setEnabled(true);
+		rootdef4.setEnabled(true);
+		rootdef5.setEnabled(true);
+		rootdef6.setEnabled(true);
+		/*added by xiaoqian yu, 2014-12-31, over*/
 		if (Integer.parseInt(myapp.get(6)) < 2) {
 			// timer.start();
 			rootdef1.setOnClickListener(new View.OnClickListener() {
@@ -239,6 +246,12 @@ public class root extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					rootdef1.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
+					
 					String k = (String) rootdef1.getText();
 					
 					/*added by xiaoqian yu, 2014-12-22, start*/
@@ -423,6 +436,10 @@ public class root extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					rootdef2.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) rootdef2.getText();
 					
 					/*added by xiaoqian yu, 2014-12-22, start*/
@@ -608,6 +625,10 @@ public class root extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					rootdef3.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) rootdef3.getText();
 					
 					/*added by xiaoqian yu, 2014-12-22, start*/
@@ -793,6 +814,10 @@ public class root extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					rootdef4.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) rootdef4.getText();
 					
 					/*added by xiaoqian yu, 2014-12-22, start*/
@@ -978,6 +1003,10 @@ public class root extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					rootdef5.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) rootdef5.getText();
 					
 					/*added by xiaoqian yu, 2014-12-22, start*/
@@ -1163,6 +1192,10 @@ public class root extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					rootdef6.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) rootdef6.getText();
 					
 					/*added by xiaoqian yu, 2014-12-22, start*/
@@ -1352,6 +1385,10 @@ public class root extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					rootdef1.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) rootdef1.getText();
 					
 					/*added by xiaoqian yu, 2014-12-22, start*/
@@ -1575,6 +1612,10 @@ public class root extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					rootdef2.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) rootdef2.getText();
 					
 					/*added by xiaoqian yu, 2014-12-22, start*/
@@ -1799,6 +1840,10 @@ public class root extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					rootdef3.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) rootdef3.getText();
 					
 					/*added by xiaoqian yu, 2014-12-22, start*/
@@ -2023,6 +2068,10 @@ public class root extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					rootdef4.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) rootdef4.getText();
 					
 					/*added by xiaoqian yu, 2014-12-22, start*/
@@ -2247,6 +2296,10 @@ public class root extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					rootdef5.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) rootdef5.getText();
 					
 					/*added by xiaoqian yu, 2014-12-22, start*/
@@ -2471,6 +2524,10 @@ public class root extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					rootdef6.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) rootdef6.getText();
 					
 					/*added by xiaoqian yu, 2014-12-22, start*/

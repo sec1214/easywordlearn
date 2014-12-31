@@ -272,7 +272,14 @@ public class idroortsl5 extends Activity {
 			//comment this line, to Take out the shaking of the question mark
 			//timerhelp.start();
 		}
-
+		/*added by xiaoqian yu, 2014-12-31, start*/
+		root1.setEnabled(true);
+		root2.setEnabled(true);
+		root3.setEnabled(true);
+		root4.setEnabled(true);
+		root5.setEnabled(true);
+		root6.setEnabled(true);
+		/*added by xiaoqian yu, 2014-12-31, over*/
 		if (Integer.parseInt(myapp.get(6)) < 2) {
 
 			textViewwr.setText(   15 + "'s");
@@ -283,6 +290,10 @@ public class idroortsl5 extends Activity {
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					root1.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) root1.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (k.equals(words[wordnum - 1][2]) // �1�7�1�7�1�7�1�7�1�7�1�7
@@ -400,6 +411,10 @@ public class idroortsl5 extends Activity {
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					root2.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) root2.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (k.equals(words[wordnum - 1][2]) // �1�7�1�7�1�7�1�7�1�7�1�7
@@ -517,6 +532,10 @@ public class idroortsl5 extends Activity {
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					root3.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) root3.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (k.equals(words[wordnum - 1][2]) // �1�7�1�7�1�7�1�7�1�7�1�7
@@ -634,6 +653,10 @@ public class idroortsl5 extends Activity {
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					root4.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) root4.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (k.equals(words[wordnum - 1][2]) // �1�7�1�7�1�7�1�7�1�7�1�7
@@ -751,6 +774,10 @@ public class idroortsl5 extends Activity {
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					root5.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) root5.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (k.equals(words[wordnum - 1][2]) // �1�7�1�7�1�7�1�7�1�7�1�7
@@ -868,6 +895,10 @@ public class idroortsl5 extends Activity {
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					root6.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) root6.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (k.equals(words[wordnum - 1][2]) // �1�7�1�7�1�7�1�7�1�7�1�7
@@ -988,6 +1019,10 @@ public class idroortsl5 extends Activity {
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					root1.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) root1.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (k.equals(words[wordnum - 1][2]) // �1�7�1�7�1�7�1�7�1�7�1�7
@@ -1063,6 +1098,10 @@ public class idroortsl5 extends Activity {
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					root2.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) root2.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (k.equals(words[wordnum - 1][2]) // �1�7�1�7�1�7�1�7�1�7�1�7
@@ -1138,6 +1177,10 @@ public class idroortsl5 extends Activity {
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					root3.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) root3.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (k.equals(words[wordnum - 1][2]) // �1�7�1�7�1�7�1�7�1�7�1�7
@@ -1213,6 +1256,10 @@ public class idroortsl5 extends Activity {
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					root4.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) root4.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (k.equals(words[wordnum - 1][2]) // �1�7�1�7�1�7�1�7�1�7�1�7
@@ -1288,6 +1335,10 @@ public class idroortsl5 extends Activity {
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					root5.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) root5.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (k.equals(words[wordnum - 1][2]) // �1�7�1�7�1�7�1�7�1�7�1�7
@@ -1363,6 +1414,10 @@ public class idroortsl5 extends Activity {
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					root6.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String k = (String) root6.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (k.equals(words[wordnum - 1][2]) // �1�7�1�7�1�7�1�7�1�7�1�7

@@ -254,7 +254,11 @@ public class definitionl8 extends Activity {
 			//comment this line, to Take out the shaking of the question mark
 			//timerhelp.start();
 		}
-
+		/*added by xiaoqian yu, 2014-12-31, start*/
+		textViewdef1.setEnabled(true);
+		textViewdef2.setEnabled(true);
+		textViewdef3.setEnabled(true);
+		/*added by xiaoqian yu, 2014-12-31, over*/
 		if (Integer.parseInt(myapp.get(6)) < 2) {
 
 			textViewwr.setText( 10 + "'s");
@@ -265,6 +269,10 @@ public class definitionl8 extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					textViewdef1.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String key = (String) textViewdef1.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (key.equals(words[wordnum - 1][1]))
@@ -462,6 +470,10 @@ public class definitionl8 extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					textViewdef2.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String key = (String) textViewdef2.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (key.equals(words[wordnum - 1][1]))
@@ -658,6 +670,10 @@ public class definitionl8 extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					textViewdef3.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String key = (String) textViewdef3.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (key.equals(words[wordnum - 1][1]))
@@ -859,6 +875,10 @@ public class definitionl8 extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					textViewdef1.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String key = (String) textViewdef1.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (key.equals(words[wordnum - 1][1]))
@@ -988,6 +1008,10 @@ public class definitionl8 extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					textViewdef2.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String key = (String) textViewdef2.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (key.equals(words[wordnum - 1][1]))
@@ -1116,6 +1140,10 @@ public class definitionl8 extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					textViewdef3.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String key = (String) textViewdef3.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (key.equals(words[wordnum - 1][1]))

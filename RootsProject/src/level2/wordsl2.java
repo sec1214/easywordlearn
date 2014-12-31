@@ -236,6 +236,12 @@ public class wordsl2 extends Activity {
 			//comment this line, to Take out the shaking of the question mark
 			//timerhelp.start();
 		}
+		/*added by xiaoqian yu, 2014-12-31, start*/
+		wordTextView1.setEnabled(true);
+		wordTextView2.setEnabled(true);
+		wordTextView3.setEnabled(true);
+		wordTextView4.setEnabled(true);
+		/*added by xiaoqian yu, 2014-12-31, over*/
 		if (Integer.parseInt(myapp.get(6)) < 2) {
 			// timer.start();
 
@@ -244,6 +250,10 @@ public class wordsl2 extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					wordTextView1.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String key = (String) wordTextView1.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (key.equals(words[wordnum - 1][0]))
@@ -498,6 +508,10 @@ public class wordsl2 extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					wordTextView2.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String key = (String) wordTextView2.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (key.equals(words[wordnum - 1][0]))
@@ -751,6 +765,10 @@ public class wordsl2 extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					wordTextView3.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String key = (String) wordTextView3.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (key.equals(words[wordnum - 1][0]))
@@ -1005,6 +1023,10 @@ public class wordsl2 extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					wordTextView4.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String key = (String) wordTextView4.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (key.equals(words[wordnum - 1][0]))
@@ -1262,6 +1284,10 @@ public class wordsl2 extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					wordTextView1.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String key = (String) wordTextView1.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (key.equals(words[wordnum - 1][0]))
@@ -1390,6 +1416,10 @@ public class wordsl2 extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					wordTextView2.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String key = (String) wordTextView2.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (key.equals(words[wordnum - 1][0]))
@@ -1517,6 +1547,10 @@ public class wordsl2 extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					wordTextView3.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String key = (String) wordTextView3.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (key.equals(words[wordnum - 1][0]))
@@ -1645,6 +1679,10 @@ public class wordsl2 extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					/*added by xiaoqian yu, 2014-12-31, start*/
+					/*prevent multi click*/
+					wordTextView4.setEnabled(false);
+					/*added by xiaoqian yu, 2014-12-31, over*/
 					String key = (String) wordTextView4.getText();
 					/*added by xiaoqian yu, 2014-12-22, start*/
 					if (key.equals(words[wordnum - 1][0]))
