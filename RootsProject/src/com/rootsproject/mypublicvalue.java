@@ -143,7 +143,7 @@ public class mypublicvalue extends Application {
 			if(showCombolImage == true)
 			{
 				Random random = new Random();
-				comboGraphicIndex = random.nextInt(6) + 1;//6 pictures, index from 1 to 6
+				comboGraphicIndex = random.nextInt(10) + 1;//10 pictures, index from 1 to 10
 				switch(comboGraphicIndex)
 				{
 					case 1:
@@ -163,6 +163,18 @@ public class mypublicvalue extends Application {
 						break;
 					case 6:
 						imageView.setImageResource(R.drawable.rootcity);
+						break;
+					case 7:
+						imageView.setImageResource(R.drawable.rootbomb);
+						break;
+					case 8:
+						imageView.setImageResource(R.drawable.rootsandwich);
+						break;
+					case 9:
+						imageView.setImageResource(R.drawable.roottrain);
+						break;
+					case 10:
+						imageView.setImageResource(R.drawable.vocabexplosion);
 						break;
 				    default:
 				    	imageView.setImageResource(R.drawable.rootasaurus);
