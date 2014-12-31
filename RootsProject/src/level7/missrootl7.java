@@ -2714,7 +2714,7 @@ public class missrootl7 extends Activity {
 		if (key>64&&key<86) 
 			
 	 {
-			textViewscore.setTextColor(Color.BLUE);
+			textViewscore.setTextColor(Color.WHITE);
 			//textViewscore.setBackgroundColor(Color.YELLOW);
 			textViewscore.setBackgroundResource(R.drawable.txtvwotlnyellow);
 		}
