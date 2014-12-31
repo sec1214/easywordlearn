@@ -130,7 +130,7 @@ public class mypublicvalue extends Application {
 			ImageView imageView = (ImageView)toastView.findViewById(R.id.image);
 			toastView.getBackground().setAlpha(0);
 			/**/
-			if(constantCorrectCount % 3 == 0 && constantCorrectCount <= 30)
+			if(constantCorrectCount % 3 == 0)
 			{
 				showCombolImage = true;
 			}

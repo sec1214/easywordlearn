@@ -1031,12 +1031,15 @@ containing a value of this type.
         public static final int start=0x7f02006e;
         public static final int toastborder=0x7f02006f;
         public static final int transparent=0x7f020070;
-        public static final int vocabexplosion=0x7f020071;
-        public static final int wenhao=0x7f020072;
-        public static final int wenhaored=0x7f020073;
-        public static final int white=0x7f020074;
-        public static final int wonderful=0x7f020075;
-        public static final int word=0x7f020076;
+        public static final int txtvwotlngreen=0x7f020071;
+        public static final int txtvwotlnred=0x7f020072;
+        public static final int txtvwotlnyellow=0x7f020073;
+        public static final int vocabexplosion=0x7f020074;
+        public static final int wenhao=0x7f020075;
+        public static final int wenhaored=0x7f020076;
+        public static final int white=0x7f020077;
+        public static final int wonderful=0x7f020078;
+        public static final int word=0x7f020079;
     }
     public static final class id {
         public static final int Exit=0x7f0a008c;

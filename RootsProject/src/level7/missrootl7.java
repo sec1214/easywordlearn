@@ -2701,20 +2701,22 @@ public class missrootl7 extends Activity {
 	}
 
 	public void changecolorscore(int key) {
-		if (key >= 86) {
+		if (key>=86) {
 			textViewscore.setTextColor(Color.WHITE);
-			textViewscore.setBackgroundColor(Color.GREEN);
-
+			//textViewscore.setBackgroundColor(Color.GREEN);
+			textViewscore.setBackgroundResource(R.drawable.txtvwotlngreen);
 		}
-		if (key <= 64) {
+		if (key<=64) {
 			textViewscore.setTextColor(Color.WHITE);
-			textViewscore.setBackgroundColor(Color.RED);
+			//textViewscore.setBackgroundColor(Color.RED);
+			textViewscore.setBackgroundResource(R.drawable.txtvwotlnred);
 		}
-		if (key > 64 && key < 86)
-
-		{
-			textViewscore.setTextColor(Color.WHITE);
-			textViewscore.setBackgroundColor(Color.YELLOW);
+		if (key>64&&key<86) 
+			
+	 {
+			textViewscore.setTextColor(Color.BLUE);
+			//textViewscore.setBackgroundColor(Color.YELLOW);
+			textViewscore.setBackgroundResource(R.drawable.txtvwotlnyellow);
 		}
 	}
 
