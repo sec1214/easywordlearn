@@ -98,11 +98,13 @@ public class definitionl4 extends Activity {
 			
 			myapp.judgeAndCalculateConstantErrorCount();
 			myapp.toastImage();
-			
+			myapp.playmusic(5);
+			/*
 			if (Integer.parseInt(myapp.get(6)) == 1) {
 
-				myapp.playmusic(3); // ʧ������
+				myapp.playmusic(3); 
 			}
+			*/
 			Intent intent = new Intent(definitionl4.this, definitionl4.class);
 			startActivity(intent);
 			defrepeat(1);

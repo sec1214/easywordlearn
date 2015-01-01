@@ -1283,11 +1283,12 @@ containing a value of this type.
         public static final int failure=0x7f050000;
         public static final int right=0x7f050001;
         public static final int scorepulse=0x7f050002;
-        public static final int splashmusic=0x7f050003;
-        public static final int testvid=0x7f050004;
-        public static final int tick=0x7f050005;
-        public static final int timealarm=0x7f050006;
-        public static final int wrong=0x7f050007;
+        public static final int soundexplosion=0x7f050003;
+        public static final int splashmusic=0x7f050004;
+        public static final int testvid=0x7f050005;
+        public static final int tick=0x7f050006;
+        public static final int timealarm=0x7f050007;
+        public static final int wrong=0x7f050008;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 

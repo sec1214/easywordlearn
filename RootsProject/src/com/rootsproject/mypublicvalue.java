@@ -93,6 +93,7 @@ public class mypublicvalue extends Application {
 	private int musicfailure;
 	private int musictick;
 	private int musicscorepulse;
+	private int musicexplosion;
 
 	public int misroot, definition, idroot, root, greenhelp;
 
@@ -1004,6 +1005,9 @@ public class mypublicvalue extends Application {
 			if (key == 4) {
 				sp.play(musictick, buttonvolume, buttonvolume, 1, 0, 1);
 			}
+			if (key == 5) {
+				sp.play(musicexplosion, buttonvolume, buttonvolume, 1, 0, 1);
+			}
 		} else {
 
 		}
@@ -1220,6 +1224,7 @@ public class mypublicvalue extends Application {
 		musicfailure = sp.load(this, R.raw.failure, 1);
 		musictick = sp.load(this, R.raw.tick, 1);
 		musicscorepulse = sp.load(this, R.raw.scorepulse, 1);
+		musicexplosion = sp.load(this, R.raw.soundexplosion, 1);
 		
 		buttonvolume=Float.parseFloat(getResources().getString(R.string.buttonvolume));
 

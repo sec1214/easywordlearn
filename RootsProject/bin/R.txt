@@ -492,11 +492,12 @@ int menu studywordcolor 0x7f0d0005
 int raw failure 0x7f050000
 int raw right 0x7f050001
 int raw scorepulse 0x7f050002
-int raw splashmusic 0x7f050003
-int raw testvid 0x7f050004
-int raw tick 0x7f050005
-int raw timealarm 0x7f050006
-int raw wrong 0x7f050007
+int raw soundexplosion 0x7f050003
+int raw splashmusic 0x7f050004
+int raw testvid 0x7f050005
+int raw tick 0x7f050006
+int raw timealarm 0x7f050007
+int raw wrong 0x7f050008
 int string abc_action_bar_home_description 0x7f0b0001
 int string abc_action_bar_up_description 0x7f0b0002
 int string abc_action_menu_overflow_description 0x7f0b0003

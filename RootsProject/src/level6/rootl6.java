@@ -97,12 +97,13 @@ public class rootl6 extends Activity {
 			
 			myapp.judgeAndCalculateConstantErrorCount();
 			myapp.toastImage();
-			
+			myapp.playmusic(5);
+			/*
 			if (Integer.parseInt(myapp.get(6)) == 1) {
 
-				myapp.playmusic(3); // ʧ������
+				myapp.playmusic(3); 
 			}
-
+            */
 			Intent intent = new Intent(rootl6.this, rootl6.class);
 			startActivity(intent);
 			defrepeat(1);
