@@ -93,7 +93,7 @@ public class rootl6 extends Activity {
 		@Override
 		public void onFinish() {
 			// TODO Auto-generated method stub
-			textViewwr.setText("Time over");
+			//textViewwr.setText("Time over");
 			
 			myapp.judgeAndCalculateConstantErrorCount();
 			myapp.toastImage();
