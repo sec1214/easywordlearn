@@ -1008,7 +1008,7 @@ public class definition extends Activity {
 
 		}
 
-		if (Integer.parseInt(myapp.get(6)) == 2) {  // the wrong frequency is 2 times
+		if (Integer.parseInt(myapp.get(6)) >= 2) {  // the wrong frequency is 2 times
 
 			myapp.greentoast(); // Toast show in this condition. 
 			textViewdef1.setOnClickListener(new View.OnClickListener() {

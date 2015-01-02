@@ -1244,7 +1244,7 @@ public class words extends Activity {
 			});
 		}
 
-		if (Integer.parseInt(myapp.get(6)) == 2) { // the wrong frequency is 2 times
+		if (Integer.parseInt(myapp.get(6)) >= 2) { // the wrong frequency is 2 times
 
 			myapp.greentoast();
 			wordTextView1.setOnClickListener(new View.OnClickListener() {

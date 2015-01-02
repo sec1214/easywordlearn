@@ -853,7 +853,7 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 				}
 			});
 		}
-		if (Integer.parseInt(myapp.get(6)) == 2) {
+		if (Integer.parseInt(myapp.get(6)) >= 2) {
 			myapp.greentoast();
 			root1.setOnClickListener(new View.OnClickListener() {
 
@@ -1192,6 +1192,7 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 				}
 			});
 		}
+		
 		wenhaoButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override

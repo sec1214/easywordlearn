@@ -1096,7 +1096,7 @@ public class rootl4 extends Activity {
 			});
 		}
 
-		if (Integer.parseInt(myapp.get(6)) == 2) {
+		if (Integer.parseInt(myapp.get(6)) >= 2) {
 			myapp.greentoast();
 			rootdef1.setOnClickListener(new View.OnClickListener() {
 
@@ -1578,6 +1578,19 @@ public class rootl4 extends Activity {
 
 			});
 		}
+		/*test stub*/
+		/*
+		if (Integer.parseInt(myapp.get(6)) > 2)
+		{
+			textViewwr.setText("hahahhaah");
+			rootdef1.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					textViewwr.setText("hahahhaah");
+				};
+				});
+		}*/
 		wenhaoButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override

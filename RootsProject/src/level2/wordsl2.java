@@ -1277,7 +1277,7 @@ public class wordsl2 extends Activity {
 			});
 		}
 
-		if (Integer.parseInt(myapp.get(6)) == 2) {
+		if (Integer.parseInt(myapp.get(6)) >= 2) {
 			myapp.greentoast();
 			wordTextView1.setOnClickListener(new View.OnClickListener() {
 
