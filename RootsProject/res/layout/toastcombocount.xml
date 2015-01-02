@@ -3,15 +3,19 @@
     android:id="@+id/toastLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="1dp"
+    android:layout_marginTop="1dp"
     android:orientation="vertical"
     android:padding="1dp" >
     
     <TextView
         android:id="@+id/text"
-        android:layout_width="208dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:layout_marginTop="1dp"
         android:background="@drawable/combocounter"
         android:textColor="@color/red"
-        android:textSize="40sp" />
+        android:textSize="30sp" />
 
 </LinearLayout>

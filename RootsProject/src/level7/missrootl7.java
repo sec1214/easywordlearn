@@ -349,7 +349,7 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.BLUE);
+						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
@@ -469,7 +469,7 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.BLUE);
+						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
@@ -587,7 +587,7 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.BLUE);
+						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
@@ -705,7 +705,7 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.BLUE);
+						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
@@ -822,7 +822,7 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.BLUE);
+						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
@@ -939,7 +939,7 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.BLUE);
+						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
@@ -1062,7 +1062,7 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.BLUE);
+						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
@@ -1142,7 +1142,7 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.BLUE);
+						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
@@ -1223,7 +1223,7 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.BLUE);
+						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
@@ -1304,7 +1304,7 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.BLUE);
+						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
@@ -1385,7 +1385,7 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.BLUE);
+						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
@@ -1466,7 +1466,7 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.BLUE);
+						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);

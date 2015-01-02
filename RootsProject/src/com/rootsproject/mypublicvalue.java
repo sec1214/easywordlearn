@@ -206,7 +206,7 @@ public class mypublicvalue extends Application {
 				TextView textView = (TextView)toastViewWithoutImage.findViewById(R.id.text);
 				Typeface typeFace =Typeface.createFromAsset(getAssets(),"fonts/waltograph.ttf");
 				textView.setTypeface(typeFace);
-				textView.setText(" " +constantCorrectCount);
+				textView.setText("  " +constantCorrectCount + " IN A ROW!! ");
 				/**/
 				showImageToast.setGravity(Gravity.CENTER, 0, 0);
 				showImageToast.setDuration(Toast.LENGTH_LONG);
