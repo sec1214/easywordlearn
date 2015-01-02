@@ -349,9 +349,9 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-
+						missrootwordTextView.setTextColor(Color.BLUE);
 						if (clicknumtouch == rootnum) { // ��������
-
+							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -469,9 +469,9 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-
+						missrootwordTextView.setTextColor(Color.BLUE);
 						if (clicknumtouch == rootnum) { // ��������
-
+							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -587,9 +587,9 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-
+						missrootwordTextView.setTextColor(Color.BLUE);
 						if (clicknumtouch == rootnum) { // ��������
-
+							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -705,9 +705,9 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-
+						missrootwordTextView.setTextColor(Color.BLUE);
 						if (clicknumtouch == rootnum) { // ��������
-
+							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -822,9 +822,9 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-
+						missrootwordTextView.setTextColor(Color.BLUE);
 						if (clicknumtouch == rootnum) { // ��������
-
+							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -939,9 +939,9 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-
+						missrootwordTextView.setTextColor(Color.BLUE);
 						if (clicknumtouch == rootnum) { // ��������
-
+							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1062,9 +1062,9 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-
+						missrootwordTextView.setTextColor(Color.BLUE);
 						if (clicknumtouch == rootnum) { // ��������
-
+							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 							if (words[wordnum][0].equals("")) {
 
@@ -1142,8 +1142,9 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-
+						missrootwordTextView.setTextColor(Color.BLUE);
 						if (clicknumtouch == rootnum) { // ��������
+							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1222,8 +1223,9 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-
+						missrootwordTextView.setTextColor(Color.BLUE);
 						if (clicknumtouch == rootnum) { // ��������
+							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1302,8 +1304,9 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-
+						missrootwordTextView.setTextColor(Color.BLUE);
 						if (clicknumtouch == rootnum) { // ��������
+							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1382,8 +1385,9 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-
+						missrootwordTextView.setTextColor(Color.BLUE);
 						if (clicknumtouch == rootnum) { // ��������
+							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1462,8 +1466,9 @@ public class missrootl7 extends Activity {
 						root[rootkey++] = k;
 						missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-
+						missrootwordTextView.setTextColor(Color.BLUE);
 						if (clicknumtouch == rootnum) { // ��������
+							missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
