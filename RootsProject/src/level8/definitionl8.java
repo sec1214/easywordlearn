@@ -229,8 +229,7 @@ public class definitionl8 extends Activity {
 		}
 
 		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
-		textViewscore.setText("Score:"
-				+ (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100) + "%");
+		textViewscore.setText( (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100) + "%");
 		/*added by xiaoqian yu, 2014-12-23, start*/
 		mAnimationRight = AnimationUtils.loadAnimation(
                 definitionl8.this, 
