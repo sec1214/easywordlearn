@@ -4,6 +4,42 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="26dp"
+        android:background="@color/blue"
+        android:orientation="horizontal" >
+
+        <com.facebook.widget.LikeView
+            android:id="@+id/likeView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/blue"
+            android:gravity="center"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/share"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/blue"
+            android:gravity="center"
+            android:text="@string/share_button"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/post"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/blue"
+            android:gravity="center"
+            android:text="@string/post_button"
+            android:textSize="15sp" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/finish"
         android:layout_width="match_parent"

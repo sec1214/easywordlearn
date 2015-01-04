@@ -6,6 +6,9 @@ import java.util.List;
 import level2.scorel2;
 import level4.idroortsl4;
 
+import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.FacebookDialog;
+import com.facebook.widget.LikeView;
 import com.rootsproject.MainActivity;
 import com.rootsproject.R;
 import com.rootsproject.list;
@@ -23,12 +26,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -50,6 +55,12 @@ public class scorel3 extends Activity {
 	private TextView main;
 	private int k;
 	private LinearLayout defwordline, idrootline, rootline;
+	/* added by yi wan, 2015-01-03, start */
+	private UiLifecycleHelper uiHelper;
+	private Button share, post;
+	private LikeView like;
+
+	/* added by yi wan, 2015-01-03, over */
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,35 +83,35 @@ public class scorel3 extends Activity {
 		rootline.setVisibility(View.GONE);
 
 		myapp = (mypublicvalue) getApplication();
-		
+
 		myapp.stoplevelmusic();
 
 		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
 		textViewlevel.setText(" Level: " + myapp.get(3));
 		main.setText("Skip to Next Level");
-		
+
 		main.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				/*Intent intent = new Intent(scorel3.this, list.class);
-				myapp.empty();
-				startActivity(intent);
-				finish();*/
-				/*added by xiaoqian yu, 2014-12-28, start*/
-				/*combo count returns to zero*/
+				/*
+				 * Intent intent = new Intent(scorel3.this, list.class);
+				 * myapp.empty(); startActivity(intent); finish();
+				 */
+				/* added by xiaoqian yu, 2014-12-28, start */
+				/* combo count returns to zero */
 				myapp.empty();
 				managedb db = new managedb(getBaseContext());
 				myapp.setComboBeginningState();
 				myapp.setwords(db.getwords());
 				myapp.set(3, Integer.toString(3 + 1));
-				/*jump to next level, level2*/
+				/* jump to next level, level2 */
 				Intent intent = new Intent(scorel3.this, idroortsl4.class);
 				startActivity(intent);
 				finish();
-				/*added by xiaoqian yu, 2014-12-28, over*/
+				/* added by xiaoqian yu, 2014-12-28, over */
 			}
 		});
 
@@ -109,6 +120,29 @@ public class scorel3 extends Activity {
 
 		List<String> listcorrect = new ArrayList<String>();
 		List<String> listincorrect = new ArrayList<String>();
+		/* added by yi wan, 2015-01-03, start */
+		uiHelper = new UiLifecycleHelper(this, null);
+		uiHelper.onCreate(savedInstanceState);
+		// configure Share Button
+		share = (Button) findViewById(R.id.share);
+		share.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				onClickShare();
+			}
+		});
+		like = (LikeView) findViewById(R.id.likeView);
+		like.setObjectId("https://www.facebook.com/rootsmobileapp");
+		post = (Button) findViewById(R.id.post);
+		post.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				onClickPostScore();
+			}
+		});
+		/* added by yi wan, 2015-01-03, over */
 
 		wcon = myapp.getreviewwrongcontrol();
 
@@ -129,7 +163,8 @@ public class scorel3 extends Activity {
 		k = (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100);
 
 		dbmg();
-	//	changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
+		// changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) *
+		// 100));
 		score.setText((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100)
 				+ "%");
 
@@ -472,6 +507,54 @@ public class scorel3 extends Activity {
 		}
 	}
 
+	/* added by yi wan, 2015-01-03, start */
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		uiHelper.onActivityResult(requestCode, resultCode, data,
+				new FacebookDialog.Callback() {
+					@Override
+					public void onError(FacebookDialog.PendingCall pendingCall,
+							Exception error, Bundle data) {
+						Log.e("Activity",
+								String.format("Error: %s", error.toString()));
+					}
+
+					@Override
+					public void onComplete(
+							FacebookDialog.PendingCall pendingCall, Bundle data) {
+						Log.i("Activity", "Success!");
+					}
+				});
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		uiHelper.onResume();
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		uiHelper.onSaveInstanceState(outState);
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		uiHelper.onPause();
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		uiHelper.onDestroy();
+	}
+
+	/* added by yi wan, 2015-01-03, over */
+
 	private void bool() {
 		for (int i = 0; i < f.length; i++) {
 			f[i] = true;
@@ -488,7 +571,7 @@ public class scorel3 extends Activity {
 
 		managedb db = new managedb(getBaseContext());
 
-		if (db.coursexist(myapp.get(0))) { // �ж����ݿ���ڷ�
+		if (db.coursexist(myapp.get(0))) { // �ж����ݿ���ڷￄ1�7
 			System.out.println("��");
 		} else {
 
@@ -498,12 +581,13 @@ public class scorel3 extends Activity {
 		}
 
 		if (wcon == 0) {
-			db.deletewrongworddb(); // ɾ��ԭ���Ĵ��
+			db.deletewrongworddb(); // ɾ��ԭ���Ĵ�ￄ1�7
 			System.out.println("ɾ���ɹ�");
 		}
 		db.insertscore(k, 0, 0, 0, 0);
-		db.insertdb(wrongwords, "0"); // �ڶ�������ΪĬ�ϲ������ù� д�����ݿ�
-		System.out.println("����ɹ�");
+		db.insertdb(wrongwords, "0"); // �ڶ�������ΪĬ�ϲ������ù�
+										// д�����ݿ�
+		System.out.println("����ɹￄ1�7");
 
 		db.cleantdata(); // ��ɨ���ݿ�
 		System.out.println("��ɨ���ݿ�");
@@ -558,7 +642,6 @@ public class scorel3 extends Activity {
 		return super.onKeyDown(keyCode, event);
 	}
 
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -592,7 +675,7 @@ public class scorel3 extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.level) {
-		
+
 			myapp.stoplevelmusic();
 			myapp.empty();
 			Intent intent = new Intent(scorel3.this, play.class);
@@ -600,7 +683,6 @@ public class scorel3 extends Activity {
 			finish();
 		}
 
-		
 		if (id == R.id.PlayStudyReview) {
 			myapp.stoplevelmusic();
 			myapp.empty();
@@ -661,19 +743,50 @@ public class scorel3 extends Activity {
 
 		return super.onOptionsItemSelected(item);
 	}
-	public void changecolorscore(int key){
-		if (key>=86) {
+
+	public void changecolorscore(int key) {
+		if (key >= 86) {
 			score.setTextColor(Color.GREEN);
-			
+
 		}
-		if (key<=64) {
+		if (key <= 64) {
 			score.setTextColor(Color.RED);
 		}
-		if (key>64&&key<86) 
-			
-	 {
+		if (key > 64 && key < 86)
+
+		{
 			score.setTextColor(Color.YELLOW);
 		}
 	}
-	
+
+	/* added by yi wan, 2015-01-03, start */
+	private void onClickShare() {
+		String description = "Check out Roots, a mobile game that teaches vocabulary "
+				+ "through etymology! It's a great tool for students "
+				+ "studying for the SAT and ESL students.";
+		if (FacebookDialog.canPresentShareDialog(getApplicationContext(),
+				FacebookDialog.ShareDialogFeature.SHARE_DIALOG)) {
+			// Publish the post using the Share Dialog
+			FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(
+					this).setDescription(description)
+					.setLink("http://www.roots.nyc").build();
+			uiHelper.trackPendingDialogCall(shareDialog.present());
+		}
+	}
+
+	private void onClickPostScore() {
+		String description = "I scored " + k + " on Roots: "
+				+ myapp.get(0) + ", " + myapp.get(1) + ", Level "
+				+ myapp.get(3);
+		if (FacebookDialog.canPresentShareDialog(getApplicationContext(),
+				FacebookDialog.ShareDialogFeature.SHARE_DIALOG)){
+			FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(this)
+			.setDescription(description)
+			.setLink("https://www.facebook.com/rootsmobileapp").build();
+	uiHelper.trackPendingDialogCall(shareDialog.present());
+		}
+
+	}
+	/* added by yi wan, 2015-01-03, over */
+
 }

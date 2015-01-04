@@ -3,6 +3,14 @@ package com.rootsproject;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.facebook.FacebookException;
+import com.facebook.FacebookOperationCanceledException;
+import com.facebook.Session;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.FacebookDialog;
+import com.facebook.widget.LikeView;
+import com.facebook.widget.WebDialog;
+import com.facebook.widget.WebDialog.OnCompleteListener;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 
@@ -16,6 +24,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,9 +32,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rootsproject.R;
 
@@ -34,19 +45,29 @@ public class score extends Activity {
 	private mypublicvalue myapp;
 	private Dialog alertdDialog;
 	private TextView score, review;
-	private ListView correct, incorret;  // listview to show correct and incorrect wordlist.
+	private ListView correct, incorret; // listview to show correct and
+										// incorrect wordlist.
 	private ArrayAdapter<String> adaptercorrect;
 	private ArrayAdapter<String> adapterincorrect;
 	private String[][] wrongwords;
 	private String[][] words;
 	private boolean[] f = new boolean[21];
-	private LinearLayout defwordline, idrootline, rootline; // accoring to different level ,we can close relevent score record.
+	private LinearLayout defwordline, idrootline, rootline; // accoring to
+															// different level
+															// ,we can close
+															// relevent score
+															// record.
 	private TextView textView1, textView2, textViewlevel;
-	private int wcon; // review control.  
+	private int wcon; // review control.
 	private TextView main;
 	private int scorenum, defwordscorenum, rootscorenum;
 
 	private TextView defwordscore, rootscore, idrootscore;
+	/* added by yi wan, 2015-01-03, start */
+	private UiLifecycleHelper uiHelper;
+	private Button share, post;
+	private LikeView like;
+	/* added by yi wan, 2015-01-03, over */
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,39 +87,38 @@ public class score extends Activity {
 		review = (TextView) this.findViewById(R.id.reviewbutton);
 		main = (TextView) this.findViewById(R.id.mainbutton);
 		main.setText("Skip to Next Level");
-		/*added by xiaoqian yu, 2014-12-28, start*/
+		/* added by xiaoqian yu, 2014-12-28, start */
 		myapp = (mypublicvalue) getApplication();
-		/*added by xiaoqian yu, 2014-12-28, over*/
-		main.setOnClickListener(new View.OnClickListener() { // main button to next level
+		/* added by xiaoqian yu, 2014-12-28, over */
+		main.setOnClickListener(new View.OnClickListener() { // main button to
+																// next level
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				/*
-				Intent intent = new Intent(score.this, list.class);
-				myapp.empty();
-				startActivity(intent);
-				finish();*/
-				/*added by xiaoqian yu, 2014-12-28, start*/
-				/*combo count returns to zero*/
+				 * Intent intent = new Intent(score.this, list.class);
+				 * myapp.empty(); startActivity(intent); finish();
+				 */
+				/* added by xiaoqian yu, 2014-12-28, start */
+				/* combo count returns to zero */
 				myapp.empty();
 				managedb db = new managedb(getBaseContext());
 				myapp.setComboBeginningState();
 				myapp.setwords(db.getwords());
 				myapp.set(3, Integer.toString(1 + 1));
-				/*jump to next level, level2*/
+				/* jump to next level, level2 */
 				double h = Math.random();
 				if (h < 0.5) {
 					Intent intent = new Intent(score.this, wordsl2.class);
 					startActivity(intent);
 					// finish();
 				} else {
-					Intent intent = new Intent(score.this,
-							definitionl2.class);
+					Intent intent = new Intent(score.this, definitionl2.class);
 					startActivity(intent);
 				}
 				finish();
-				/*added by xiaoqian yu, 2014-12-28, over*/
+				/* added by xiaoqian yu, 2014-12-28, over */
 			}
 		});
 
@@ -110,31 +130,58 @@ public class score extends Activity {
 
 		myapp = (mypublicvalue) getApplication();
 		myapp.stoplevelmusic();
-		textView1.setText(underlineclear(myapp.get(0))); // course 
-		textView2.setText(myapp.get(1)); // list 
+		textView1.setText(underlineclear(myapp.get(0))); // course
+		textView2.setText(myapp.get(1)); // list
 		textViewlevel.setText(" Level: " + myapp.get(3));// level
 		wcon = myapp.getreviewwrongcontrol(); // review control
-		
-        /*added by xiaoqian yu, 2014-12-21, start*/
+
+		/* added by xiaoqian yu, 2014-12-21, start */
 		EasyTracker easyTracker = EasyTracker.getInstance(score.this);
-		String eventLabel =  myapp.get(0) + "_" + myapp.get(1) + "_level" + myapp.get(3);
-		long eventValue = (long)((myapp.getscore(1) / myapp.getscore(0)) * 100);
-		// MapBuilder.createEvent().build() returns a Map of event fields and values
-        // that are set and sent with the hit.
-		easyTracker.send(MapBuilder
-	      .createEvent("score_output",     // Event category (required)
-	                   "final_percentage_output",  // Event action (required)
-	                   eventLabel,   // Event label
-	                   eventValue)            // Event value
-		   .build()
-		);
-		/*added by xiaoqian yu, 2014-12-21, over*/
+		String eventLabel = myapp.get(0) + "_" + myapp.get(1) + "_level"
+				+ myapp.get(3);
+		long eventValue = (long) ((myapp.getscore(1) / myapp.getscore(0)) * 100);
+		// MapBuilder.createEvent().build() returns a Map of event fields and
+		// values
+		// that are set and sent with the hit.
+		easyTracker.send(MapBuilder.createEvent("score_output", // Event
+																// category
+																// (required)
+				"final_percentage_output", // Event action (required)
+				eventLabel, // Event label
+				eventValue) // Event value
+				.build());
+		/* added by xiaoqian yu, 2014-12-21, over */
+
+		/* added by yi wan, 2015-01-03, start */
+		uiHelper = new UiLifecycleHelper(this, null);
+		uiHelper.onCreate(savedInstanceState);
+		// configure Share Button
+		share = (Button) findViewById(R.id.share);
+		share.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				onClickShare();
+			}
+		});
+		like = (LikeView) findViewById(R.id.likeView);
+		like.setObjectId("https://www.facebook.com/rootsmobileapp");
+		post = (Button) findViewById(R.id.post);
+		post.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				onClickPostScore();
+			}
+		});
+		/* added by yi wan, 2015-01-03, over */
 
 		if (wcon == 0) {
 
 			words = myapp.getwordslv1();
 			wrongwords = myapp.getCwrongwords();
-			bool(); // this method is used to define when words is "". the f is false.
+			bool(); // this method is used to define when words is "". the f is
+					// false.
 		}
 
 		if (wcon == 1) {
@@ -151,9 +198,10 @@ public class score extends Activity {
 
 		rootscorenum = (int) ((myapp.getrootscore(1) / myapp.getrootscore(0)) * 100);
 
-		dbmg();  // store every score into databse
-//
-		//changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
+		dbmg(); // store every score into databse
+		//
+		// changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) *
+		// 100));
 		score.setText((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100)
 				+ "%");
 
@@ -171,7 +219,8 @@ public class score extends Activity {
 
 		}
 
-		for (int i = 0; i < words.length; i++) { // this is used to select right words.
+		for (int i = 0; i < words.length; i++) { // this is used to select right
+													// words.
 
 			for (int j = 0; j < wrongwords.length; j++) {
 
@@ -220,7 +269,10 @@ public class score extends Activity {
 					for (int i = 0; i < words.length; i++) {
 						if (value.equals(words[i][0])) {
 
-							intent.putExtra("name", words[i][0]);  // deliever string by intent method.
+							intent.putExtra("name", words[i][0]); // deliever
+																	// string by
+																	// intent
+																	// method.
 
 							String string = null;
 
@@ -250,7 +302,7 @@ public class score extends Activity {
 											+ words[i][9] + ".\n" + "\n";
 								}
 
-								intent.putExtra("string", string);   
+								intent.putExtra("string", string);
 
 							}
 							break;
@@ -465,7 +517,8 @@ public class score extends Activity {
 				}
 			});
 
-			if (scorenum == 100) {  // it means if socre is 100. there is not review condition.
+			if (scorenum == 100) { // it means if socre is 100. there is not
+									// review condition.
 
 				review.setText("Next Level");
 				review.setOnClickListener(new View.OnClickListener() {
@@ -523,6 +576,53 @@ public class score extends Activity {
 
 	}
 
+	/* added by yi wan, 2015-01-03, start */
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		uiHelper.onActivityResult(requestCode, resultCode, data,
+				new FacebookDialog.Callback() {
+					@Override
+					public void onError(FacebookDialog.PendingCall pendingCall,
+							Exception error, Bundle data) {
+						Log.e("Activity",
+								String.format("Error: %s", error.toString()));
+					}
+
+					@Override
+					public void onComplete(
+							FacebookDialog.PendingCall pendingCall, Bundle data) {
+						Log.i("Activity", "Success!");
+					}
+				});
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		uiHelper.onResume();
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		uiHelper.onSaveInstanceState(outState);
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		uiHelper.onPause();
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		uiHelper.onDestroy();
+	}
+
+	/* added by yi wan, 2015-01-03, over */
 	private void bool() {
 		for (int i = 0; i < f.length; i++) {
 			f[i] = true;
@@ -539,22 +639,28 @@ public class score extends Activity {
 
 		managedb db = new managedb(getBaseContext());
 
-		if (db.coursexist(myapp.get(0))) { // judge weather exist the table in database .�ж����ݿ���ڷ�
+		if (db.coursexist(myapp.get(0))) { // judge weather exist the table in
+											// database .�ж����ݿ���ڷￄ1�7
 			System.out.println("���ݿ���");
 		} else {
 
 			System.out.println("���ݿ���");
-			db.coursereivewcreate(myapp.get(0)); // if not exist, create it. ��������
+			db.coursereivewcreate(myapp.get(0)); // if not exist, create it.
+													// ��������
 			System.out.println("�����ɹ�");
 		}
 
-		if (wcon == 0) {  // delete the order record.
-			db.deletewrongworddb(); // ɾ��ԭ���Ĵ��
+		if (wcon == 0) { // delete the order record.
+			db.deletewrongworddb(); // ɾ��ԭ���Ĵ�ￄ1�7
 			System.out.println("ɾ���ɹ�");
 		}
-		db.insertscore(scorenum, defwordscorenum, rootscorenum, 0, 0); // store every score.
-		db.insertdb(wrongwords, "0"); // store worngwords in databse  �ڶ�������ΪĬ�ϲ������ù� д�����ݿ�
-		System.out.println("����ɹ�");
+		db.insertscore(scorenum, defwordscorenum, rootscorenum, 0, 0); // store
+																		// every
+																		// score.
+		db.insertdb(wrongwords, "0"); // store worngwords in databse
+										// �ڶ�������ΪĬ�ϲ������ù�
+										// д�����ݿ�
+		System.out.println("����ɹￄ1�7");
 
 		db.cleantdata(); // ��ɨ���ݿ� clean wrongwords when it is ""��
 		System.out.println("��ɨ���ݿ�");
@@ -642,7 +748,7 @@ public class score extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.level) {
-		
+
 			myapp.stoplevelmusic();
 			myapp.empty();
 			Intent intent = new Intent(score.this, play.class);
@@ -650,7 +756,6 @@ public class score extends Activity {
 			finish();
 		}
 
-		
 		if (id == R.id.PlayStudyReview) {
 			myapp.stoplevelmusic();
 			myapp.empty();
@@ -711,22 +816,52 @@ public class score extends Activity {
 
 		return super.onOptionsItemSelected(item);
 	}
-	public void changecolorscore(int key){
-		if (key>=86) {
+
+	public void changecolorscore(int key) {
+		if (key >= 86) {
 			score.setTextColor(Color.GREEN);
-			
-		}
-		if (key<=64) {
-			score.setTextColor(Color.RED);		
 
 		}
-		if (key>64&&key<86) 
-			
-	 {
+		if (key <= 64) {
+			score.setTextColor(Color.RED);
+
+		}
+		if (key > 64 && key < 86)
+
+		{
 			score.setTextColor(Color.YELLOW);
 
 		}
 	}
-	
-	
+
+	/* added by yi wan, 2015-01-03, start */
+	private void onClickShare() {
+		String description = "Check out Roots, a mobile game that teaches vocabulary "
+				+ "through etymology! It's a great tool for students "
+				+ "studying for the SAT and ESL students.";
+		if (FacebookDialog.canPresentShareDialog(getApplicationContext(),
+				FacebookDialog.ShareDialogFeature.SHARE_DIALOG)) {
+			// Publish the post using the Share Dialog
+			FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(
+					this).setDescription(description)
+					.setLink("http://www.roots.nyc").build();
+			uiHelper.trackPendingDialogCall(shareDialog.present());
+		}
+	}
+
+	private void onClickPostScore() {
+		String description = "I scored " + scorenum + " on Roots: "
+				+ myapp.get(0) + ", " + myapp.get(1) + ", Level "
+				+ myapp.get(3);
+		if (FacebookDialog.canPresentShareDialog(getApplicationContext(),
+				FacebookDialog.ShareDialogFeature.SHARE_DIALOG)){
+			FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(this)
+			.setDescription(description)
+			.setLink("https://www.facebook.com/rootsmobileapp").build();
+	uiHelper.trackPendingDialogCall(shareDialog.present());
+		}
+
+	}
+	/* added by yi wan, 2015-01-03, over */
+
 }

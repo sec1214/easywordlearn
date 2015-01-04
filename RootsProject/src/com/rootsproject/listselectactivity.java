@@ -3,30 +3,33 @@ package com.rootsproject;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.FacebookDialog;
+import com.facebook.widget.LikeView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 
 import Database.managedb;
 import android.app.Activity;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
-
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.rootsproject.R;
 
 public class listselectactivity extends Activity {
@@ -38,6 +41,12 @@ public class listselectactivity extends Activity {
 	private managedb db; // call database
 	private BroadcastReceiver receiver; // the receiver is used to control Home
 										// key.
+	/* added by yi wan, 2015-01-03, start */
+	private UiLifecycleHelper uiHelper;
+	private Button share;
+	private LikeView like;
+
+	/* added by yi wan, 2015-01-03, over */
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,11 +87,11 @@ public class listselectactivity extends Activity {
 
 		}
 
-		adapter = new ArrayAdapter<>(this,
-				android.R.layout.simple_list_item_1, list);
+		adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
+				list);
 		ListlistView = (ListView) this.findViewById(R.id.Listlistview);
 
-//		ListlistView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+		// ListlistView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 		ListlistView.setAdapter(adapter);
 
 		ListlistView.setOnItemClickListener(new OnItemClickListener() {
@@ -93,28 +102,40 @@ public class listselectactivity extends Activity {
 				// TODO Auto-generated method stub
 
 				myapp.playmusic(1); // button sound
-				String value = ListlistView.getItemAtPosition(position)  //	// the begin of postion is 0;
+				String value = ListlistView.getItemAtPosition(position) // //
+																		// the
+																		// begin
+																		// of
+																		// postion
+																		// is 0;
 						.toString();
-				myapp.set(1, value); // store list name to public value  0 �����ݵ��Ǳ�����1�����ݵ�list����
-				myapp.set(2, Integer.toString(position + 1)); // store list number to public value ������Ҫת��Ϊ+1
+				myapp.set(1, value); // store list name to public value 0
+										// �����ݵ��Ǳ�����1�����ݵ�list����
+				myapp.set(2, Integer.toString(position + 1)); // store list
+																// number to
+																// public value
+																// ������Ҫת��Ϊ+1
 
 				// myapp.setwords(db.getwords());
 
 				Toast.makeText(listselectactivity.this, myapp.get(1), 1).show();
-				
-				/*added by xiaoqian yu, 2014-12-21, start*/
-				EasyTracker easyTracker = EasyTracker.getInstance(listselectactivity.this);
-                String category = "ListSelectionOf_" + myapp.get(0);
-			    // MapBuilder.createEvent().build() returns a Map of event fields and values
-			    // that are set and sent with the hit.
-			    easyTracker.send(MapBuilder
-			      .createEvent(category,     // Event category (required)
-			                   "button_press_to_select_list",  // Event action (required)
-			                   myapp.get(1),   // Event label
-			                   null)            // Event value
-			      .build()
-				);
-				/*added by xiaoqian yu, 2014-12-21, end*/
+
+				/* added by xiaoqian yu, 2014-12-21, start */
+				EasyTracker easyTracker = EasyTracker
+						.getInstance(listselectactivity.this);
+				String category = "ListSelectionOf_" + myapp.get(0);
+				// MapBuilder.createEvent().build() returns a Map of event
+				// fields and values
+				// that are set and sent with the hit.
+				easyTracker.send(MapBuilder.createEvent(category, // Event
+																	// category
+																	// (required)
+						"button_press_to_select_list", // Event action
+														// (required)
+						myapp.get(1), // Event label
+						null) // Event value
+						.build());
+				/* added by xiaoqian yu, 2014-12-21, end */
 
 				Intent intent = new Intent(listselectactivity.this,
 						com.rootsproject.list.class);
@@ -124,10 +145,49 @@ public class listselectactivity extends Activity {
 
 			}
 		});
+		/* added by yi wan, 2015-01-03, start */
+		uiHelper = new UiLifecycleHelper(this, null);
+		uiHelper.onCreate(savedInstanceState);
+		// configure Share Button
+		share = (Button) findViewById(R.id.share);
+		share.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				onClickShare();
+			}
+		});
+		like = (LikeView) findViewById(R.id.likeView);
+		like.setObjectId("https://www.facebook.com/rootsmobileapp");
+		/* added by yi wan, 2015-01-03, over */
 
 	}
 
-	public String underlineclear(String key) {  // this method is used to delele the _ from course name
+	/* added by yi wan, 2015-01-03, start */
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		uiHelper.onActivityResult(requestCode, resultCode, data,
+				new FacebookDialog.Callback() {
+					@Override
+					public void onError(FacebookDialog.PendingCall pendingCall,
+							Exception error, Bundle data) {
+						Log.e("Activity",
+								String.format("Error: %s", error.toString()));
+					}
+
+					@Override
+					public void onComplete(
+							FacebookDialog.PendingCall pendingCall, Bundle data) {
+						Log.i("Activity", "Success!");
+					}
+				});
+	}
+
+	/* added by yi wan, 2015-01-03, over */
+	public String underlineclear(String key) { // this method is used to delele
+												// the _ from course name
 		String flag = key.replace("_", " ");
 		return flag;
 	}
@@ -135,7 +195,7 @@ public class listselectactivity extends Activity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
-		if (keyCode == KeyEvent.KEYCODE_BACK) {  // key back event
+		if (keyCode == KeyEvent.KEYCODE_BACK) { // key back event
 
 			Intent intent = new Intent(listselectactivity.this,
 					MainActivity.class);
@@ -169,6 +229,9 @@ public class listselectactivity extends Activity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		/* added by yi wan, 2015-01-03, start */
+		uiHelper.onResume();
+		/* added by yi wan, 2015-01-03, over */
 		System.out.println("Resume");
 
 	}
@@ -177,6 +240,9 @@ public class listselectactivity extends Activity {
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
+		/* added by yi wan, 2015-01-03, start */
+		uiHelper.onStop();
+		/* added by yi wan, 2015-01-03, over */
 		System.out.println("Stop");
 
 	}
@@ -185,6 +251,9 @@ public class listselectactivity extends Activity {
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
+		/* added by yi wan, 2015-01-03, start */
+		uiHelper.onPause();
+		/* added by yi wan, 2015-01-03, over */
 		System.out.println("Pause");
 
 	}
@@ -193,11 +262,22 @@ public class listselectactivity extends Activity {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
+		/* added by yi wan, 2015-01-03, start */
+		uiHelper.onDestroy();
+		/* added by yi wan, 2015-01-03, over */
 		System.out.println("Destroy");
 		getApplicationContext().unregisterReceiver(receiver);
 
 	}
 
+	/* added by yi wan, 2015-01-03, start */
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		uiHelper.onSaveInstanceState(outState);
+	}
+
+	/* added by yi wan, 2015-01-03, over */
 	protected class HomeKeyEventBroadCastReceiver extends BroadcastReceiver {
 
 		static final String SYSTEM_REASON = "reason";
@@ -211,10 +291,10 @@ public class listselectactivity extends Activity {
 				String reason = intent.getStringExtra(SYSTEM_REASON);
 				if (reason != null) {
 					if (reason.equals(SYSTEM_HOME_KEY)) {
-						myapp.pausesplashmusic(); // home key event �����
+						myapp.pausesplashmusic(); // home key event ����ￄ1�7
 
 					} else if (reason.equals(SYSTEM_RECENT_APPS)) {
-						myapp.pausesplashmusic();// long home key event  �����
+						myapp.pausesplashmusic();// long home key event ����ￄ1�7
 					}
 				}
 			}
@@ -299,4 +379,19 @@ public class listselectactivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/* added by yi wan, 2015-01-03, start */
+	private void onClickShare() {
+		String description = "Check out Roots, a mobile game that teaches vocabulary "
+				+ "through etymology! It's a great tool for students "
+				+ "studying for the SAT and ESL students.";
+		if (FacebookDialog.canPresentShareDialog(getApplicationContext(),
+				FacebookDialog.ShareDialogFeature.SHARE_DIALOG)) {
+			// Publish the post using the Share Dialog
+			FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(
+					this).setDescription(description)
+					.setLink("http://www.roots.nyc").build();
+			uiHelper.trackPendingDialogCall(shareDialog.present());
+		}
+	}
+	/* added by yi wan, 2015-01-03, over */
 }
