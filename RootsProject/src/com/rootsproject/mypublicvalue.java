@@ -17,6 +17,10 @@ import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -1350,5 +1354,16 @@ public class mypublicvalue extends Application {
         	   showImageToast.cancel(); 
            }
         }, 1000);
+	}
+	
+	public Spannable setFillInBlankViewEffect(String viewText, String rootText)
+	{
+		int start = viewText.indexOf(rootText);
+		int end = start + rootText.length();
+		Spannable span = new SpannableString(viewText);
+		span.setSpan(new AbsoluteSizeSpan(100), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		span.setSpan(new ForegroundColorSpan(Color.parseColor("#00CCFF")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		
+		return span;
 	}
 }
