@@ -208,7 +208,7 @@ public class mypublicvalue extends Application {
 				textView.setTypeface(typeFace);
 				textView.setText("  " +constantCorrectCount + " IN A ROW!! ");
 				/**/
-				showImageToast.setGravity(Gravity.TOP, 0, 200);
+				showImageToast.setGravity(Gravity.TOP, 0, 230);
 				showImageToast.setDuration(Toast.LENGTH_LONG);
 				showImageToast.setView(toastViewWithoutImage);
 				showImageToast.show();
