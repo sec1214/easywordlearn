@@ -11,7 +11,7 @@
              
                <item android:id="@+id/level"
                  android:orderInCategory="100"
-                 android:title="Level Page"/>
+                 android:title="Level Selection"/>
              
               <item 
                  android:id="@+id/PlayStudyReview"
@@ -21,11 +21,11 @@
              <item 
                  android:id="@+id/listpage"
                   android:orderInCategory="100"
-                 android:title="List Page"/>
+                 android:title="List Selection"/>
                  
              <item android:id="@+id/coursepage"
                  android:orderInCategory="100"
-                 android:title="Course Page"/>
+                 android:title="Category Selection"/>
            
            
              
