@@ -3,6 +3,8 @@
 	<name>RootsProject</name>
 	<comment></comment>
 	<projects>
+		<project>android-support-v7-appcompat</project>
+		<project>FacebookSDK</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
