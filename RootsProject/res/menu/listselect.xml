@@ -11,7 +11,7 @@
              
              <item android:id="@+id/mainpage"
                  android:orderInCategory="100"
-                 android:title="Course Page"/>
+                 android:title="Category Selection"/>
              <item 
                  android:id="@+id/Exit"
                  android:orderInCategory="100"

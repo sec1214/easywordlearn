@@ -347,11 +347,12 @@ public class missrootl7 extends Activity {
 						myapp.setscore(1, ++rightnum);
 						myapp.setscore(0, ++clicknum);
 						root[rootkey++] = k;
-						missrootwordTextView.setText(getresultword(rootnum));
+						//missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
+						missrootwordTextView.setText(myapp.setFillInBlankViewEffect(getresultword(rootnum), k));
+						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
-							missrootwordTextView.setTextColor(Color.BLACK);
+							//missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -467,11 +468,12 @@ public class missrootl7 extends Activity {
 						myapp.setscore(1, ++rightnum);
 						myapp.setscore(0, ++clicknum);
 						root[rootkey++] = k;
-						missrootwordTextView.setText(getresultword(rootnum));
+						//missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
+						missrootwordTextView.setText(myapp.setFillInBlankViewEffect(getresultword(rootnum), k));
+						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
-							missrootwordTextView.setTextColor(Color.BLACK);
+							//missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -585,11 +587,12 @@ public class missrootl7 extends Activity {
 						myapp.setscore(1, ++rightnum);
 						myapp.setscore(0, ++clicknum);
 						root[rootkey++] = k;
-						missrootwordTextView.setText(getresultword(rootnum));
+						//missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
+						missrootwordTextView.setText(myapp.setFillInBlankViewEffect(getresultword(rootnum), k));
+						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
-							missrootwordTextView.setTextColor(Color.BLACK);
+							//missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -703,11 +706,12 @@ public class missrootl7 extends Activity {
 						myapp.setscore(1, ++rightnum);
 						myapp.setscore(0, ++clicknum);
 						root[rootkey++] = k;
-						missrootwordTextView.setText(getresultword(rootnum));
+						//missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
+						missrootwordTextView.setText(myapp.setFillInBlankViewEffect(getresultword(rootnum), k));
+						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
-							missrootwordTextView.setTextColor(Color.BLACK);
+							//missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -820,11 +824,12 @@ public class missrootl7 extends Activity {
 						myapp.setscore(1, ++rightnum);
 						myapp.setscore(0, ++clicknum);
 						root[rootkey++] = k;
-						missrootwordTextView.setText(getresultword(rootnum));
+						//missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
+						missrootwordTextView.setText(myapp.setFillInBlankViewEffect(getresultword(rootnum), k));
+						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
-							missrootwordTextView.setTextColor(Color.BLACK);
+							//missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -937,11 +942,12 @@ public class missrootl7 extends Activity {
 						myapp.setscore(1, ++rightnum);
 						myapp.setscore(0, ++clicknum);
 						root[rootkey++] = k;
-						missrootwordTextView.setText(getresultword(rootnum));
+						//missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
+						missrootwordTextView.setText(myapp.setFillInBlankViewEffect(getresultword(rootnum), k));
+						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
-							missrootwordTextView.setTextColor(Color.BLACK);
+							//missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1060,11 +1066,12 @@ public class missrootl7 extends Activity {
 						root1.setText(getchangeroot(k));
 						myapp.playmusic(1);
 						root[rootkey++] = k;
-						missrootwordTextView.setText(getresultword(rootnum));
+						//missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
+						missrootwordTextView.setText(myapp.setFillInBlankViewEffect(getresultword(rootnum), k));
+						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
-							missrootwordTextView.setTextColor(Color.BLACK);
+							//missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 							if (words[wordnum][0].equals("")) {
 
@@ -1140,11 +1147,12 @@ public class missrootl7 extends Activity {
 						root2.setText(getchangeroot(k));
 						myapp.playmusic(1);
 						root[rootkey++] = k;
-						missrootwordTextView.setText(getresultword(rootnum));
+						//missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
+						missrootwordTextView.setText(myapp.setFillInBlankViewEffect(getresultword(rootnum), k));
+						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
-							missrootwordTextView.setTextColor(Color.BLACK);
+							//missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1221,11 +1229,12 @@ public class missrootl7 extends Activity {
 						root3.setText(getchangeroot(k));
 						myapp.playmusic(1);
 						root[rootkey++] = k;
-						missrootwordTextView.setText(getresultword(rootnum));
+						//missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
+						missrootwordTextView.setText(myapp.setFillInBlankViewEffect(getresultword(rootnum), k));
+						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
-							missrootwordTextView.setTextColor(Color.BLACK);
+							//missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1302,11 +1311,12 @@ public class missrootl7 extends Activity {
 						root4.setText(getchangeroot(k));
 						myapp.playmusic(1);
 						root[rootkey++] = k;
-						missrootwordTextView.setText(getresultword(rootnum));
+						//missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
+						missrootwordTextView.setText(myapp.setFillInBlankViewEffect(getresultword(rootnum), k));
+						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
-							missrootwordTextView.setTextColor(Color.BLACK);
+							//missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1383,11 +1393,12 @@ public class missrootl7 extends Activity {
 						root5.setText(getchangeroot(k));
 						myapp.playmusic(1);
 						root[rootkey++] = k;
-						missrootwordTextView.setText(getresultword(rootnum));
+						//missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
+						missrootwordTextView.setText(myapp.setFillInBlankViewEffect(getresultword(rootnum), k));
+						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
-							missrootwordTextView.setTextColor(Color.BLACK);
+							//missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1464,11 +1475,12 @@ public class missrootl7 extends Activity {
 						root6.setText(getchangeroot(k));
 						myapp.playmusic(1);
 						root[rootkey++] = k;
-						missrootwordTextView.setText(getresultword(rootnum));
+						//missrootwordTextView.setText(getresultword(rootnum));
 						clicknumtouch++;
-						missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
+						missrootwordTextView.setText(myapp.setFillInBlankViewEffect(getresultword(rootnum), k));
+						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
-							missrootwordTextView.setTextColor(Color.BLACK);
+							//missrootwordTextView.setTextColor(Color.BLACK);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
