@@ -1,0 +1,62 @@
+﻿Revert "facebook share, like and post score"
+
+This reverts commit 50451016da336a210c5d6e5579041498b5a2aca5, reversing
+changes made to 67bb91d5f4b6ffe01cca037bf57c5b3a81dca785.
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch develop
+# Your branch is up-to-date with 'origin/develop'.
+#
+# Changes to be committed:
+#	deleted:    .gitignore
+#	modified:   RootsProject/bin/classes/com/rootsproject/mypublicvalue$3.class
+#	new file:   RootsProject/bin/classes/com/rootsproject/scoreword$2.class
+#	new file:   RootsProject/bin/classes/com/rootsproject/scoreword$3.class
+#	modified:   RootsProject/bin/classes/level3/missroot$1.class
+#	modified:   RootsProject/bin/classes/level3/missroot$14$1.class
+#	modified:   RootsProject/bin/classes/level3/missroot$15.class
+#	modified:   RootsProject/bin/classes/level3/missroot$16$1.class
+#	modified:   RootsProject/bin/classes/level3/missroot$16.class
+#	modified:   RootsProject/bin/classes/level3/missroot$2$1.class
+#	modified:   RootsProject/bin/classes/level3/missroot$2$2.class
+#	modified:   RootsProject/bin/classes/level3/missroot$3$1.class
+#	modified:   RootsProject/bin/classes/level3/missroot$4$1.class
+#	modified:   RootsProject/bin/classes/level3/missroot$4$2.class
+#	modified:   RootsProject/bin/classes/level3/missroot$5$1.class
+#	modified:   RootsProject/bin/classes/level3/missroot$5$2.class
+#	modified:   RootsProject/bin/classes/level3/missroot$6$1.class
+#	modified:   RootsProject/bin/classes/level3/missroot$6$2.class
+#	modified:   RootsProject/bin/classes/level3/missroot$7$1.class
+#	modified:   RootsProject/bin/classes/level3/missroot$7$2.class
+#	modified:   RootsProject/bin/classes/level3/missroot$HomeKeyEventBroadCastReceiver.class
+#	modified:   RootsProject/bin/classes/level7/missrootl7$15$1.class
+#	modified:   RootsProject/bin/classes/level7/missrootl7$16.class
+#	modified:   RootsProject/bin/classes/level7/missrootl7$17.class
+#	modified:   RootsProject/bin/classes/level7/missrootl7$18$1.class
+#	modified:   RootsProject/bin/classes/level7/missrootl7$18.class
+#	modified:   RootsProject/bin/classes/level7/missrootl7$3$1.class
+#	modified:   RootsProject/bin/classes/level7/missrootl7$3$2.class
+#	modified:   RootsProject/bin/classes/level7/missrootl7$4$1.class
+#	modified:   RootsProject/bin/classes/level7/missrootl7$4$2.class
+#	modified:   RootsProject/bin/classes/level7/missrootl7$5$1.class
+#	modified:   RootsProject/bin/classes/level7/missrootl7$5$2.class
+#	modified:   RootsProject/bin/classes/level7/missrootl7$6$1.class
+#	modified:   RootsProject/bin/classes/level7/missrootl7$6$2.class
+#	modified:   RootsProject/bin/classes/level7/missrootl7$7$1.class
+#	modified:   RootsProject/bin/classes/level7/missrootl7$7$2.class
+#	modified:   RootsProject/bin/classes/level7/missrootl7$8$1.class
+#	modified:   RootsProject/bin/classes/level7/missrootl7$8$2.class
+#	modified:   RootsProject/bin/classes/level7/missrootl7$HomeKeyEventBroadCastReceiver.class
+#	deleted:    RootsProject/bin/dexedLibs/android-support-v7-appcompat-ba45912c59140f705babeb3893ebda41.jar
+#	modified:   RootsProject/res/menu/game.xml
+#	modified:   RootsProject/res/menu/list.xml
+#	modified:   RootsProject/res/menu/listselect.xml
+#	modified:   RootsProject/res/menu/play.xml
+#	modified:   RootsProject/res/menu/studywordcolor.xml
+#	modified:   RootsProject/src/com/rootsproject/mypublicvalue.java
+#	modified:   RootsProject/src/com/rootsproject/scoreword.java
+#	modified:   RootsProject/src/level3/missroot.java
+#	modified:   RootsProject/src/level7/missrootl7.java
+#
+

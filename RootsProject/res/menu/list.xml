@@ -12,11 +12,11 @@
              <item 
                  android:id="@+id/listselect"
                   android:orderInCategory="100"
-                 android:title="List Selection"/>
+                 android:title="List Page"/>
                  
              <item android:id="@+id/mainpage"
                  android:orderInCategory="100"
-                 android:title="Category Selection"/>
+                 android:title="Course Page"/>
              <item 
                  android:id="@+id/Exit"
                  android:orderInCategory="100"
