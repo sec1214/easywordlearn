@@ -571,7 +571,7 @@ public class scorel3 extends Activity {
 
 		managedb db = new managedb(getBaseContext());
 
-		if (db.coursexist(myapp.get(0))) { // �ж����ݿ���ڷￄ1�7
+		if (db.coursexist(myapp.get(0))) { // �ж����ݿ���ڷￄ1�7
 			System.out.println("��");
 		} else {
 
@@ -581,13 +581,13 @@ public class scorel3 extends Activity {
 		}
 
 		if (wcon == 0) {
-			db.deletewrongworddb(); // ɾ��ԭ���Ĵ�ￄ1�7
+			db.deletewrongworddb(); // ɾ��ԭ���Ĵ�ￄ1�7
 			System.out.println("ɾ���ɹ�");
 		}
 		db.insertscore(k, 0, 0, 0, 0);
 		db.insertdb(wrongwords, "0"); // �ڶ�������ΪĬ�ϲ������ù�
 										// д�����ݿ�
-		System.out.println("����ɹￄ1�7");
+		System.out.println("����ɹￄ1�7");
 
 		db.cleantdata(); // ��ɨ���ݿ�
 		System.out.println("��ɨ���ݿ�");
@@ -603,40 +603,10 @@ public class scorel3 extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			alertdDialog = new AlertDialog.Builder(this)
-					.setTitle("EXIT LEVEL")
-					.setMessage("Do you want to exit this level learning��")
-					.setIcon(R.drawable.ic_launcher)
-					.setPositiveButton("Confirm",
-							new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									// TODO Auto-generated method stub
-									myapp.empty();
-
-									Intent intent = new Intent(scorel3.this,
-											play.class);
-									startActivity(intent);
-									finish();
-
-								}
-							})
-					.setNegativeButton("No",
-							new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									// TODO Auto-generated method stub
-
-									alertdDialog.cancel();
-								}
-							}).create();
-
-			alertdDialog.show();
-
+			myapp.empty();
+			Intent intent = new Intent(scorel3.this, play.class);
+			startActivity(intent);
+			finish();
 		}
 
 		return super.onKeyDown(keyCode, event);

@@ -47,7 +47,7 @@ public class scorel8 extends Activity {
 	private String[][] wrongwords;
 	private String[][] words;
 	private boolean[] f = new boolean[21];
-	private int wcon; // ¸´Ï°¿ØÖÆ·§
+	private int wcon; // ï¿½ï¿½Ï°ï¿½ï¿½ï¿½Æ·ï¿½
 	private TextView main;
 	private TextView textView1, textView2, textViewlevel;
 	private LinearLayout defwordline, idrootline, rootline;
@@ -199,8 +199,8 @@ public class scorel8 extends Activity {
 					Intent intent = new Intent(scorel8.this, scoreword.class);
 
 					String value = correct.getItemAtPosition(position) // postion
-																		// 1ºÅÎ»
-																		// ´Ó0¿ªÊ¼Ëã
+																		// 1ï¿½ï¿½Î»
+																		// ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½
 							.toString();
 
 					for (int i = 0; i < words.length; i++) {
@@ -256,8 +256,8 @@ public class scorel8 extends Activity {
 					Intent intent = new Intent(scorel8.this, scoreword.class);
 
 					String value = incorret.getItemAtPosition(position) // postion
-																		// 1ºÅÎ»
-																		// ´Ó0¿ªÊ¼Ëã
+																		// 1ï¿½ï¿½Î»
+																		// ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½
 							.toString();
 
 					for (int i = 0; i < wrongwords.length; i++) {
@@ -331,8 +331,8 @@ public class scorel8 extends Activity {
 					Intent intent = new Intent(scorel8.this, scoreword.class);
 
 					String value = correct.getItemAtPosition(position) // postion
-																		// 1ºÅÎ»
-																		// ´Ó0¿ªÊ¼Ëã
+																		// 1ï¿½ï¿½Î»
+																		// ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½
 							.toString();
 
 					for (int i = 0; i < words.length; i++) {
@@ -388,8 +388,8 @@ public class scorel8 extends Activity {
 					Intent intent = new Intent(scorel8.this, scoreword.class);
 
 					String value = incorret.getItemAtPosition(position) // postion
-																		// 1ºÅÎ»
-																		// ´Ó0¿ªÊ¼Ëã
+																		// 1ï¿½ï¿½Î»
+																		// ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½
 							.toString();
 
 					for (int i = 0; i < wrongwords.length; i++) {
@@ -475,7 +475,7 @@ public class scorel8 extends Activity {
 									wordsl8.class);
 							startActivity(intent);
 						}
-						myapp.setreviewwrongcontrol(1); // Éè¶¨½øÈëwrongÑ­»·
+						myapp.setreviewwrongcontrol(1); // ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½wrongÑ­ï¿½ï¿½
 
 						finish();
 					}
@@ -550,25 +550,25 @@ public class scorel8 extends Activity {
 
 		managedb db = new managedb(getBaseContext());
 
-		if (db.coursexist(myapp.get(0))) { // ÅÐ¶ÏÊý¾Ý¿â´æÔÚ·ñ
-			System.out.println("ÓÐ");
+		if (db.coursexist(myapp.get(0))) { // ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½Ú·ï¿½
+			System.out.println("ï¿½ï¿½");
 		} else {
 
-			System.out.println("ÎÞ");
-			db.coursereivewcreate(myapp.get(0)); // ´´½¨Êý¾Ý
-			System.out.println("´´½¨³É¹¦");
+			System.out.println("ï¿½ï¿½");
+			db.coursereivewcreate(myapp.get(0)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
 		}
 
 		if (wcon == 0) {
-			db.deletewrongworddb(); // É¾³ýÔ­À´µÄ´í´Ê
-			System.out.println("É¾³ý³É¹¦");
+			db.deletewrongworddb(); // É¾ï¿½ï¿½Ô­ï¿½ï¿½ï¿½Ä´ï¿½ï¿½
+			System.out.println("É¾ï¿½ï¿½ï¿½É¹ï¿½");
 		}
 		db.insertscore(scorenum, 0, 0, 0, 0);
-		db.insertdb(wrongwords, "0"); // µÚ¶þ¸ö²ÎÊýÎªÄ¬ÈÏ²ÎÊý²»ÓÃ¹Ü Ð´ÈëÊý¾Ý¿â
-		System.out.println("ÊäÈë³É¹¦");
+		db.insertdb(wrongwords, "0"); // ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÄ¬ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¹ï¿½ Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
+		System.out.println("ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
 
-		db.cleantdata(); // ÇåÉ¨Êý¾Ý¿â
-		System.out.println("ÇåÉ¨Êý¾Ý¿â");
+		db.cleantdata(); // ï¿½ï¿½É¨ï¿½ï¿½ï¿½Ý¿ï¿½
+		System.out.println("ï¿½ï¿½É¨ï¿½ï¿½ï¿½Ý¿ï¿½");
 
 	}
 
@@ -581,40 +581,12 @@ public class scorel8 extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			alertdDialog = new AlertDialog.Builder(this)
-					.setTitle("EXIT LEVEL")
-					.setMessage("Do you want to exit this level learning£¿")
-					.setIcon(R.drawable.ic_launcher)
-					.setPositiveButton("Confirm",
-							new DialogInterface.OnClickListener() {
+			myapp.empty();
 
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									// TODO Auto-generated method stub
-									myapp.empty();
-
-									Intent intent = new Intent(scorel8.this,
-											play.class);
-									startActivity(intent);
-									finish();
-
-								}
-							})
-					.setNegativeButton("No",
-							new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									// TODO Auto-generated method stub
-
-									alertdDialog.cancel();
-								}
-							}).create();
-
-			alertdDialog.show();
-
+			Intent intent = new Intent(scorel8.this,
+					play.class);
+			startActivity(intent);
+			finish();
 		}
 
 		return super.onKeyDown(keyCode, event);

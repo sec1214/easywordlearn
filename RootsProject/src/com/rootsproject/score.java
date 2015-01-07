@@ -640,7 +640,7 @@ public class score extends Activity {
 		managedb db = new managedb(getBaseContext());
 
 		if (db.coursexist(myapp.get(0))) { // judge weather exist the table in
-											// database .�ж����ݿ���ڷￄ1�7
+											// database .�ж����ݿ���ڷￄ1�7
 			System.out.println("���ݿ���");
 		} else {
 
@@ -651,7 +651,7 @@ public class score extends Activity {
 		}
 
 		if (wcon == 0) { // delete the order record.
-			db.deletewrongworddb(); // ɾ��ԭ���Ĵ�ￄ1�7
+			db.deletewrongworddb(); // ɾ��ԭ���Ĵ�ￄ1�7
 			System.out.println("ɾ���ɹ�");
 		}
 		db.insertscore(scorenum, defwordscorenum, rootscorenum, 0, 0); // store
@@ -660,7 +660,7 @@ public class score extends Activity {
 		db.insertdb(wrongwords, "0"); // store worngwords in databse
 										// �ڶ�������ΪĬ�ϲ������ù�
 										// д�����ݿ�
-		System.out.println("����ɹￄ1�7");
+		System.out.println("����ɹￄ1�7");
 
 		db.cleantdata(); // ��ɨ���ݿ� clean wrongwords when it is ""��
 		System.out.println("��ɨ���ݿ�");
@@ -676,40 +676,12 @@ public class score extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			alertdDialog = new AlertDialog.Builder(this)
-					.setTitle("EXIT LEVEL")
-					.setMessage("Do you want to exit this level learning��")
-					.setIcon(R.drawable.ic_launcher)
-					.setPositiveButton("Confirm",
-							new DialogInterface.OnClickListener() {
+			myapp.empty();
 
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									// TODO Auto-generated method stub
-									myapp.empty();
-
-									Intent intent = new Intent(score.this,
-											play.class);
-									startActivity(intent);
-									finish();
-
-								}
-							})
-					.setNegativeButton("No",
-							new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									// TODO Auto-generated method stub
-
-									alertdDialog.cancel();
-								}
-							}).create();
-
-			alertdDialog.show();
-
+		Intent intent = new Intent(score.this,
+				play.class);
+		startActivity(intent);
+		finish();
 		}
 
 		return super.onKeyDown(keyCode, event);
