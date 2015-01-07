@@ -61,9 +61,10 @@ public class scoreword extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			/*
 			Intent intent = new Intent(scoreword.this,
 					play.class);
-			startActivity(intent);
+			startActivity(intent);*/
 			finish();
 		}
 

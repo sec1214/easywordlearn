@@ -49,7 +49,7 @@ public class reviewscore extends Activity {
 	private String[][] wrongwords;
 	private String[][] words;
 	private boolean[] f = new boolean[21];
-	private int wcon; // ¸´Ï°¿ØÖÆ·§
+	private int wcon; // ï¿½ï¿½Ï°ï¿½ï¿½ï¿½Æ·ï¿½
 	private TextView main;
 	private LinearLayout defwordline, idrootline, rootline;
 
@@ -243,8 +243,8 @@ public class reviewscore extends Activity {
 							scoreword.class);
 
 					String value = correct.getItemAtPosition(position) // postion
-																		// 1ºÅÎ»
-																		// ´Ó0¿ªÊ¼Ëã
+																		// 1ï¿½ï¿½Î»
+																		// ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½
 							.toString();
 
 					for (int i = 0; i < words.length; i++) {
@@ -301,8 +301,8 @@ public class reviewscore extends Activity {
 							scoreword.class);
 
 					String value = incorret.getItemAtPosition(position) // postion
-																		// 1ºÅÎ»
-																		// ´Ó0¿ªÊ¼Ëã
+																		// 1ï¿½ï¿½Î»
+																		// ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½
 							.toString();
 
 					for (int i = 0; i < wrongwords.length; i++) {
@@ -377,8 +377,8 @@ public class reviewscore extends Activity {
 							scoreword.class);
 
 					String value = correct.getItemAtPosition(position) // postion
-																		// 1ºÅÎ»
-																		// ´Ó0¿ªÊ¼Ëã
+																		// 1ï¿½ï¿½Î»
+																		// ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½
 							.toString();
 
 					for (int i = 0; i < words.length; i++) {
@@ -435,8 +435,8 @@ public class reviewscore extends Activity {
 							scoreword.class);
 
 					String value = incorret.getItemAtPosition(position) // postion
-																		// 1ºÅÎ»
-																		// ´Ó0¿ªÊ¼Ëã
+																		// 1ï¿½ï¿½Î»
+																		// ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½
 							.toString();
 
 					for (int i = 0; i < wrongwords.length; i++) {
@@ -516,25 +516,25 @@ public class reviewscore extends Activity {
 	public void dbmg() {
 
 		managedb db = new managedb(getBaseContext());
-		if (db.coursexist(myapp.get(0))) { // ÅÐ¶ÏÊý¾Ý¿â´æÔÚ·ñ
-			System.out.println("ÓÐ");
+		if (db.coursexist(myapp.get(0))) { // ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½Ú·ï¿½
+			System.out.println("ï¿½ï¿½");
 		} else {
 
-			System.out.println("ÎÞ");
-			db.coursereivewcreate(myapp.get(0)); // ´´½¨Êý¾Ý
-			System.out.println("´´½¨³É¹¦");
+			System.out.println("ï¿½ï¿½");
+			db.coursereivewcreate(myapp.get(0)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
 		}
 
 		if (wcon == 0) {
-			db.deletewrongworddb(); // É¾³ýÔ­À´µÄ´í´Ê
-			System.out.println("É¾³ý³É¹¦");
+			db.deletewrongworddb(); // É¾ï¿½ï¿½Ô­ï¿½ï¿½ï¿½Ä´ï¿½ï¿½
+			System.out.println("É¾ï¿½ï¿½ï¿½É¹ï¿½");
 		}
 
-		db.insertdb(wrongwords, "0"); // µÚ¶þ¸ö²ÎÊýÎªÄ¬ÈÏ²ÎÊý²»ÓÃ¹Ü Ð´ÈëÊý¾Ý¿â
-		System.out.println("ÊäÈë³É¹¦");
+		db.insertdb(wrongwords, "0"); // ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÄ¬ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¹ï¿½ Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
+		System.out.println("ï¿½ï¿½ï¿½ï¿½É¹ï¿½");
 
-		db.cleantdata(); // ÇåÉ¨Êý¾Ý¿â
-		System.out.println("ÇåÉ¨Êý¾Ý¿â");
+		db.cleantdata(); // ï¿½ï¿½É¨ï¿½ï¿½ï¿½Ý¿ï¿½
+		System.out.println("ï¿½ï¿½É¨ï¿½ï¿½ï¿½Ý¿ï¿½");
 
 	}
 
@@ -568,7 +568,7 @@ public class reviewscore extends Activity {
 		return word;
 	}
 
-	private String[][] get10ranwords(String[][] words) { // È¡µÃÇ°10¸öµ¥´Ê£¬²¢Ëæ»úÖØÅÅ¡£
+	private String[][] get10ranwords(String[][] words) { // È¡ï¿½ï¿½Ç°10ï¿½ï¿½ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¡ï¿½
 
 		String[][] word = words;
 
@@ -603,40 +603,12 @@ public class reviewscore extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			alertdDialog = new AlertDialog.Builder(this)
-					.setTitle("EXIT LEVEL")
-					.setMessage("Do you want to exit this level learning£¿")
-					.setIcon(R.drawable.ic_launcher)
-					.setPositiveButton("Confirm",
-							new DialogInterface.OnClickListener() {
+			myapp.empty();
 
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									// TODO Auto-generated method stub
-									myapp.empty();
-
-									Intent intent = new Intent(
-											reviewscore.this, reviwlevel.class);
-									startActivity(intent);
-									finish();
-
-								}
-							})
-					.setNegativeButton("No",
-							new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									// TODO Auto-generated method stub
-
-									alertdDialog.cancel();
-								}
-							}).create();
-
-			alertdDialog.show();
-
+			Intent intent = new Intent(
+					reviewscore.this, reviwlevel.class);
+			startActivity(intent);
+			finish();
 		}
 
 		return super.onKeyDown(keyCode, event);
@@ -698,10 +670,10 @@ public class reviewscore extends Activity {
 				String reason = intent.getStringExtra(SYSTEM_REASON);
 				if (reason != null) {
 					if (reason.equals(SYSTEM_HOME_KEY)) {
-						myapp.pausesplashmusic(); // home key´¦Àíµã
+						myapp.pausesplashmusic(); // home keyï¿½ï¿½ï¿½ï¿½ï¿½
 
 					} else if (reason.equals(SYSTEM_RECENT_APPS)) {
-						myapp.pausesplashmusic(); // long home key´¦Àíµã
+						myapp.pausesplashmusic(); // long home keyï¿½ï¿½ï¿½ï¿½ï¿½
 					}
 				}
 			}
