@@ -92,7 +92,7 @@ public class missrootl7 extends Activity {
 			int k = (int) (millisUntilFinished / 1000);
 
 			textViewwr.setText( k + "'s");
-
+			textViewwr.setTextSize(40);
 			if (k > 5) {
 				myapp.playmusic(4);
 			}
@@ -235,8 +235,9 @@ public class missrootl7 extends Activity {
 		textView2.setText(myapp.get(1));
 
 		textViewlevel.setText(" Level: " + myapp.get(3)); // �趨��ʾlevel�Ŀؼ�
-		textViewwr.setText("Fill Blank");
-
+		textViewwr.setText("Fill in the Blank");
+		textViewwr.setTextSize(20);
+		
 		wordnum = Integer.parseInt(myapp.get(4));
 
 		// rootstep = Integer.parseInt(myapp.get(5));
