@@ -213,7 +213,7 @@ public class idroortsl2 extends Activity {
 			textViewwr.setText("Wrong Review");
 			textViewwr.setTextColor(Color.WHITE);
 			textViewwr.setBackgroundColor(Color.RED);
-			
+			textViewwr.setTextSize(20);
 
 		}
 

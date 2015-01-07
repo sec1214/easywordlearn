@@ -243,7 +243,7 @@ public class rootl4 extends Activity {
 			textViewwr.setText("Wrong Review");
 			textViewwr.setBackgroundColor(Color.RED);
 			textViewwr.setTextColor(Color.WHITE);
-
+			textViewwr.setTextSize(20);
 		}
 		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
 		textViewword.setText("Word: " + wordnum + " / " + wordnum()); // �趨��ʾ����word�Ŀؼ�

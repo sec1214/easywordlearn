@@ -252,9 +252,7 @@ public class rootl6 extends Activity {
 			textViewwr.setText("Wrong Review");
 			textViewwr.setBackgroundColor(Color.RED);
 			textViewwr.setTextColor(Color.WHITE);
-
-			
-
+			textViewwr.setTextSize(20);
 		}
 		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));
 		textViewscore.setText(

@@ -189,6 +189,7 @@ public class missroot extends Activity {
 			textViewwr.setText("Wrong Review");
 			textViewwr.setTextColor(Color.WHITE);
 			textViewwr.setBackgroundColor(Color.RED);
+			textViewwr.setTextSize(20);
 		}
 		textViewword.setText("Word: " + wordnum + " / " + wordnum()); // �趨��ʾ����word�Ŀؼ�
 		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));

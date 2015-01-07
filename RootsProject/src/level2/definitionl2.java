@@ -199,7 +199,7 @@ public class definitionl2 extends Activity {
 			textViewwr.setText("Wrong Review");
 			textViewwr.setTextColor(Color.WHITE);
 			textViewwr.setBackgroundColor(Color.RED);
-		
+			textViewwr.setTextSize(20);
 
 		}
 		changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) * 100));

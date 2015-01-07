@@ -21,6 +21,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -1361,7 +1362,7 @@ public class mypublicvalue extends Application {
 		int start = viewText.indexOf(rootText);
 		int end = start + rootText.length();
 		Spannable span = new SpannableString(viewText);
-		span.setSpan(new AbsoluteSizeSpan(100), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		span.setSpan(new RelativeSizeSpan(1.2f), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		span.setSpan(new ForegroundColorSpan(Color.parseColor("#00CCFF")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		
 		return span;
