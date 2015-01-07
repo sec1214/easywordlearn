@@ -90,7 +90,7 @@ public class scorel3 extends Activity {
 		textView2.setText(myapp.get(1));
 		textViewlevel.setText(" Level: " + myapp.get(3));
 		main.setText("Skip to Next Level");
-
+		myapp.resetConstantCorrectCount();
 		main.setOnClickListener(new View.OnClickListener() {
 
 			@Override

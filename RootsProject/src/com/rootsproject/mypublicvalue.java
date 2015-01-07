@@ -236,7 +236,10 @@ public class mypublicvalue extends Application {
 		constantCorrectCount = 0;
 	}
 	/*added by xiaoqian yu, 2014-12-22, over*/
-	
+	public void resetConstantCorrectCount()
+	{
+		constantCorrectCount = 0;
+	}
 	/*added by xiaoqian yu, 2014-12-22, start*/
 	public int setPulseTimeInterval(double correctCount, double totalCount)
 	{

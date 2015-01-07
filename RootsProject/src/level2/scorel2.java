@@ -89,7 +89,7 @@ public class scorel2 extends Activity {
 		/* added by xiaoqian yu, 2014-12-28, start */
 		myapp = (mypublicvalue) getApplication();
 		/* added by xiaoqian yu, 2014-12-28, over */
-
+		myapp.resetConstantCorrectCount();
 		main.setOnClickListener(new View.OnClickListener() {
 
 			@Override

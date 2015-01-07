@@ -84,6 +84,7 @@ public class scorel7 extends Activity {
 
 		myapp = (mypublicvalue) getApplication();
 		myapp.stoplevelmusic();
+		myapp.resetConstantCorrectCount();
 		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
 		textViewlevel.setText(" Level: " + myapp.get(3));

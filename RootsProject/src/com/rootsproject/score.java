@@ -90,6 +90,7 @@ public class score extends Activity {
 		/* added by xiaoqian yu, 2014-12-28, start */
 		myapp = (mypublicvalue) getApplication();
 		/* added by xiaoqian yu, 2014-12-28, over */
+		myapp.resetConstantCorrectCount();
 		main.setOnClickListener(new View.OnClickListener() { // main button to
 																// next level
 
