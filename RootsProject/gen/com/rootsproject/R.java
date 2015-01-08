@@ -1325,12 +1325,13 @@ containing a value of this type.
         public static final int word=0x7f0200a9;
     }
     public static final class id {
-        public static final int Exit=0x7f0c00b4;
+        public static final int Exit=0x7f0c00b6;
         public static final int Listlistview=0x7f0c0079;
         public static final int Listlistviewcorrect=0x7f0c009c;
         public static final int Listlistviewincorrect=0x7f0c009d;
         public static final int Listtextview=0x7f0c0078;
-        public static final int PlayStudyReview=0x7f0c00b1;
+        public static final int Listtextview1=0x7f0c00ac;
+        public static final int PlayStudyReview=0x7f0c00b3;
         public static final int TextViewInfo=0x7f0c00a0;
         public static final int action_bar=0x7f0c0027;
         public static final int action_bar_activity_content=0x7f0c0001;
@@ -1345,7 +1346,7 @@ containing a value of this type.
         public static final int action_mode_close_button=0x7f0c002f;
         public static final int activity_chooser_view_content=0x7f0c0030;
         public static final int always=0x7f0c001a;
-        public static final int backscore=0x7f0c00ae;
+        public static final int backscore=0x7f0c00b0;
         public static final int beginning=0x7f0c0021;
         public static final int bottom=0x7f0c000c;
         public static final int box_count=0x7f0c0009;
@@ -1381,7 +1382,7 @@ containing a value of this type.
         public static final int com_facebook_usersettingsfragment_login_button=0x7f0c0060;
         public static final int com_facebook_usersettingsfragment_logo_image=0x7f0c005e;
         public static final int com_facebook_usersettingsfragment_profile_name=0x7f0c005f;
-        public static final int coursepage=0x7f0c00b3;
+        public static final int coursepage=0x7f0c00b5;
         public static final int default_activity_button=0x7f0c0033;
         public static final int definition=0x7f0c007d;
         public static final int defwordline=0x7f0c0096;
@@ -1405,18 +1406,18 @@ containing a value of this type.
         public static final int inline=0x7f0c000d;
         public static final int large=0x7f0c0006;
         public static final int left=0x7f0c0010;
-        public static final int level=0x7f0c00b0;
+        public static final int level=0x7f0c00b2;
         public static final int levellist=0x7f0c008e;
         public static final int leveltext=0x7f0c0063;
         public static final int likeView=0x7f0c00ab;
         public static final int listMode=0x7f0c0012;
         public static final int list_item=0x7f0c0034;
-        public static final int listpage=0x7f0c00b2;
-        public static final int listselect=0x7f0c00b5;
+        public static final int listpage=0x7f0c00b4;
+        public static final int listselect=0x7f0c00b7;
         public static final int listview=0x7f0c008b;
         public static final int mainbutton=0x7f0c0092;
-        public static final int mainpage=0x7f0c00b6;
-        public static final int menu=0x7f0c00af;
+        public static final int mainpage=0x7f0c00b8;
+        public static final int menu=0x7f0c00b1;
         public static final int middle=0x7f0c0023;
         public static final int missrootworddefview=0x7f0c008c;
         public static final int missrootwordview=0x7f0c008d;
@@ -1448,9 +1449,9 @@ containing a value of this type.
         public static final int rootscore=0x7f0c0099;
         public static final int roottestview=0x7f0c008f;
         public static final int score=0x7f0c0095;
-        public static final int scoredef=0x7f0c00ad;
+        public static final int scoredef=0x7f0c00af;
         public static final int scoretext=0x7f0c0066;
-        public static final int scoreword=0x7f0c00ac;
+        public static final int scoreword=0x7f0c00ae;
         public static final int search_badge=0x7f0c003d;
         public static final int search_bar=0x7f0c003c;
         public static final int search_button=0x7f0c003e;
@@ -1461,6 +1462,7 @@ containing a value of this type.
         public static final int search_plate=0x7f0c0041;
         public static final int search_src_text=0x7f0c0042;
         public static final int search_voice_btn=0x7f0c0046;
+        public static final int selectLevelView=0x7f0c00ad;
         public static final int share=0x7f0c009e;
         public static final int shortcut=0x7f0c0039;
         public static final int showCustom=0x7f0c0016;
