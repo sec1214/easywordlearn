@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.AbsListView;
 import android.widget.Toast;
@@ -51,7 +52,7 @@ public class MainActivity extends Activity {
 	private boolean exit = true;
 	/* added by yi wan, 2015-01-03, start */
 	private UiLifecycleHelper uiHelper;
-	private Button share;
+	private ImageButton share;
 	private LikeView like;
 	/* added by yi wan, 2015-01-03, over */// control in this activtity, the
 											// home key can exit the app.
@@ -106,7 +107,7 @@ public class MainActivity extends Activity {
 		uiHelper = new UiLifecycleHelper(this, null);
 		uiHelper.onCreate(savedInstanceState);
 		// configure Share Button
-		share = (Button) findViewById(R.id.share);
+		share = (ImageButton) findViewById(R.id.share);
 		share.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -169,7 +170,7 @@ public class MainActivity extends Activity {
 																			// choiced
 																			// table
 																			// name
-																			// ��ʾ����Ŀγ�Ҳ���Ǳ��ￄ1�7
+																			// ��ʾ����Ŀγ�Ҳ���Ǳ��ￄ1�7
 
 				/* added by xiaoqian yu, 2014-12-21, start */
 				EasyTracker easyTracker = EasyTracker

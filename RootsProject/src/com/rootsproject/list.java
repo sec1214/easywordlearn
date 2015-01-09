@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class list extends Activity {
@@ -30,7 +31,7 @@ public class list extends Activity {
 	private Button playButton, studyButton, reviewButton;
 	/* added by yi wan, 2015-01-03, start */
 	private UiLifecycleHelper uiHelper;
-	private Button share;
+	private ImageButton share;
 	private LikeView like;
 	/* added by yi wan, 2015-01-03, over */
 	private BroadcastReceiver receiver;
@@ -67,7 +68,7 @@ public class list extends Activity {
 		uiHelper = new UiLifecycleHelper(this, null);
 		uiHelper.onCreate(savedInstanceState);
 		// configure Share Button
-		share = (Button) findViewById(R.id.share);
+		share = (ImageButton) findViewById(R.id.share);
 		share.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -290,10 +291,10 @@ public class list extends Activity {
 				String reason = intent.getStringExtra(SYSTEM_REASON);
 				if (reason != null) {
 					if (reason.equals(SYSTEM_HOME_KEY)) {
-						myapp.pausesplashmusic(); // home key´¦Àíµã
+						myapp.pausesplashmusic(); // home keyï¿½ï¿½ï¿½ï¿½ï¿½
 
 					} else if (reason.equals(SYSTEM_RECENT_APPS)) {
-						myapp.pausesplashmusic();// long home key´¦Àíµã
+						myapp.pausesplashmusic();// long home keyï¿½ï¿½ï¿½ï¿½ï¿½
 					}
 				}
 			}

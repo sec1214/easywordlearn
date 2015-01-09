@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +44,7 @@ public class listselectactivity extends Activity {
 										// key.
 	/* added by yi wan, 2015-01-03, start */
 	private UiLifecycleHelper uiHelper;
-	private Button share;
+	private ImageButton share;
 	private LikeView like;
 
 	/* added by yi wan, 2015-01-03, over */
@@ -149,7 +150,7 @@ public class listselectactivity extends Activity {
 		uiHelper = new UiLifecycleHelper(this, null);
 		uiHelper.onCreate(savedInstanceState);
 		// configure Share Button
-		share = (Button) findViewById(R.id.share);
+		share = (ImageButton) findViewById(R.id.share);
 		share.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -291,10 +292,10 @@ public class listselectactivity extends Activity {
 				String reason = intent.getStringExtra(SYSTEM_REASON);
 				if (reason != null) {
 					if (reason.equals(SYSTEM_HOME_KEY)) {
-						myapp.pausesplashmusic(); // home key event ����ￄ1�7
+						myapp.pausesplashmusic(); // home key event ����ￄ1�7
 
 					} else if (reason.equals(SYSTEM_RECENT_APPS)) {
-						myapp.pausesplashmusic();// long home key event ����ￄ1�7
+						myapp.pausesplashmusic();// long home key event ����ￄ1�7
 					}
 				}
 			}

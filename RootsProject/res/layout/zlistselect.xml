@@ -13,25 +13,49 @@
         android:background="@color/blue"
         android:orientation="horizontal" >
 
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/blue" />
+
         <com.facebook.widget.LikeView
             android:id="@+id/likeView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:background="@color/blue"
             android:gravity="center"
             android:textSize="15sp" >
+
         </com.facebook.widget.LikeView>
 
         <Button
-            android:id="@+id/share"
-            android:layout_width="match_parent"
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/blue"
+            android:background="@color/blue" />
+
+        <ImageButton
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/facebookicon"
             android:gravity="center"
-            android:text="@string/share_button"
+            android:scaleType="centerInside"
             android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/blue" />
+
     </LinearLayout>
 
     <TextView
