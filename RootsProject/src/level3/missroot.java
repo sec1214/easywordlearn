@@ -284,6 +284,14 @@ public class missroot extends Activity {
 						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							//missrootwordTextView.setTextColor(Color.BLACK);
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
+							
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) { // next word is
@@ -409,6 +417,14 @@ public class missroot extends Activity {
 						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							//missrootwordTextView.setTextColor(Color.BLACK);
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
+							
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -532,6 +548,14 @@ public class missroot extends Activity {
 						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							//missrootwordTextView.setTextColor(Color.BLACK);
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
+							
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -655,6 +679,14 @@ public class missroot extends Activity {
 						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							//missrootwordTextView.setTextColor(Color.BLACK);
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
+							
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -778,6 +810,14 @@ public class missroot extends Activity {
 						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							//missrootwordTextView.setTextColor(Color.BLACK);
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
+							
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -901,6 +941,13 @@ public class missroot extends Activity {
 						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							//missrootwordTextView.setTextColor(Color.BLACK);
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1026,6 +1073,13 @@ public class missroot extends Activity {
 						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							//missrootwordTextView.setTextColor(Color.BLACK);
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1109,6 +1163,13 @@ public class missroot extends Activity {
 						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							//missrootwordTextView.setTextColor(Color.BLACK);
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1192,6 +1253,13 @@ public class missroot extends Activity {
 						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							//missrootwordTextView.setTextColor(Color.BLACK);
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1275,6 +1343,13 @@ public class missroot extends Activity {
 						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							//missrootwordTextView.setTextColor(Color.BLACK);
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1358,6 +1433,13 @@ public class missroot extends Activity {
 						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							//missrootwordTextView.setTextColor(Color.BLACK);
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {
@@ -1441,6 +1523,13 @@ public class missroot extends Activity {
 						//missrootwordTextView.setTextColor(Color.parseColor("#00CCFF"));
 						if (clicknumtouch == rootnum) { // ��������
 							//missrootwordTextView.setTextColor(Color.BLACK);
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 
 							if (words[wordnum][0].equals("")) {

@@ -264,6 +264,12 @@ public class rootl2 extends Activity {
 					if (k.equals(words[wordnum - 1][rootnum + 1]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						rootdef1.setEnabled(false);
+						rootdef2.setEnabled(false);
+						rootdef3.setEnabled(false);
+						rootdef4.setEnabled(false);
+						rootdef5.setEnabled(false);
+						rootdef6.setEnabled(false);
 					}
 					else
 					{
@@ -446,6 +452,12 @@ public class rootl2 extends Activity {
 					if (k.equals(words[wordnum - 1][rootnum + 1]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						rootdef1.setEnabled(false);
+						rootdef2.setEnabled(false);
+						rootdef3.setEnabled(false);
+						rootdef4.setEnabled(false);
+						rootdef5.setEnabled(false);
+						rootdef6.setEnabled(false);
 					}
 					else
 					{
@@ -629,6 +641,12 @@ public class rootl2 extends Activity {
 					if (k.equals(words[wordnum - 1][rootnum + 1]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						rootdef1.setEnabled(false);
+						rootdef2.setEnabled(false);
+						rootdef3.setEnabled(false);
+						rootdef4.setEnabled(false);
+						rootdef5.setEnabled(false);
+						rootdef6.setEnabled(false);
 					}
 					else
 					{
@@ -812,6 +830,12 @@ public class rootl2 extends Activity {
 					if (k.equals(words[wordnum - 1][rootnum + 1]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						rootdef1.setEnabled(false);
+						rootdef2.setEnabled(false);
+						rootdef3.setEnabled(false);
+						rootdef4.setEnabled(false);
+						rootdef5.setEnabled(false);
+						rootdef6.setEnabled(false);
 					}
 					else
 					{
@@ -995,6 +1019,12 @@ public class rootl2 extends Activity {
 					if (k.equals(words[wordnum - 1][rootnum + 1]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						rootdef1.setEnabled(false);
+						rootdef2.setEnabled(false);
+						rootdef3.setEnabled(false);
+						rootdef4.setEnabled(false);
+						rootdef5.setEnabled(false);
+						rootdef6.setEnabled(false);
 					}
 					else
 					{
@@ -1178,6 +1208,12 @@ public class rootl2 extends Activity {
 					if (k.equals(words[wordnum - 1][rootnum + 1]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						rootdef1.setEnabled(false);
+						rootdef2.setEnabled(false);
+						rootdef3.setEnabled(false);
+						rootdef4.setEnabled(false);
+						rootdef5.setEnabled(false);
+						rootdef6.setEnabled(false);
 					}
 					else
 					{
@@ -1364,6 +1400,12 @@ public class rootl2 extends Activity {
 					if (k.equals(words[wordnum - 1][rootnum + 1]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						rootdef1.setEnabled(false);
+						rootdef2.setEnabled(false);
+						rootdef3.setEnabled(false);
+						rootdef4.setEnabled(false);
+						rootdef5.setEnabled(false);
+						rootdef6.setEnabled(false);
 					}
 					else
 					{
@@ -1588,6 +1630,12 @@ public class rootl2 extends Activity {
 					if (k.equals(words[wordnum - 1][rootnum + 1]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						rootdef1.setEnabled(false);
+						rootdef2.setEnabled(false);
+						rootdef3.setEnabled(false);
+						rootdef4.setEnabled(false);
+						rootdef5.setEnabled(false);
+						rootdef6.setEnabled(false);
 					}
 					else
 					{
@@ -1816,6 +1864,12 @@ public class rootl2 extends Activity {
 					if (k.equals(words[wordnum - 1][rootnum + 1]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						rootdef1.setEnabled(false);
+						rootdef2.setEnabled(false);
+						rootdef3.setEnabled(false);
+						rootdef4.setEnabled(false);
+						rootdef5.setEnabled(false);
+						rootdef6.setEnabled(false);
 					}
 					else
 					{
@@ -2044,6 +2098,12 @@ public class rootl2 extends Activity {
 					if (k.equals(words[wordnum - 1][rootnum + 1]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						rootdef1.setEnabled(false);
+						rootdef2.setEnabled(false);
+						rootdef3.setEnabled(false);
+						rootdef4.setEnabled(false);
+						rootdef5.setEnabled(false);
+						rootdef6.setEnabled(false);
 					}
 					else
 					{
@@ -2272,6 +2332,12 @@ public class rootl2 extends Activity {
 					if (k.equals(words[wordnum - 1][rootnum + 1]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						rootdef1.setEnabled(false);
+						rootdef2.setEnabled(false);
+						rootdef3.setEnabled(false);
+						rootdef4.setEnabled(false);
+						rootdef5.setEnabled(false);
+						rootdef6.setEnabled(false);
 					}
 					else
 					{
@@ -2500,6 +2566,12 @@ public class rootl2 extends Activity {
 					if (k.equals(words[wordnum - 1][rootnum + 1]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						rootdef1.setEnabled(false);
+						rootdef2.setEnabled(false);
+						rootdef3.setEnabled(false);
+						rootdef4.setEnabled(false);
+						rootdef5.setEnabled(false);
+						rootdef6.setEnabled(false);
 					}
 					else
 					{

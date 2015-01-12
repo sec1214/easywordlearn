@@ -624,7 +624,7 @@ public class managedb {
 	}
 
 	public String[][] getwords() { //take 20 words  ȡ��20������
-
+/*
 		words = new String[21][10];
 
 		for (int i = 0; i < 21; i++) { // initial array like "" �����ǳ�ʼ����������Ϊ""��
@@ -634,7 +634,17 @@ public class managedb {
 				words[i][j] = "";
 			}
 		}
+*/
+		words = new String[21][10];
 
+		for (int i = 0; i < 21; i++) { // initial array like "" �����ǳ�ʼ����������Ϊ""��
+
+			for (int j = 0; j < 10; j++) {
+
+				words[i][j] = "";
+			}
+		}
+		
 		int listnum = Integer.parseInt(myapp.get(2)); // get the number of list ȡ�ü��ű���������ȡ����
 
 		int numlist = myapp.getlistnum(); // get how many list in the course  һ���ж���list

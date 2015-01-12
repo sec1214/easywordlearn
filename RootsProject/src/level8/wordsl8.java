@@ -275,6 +275,10 @@ public class wordsl8 extends Activity {
 					if (key.equals(words[wordnum - 1][0]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						wordTextView1.setEnabled(false);
+						wordTextView2.setEnabled(false);
+						wordTextView3.setEnabled(false);
+						wordTextView4.setEnabled(false);
 					}
 					else
 					{
@@ -391,6 +395,10 @@ public class wordsl8 extends Activity {
 					if (key.equals(words[wordnum - 1][0]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						wordTextView1.setEnabled(false);
+						wordTextView2.setEnabled(false);
+						wordTextView3.setEnabled(false);
+						wordTextView4.setEnabled(false);
 					}
 					else
 					{
@@ -506,6 +514,10 @@ public class wordsl8 extends Activity {
 					if (key.equals(words[wordnum - 1][0]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						wordTextView1.setEnabled(false);
+						wordTextView2.setEnabled(false);
+						wordTextView3.setEnabled(false);
+						wordTextView4.setEnabled(false);
 					}
 					else
 					{
@@ -622,6 +634,10 @@ public class wordsl8 extends Activity {
 					if (key.equals(words[wordnum - 1][0]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						wordTextView1.setEnabled(false);
+						wordTextView2.setEnabled(false);
+						wordTextView3.setEnabled(false);
+						wordTextView4.setEnabled(false);
 					}
 					else
 					{
@@ -741,6 +757,10 @@ public class wordsl8 extends Activity {
 					if (key.equals(words[wordnum - 1][0]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						wordTextView1.setEnabled(false);
+						wordTextView2.setEnabled(false);
+						wordTextView3.setEnabled(false);
+						wordTextView4.setEnabled(false);
 					}
 					else
 					{
@@ -861,6 +881,10 @@ public class wordsl8 extends Activity {
 					if (key.equals(words[wordnum - 1][0]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						wordTextView1.setEnabled(false);
+						wordTextView2.setEnabled(false);
+						wordTextView3.setEnabled(false);
+						wordTextView4.setEnabled(false);
 					}
 					else
 					{
@@ -980,6 +1004,10 @@ public class wordsl8 extends Activity {
 					if (key.equals(words[wordnum - 1][0]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						wordTextView1.setEnabled(false);
+						wordTextView2.setEnabled(false);
+						wordTextView3.setEnabled(false);
+						wordTextView4.setEnabled(false);
 					}
 					else
 					{
@@ -1100,6 +1128,10 @@ public class wordsl8 extends Activity {
 					if (key.equals(words[wordnum - 1][0]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						wordTextView1.setEnabled(false);
+						wordTextView2.setEnabled(false);
+						wordTextView3.setEnabled(false);
+						wordTextView4.setEnabled(false);
 					}
 					else
 					{

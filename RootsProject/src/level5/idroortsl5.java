@@ -329,7 +329,12 @@ public class idroortsl5 extends Activity {
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
-
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 							System.out.println("����idrootsl5");
 
@@ -450,7 +455,12 @@ public class idroortsl5 extends Activity {
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
-
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 							System.out.println("����idrootsl5");
 
@@ -571,7 +581,12 @@ public class idroortsl5 extends Activity {
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
-
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 							System.out.println("����idrootsl5");
 
@@ -692,7 +707,12 @@ public class idroortsl5 extends Activity {
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
-
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 							System.out.println("����idrootsl5");
 
@@ -813,7 +833,12 @@ public class idroortsl5 extends Activity {
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
-
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 							System.out.println("����idrootsl5");
 
@@ -934,7 +959,12 @@ public class idroortsl5 extends Activity {
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
-
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 							System.out.println("����idrootsl5");
 
@@ -1057,6 +1087,12 @@ public class idroortsl5 extends Activity {
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0); // ���������� ����
 
 							if (!words[wordnum][0].equals("")) {
@@ -1136,6 +1172,12 @@ public class idroortsl5 extends Activity {
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0); // ���������� ����
 
 							if (!words[wordnum][0].equals("")) {
@@ -1215,6 +1257,12 @@ public class idroortsl5 extends Activity {
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0); // ���������� ����
 
 							if (!words[wordnum][0].equals("")) {
@@ -1294,6 +1342,12 @@ public class idroortsl5 extends Activity {
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0); // ���������� ����
 
 							if (!words[wordnum][0].equals("")) {
@@ -1373,6 +1427,12 @@ public class idroortsl5 extends Activity {
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0); // ���������� ����
 
 							if (!words[wordnum][0].equals("")) {
@@ -1452,6 +1512,12 @@ public class idroortsl5 extends Activity {
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0); // ���������� ����
 
 							if (!words[wordnum][0].equals("")) {

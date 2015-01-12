@@ -260,6 +260,9 @@ public class definitionl2 extends Activity {
 					if (key.equals(words[wordnum - 1][1]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						textViewdef1.setEnabled(false);
+						textViewdef2.setEnabled(false);
+						textViewdef3.setEnabled(false);
 					}
 					else
 					{
@@ -513,6 +516,9 @@ public class definitionl2 extends Activity {
 					if (key.equals(words[wordnum - 1][1]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						textViewdef1.setEnabled(false);
+						textViewdef2.setEnabled(false);
+						textViewdef3.setEnabled(false);
 					}
 					else
 					{
@@ -765,6 +771,9 @@ public class definitionl2 extends Activity {
 					if (key.equals(words[wordnum - 1][1]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						textViewdef1.setEnabled(false);
+						textViewdef2.setEnabled(false);
+						textViewdef3.setEnabled(false);
 					}
 					else
 					{
@@ -1023,6 +1032,9 @@ public class definitionl2 extends Activity {
 					if (key.equals(words[wordnum - 1][1]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						textViewdef1.setEnabled(false);
+						textViewdef2.setEnabled(false);
+						textViewdef3.setEnabled(false);
 					}
 					else
 					{
@@ -1165,6 +1177,9 @@ public class definitionl2 extends Activity {
 					if (key.equals(words[wordnum - 1][1]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						textViewdef1.setEnabled(false);
+						textViewdef2.setEnabled(false);
+						textViewdef3.setEnabled(false);
 					}
 					else
 					{
@@ -1306,6 +1321,9 @@ public class definitionl2 extends Activity {
 					if (key.equals(words[wordnum - 1][1]))
 					{
 						myapp.judgeAndCalculateConstantCorrectCount();
+						textViewdef1.setEnabled(false);
+						textViewdef2.setEnabled(false);
+						textViewdef3.setEnabled(false);
 					}
 					else
 					{

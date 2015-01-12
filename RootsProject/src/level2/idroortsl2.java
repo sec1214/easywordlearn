@@ -306,6 +306,14 @@ public class idroortsl2 extends Activity {
 
 						if (clicknumtouch == rootnum) { // all roots are right ��������
 
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
+							
 							defrepeat(0);
 							System.out.println("����idrootsl2");
 							intent = new Intent(idroortsl2.this, rootl2.class);
@@ -399,6 +407,14 @@ public class idroortsl2 extends Activity {
 						clicknumtouch++;
 						if (clicknumtouch == rootnum) { // ��������
 
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
+							
 							defrepeat(0);
 							System.out.println("����idrootsl2");
 							intent = new Intent(idroortsl2.this, rootl2.class);
@@ -492,6 +508,14 @@ public class idroortsl2 extends Activity {
 						clicknumtouch++;
 						if (clicknumtouch == rootnum) { // ��������
 
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
+							
 							defrepeat(0);
 							System.out.println("����idrootsl2");
 							intent = new Intent(idroortsl2.this, rootl2.class);
@@ -585,6 +609,14 @@ public class idroortsl2 extends Activity {
 						clicknumtouch++;
 						if (clicknumtouch == rootnum) { // ��������
 
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
+							
 							defrepeat(0);
 							System.out.println("����idrootsl2");
 							intent = new Intent(idroortsl2.this, rootl2.class);
@@ -678,6 +710,14 @@ public class idroortsl2 extends Activity {
 						clicknumtouch++;
 						if (clicknumtouch == rootnum) { // ��������
 
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
+							
 							defrepeat(0);
 							System.out.println("����idrootsl2");
 							intent = new Intent(idroortsl2.this, rootl2.class);
@@ -771,6 +811,14 @@ public class idroortsl2 extends Activity {
 						clicknumtouch++;
 						if (clicknumtouch == rootnum) { // ��������
 
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
+							
 							defrepeat(0);
 							System.out.println("����idrootsl2");
 							intent = new Intent(idroortsl2.this, rootl2.class);
@@ -865,6 +913,13 @@ public class idroortsl2 extends Activity {
 
 						if (clicknumtouch == rootnum) { // ��������
 
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 							Intent intent = new Intent(idroortsl2.this,
 									rootl2.class);
@@ -924,6 +979,14 @@ public class idroortsl2 extends Activity {
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
+							
 							defrepeat(0);
 							Intent intent = new Intent(idroortsl2.this,
 									rootl2.class);
@@ -984,6 +1047,15 @@ public class idroortsl2 extends Activity {
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
+							
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
+							
 							defrepeat(0);
 							Intent intent = new Intent(idroortsl2.this,
 									rootl2.class);
@@ -1043,6 +1115,15 @@ public class idroortsl2 extends Activity {
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
+							
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
+							
 							defrepeat(0);
 							Intent intent = new Intent(idroortsl2.this,
 									rootl2.class);
@@ -1102,6 +1183,15 @@ public class idroortsl2 extends Activity {
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
+							
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
+							
 							defrepeat(0);
 							Intent intent = new Intent(idroortsl2.this,
 									rootl2.class);
@@ -1161,6 +1251,15 @@ public class idroortsl2 extends Activity {
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
+							
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
+							
 							defrepeat(0);
 							Intent intent = new Intent(idroortsl2.this,
 									rootl2.class);

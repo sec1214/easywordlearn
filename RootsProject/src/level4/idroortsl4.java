@@ -334,7 +334,13 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
-
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 							System.out.println("����idrootsl4");
 							intent = new Intent(idroortsl4.this, rootl4.class);
@@ -427,7 +433,13 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 						myapp.setidrootscore(0, ++idrootclicknum);
 						clicknumtouch++;
 						if (clicknumtouch == rootnum) { // ��������
-
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 							System.out.println("����idrootsl4");
 							intent = new Intent(idroortsl4.this, rootl4.class);
@@ -521,7 +533,13 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 
 						clicknumtouch++;
 						if (clicknumtouch == rootnum) { // ��������
-
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 							System.out.println("����idrootsl4");
 							intent = new Intent(idroortsl4.this, rootl4.class);
@@ -613,7 +631,13 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 						myapp.setidrootscore(0, ++idrootclicknum);
 						clicknumtouch++;
 						if (clicknumtouch == rootnum) { // ��������
-
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 							System.out.println("����idrootsl4");
 							intent = new Intent(idroortsl4.this, rootl4.class);
@@ -707,7 +731,13 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 
 						clicknumtouch++;
 						if (clicknumtouch == rootnum) { // ��������
-
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 							System.out.println("����idrootsl4");
 							intent = new Intent(idroortsl4.this, rootl4.class);
@@ -799,7 +829,13 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 						myapp.setidrootscore(0, ++idrootclicknum);
 						clicknumtouch++;
 						if (clicknumtouch == rootnum) { // ��������
-
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 							System.out.println("����idrootsl4");
 							intent = new Intent(idroortsl4.this, rootl4.class);
@@ -892,6 +928,13 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 							Intent intent = new Intent(idroortsl4.this,
 									rootl4.class);
@@ -948,6 +991,13 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 							Intent intent = new Intent(idroortsl4.this,
 									rootl4.class);
@@ -1004,6 +1054,13 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 							Intent intent = new Intent(idroortsl4.this,
 									rootl4.class);
@@ -1060,6 +1117,13 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 							Intent intent = new Intent(idroortsl4.this,
 									rootl4.class);
@@ -1116,6 +1180,13 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 							Intent intent = new Intent(idroortsl4.this,
 									rootl4.class);
@@ -1172,6 +1243,13 @@ sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 						clicknumtouch++;
 
 						if (clicknumtouch == rootnum) { // ��������
+							//prevent click after all roots are right
+							root1.setEnabled(false);
+							root2.setEnabled(false);
+							root3.setEnabled(false);
+							root4.setEnabled(false);
+							root5.setEnabled(false);
+							root6.setEnabled(false);
 							defrepeat(0);
 							Intent intent = new Intent(idroortsl4.this,
 									rootl4.class);
