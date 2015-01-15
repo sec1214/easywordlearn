@@ -1711,6 +1711,8 @@ containing a value of this type.
         public static final int com_facebook_usersettingsfragment_not_logged_in=0x7f08000c;
         public static final int course=0x7f08002f;
         public static final int defwordhelp=0x7f080038;
+        /**  <string name="facebook_app_id">336993666493886</string> 
+         */
         public static final int facebook_app_id=0x7f080041;
         /** Replace placeholder ID with your tracking ID
          */

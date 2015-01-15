@@ -1,5 +1,7 @@
 package com.rootsproject;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +17,15 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -86,6 +93,9 @@ public class MainActivity extends Activity {
 		getWindow().requestFeature(Window.FEATURE_PROGRESS);
 
 		setContentView(R.layout.zmain);
+		
+		//print the key hash, output to logCat
+		printHashKey();
 
 		splash = (LinearLayout) findViewById(R.id.splashscreen);
 
@@ -520,5 +530,24 @@ public class MainActivity extends Activity {
 		}
 	}
 	/* added by yi wan, 2015-01-03, over */
+	
+	public void printHashKey() {
+
+	       try {
+	            PackageInfo info = getPackageManager().getPackageInfo("com.rootsproject",
+	                    PackageManager.GET_SIGNATURES);
+	            for (Signature signature : info.signatures) {
+	                MessageDigest md = MessageDigest.getInstance("SHA");
+	                md.update(signature.toByteArray());
+	                Log.d("TEMPTAGHASH KEY:",
+	                        Base64.encodeToString(md.digest(), Base64.DEFAULT));
+	            }
+	        } catch (NameNotFoundException e) {
+
+	        } catch (NoSuchAlgorithmException e) {
+
+	        }
+
+	    }
 
 }

@@ -28,7 +28,8 @@
     <string name="buttonvolume">0.2</string>
     <string name="musicvolume">0.0</string>
     <string name="splashmusicvolume">0.1</string>
-    <string name="facebook_app_id">336993666493886</string>
+    <!-- <string name="facebook_app_id">336993666493886</string> -->
+    <string name="facebook_app_id">350804938441114</string>
     <string name="share_button">Share</string>
     <string name="post_button">Post Score</string>
 
