@@ -33,6 +33,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -65,7 +66,7 @@ public class score extends Activity {
 	private TextView defwordscore, rootscore, idrootscore;
 	/* added by yi wan, 2015-01-03, start */
 	private UiLifecycleHelper uiHelper;
-	private Button share, post;
+	private ImageButton post;
 	private LikeView like;
 	/* added by yi wan, 2015-01-03, over */
 
@@ -157,17 +158,17 @@ public class score extends Activity {
 		uiHelper = new UiLifecycleHelper(this, null);
 		uiHelper.onCreate(savedInstanceState);
 		// configure Share Button
-		share = (Button) findViewById(R.id.share);
+		/*share = (Button) findViewById(R.id.share);
 		share.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				onClickShare();
 			}
-		});
+		});*/
 		like = (LikeView) findViewById(R.id.likeView);
 		like.setObjectId("https://www.facebook.com/rootsmobileapp");
-		post = (Button) findViewById(R.id.post);
+		post = (ImageButton) findViewById(R.id.post);
 		post.setOnClickListener(new View.OnClickListener() {
 
 			@Override
