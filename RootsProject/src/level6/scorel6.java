@@ -733,8 +733,10 @@ public class scorel6 extends Activity {
 	}
 
 	private void onClickPostScore() {
+		String tableName;
+		tableName = myapp.get(0).replace("_", " ");
 		String description = "I scored " + k + " on Roots: "
-				+ myapp.get(0) + ", " + myapp.get(1) + ", Level "
+				+ tableName + ", " + myapp.get(1) + ", Level "
 				+ myapp.get(3);
 		if (FacebookDialog.canPresentShareDialog(getApplicationContext(),
 				FacebookDialog.ShareDialogFeature.SHARE_DIALOG)){
