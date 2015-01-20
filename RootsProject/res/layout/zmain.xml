@@ -20,11 +20,12 @@
 
         <com.facebook.widget.LikeView
             android:id="@+id/likeView"
-            android:layout_width="wrap_content"
+            android:layout_width="141dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:foreground="@drawable/facebooklike"
             android:gravity="center"
+            android:foregroundGravity="center"
             android:textSize="15sp" >
 
         </com.facebook.widget.LikeView>

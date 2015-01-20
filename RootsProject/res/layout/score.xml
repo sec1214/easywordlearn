@@ -282,6 +282,7 @@
             android:layout_weight="1"
             android:background="@drawable/green"
             android:gravity="center"
+            android:foregroundGravity="center"
             android:textSize="15sp" />-->
 
         <Button
