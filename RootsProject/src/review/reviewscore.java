@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,8 +36,13 @@ import com.rootsproject.mypublicvalue;
 import com.rootsproject.play;
 import com.rootsproject.score;
 import com.rootsproject.scoreword;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.LikeView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.FacebookDialog;
+import com.facebook.widget.LikeView;
 
 public class reviewscore extends Activity {
 
@@ -55,7 +62,12 @@ public class reviewscore extends Activity {
 
 	private int level;
 	private BroadcastReceiver receiver;
-
+	
+	private UiLifecycleHelper uiHelper;
+	private ImageButton post;
+	private LikeView like;
+	private int scorenum;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -86,6 +98,22 @@ public class reviewscore extends Activity {
 		textView1.setText(underlineclear(myapp.get(0))); // course 
 		textView2.setText(myapp.get(1));
 		textViewlevel.setText(" Level: " + myapp.get(3));
+		
+		/* added by yi wan, 2015-01-03, start */
+		uiHelper = new UiLifecycleHelper(this, null);
+		uiHelper.onCreate(savedInstanceState);
+		// configure Share Button
+		post = (ImageButton) findViewById(R.id.post);
+		post.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				onClickPostScore();
+			}
+		});
+		like = (LikeView) findViewById(R.id.likeView);
+		like.setObjectId("https://www.facebook.com/rootsmobileapp");
+		/* added by yi wan, 2015-01-03, over */
 
 		level = Integer.parseInt(myapp.get(3));
 
@@ -149,6 +177,7 @@ public class reviewscore extends Activity {
 
 		int[] k = db.getscore();		
 		score.setText(Integer.toString(k[0])+"%");
+		scorenum = k[0];
 		defwordscore.setText(Integer.toString(k[2])+"%");
 		rootscore.setText(Integer.toString(k[1])+"%");
 		idrootscore.setText(Integer.toString(k[3])+"%");
@@ -613,6 +642,29 @@ public class reviewscore extends Activity {
 
 		return super.onKeyDown(keyCode, event);
 	}
+	
+	/* added by yi wan, 2015-01-03, start */
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		uiHelper.onActivityResult(requestCode, resultCode, data,
+				new FacebookDialog.Callback() {
+					@Override
+					public void onError(FacebookDialog.PendingCall pendingCall,
+							Exception error, Bundle data) {
+						Log.e("Activity",
+								String.format("Error: %s", error.toString()));
+					}
+
+					@Override
+					public void onComplete(
+							FacebookDialog.PendingCall pendingCall, Bundle data) {
+						Log.i("Activity", "Success!");
+					}
+				});
+	}
+	/* added by yi wan, 2015-01-03, over */
 
 	@Override
 	protected void onStart() {
@@ -632,21 +684,33 @@ public class reviewscore extends Activity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-
+		/* added by yi wan, 2015-01-03, start */
+		uiHelper.onResume();
+		/* added by yi wan, 2015-01-03, over */
 	}
-
+	/* added by yi wan, 2015-01-03, start */
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		uiHelper.onSaveInstanceState(outState);
+	}
+	/* added by yi wan, 2015-01-03, over */
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-
+		/* added by yi wan, 2015-01-03, start */
+		uiHelper.onStop();
+		/* added by yi wan, 2015-01-03, over */
 	}
 
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-
+		/* added by yi wan, 2015-01-03, start */
+		uiHelper.onPause();
+		/* added by yi wan, 2015-01-03, over */
 	}
 
 	@Override
@@ -654,7 +718,9 @@ public class reviewscore extends Activity {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		getApplicationContext().unregisterReceiver(receiver);
-
+		/* added by yi wan, 2015-01-03, start */
+		uiHelper.onDestroy();
+		/* added by yi wan, 2015-01-03, over */
 	}
 
 	protected class HomeKeyEventBroadCastReceiver extends BroadcastReceiver {
@@ -798,5 +864,21 @@ public class reviewscore extends Activity {
 			score.setTextColor(Color.YELLOW);
 		}
 	}
-	
+	/* added by yi wan, 2015-01-03, start */
+	private void onClickPostScore() {
+		String tableName;
+		tableName = myapp.get(0).replace("_", " ");
+		String description = "I scored " + scorenum + " on Roots: "
+				+ tableName + ", " + myapp.get(1) + ", Level "
+				+ myapp.get(3);
+		if (FacebookDialog.canPresentShareDialog(getApplicationContext(),
+				FacebookDialog.ShareDialogFeature.SHARE_DIALOG)){
+			FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(this)
+			.setDescription(description)
+			.setLink("https://www.facebook.com/rootsmobileapp").build();
+	uiHelper.trackPendingDialogCall(shareDialog.present());
+		}
+
+	}
+	/* added by yi wan, 2015-01-03, over */
 }
