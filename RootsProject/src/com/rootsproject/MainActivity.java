@@ -118,6 +118,7 @@ public class MainActivity extends Activity {
 		uiHelper.onCreate(savedInstanceState);
 		// configure Share Button
 		share = (ImageButton) findViewById(R.id.share);
+		//share.setVisibility(View.GONE);
 		share.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -126,6 +127,7 @@ public class MainActivity extends Activity {
 			}
 		});
 		like = (LikeView) findViewById(R.id.likeView);
+		//like.setVisibility(View.GONE);
 		like.setObjectId("https://www.facebook.com/rootsmobileapp");
 		/* added by yi wan, 2015-01-03, over */
 		List<String> list = new managedb(this).listtablename(null);

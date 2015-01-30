@@ -189,8 +189,8 @@ public class rootl2 extends Activity {
 			}
 			if (con == 1) {
 				textViewwr.setText("Part2");
-				textViewwr.setTextColor(Color.WHITE);
-				textViewwr.setBackgroundColor(Color.GREEN);
+				textViewwr.setTextColor(Color.BLACK);
+				textViewwr.setBackgroundColor(Color.WHITE);
 			}
 
 		}
