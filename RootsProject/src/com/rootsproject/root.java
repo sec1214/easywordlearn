@@ -181,11 +181,11 @@ public class root extends Activity {
 			textViewwr.setBackgroundColor(Color.TRANSPARENT);
 
 			if (con == 0) {
-				textViewwr.setText("Part1");
+				textViewwr.setText("Part 1");
 
 			}
 			if (con == 1) {
-				textViewwr.setText("Part2");
+				textViewwr.setText("Part 2");
 				textViewwr.setTextColor(Color.BLACK);
 				textViewwr.setBackgroundColor(Color.WHITE);
 			}
