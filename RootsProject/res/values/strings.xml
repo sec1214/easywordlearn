@@ -9,15 +9,15 @@
     
     
     <string name="level1">Level1:\nWords 1 to 10 Define Vocabulary and Root Words</string>
-    <string name="level2">Level2:\nWords 11 to 20 Identify and Root and Define Vocabulary</string>
+    <string name="level2">Level2:\nWords 11 to 20 Identify and Define Roots and Vocabulary</string>
     <string name="level3">Level3:\nFill in the Missing Roots</string>
-    <string name="level4">Level4:\nTime Level Break Words Apart, Define Roots and Vocabulary</string>
-    <string name="level5">Level5:\nTimed Level Identify the Roots</string>
-    <string name="level6">Level6:\nTimed Level Define the Roots</string>
-    <string name="level7">Level7:\nTimed Level Fill in the Missing Roots</string>
-    <string name="level8">Level8:\nDefine Everything!</string>
-    <string name="defwordhelp">Identify the definition that matches this word.</string>
-    <string name="roothelp">Find the meaning of this root word.</string>
+    <string name="level4">Level4:\nTimed Level: Break Words Apart, Define Roots and Vocabulary</string>
+    <string name="level5">Level5:\nTimed Level: Identify the Roots</string>
+    <string name="level6">Level6:\nTimed Level: Define the Roots</string>
+    <string name="level7">Level7:\nTimed Level: Fill in the Missing Roots</string>
+    <string name="level8">Level8:\nTimed Level: Define Everything!</string>
+    <string name="defwordhelp">Match the definition and the word.</string>
+    <string name="roothelp">Find the meaning of this root word. Hint: It is in blue</string>
     <string name="idroothelp">Break it down, identify all of the roots that belong in this word.</string>
     <string name="missroothelp">Find the roots that make up this word. Hint: Use the definition</string>
     
