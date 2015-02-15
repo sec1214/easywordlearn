@@ -83,7 +83,8 @@ public class listselectactivity extends Activity {
 		List<String> list = new ArrayList<String>();
 
 		for (int i = 0; i < numlist; i++) {
-			String listname = "List " + (i + 1);
+			//String listname = "List " + (i + 1);
+			String listname = "Words " + (i * 20 + 1) + " - " + (i+1) * 20;
 			list.add(listname);
 
 		}
