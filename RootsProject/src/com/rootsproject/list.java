@@ -10,8 +10,11 @@ import com.rootsproject.R;
 import review.reviwlevel;
 import Database.managedb;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -35,6 +38,7 @@ public class list extends Activity {
 	private LikeView like;
 	/* added by yi wan, 2015-01-03, over */
 	private BroadcastReceiver receiver;
+	private Dialog alertdDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -150,28 +154,45 @@ public class list extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				/* added by xiaoqian yu, 2014-12-21, start */
-				EasyTracker easyTracker = EasyTracker.getInstance(list.this);
-				String category = "PlayStudyReviewSelection";
-				String eventLabel = "review_button";
-				// MapBuilder.createEvent().build() returns a Map of event
-				// fields and values
-				// that are set and sent with the hit.
-				easyTracker.send(MapBuilder.createEvent(category, // Event
-																	// category
-																	// (required)
-						"button_press", // Event action (required)
-						eventLabel, // Event label
-						null) // Event value
-						.build());
-				/* added by xiaoqian yu, 2014-12-21, end */
-				reviewButton.setBackgroundResource(R.drawable.green);
-				myapp.playmusic(1);
-				Intent intent = new Intent(list.this, reviwlevel.class);
-
-				startActivity(intent);
-				finish();
-
+				//if no play level completed, pop out a dialogue
+				if(true == isNoLevelPlayCompleted()) {
+					alertdDialog = new AlertDialog.Builder(list.this)
+					.setTitle("Instruction")
+					.setMessage(getString(R.string.no_level_play_complete_alert))
+					.setIcon(R.drawable.ic_launcher)
+					.setPositiveButton("OK",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									alertdDialog.cancel();
+								}
+							}).create();
+					alertdDialog.show();
+				}
+				else {
+					/* added by xiaoqian yu, 2014-12-21, start */
+					EasyTracker easyTracker = EasyTracker.getInstance(list.this);
+					String category = "PlayStudyReviewSelection";
+					String eventLabel = "review_button";
+					// MapBuilder.createEvent().build() returns a Map of event
+					// fields and values
+					// that are set and sent with the hit.
+					easyTracker.send(MapBuilder.createEvent(category, // Event
+																		// category
+																		// (required)
+							"button_press", // Event action (required)
+							eventLabel, // Event label
+							null) // Event value
+							.build());
+					/* added by xiaoqian yu, 2014-12-21, end */
+					reviewButton.setBackgroundResource(R.drawable.green);
+					myapp.playmusic(1);
+					Intent intent = new Intent(list.this, reviwlevel.class);
+	
+					startActivity(intent);
+					finish();
+				}
 			}
 		});
 
@@ -399,5 +420,13 @@ public class list extends Activity {
 	}
 	/* added by yi wan, 2015-01-03, over */
 
-
+	private boolean isNoLevelPlayCompleted() {
+    	managedb db = new managedb(getBaseContext());
+    	for(int i = 0; i <= 8-1; i++) {
+    		if(db.levelexist(Integer.toString(i + 1))) {
+    			return false;
+    		}
+    	}
+    	return true;
+    }
 }

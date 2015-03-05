@@ -5,13 +5,18 @@ import java.util.List;
 
 import com.rootsproject.MainActivity;
 import com.rootsproject.R;
+import com.rootsproject.definition;
 import com.rootsproject.list;
 import com.rootsproject.listselectactivity;
 import com.rootsproject.mypublicvalue;
+
 import Database.managedb;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -69,7 +74,7 @@ public class reviwlevel extends Activity {
 		levelListView.setOnItemClickListener(new OnItemClickListener() {
 
 			// managedb db = new managedb(getBaseContext()); ///
-			// ÒòÎªÔÚlistÑ¡Ôñ½çÃæÒÑ¾­µ÷Èëwords
+			// ï¿½ï¿½Îªï¿½ï¿½listÑ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½words
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
@@ -78,13 +83,13 @@ public class reviwlevel extends Activity {
 
 				managedb db = new managedb(getBaseContext());
 
-				// myapp.setwords(db.getwords()); /// ÒòÎªÔÚlistÑ¡Ôñ½çÃæÒÑ¾­µ÷Èëwords
+				// myapp.setwords(db.getwords()); /// ï¿½ï¿½Îªï¿½ï¿½listÑ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½words
 
 				if (db.levelexist(Integer.toString(position + 1))) {
 
 					myapp.playmusic(1);
 
-					myapp.set(3, Integer.toString(position + 1)); // ´æÈëlevelµÈ¼¶
+					myapp.set(3, Integer.toString(position + 1)); // ï¿½ï¿½ï¿½ï¿½levelï¿½È¼ï¿½
 					Intent intent = new Intent(reviwlevel.this,
 							reviewscore.class);
 					startActivity(intent);
@@ -189,10 +194,10 @@ public class reviwlevel extends Activity {
 				String reason = intent.getStringExtra(SYSTEM_REASON);
 				if (reason != null) {
 					if (reason.equals(SYSTEM_HOME_KEY)) {
-						myapp.pausesplashmusic(); // home key´¦Àíµã
+						myapp.pausesplashmusic(); // home keyï¿½ï¿½ï¿½ï¿½ï¿½
 
 					} else if (reason.equals(SYSTEM_RECENT_APPS)) {
-						myapp.pausesplashmusic(); // long home key´¦Àíµã
+						myapp.pausesplashmusic(); // long home keyï¿½ï¿½ï¿½ï¿½ï¿½
 					}
 				}
 			}
@@ -315,5 +320,4 @@ public class reviwlevel extends Activity {
 			return view;
 		}
 	}
-
 }

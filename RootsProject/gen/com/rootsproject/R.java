@@ -1730,6 +1730,7 @@ containing a value of this type.
         public static final int level8=0x7f080037;
         public static final int missroothelp=0x7f08003b;
         public static final int musicvolume=0x7f08003f;
+        public static final int no_level_play_complete_alert=0x7f080044;
         public static final int post_button=0x7f080043;
         public static final int roothelp=0x7f080039;
         public static final int share_button=0x7f080042;

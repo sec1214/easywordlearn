@@ -29,5 +29,6 @@
     <string name="facebook_app_id">1533247433612831</string>
     <string name="share_button">Share</string>
     <string name="post_button">Post Score</string>
+    <string name="no_level_play_complete_alert">You must complete at least one level completely to review your scores</string>
 
 </resources>
