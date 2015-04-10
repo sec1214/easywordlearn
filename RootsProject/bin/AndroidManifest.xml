@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rootsproject"
-    android:versionCode="11"
+    android:versionCode="13"
     android:versionName="1.0" >
 
     <uses-sdk
@@ -208,6 +208,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+    <service android:name="com.appsee.AppseeBackgroundUploader" />
     </application>
 
 </manifest>

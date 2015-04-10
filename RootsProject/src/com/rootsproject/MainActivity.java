@@ -43,7 +43,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.rootsproject.R;
-
+import com.appsee.Appsee;
 public class MainActivity extends Activity {
 
 	private MenuItem musicsound; // control the splashmusic on and off
@@ -88,6 +88,7 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Appsee.start("c2c77102cf2a485ea9b4e81e2a2b9101");
 		super.onCreate(savedInstanceState);
 		// setTitle("");
 		getWindow().requestFeature(Window.FEATURE_PROGRESS);
