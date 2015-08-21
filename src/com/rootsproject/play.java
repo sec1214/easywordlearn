@@ -77,14 +77,14 @@ public class play extends Activity {
 		shareDialog = new ShareDialog(this);
 
 		// configure Share Button
-
 		share = (ShareButton) findViewById(R.id.share);
 		share.setShareContent(new ShareLinkContent.Builder()
-				.setContentDescription("Check out Roots, a mobile game that teaches vocabulary "
-						+ "through etymology! It's a great tool for students "
-						+ "studying for the SAT and ESL students. Get it now at "
-						+ "https://play.google.com/store/apps/details?id=com.rootsproject")
-				.setImageUrl(Uri.parse("andoid.resource://com.rootsproject/" + R.drawable.ic_launcher))
+				.setContentTitle("Roots: Play with words")
+				.setContentDescription("Check out Roots, a mobile game that teaches vocabulary"
+						+ "through etymology! It's a great tool for students"
+						+ "studying for the SAT and ESL students.")
+				.setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.rootsproject"))
+				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2014/10/RootsPlayWords_TransWoutline1.png"))
 				.build());
 
 		like = (LikeView) findViewById(R.id.likeView);
@@ -417,7 +417,8 @@ public class play extends Activity {
 			// Publish the post using the Share Dialog
 			ShareLinkContent linkContent = new ShareLinkContent.Builder()
 					.setContentDescription(description)
-					.setContentUrl(Uri.parse("http://www.roots.nyc"))
+					.setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.rootsproject"))
+					.setImageUrl(Uri.parse("android.resource://com.rootsproject/" + R.drawable.ic_launcher))
 					.build();
 
 			shareDialog.show(linkContent);

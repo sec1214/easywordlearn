@@ -139,16 +139,27 @@ public class scorel2 extends Activity {
 		callbackManager = CallbackManager.Factory.create();
 		shareDialog = new ShareDialog(this);
 
-		post = (ShareButton) findViewById(R.id.share);
+		scorenum = (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100);
+
+		defwordscorenum = (int) ((myapp.getdefwordscore(1) / myapp
+				.getdefwordscore(0)) * 100);
+
+		rootscorenum = (int) ((myapp.getrootscore(1) / myapp.getrootscore(0)) * 100);
+
+		idrootscorenum = (int) ((myapp.getidrootscore(1) / myapp
+				.getidrootscore(0)) * 100);
+
+		post = (ShareButton) findViewById(R.id.post);
 		post.setShareContent(new ShareLinkContent.Builder()
-				.setContentDescription("I score " + scorenum + " on Roots: "
+				.setContentTitle("Roots: Play with words")
+				.setContentDescription("I scored " + scorenum + "% on Roots: "
 						+ myapp.get(0).replace("_", " ") + ", " + myapp.get(1)
 						+ ", Level " + myapp.get(3) + ". \n"
 						+ "Word Definitions: " + defwordscorenum + "%\n"
 						+ "Root Definitions: " + rootscorenum + "%\n"
-						+ "Root Identification: " + idrootscorenum + "%\n"
-						+ "Get it now at https://play.google.com/store/apps/details?id=com.rootsproject")
-				.setImageUrl(Uri.parse("andoid.resource://com.rootsproject/" + R.drawable.ic_launcher))
+						+ "Root Identification: " + idrootscorenum)
+				.setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.rootsproject"))
+				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2014/10/RootsPlayWords_TransWoutline1.png"))
 				.build());
 
 		like = (LikeView) findViewById(R.id.likeView);
@@ -169,16 +180,6 @@ public class scorel2 extends Activity {
 			bool();
 
 		}
-
-		scorenum = (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100);
-
-		defwordscorenum = (int) ((myapp.getdefwordscore(1) / myapp
-				.getdefwordscore(0)) * 100);
-
-		rootscorenum = (int) ((myapp.getrootscore(1) / myapp.getrootscore(0)) * 100);
-
-		idrootscorenum = (int) ((myapp.getidrootscore(1) / myapp
-				.getidrootscore(0)) * 100);
 
 		dbmg();
 		// changecolorscore((int) ((myapp.getscore(1) / myapp.getscore(0)) *
