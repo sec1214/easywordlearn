@@ -9,6 +9,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.CallbackManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.LikeView;
+import com.facebook.share.widget.ShareButton;
 import com.facebook.share.widget.ShareDialog;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
@@ -23,6 +24,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -63,7 +65,7 @@ public class MainActivity extends Activity {
 
 	private CallbackManager callbackManager;
 	private ShareDialog shareDialog;
-	private ImageButton share;
+	private ShareButton share;
 	private LikeView like;
 
 	private static final int STOPSPLASH = 0;
@@ -93,6 +95,8 @@ public class MainActivity extends Activity {
 		Appsee.start("c2c77102cf2a485ea9b4e81e2a2b9101");
 		super.onCreate(savedInstanceState);
 
+		FacebookSdk.sdkInitialize(this.getApplicationContext());
+
 		// setTitle("");
 		getWindow().requestFeature(Window.FEATURE_PROGRESS);
 
@@ -118,22 +122,20 @@ public class MainActivity extends Activity {
 			splash.setVisibility(View.GONE);
 		}
 
-		FacebookSdk.sdkInitialize(this.getApplicationContext());
 		callbackManager = CallbackManager.Factory.create();
 		shareDialog = new ShareDialog(this);
 
 		// configure Share Button
-		share = (ImageButton) findViewById(R.id.share);
-		//share.setVisibility(View.GONE);
-		share.setOnClickListener(new View.OnClickListener() {
+		share = (ShareButton) findViewById(R.id.share);
+		share.setShareContent(new ShareLinkContent.Builder()
+				.setContentDescription("Check out Roots, a mobile game that teaches vocabulary "
+						+ "through etymology! It's a great tool for students "
+						+ "studying for the SAT and ESL students. Get it now at "
+						+ "https://play.google.com/store/apps/details?id=com.rootsproject")
+				.setImageUrl(Uri.parse("andoid.resource://com.rootsproject/" + R.drawable.ic_launcher))
+				.build());
 
-			@Override
-			public void onClick(View v) {
-				onClickShare();
-			}
-		});
 		like = (LikeView) findViewById(R.id.likeView);
-		//like.setVisibility(View.GONE);
 		like.setObjectIdAndType("https://www.facebook.com/rootsmobileapp", LikeView.ObjectType.UNKNOWN);
 
 		List<String> list = new managedb(this).listtablename(null);

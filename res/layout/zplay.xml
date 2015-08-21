@@ -33,26 +33,47 @@
         android:text="Select a Level"
         android:textColor="@color/black"
         android:textSize="30sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         
-        
-        <ListView 
+        <ListView
             
             android:id="@+id/levellist"
             android:layout_width="match_parent"
-            android:layout_height="345dp"
+            android:layout_height="0dp"
             android:padding="16dp"
 
-            android:layout_weight="0.23"></ListView>
+            android:layout_weight="1"
+            android:layout_gravity="right"></ListView>
 
-    <ImageButton
-        android:id="@+id/share"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:background="@drawable/facebookshare"
-        android:gravity="center"
-        android:scaleType="centerInside"
-        android:textSize="15sp"
-        android:layout_gravity="center_horizontal" />
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:weightSum="1"
+            android:layout_weight="0"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp">
 
+            <com.facebook.share.widget.LikeView
+                android:id="@+id/likeView"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:textSize="15sp"
+                android:layout_marginLeft="20dp" />
+
+            <com.facebook.share.widget.ShareButton
+                android:id="@+id/share"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:textSize="15sp"
+                android:layout_marginLeft="20dp" />
+
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

@@ -7,60 +7,6 @@
      
    >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="26dp"
-        android:background="@color/blue"
-        android:visibility="gone"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/blue" />
-
-        <com.facebook.share.widget.LikeView
-            android:id="@+id/likeView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:background="@color/blue"
-            android:foreground="@drawable/facebooklike"
-            android:gravity="center"
-            android:foregroundGravity="center"
-            android:textSize="15sp" >
-
-        </com.facebook.share.widget.LikeView>
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/blue" />
-
-        <ImageButton
-            android:id="@+id/share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/facebookshare"
-            android:gravity="center"
-            android:scaleType="centerInside"
-            android:textSize="15sp" />
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/blue" />
-
-    </LinearLayout>
-
     <TextView
         android:id="@+id/Listtextview"
         android:layout_width="match_parent"
@@ -68,8 +14,9 @@
         android:background="@color/blue"
         android:gravity="center_horizontal"
         android:textColor="@android:color/white"
-        android:textSize="30sp" />
-    
+        android:textSize="30sp"
+        android:layout_weight="0" />
+
     <TextView
         android:id="@+id/Listtextview1"
         android:layout_width="match_parent"
@@ -78,16 +25,37 @@
         android:gravity="center"
         android:text="Select a List"
         android:textColor="@color/black"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:layout_weight="0" />
     
-    <ListView 
+    <ListView
         android:id="@+id/Listlistview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:paddingLeft="10dp"
-    
-        
-        ></ListView>
-    
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <com.facebook.share.widget.LikeView
+            android:id="@+id/likeView"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:textSize="15sp"
+            android:layout_marginLeft="20dp" />
+
+        <com.facebook.share.widget.ShareButton
+            android:id="@+id/share"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:textSize="15sp"
+            android:layout_marginLeft="20dp" />
+
+    </LinearLayout>
 
 </LinearLayout>

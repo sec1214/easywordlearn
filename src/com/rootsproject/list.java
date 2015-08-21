@@ -4,6 +4,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.CallbackManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.LikeView;
+import com.facebook.share.widget.ShareButton;
 import com.facebook.share.widget.ShareDialog;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
@@ -38,7 +39,7 @@ public class list extends Activity {
 
 	private CallbackManager callbackManager;
 	private ShareDialog shareDialog;
-	private ImageButton share;
+	private ShareButton share;
 	private LikeView like;
 
 	private BroadcastReceiver receiver;
@@ -73,18 +74,18 @@ public class list extends Activity {
 		studyButton = (Button) this.findViewById(R.id.button2);
 		reviewButton = (Button) this.findViewById(R.id.button3);
 
-		FacebookSdk.sdkInitialize(this.getApplicationContext());
 		callbackManager = CallbackManager.Factory.create();
 		shareDialog = new ShareDialog(this);
 
-		share = (ImageButton) findViewById(R.id.share);
-		share.setOnClickListener(new View.OnClickListener() {
+		share = (ShareButton) findViewById(R.id.share);
+		share.setShareContent(new ShareLinkContent.Builder()
+				.setContentDescription("Check out Roots, a mobile game that teaches vocabulary "
+						+ "through etymology! It's a great tool for students "
+						+ "studying for the SAT and ESL students. Get it now at "
+						+ "https://play.google.com/store/apps/details?id=com.rootsproject")
+				.setImageUrl(Uri.parse("andoid.resource://com.rootsproject/" + R.drawable.ic_launcher))
+				.build());
 
-			@Override
-			public void onClick(View v) {
-				onClickShare();
-			}
-		});
 		like = (LikeView) findViewById(R.id.likeView);
 		like.setObjectIdAndType("https://www.facebook.com/rootsmobileapp", LikeView.ObjectType.UNKNOWN);
 

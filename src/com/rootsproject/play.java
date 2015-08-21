@@ -18,6 +18,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.CallbackManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.LikeView;
+import com.facebook.share.widget.ShareButton;
 import com.facebook.share.widget.ShareDialog;
 
 import Database.managedb;
@@ -52,7 +53,7 @@ public class play extends Activity {
 
 	private CallbackManager callbackManager;
 	private ShareDialog shareDialog;
-	private ImageButton share;
+	private ShareButton share;
 	private LikeView like;
 
 	@Override
@@ -72,22 +73,21 @@ public class play extends Activity {
 
 		myapp.startsplashmusic();
 
-		FacebookSdk.sdkInitialize(this.getApplicationContext());
 		callbackManager = CallbackManager.Factory.create();
 		shareDialog = new ShareDialog(this);
 
 		// configure Share Button
-		share = (ImageButton) findViewById(R.id.share);
-		//share.setVisibility(View.GONE);
-		share.setOnClickListener(new View.OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				onClickShare();
-			}
-		});
+		share = (ShareButton) findViewById(R.id.share);
+		share.setShareContent(new ShareLinkContent.Builder()
+				.setContentDescription("Check out Roots, a mobile game that teaches vocabulary "
+						+ "through etymology! It's a great tool for students "
+						+ "studying for the SAT and ESL students. Get it now at "
+						+ "https://play.google.com/store/apps/details?id=com.rootsproject")
+				.setImageUrl(Uri.parse("andoid.resource://com.rootsproject/" + R.drawable.ic_launcher))
+				.build());
+
 		like = (LikeView) findViewById(R.id.likeView);
-		//like.setVisibility(View.GONE);
 		like.setObjectIdAndType("https://www.facebook.com/rootsmobileapp", LikeView.ObjectType.UNKNOWN);
 
 		managedb db = new managedb(getBaseContext()); // store 20 words in

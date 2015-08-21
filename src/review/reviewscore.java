@@ -8,6 +8,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.CallbackManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.LikeView;
+import com.facebook.share.widget.ShareButton;
 import com.facebook.share.widget.ShareDialog;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
@@ -67,10 +68,12 @@ public class reviewscore extends Activity {
 
 	private CallbackManager callbackManager;
 	private ShareDialog shareDialog;
-	private ImageButton post;
 	private LikeView like;
 
 	private int scorenum;
+	private int defwordscorenum;
+	private int rootscorenum;
+	private int idrootscorenum;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -109,14 +112,6 @@ public class reviewscore extends Activity {
 
 		like = (LikeView) findViewById(R.id.likeView);
 		like.setObjectIdAndType("https://www.facebook.com/rootsmobileapp", LikeView.ObjectType.UNKNOWN);
-		post = (ImageButton) findViewById(R.id.post);
-		post.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				onClickPostScore();
-			}
-		});
 
 		level = Integer.parseInt(myapp.get(3));
 
@@ -178,7 +173,8 @@ public class reviewscore extends Activity {
 
 		}
 
-		int[] k = db.getscore();		
+		int[] k = db.getscore();
+
 		score.setText(Integer.toString(k[0])+"%");
 		scorenum = k[0];
 		defwordscore.setText(Integer.toString(k[2])+"%");
