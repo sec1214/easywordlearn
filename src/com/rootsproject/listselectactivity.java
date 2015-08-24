@@ -13,13 +13,13 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 
 import Database.managedb;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -37,10 +37,9 @@ import android.widget.Toast;
 
 import com.rootsproject.R;
 
-public class listselectactivity extends Activity {
+public class listselectactivity extends AppCompatActivity {
 
 	private mypublicvalue myapp;
-	private TextView ListtextView; // show the course name
 	private ArrayAdapter<String> adapter;
 	private ListView ListlistView; // the listview display the list number.
 	private managedb db; // call database
@@ -58,21 +57,22 @@ public class listselectactivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		myapp = (mypublicvalue) getApplication();
+
+		String tablename = myapp.get(0);
+
+		android.support.v7.app.ActionBar ab = getSupportActionBar();
+		ab.setTitle(underlineclear(tablename));
+
 		setContentView(R.layout.zlistselect);
 
 		receiver = new HomeKeyEventBroadCastReceiver();
 		getApplicationContext().registerReceiver(receiver,
 				new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
 
-		myapp = (mypublicvalue) getApplication();
 
 		// myapp.setreceiver(receiver);
 		myapp.startsplashmusic();
-		String tablename = myapp.get(0); // // get the course name �õ�����
-
-		ListtextView = (TextView) this.findViewById(R.id.Listtextview);
-
-		ListtextView.setText(underlineclear(tablename));
 
 		db = new managedb(this);
 
@@ -105,23 +105,23 @@ public class listselectactivity extends Activity {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
-					int position, long arg3) {
+									int position, long arg3) {
 				// TODO Auto-generated method stub
 
 				myapp.playmusic(1); // button sound
 				String value = ListlistView.getItemAtPosition(position) // //
-																		// the
-																		// begin
-																		// of
-																		// postion
-																		// is 0;
+						// the
+						// begin
+						// of
+						// postion
+						// is 0;
 						.toString();
 				myapp.set(1, value); // store list name to public value 0
-										// �����ݵ��Ǳ�����1�����ݵ�list����
+				// �����ݵ��Ǳ�����1�����ݵ�list����
 				myapp.set(2, Integer.toString(position + 1)); // store list
-																// number to
-																// public value
-																// ������Ҫת��Ϊ+1
+				// number to
+				// public value
+				// ������Ҫת��Ϊ+1
 
 				// myapp.setwords(db.getwords());
 
@@ -135,10 +135,10 @@ public class listselectactivity extends Activity {
 				// fields and values
 				// that are set and sent with the hit.
 				easyTracker.send(MapBuilder.createEvent(category, // Event
-																	// category
-																	// (required)
+						// category
+						// (required)
 						"button_press_to_select_list", // Event action
-														// (required)
+						// (required)
 						myapp.get(1), // Event label
 						null) // Event value
 						.build());
@@ -157,15 +157,19 @@ public class listselectactivity extends Activity {
 		callbackManager = CallbackManager.Factory.create();
 		shareDialog = new ShareDialog(this);
 
-		share = (ShareButton) findViewById(R.id.share);
-		share.setShareContent(new ShareLinkContent.Builder()
+		ShareLinkContent content = new ShareLinkContent.Builder()
+				.setContentUrl(Uri.parse("http://roots.nyc/"))
 				.setContentTitle("Roots: Play with words")
+				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2014/10/RootsPlayWords_TransWoutline1.png"))
 				.setContentDescription("Check out Roots, a mobile game that teaches vocabulary "
 						+ "through etymology! It's a great tool for students "
-						+ "studying for the SAT and ESL students.")
-				.setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.rootsproject"))
-				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2014/10/RootsPlayWords_TransWoutline1.png"))
-				.build());
+						+ "studying for the SAT and ESL students. \n"
+						+ "Get it now on the Google Play Store! \n"
+						+ "https://play.google.com/store/apps/details?id=com.rootsproject")
+				.build();
+
+		share = (ShareButton) findViewById(R.id.share);
+		share.setShareContent(content);
 
 		like = (LikeView) findViewById(R.id.likeView);
 		like.setObjectIdAndType("https://www.facebook.com/rootsmobileapp", LikeView.ObjectType.UNKNOWN);

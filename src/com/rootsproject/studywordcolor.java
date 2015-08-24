@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +24,7 @@ import android.widget.TextView;
 
 import com.rootsproject.R;
 
-public class studywordcolor extends Activity {
+public class studywordcolor extends AppCompatActivity {
 
 	private Dialog alertdDialog;
 	private TextView textView1, textView2;
@@ -39,18 +40,17 @@ public class studywordcolor extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		myapp = (mypublicvalue) getApplication();
+
+		android.support.v7.app.ActionBar ab = getSupportActionBar();
+		ab.setTitle(underlineclear(myapp.get(0)));
 		setContentView(R.layout.zwordlist);
 
 		receiver = new HomeKeyEventBroadCastReceiver();
 		getApplicationContext().registerReceiver(receiver,
 				new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
 
-		textView1 = (TextView) this.findViewById(R.id.textview1);
 		textView2 = (TextView) this.findViewById(R.id.textview2);
-
-		myapp = (mypublicvalue) getApplication();
-
-		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
 
 		wordListView = (ListView) this.findViewById(R.id.wordlistview);

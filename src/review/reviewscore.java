@@ -25,6 +25,7 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -47,7 +48,7 @@ import com.rootsproject.play;
 import com.rootsproject.score;
 import com.rootsproject.scoreword;
 
-public class reviewscore extends Activity {
+public class reviewscore extends AppCompatActivity {
 
 	private mypublicvalue myapp;
 	private Dialog alertdDialog;
@@ -79,6 +80,11 @@ public class reviewscore extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		textView1.setText(underlineclear(myapp.get(0)));
+
+		android.support.v7.app.ActionBar ab = getSupportActionBar();
+		ab.setTitle(underlineclear(myapp.get(0)));
+
 		setContentView(R.layout.zscore);
 
 		receiver = new HomeKeyEventBroadCastReceiver();
@@ -102,7 +108,6 @@ public class reviewscore extends Activity {
 		rootline = (LinearLayout) this.findViewById(R.id.rootline);
 
 		myapp = (mypublicvalue) getApplication();
-		textView1.setText(underlineclear(myapp.get(0))); // course 
 		textView2.setText(myapp.get(1));
 		textViewlevel.setText(" Level: " + myapp.get(3));
 

@@ -18,6 +18,7 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,10 +31,10 @@ import android.widget.TextView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.rootsproject.R;
 
-public class words extends Activity {
+public class words extends AppCompatActivity {
 
 	private Dialog alertdDialog;
-	private TextView textView1, textView2, defTextView, wordTextView1,
+	private TextView textView2, defTextView, wordTextView1,
 			wordTextView2, wordTextView3, wordTextView4;  // 4 options
 	private TextView textViewlevel, textViewword, textViewwr, textViewscore;
 	private mypublicvalue myapp;
@@ -122,6 +123,11 @@ public class words extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		myapp = (mypublicvalue) getApplication();
+
+		android.support.v7.app.ActionBar ab = getSupportActionBar();
+		ab.setTitle(underlineclear(myapp.get(0)));
+
 		EasyTracker.getInstance(this).activityStart(this);
 		setContentView(R.layout.zword);
 		System.out.println("Word.class ����");
@@ -130,7 +136,6 @@ public class words extends Activity {
 				new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
 		sleeptime= Long.parseLong(this.getString(R.string.sleeptime));
 		wenhaoButton = (ImageButton) this.findViewById(R.id.wenhaobutton);
-		textView1 = (TextView) this.findViewById(R.id.textview1);
 		textView2 = (TextView) this.findViewById(R.id.textview2);
 		textViewlevel = (TextView) this.findViewById(R.id.leveltext);
 		textViewword = (TextView) this.findViewById(R.id.wordtext);
@@ -142,9 +147,7 @@ public class words extends Activity {
 		wordTextView3 = (TextView) this.findViewById(R.id.word3);
 		wordTextView4 = (TextView) this.findViewById(R.id.word4);
 
-		myapp = (mypublicvalue) getApplication();
 		myapp.startlevelmusic();
-		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
 
 		textViewlevel.setText(" Level: " + myapp.get(3)); // the numer of level�趨��ʾlevel�Ŀؼ�

@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -45,7 +46,7 @@ import com.rootsproject.play;
 import com.rootsproject.score;
 import com.rootsproject.scoreword;
 
-public class scorel4 extends Activity {
+public class scorel4 extends AppCompatActivity {
 
 	private mypublicvalue myapp;
 	private Dialog alertdDialog;
@@ -57,7 +58,7 @@ public class scorel4 extends Activity {
 	private String[][] words;
 	private boolean[] f = new boolean[21];
 	private int scorenum, defwordscorenum, rootscorenum, idrootscorenum;
-	private TextView textView1, textView2, textViewlevel;
+	private TextView textView2, textViewlevel;
 	private TextView defwordscore, rootscore, idrootscore;
 
 	private int wcon; // ��ϰ���Ʒ�
@@ -72,6 +73,10 @@ public class scorel4 extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		myapp = (mypublicvalue) getApplication();
+
+		android.support.v7.app.ActionBar ab = getSupportActionBar();
+		ab.setTitle(underlineclear(myapp.get(0)));
 
 		setContentView(R.layout.zscore);
 
@@ -83,14 +88,11 @@ public class scorel4 extends Activity {
 		review = (TextView) this.findViewById(R.id.reviewbutton);
 		main = (TextView) this.findViewById(R.id.mainbutton);
 
-		textView1 = (TextView) this.findViewById(R.id.textview1);
 		textView2 = (TextView) this.findViewById(R.id.textview2);
 		textViewlevel = (TextView) this.findViewById(R.id.leveltext);
 
-		myapp = (mypublicvalue) getApplication();
 		myapp.stoplevelmusic();
 		myapp.resetConstantCorrectCount();
-		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
 		textViewlevel.setText(" Level: " + myapp.get(3));
 
@@ -108,18 +110,22 @@ public class scorel4 extends Activity {
 		idrootscorenum = (int) ((myapp.getidrootscore(1) / myapp
 				.getidrootscore(0)) * 100);
 
-		post = (ShareButton) findViewById(R.id.post);
-		post.setShareContent(new ShareLinkContent.Builder()
+		ShareLinkContent content = new ShareLinkContent.Builder()
+				.setContentUrl(Uri.parse("http://roots.nyc/"))
 				.setContentTitle("Roots: Play with words")
+				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2014/10/RootsPlayWords_TransWoutline1.png"))
 				.setContentDescription("I scored " + scorenum + "% on Roots: "
 						+ myapp.get(0).replace("_", " ") + ", " + myapp.get(1)
 						+ ", Level " + myapp.get(3) + ". \n"
 						+ "Word Definitions: " + defwordscorenum + "%\n"
 						+ "Root Definitions: " + rootscorenum + "%\n"
-						+ "Root Identification: " + idrootscorenum)
-				.setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.rootsproject"))
-				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2014/10/RootsPlayWords_TransWoutline1.png"))
-				.build());
+						+ "Root Identification: " + idrootscorenum + "%\n"
+						+ "Get it now on the Google Play Store! \n"
+						+ "https://play.google.com/store/apps/details?id=com.rootsproject")
+				.build();
+
+		post = (ShareButton) findViewById(R.id.post);
+		post.setShareContent(content);
 
 		like = (LikeView) findViewById(R.id.likeView);
 		like.setObjectIdAndType("https://www.facebook.com/rootsmobileapp", LikeView.ObjectType.UNKNOWN);

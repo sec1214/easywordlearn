@@ -11,7 +11,7 @@
         android:layout_height="fill_parent"
         android:orientation="vertical"
         android:layout_weight="0"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <TextView
             android:layout_width="fill_parent"
@@ -22,16 +22,6 @@
             android:text="play with words"
             android:textSize="30dp" />
     </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/blue"
-        android:gravity="center_horizontal"
-        android:text="@string/course"
-        android:textColor="@android:color/white"
-        android:textSize="30sp"
-        android:layout_weight="0" />
 
     <ListView
         android:id="@+id/listview"

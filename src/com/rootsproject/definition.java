@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -35,10 +36,10 @@ import android.widget.ImageView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.rootsproject.R;
 
-public class definition extends Activity {
+public class definition extends AppCompatActivity {
 
 	private Dialog alertdDialog;
-	private TextView textView1, textView2, wordtTextView, textViewdef1,  //wordtTextView: learning progress,
+	private TextView textView2, wordtTextView, textViewdef1,  //wordtTextView: learning progress,
 			textViewdef2, textViewdef3; //wordtextview1-3: 3 options
 	private TextView textViewlevel, textViewword, textViewwr, textViewscore;  // level, word's defintion, whole score
 	private mypublicvalue myapp;
@@ -126,6 +127,11 @@ public class definition extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		myapp = (mypublicvalue) getApplication();
+
+		android.support.v7.app.ActionBar ab = getSupportActionBar();
+		ab.setTitle(myapp.get(0));
+
 		setContentView(R.layout.zdefinition);
 		receiver = new HomeKeyEventBroadCastReceiver();
 		getApplicationContext().registerReceiver(receiver,
@@ -135,7 +141,6 @@ public class definition extends Activity {
 		sleeptime = Long.parseLong(this.getString(R.string.sleeptime));  // take how long time from strings.xml
 
 		wenhaoButton = (ImageButton) this.findViewById(R.id.wenhaobutton); // helpbutton
-		textView1 = (TextView) this.findViewById(R.id.textview1); // course
 		textView2 = (TextView) this.findViewById(R.id.textview2); // list
 		wordtTextView = (TextView) this.findViewById(R.id.wordtestview); //  1/10
 		textViewdef1 = (TextView) this.findViewById(R.id.textviewdef1);  // 3 options
@@ -146,9 +151,7 @@ public class definition extends Activity {
 		textViewwr = (TextView) this.findViewById(R.id.wrtext);  
 		textViewscore = (TextView) this.findViewById(R.id.scoretext);
 
-		myapp = (mypublicvalue) getApplication();
 		myapp.startlevelmusic();
-		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
 
 		textViewlevel.setText(" Level: " + myapp.get(3)); // the numer of level �趨��ʾlevel�Ŀؼ�

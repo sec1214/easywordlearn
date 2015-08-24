@@ -20,6 +20,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,9 +33,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class reviwlevel extends Activity {
+public class reviwlevel extends AppCompatActivity {
 
-	private TextView textView1, textView2;
+	private TextView textView2;
 	private mypublicvalue myapp;
 	private ListView levelListView;
 	private SpecialAdapter adapter;
@@ -45,20 +46,20 @@ public class reviwlevel extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		myapp = (mypublicvalue) getApplication();
+
+		android.support.v7.app.ActionBar ab = getSupportActionBar();
+		ab.setTitle(underlineclear(myapp.get(0)));
 		setContentView(R.layout.zplay);
 
 		receiver = new HomeKeyEventBroadCastReceiver();
 		getApplicationContext().registerReceiver(receiver,
 				new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
-		textView1 = (TextView) this.findViewById(R.id.textview1);
 		textView2 = (TextView) this.findViewById(R.id.textview2);
-
-		myapp = (mypublicvalue) getApplication();
 
 		managedb db = new managedb(getBaseContext());
 		myapp.setwords(db.getwords());
 
-		textView1.setText(underlineclear(myapp.get(0))); // course 
 		textView2.setText(myapp.get(1));
 
 		levelListView = (ListView) this.findViewById(R.id.levellist);

@@ -28,6 +28,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,7 +41,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class scorel7 extends Activity {
+public class scorel7 extends AppCompatActivity {
 
 	private mypublicvalue myapp;
 	private Dialog alertdDialog;
@@ -53,7 +54,7 @@ public class scorel7 extends Activity {
 	private boolean[] f = new boolean[21];
 	private int wcon; // ��ϰ���Ʒ�
 	private TextView main;
-	private TextView textView1, textView2, textViewlevel;
+	private TextView textView2, textViewlevel;
 	private LinearLayout defwordline, idrootline, rootline;
 	private int scorenum;
 
@@ -66,12 +67,16 @@ public class scorel7 extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		myapp = (mypublicvalue) getApplication();
+
+		android.support.v7.app.ActionBar ab = getSupportActionBar();
+		ab.setTitle(underlineclear(myapp.get(0)));
+
 		setContentView(R.layout.zscore);
 
 		score = (TextView) this.findViewById(R.id.score);
 		review = (TextView) this.findViewById(R.id.reviewbutton);
 		main = (TextView) this.findViewById(R.id.mainbutton);
-		textView1 = (TextView) this.findViewById(R.id.textview1);
 		textView2 = (TextView) this.findViewById(R.id.textview2);
 		textViewlevel = (TextView) this.findViewById(R.id.leveltext);
 
@@ -82,10 +87,8 @@ public class scorel7 extends Activity {
 		rootline = (LinearLayout) this.findViewById(R.id.rootline);
 		rootline.setVisibility(View.GONE);
 
-		myapp = (mypublicvalue) getApplication();
 		myapp.stoplevelmusic();
 		myapp.resetConstantCorrectCount();
-		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
 		textViewlevel.setText(" Level: " + myapp.get(3));
 
@@ -95,15 +98,19 @@ public class scorel7 extends Activity {
 
 		scorenum = (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100);
 
-		post = (ShareButton) findViewById(R.id.post);
-		post.setShareContent(new ShareLinkContent.Builder()
+		ShareLinkContent content = new ShareLinkContent.Builder()
+				.setContentUrl(Uri.parse("http://roots.nyc/"))
 				.setContentTitle("Roots: Play with words")
+				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2014/10/RootsPlayWords_TransWoutline1.png"))
 				.setContentDescription("I scored " + scorenum + "% on Roots: "
 						+ myapp.get(0).replace("_", " ") + ", " + myapp.get(1)
-						+ ", Level " + myapp.get(3))
-				.setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.rootsproject"))
-				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2014/10/RootsPlayWords_TransWoutline1.png"))
-				.build());
+						+ ", Level " + myapp.get(3) + "."
+						+ "Get it now on the Google Play Store! \n"
+						+ "https://play.google.com/store/apps/details?id=com.rootsproject")
+				.build();
+
+		post = (ShareButton) findViewById(R.id.post);
+		post.setShareContent(content);
 
 		like = (LikeView) findViewById(R.id.likeView);
 		like.setObjectIdAndType("https://www.facebook.com/rootsmobileapp", LikeView.ObjectType.UNKNOWN);

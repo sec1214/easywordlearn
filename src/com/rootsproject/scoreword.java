@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 //import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,9 +16,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.rootsproject.R;
 
-public class scoreword extends Activity {
+public class scoreword extends AppCompatActivity {
 	private Dialog alertdDialog;
-	private TextView scoreword, scoredef;
+	private TextView scoredef;
 	private Button backButton;
 	private mypublicvalue myapp;
 
@@ -25,18 +26,18 @@ public class scoreword extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.zscoreword);
-
-		scoreword = (TextView) this.findViewById(R.id.scoreword);
-		scoredef = (TextView) this.findViewById(R.id.scoredef);
-		backButton = (Button) this.findViewById(R.id.backscore);
-
-		myapp = (mypublicvalue) getApplication();
 
 		Intent intent = getIntent();
 		String word = intent.getStringExtra("name"); // take the word's string by intent method.
 
-		scoreword.setText(word);
+		myapp = (mypublicvalue) getApplication();
+
+		android.support.v7.app.ActionBar ab = getSupportActionBar();
+		ab.setTitle(word);
+		setContentView(R.layout.zscoreword);
+
+		scoredef = (TextView) this.findViewById(R.id.scoredef);
+		backButton = (Button) this.findViewById(R.id.backscore);
 
 		String string = intent.getStringExtra("string");
 		scoredef.setText(string);

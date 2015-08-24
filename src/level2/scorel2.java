@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -45,7 +46,7 @@ import com.rootsproject.play;
 import com.rootsproject.score;
 import com.rootsproject.scoreword;
 
-public class scorel2 extends Activity {
+public class scorel2 extends AppCompatActivity {
 
 	private mypublicvalue myapp;
 	private Dialog alertdDialog;
@@ -59,7 +60,7 @@ public class scorel2 extends Activity {
 	private int scorenum, defwordscorenum, rootscorenum, idrootscorenum;
 	private int wcon; // ��ϰ���Ʒ�
 	private TextView main;
-	private TextView textView1, textView2, textViewlevel;
+	private TextView textView2, textViewlevel;
 
 	private CallbackManager callbackManager;
 	private ShareDialog shareDialog;
@@ -79,10 +80,14 @@ public class scorel2 extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		myapp = (mypublicvalue) getApplication();
+
+		android.support.v7.app.ActionBar ab = getSupportActionBar();
+		ab.setTitle(underlineclear(myapp.get(0)));
+
 		EasyTracker.getInstance(this).activityStart(this);
 		setContentView(R.layout.zscore);
 
-		textView1 = (TextView) this.findViewById(R.id.textview1);
 		textView2 = (TextView) this.findViewById(R.id.textview2);
 		textViewlevel = (TextView) this.findViewById(R.id.leveltext);
 
@@ -95,9 +100,7 @@ public class scorel2 extends Activity {
 		review = (TextView) this.findViewById(R.id.reviewbutton);
 		main = (TextView) this.findViewById(R.id.mainbutton);
 		main.setText("Skip to Next Level");
-		/* added by xiaoqian yu, 2014-12-28, start */
-		myapp = (mypublicvalue) getApplication();
-		/* added by xiaoqian yu, 2014-12-28, over */
+
 		myapp.resetConstantCorrectCount();
 		main.setOnClickListener(new View.OnClickListener() {
 
@@ -131,7 +134,6 @@ public class scorel2 extends Activity {
 
 		myapp = (mypublicvalue) getApplication();
 		myapp.stoplevelmusic();
-		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
 		textViewlevel.setText(" Level: " + myapp.get(3));
 
@@ -149,18 +151,22 @@ public class scorel2 extends Activity {
 		idrootscorenum = (int) ((myapp.getidrootscore(1) / myapp
 				.getidrootscore(0)) * 100);
 
-		post = (ShareButton) findViewById(R.id.post);
-		post.setShareContent(new ShareLinkContent.Builder()
+		ShareLinkContent content = new ShareLinkContent.Builder()
+				.setContentUrl(Uri.parse("http://roots.nyc/"))
 				.setContentTitle("Roots: Play with words")
+				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2014/10/RootsPlayWords_TransWoutline1.png"))
 				.setContentDescription("I scored " + scorenum + "% on Roots: "
 						+ myapp.get(0).replace("_", " ") + ", " + myapp.get(1)
 						+ ", Level " + myapp.get(3) + ". \n"
 						+ "Word Definitions: " + defwordscorenum + "%\n"
 						+ "Root Definitions: " + rootscorenum + "%\n"
-						+ "Root Identification: " + idrootscorenum)
-				.setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.rootsproject"))
-				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2014/10/RootsPlayWords_TransWoutline1.png"))
-				.build());
+						+ "Root Identification: " + idrootscorenum + "%\n"
+						+ "Get it now on the Google Play Store! \n"
+						+ "https://play.google.com/store/apps/details?id=com.rootsproject")
+				.build();
+
+		post = (ShareButton) findViewById(R.id.post);
+		post.setShareContent(content);
 
 		like = (LikeView) findViewById(R.id.likeView);
 		like.setObjectIdAndType("https://www.facebook.com/rootsmobileapp", LikeView.ObjectType.UNKNOWN);

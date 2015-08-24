@@ -34,6 +34,8 @@ public class studyword extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		myapp = (mypublicvalue) getApplication();
+
 		setContentView(R.layout.zwordlist);
 
 		receiver = new HomeKeyEventBroadCastReceiver();
@@ -42,8 +44,6 @@ public class studyword extends Activity {
 
 		textView1 = (TextView) this.findViewById(R.id.textview1);
 		textView2 = (TextView) this.findViewById(R.id.textview2);
-
-		myapp = (mypublicvalue) getApplication();
 
 		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
@@ -201,10 +201,10 @@ public class studyword extends Activity {
 				String reason = intent.getStringExtra(SYSTEM_REASON);
 				if (reason != null) {
 					if (reason.equals(SYSTEM_HOME_KEY)) {
-						myapp.pausesplashmusic(); // home key´¦Àíµã
+						myapp.pausesplashmusic(); // home keyï¿½ï¿½ï¿½ï¿½ï¿½
 
 					} else if (reason.equals(SYSTEM_RECENT_APPS)) {
-						// long home key´¦Àíµã
+						// long home keyï¿½ï¿½ï¿½ï¿½ï¿½
 					}
 				}
 			}

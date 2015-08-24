@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -40,7 +41,7 @@ import android.widget.Toast;
 
 import com.rootsproject.R;
 
-public class score extends Activity {
+public class score extends AppCompatActivity {
 
 	private mypublicvalue myapp;
 	private Dialog alertdDialog;
@@ -57,7 +58,7 @@ public class score extends Activity {
 															// ,we can close
 															// relevent score
 															// record.
-	private TextView textView1, textView2, textViewlevel;
+	private TextView textView2, textViewlevel;
 	private int wcon; // review control.
 	private TextView main;
 	private int scorenum, defwordscorenum, rootscorenum;
@@ -73,8 +74,12 @@ public class score extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		myapp = (mypublicvalue) getApplication();
+
+		android.support.v7.app.ActionBar ab = getSupportActionBar();
+		ab.setTitle(underlineclear(myapp.get(0)));
+
 		setContentView(R.layout.zscore);
-		textView1 = (TextView) this.findViewById(R.id.textview1);
 		textView2 = (TextView) this.findViewById(R.id.textview2);
 		textViewlevel = (TextView) this.findViewById(R.id.leveltext);
 		idrootline = (LinearLayout) this.findViewById(R.id.idrootline);
@@ -87,9 +92,7 @@ public class score extends Activity {
 		review = (TextView) this.findViewById(R.id.reviewbutton);
 		main = (TextView) this.findViewById(R.id.mainbutton);
 		main.setText("Skip to Next Level");
-		/* added by xiaoqian yu, 2014-12-28, start */
-		myapp = (mypublicvalue) getApplication();
-		/* added by xiaoqian yu, 2014-12-28, over */
+
 		myapp.resetConstantCorrectCount();
 		main.setOnClickListener(new View.OnClickListener() { // main button to
 																// next level
@@ -131,7 +134,6 @@ public class score extends Activity {
 
 		myapp = (mypublicvalue) getApplication();
 		myapp.stoplevelmusic();
-		textView1.setText(underlineclear(myapp.get(0))); // course
 		textView2.setText(myapp.get(1)); // list
 		textViewlevel.setText(" Level: " + myapp.get(3));// level
 		wcon = myapp.getreviewwrongcontrol(); // review control
@@ -154,12 +156,6 @@ public class score extends Activity {
 
 		callbackManager = CallbackManager.Factory.create();
 
-		String tableName;
-		tableName = myapp.get(0).replace("_", " ");
-		String description = "I scored " + scorenum + " on Roots: "
-				+ tableName + ", " + myapp.get(1) + ", Level "
-				+ myapp.get(3);
-
 		scorenum = (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100);
 
 		defwordscorenum = (int) ((myapp.getdefwordscore(1) / myapp
@@ -167,17 +163,21 @@ public class score extends Activity {
 
 		rootscorenum = (int) ((myapp.getrootscore(1) / myapp.getrootscore(0)) * 100);
 
-		post = (ShareButton) findViewById(R.id.post);
-		post.setShareContent(new ShareLinkContent.Builder()
+		ShareLinkContent content = new ShareLinkContent.Builder()
+				.setContentUrl(Uri.parse("http://roots.nyc/"))
 				.setContentTitle("Roots: Play with words")
+				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2014/10/RootsPlayWords_TransWoutline1.png"))
 				.setContentDescription("I scored " + scorenum + "% on Roots: "
 						+ myapp.get(0).replace("_", " ") + ", " + myapp.get(1)
 						+ ", Level " + myapp.get(3) + ". \n"
 						+ "Word Definitions: " + defwordscorenum + "%\n"
-						+ "Root Definitions: " + rootscorenum)
-				.setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.rootsproject"))
-				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2014/10/RootsPlayWords_TransWoutline1.png"))
-				.build());
+						+ "Root Definitions: " + rootscorenum + "%\n"
+						+ "Get it now on the Google Play Store! \n"
+						+ "https://play.google.com/store/apps/details?id=com.rootsproject")
+				.build();
+
+		post = (ShareButton) findViewById(R.id.post);
+		post.setShareContent(content);
 
 		like = (LikeView) findViewById(R.id.likeView);
 		like.setObjectIdAndType("https://www.facebook.com/rootsmobileapp", LikeView.ObjectType.UNKNOWN);

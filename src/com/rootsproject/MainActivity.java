@@ -16,7 +16,7 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 
 import Database.managedb;
-import android.app.Activity;
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -31,6 +31,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -50,7 +51,7 @@ import android.widget.ListView;
 
 import com.rootsproject.R;
 import com.appsee.Appsee;
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
 	private MenuItem musicsound; // control the splashmusic on and off
 	private MenuItem buttonsound; // control the button sound.
@@ -94,12 +95,17 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Appsee.start("c2c77102cf2a485ea9b4e81e2a2b9101");
+		getWindow().requestFeature(Window.FEATURE_PROGRESS);
 		super.onCreate(savedInstanceState);
+		myapp = (mypublicvalue) getApplication();
+
+
+		android.support.v7.app.ActionBar ab = getSupportActionBar();
+		ab.setTitle(R.string.course);
 
 		FacebookSdk.sdkInitialize(this.getApplicationContext());
 
 		// setTitle("");
-		getWindow().requestFeature(Window.FEATURE_PROGRESS);
 
 		setContentView(R.layout.zmain);
 		
@@ -108,8 +114,6 @@ public class MainActivity extends Activity {
 
 		splash = (LinearLayout) findViewById(R.id.splashscreen);
 
-		myapp = (mypublicvalue) getApplication(); // public value call;
-													// ����������ֵ
 		myapp.startsplashmusic();
 
 		if (!myapp.getsplashscreen()) { // this getsplashscreen ensure that
@@ -126,15 +130,19 @@ public class MainActivity extends Activity {
 		callbackManager = CallbackManager.Factory.create();
 		shareDialog = new ShareDialog(this);
 
-		share = (ShareButton) findViewById(R.id.share);
-		share.setShareContent(new ShareLinkContent.Builder()
+		ShareLinkContent content = new ShareLinkContent.Builder()
+				.setContentUrl(Uri.parse("http://roots.nyc/"))
 				.setContentTitle("Roots: Play with words")
+				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2014/10/RootsPlayWords_TransWoutline1.png"))
 				.setContentDescription("Check out Roots, a mobile game that teaches vocabulary "
 						+ "through etymology! It's a great tool for students "
-						+ "studying for the SAT and ESL students.")
-				.setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.rootsproject"))
-				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2014/10/RootsPlayWords_TransWoutline1.png"))
-				.build());
+						+ "studying for the SAT and ESL students. \n"
+						+ "Get it now on the Google Play Store! \n"
+						+ "https://play.google.com/store/apps/details?id=com.rootsproject")
+				.build();
+
+		share = (ShareButton) findViewById(R.id.share);
+		share.setShareContent(content);
 
 		like = (LikeView) findViewById(R.id.likeView);
 		like.setObjectIdAndType("https://www.facebook.com/rootsmobileapp", LikeView.ObjectType.UNKNOWN);
@@ -334,8 +342,8 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 
-		musicsound = menu.add(101, 1, 1, "musicsound");
-		buttonsound = menu.add(101, 2, 2, "buttonsound");
+		musicsound = menu.add(101, 1, 1, "Music");
+		buttonsound = menu.add(101, 2, 2, "Sound Effects");
 		MenuItem deletereview = menu.add(101, 3, 3, "Delete Review");
 		MenuItem setdefault = menu.add(101, 4, 4, "Set Default");
 

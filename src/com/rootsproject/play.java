@@ -22,13 +22,13 @@ import com.facebook.share.widget.ShareButton;
 import com.facebook.share.widget.ShareDialog;
 
 import Database.managedb;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,9 +44,9 @@ import android.widget.Toast;
 
 import com.rootsproject.R;
 
-public class play extends Activity {
+public class play extends AppCompatActivity {
 
-	private TextView textView1, textView2;
+	private TextView textView2;
 	private mypublicvalue myapp;
 	private ListView levelListView;
 	private ArrayAdapter<String> adapter;
@@ -62,16 +62,17 @@ public class play extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		myapp = (mypublicvalue) getApplication();
+
+		android.support.v7.app.ActionBar ab = getSupportActionBar();
+		ab.setTitle(underlineclear(myapp.get(0)));
+		ab.setSubtitle(myapp.get(1));
+
 		setContentView(R.layout.zplay);
 
 		receiver = new HomeKeyEventBroadCastReceiver();
 		getApplicationContext().registerReceiver(receiver,
 				new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
-
-		textView1 = (TextView) this.findViewById(R.id.textview1); // course name
-		textView2 = (TextView) this.findViewById(R.id.textview2); // level name
-
-		myapp = (mypublicvalue) getApplication();
 
 		myapp.startsplashmusic();
 
@@ -79,15 +80,19 @@ public class play extends Activity {
 		shareDialog = new ShareDialog(this);
 
 		// configure Share Button
-		share = (ShareButton) findViewById(R.id.share);
-		share.setShareContent(new ShareLinkContent.Builder()
+		ShareLinkContent content = new ShareLinkContent.Builder()
+				.setContentUrl(Uri.parse("http://roots.nyc/"))
 				.setContentTitle("Roots: Play with words")
+				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2014/10/RootsPlayWords_TransWoutline1.png"))
 				.setContentDescription("Check out Roots, a mobile game that teaches vocabulary "
 						+ "through etymology! It's a great tool for students "
-						+ "studying for the SAT and ESL students.")
-				.setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.rootsproject"))
-				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2014/10/RootsPlayWords_TransWoutline1.png"))
-				.build());
+						+ "studying for the SAT and ESL students. \n"
+						+ "Get it now on the Google Play Store! \n"
+						+ "https://play.google.com/store/apps/details?id=com.rootsproject")
+				.build();
+
+		share = (ShareButton) findViewById(R.id.share);
+		share.setShareContent(content);
 
 		like = (LikeView) findViewById(R.id.likeView);
 		like.setObjectIdAndType("https://www.facebook.com/rootsmobileapp", LikeView.ObjectType.UNKNOWN);
@@ -99,9 +104,6 @@ public class play extends Activity {
 														// turn to this activity
 														// so store many times 
 		myapp.setwords(db.getwords());
-
-		textView1.setText(underlineclear(myapp.get(0)));
-		textView2.setText(myapp.get(1));
 
 		levelListView = (ListView) this.findViewById(R.id.levellist);
 

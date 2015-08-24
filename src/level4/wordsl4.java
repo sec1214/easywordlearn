@@ -18,6 +18,7 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,10 +37,10 @@ import com.rootsproject.mypublicvalue;
 import com.rootsproject.play;
 import com.google.analytics.tracking.android.EasyTracker;
 
-public class wordsl4 extends Activity {
+public class wordsl4 extends AppCompatActivity {
 
 	private Dialog alertdDialog;
-	private TextView textView1, textView2, defTextView, wordTextView1,
+	private TextView textView2, defTextView, wordTextView1,
 			wordTextView2, wordTextView3, wordTextView4;
 	private TextView textViewlevel, textViewword, textViewwr, textViewscore;
 	private mypublicvalue myapp;
@@ -188,7 +189,13 @@ public class wordsl4 extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		myapp = (mypublicvalue) getApplication();
+
 		EasyTracker.getInstance(this).activityStart(this);
+
+		android.support.v7.app.ActionBar ab = getSupportActionBar();
+		ab.setTitle(underlineclear(myapp.get(0)));
+
 		setContentView(R.layout.zword);
 		
 		sleeptime =Long.parseLong(this.getString(R.string.sleeptime));
@@ -197,7 +204,6 @@ public class wordsl4 extends Activity {
 		getApplicationContext().registerReceiver(receiver,
 				new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
 		wenhaoButton = (ImageButton) this.findViewById(R.id.wenhaobutton);
-		textView1 = (TextView) this.findViewById(R.id.textview1);
 		textView2 = (TextView) this.findViewById(R.id.textview2);
 		textViewlevel = (TextView) this.findViewById(R.id.leveltext);
 		textViewword = (TextView) this.findViewById(R.id.wordtext);
@@ -210,9 +216,6 @@ public class wordsl4 extends Activity {
 		wordTextView3 = (TextView) this.findViewById(R.id.word3);
 		wordTextView4 = (TextView) this.findViewById(R.id.word4);
 
-		myapp = (mypublicvalue) getApplication();
-
-		textView1.setText(underlineclear(myapp.get(0)));
 		textView2.setText(myapp.get(1));
 
 		textViewlevel.setText(" Level: " + myapp.get(3)); // �趨��ʾlevel�Ŀؼ�

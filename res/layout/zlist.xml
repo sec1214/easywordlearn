@@ -34,24 +34,7 @@
             android:background="@color/blue" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textview1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/blue"
-        android:gravity="center_horizontal"
-        android:textColor="@color/white"
-        android:textSize="30sp" />
-
-    <TextView
-        android:id="@+id/textview2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#60c0ff"
-        android:gravity="center_horizontal"
-        android:textColor="@android:color/white"
-        android:textSize="20sp" />
-   <LinearLayout 
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

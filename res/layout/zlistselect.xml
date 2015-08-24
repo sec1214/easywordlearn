@@ -7,27 +7,6 @@
      
    >
 
-    <TextView
-        android:id="@+id/Listtextview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/blue"
-        android:gravity="center_horizontal"
-        android:textColor="@android:color/white"
-        android:textSize="30sp"
-        android:layout_weight="0" />
-
-    <TextView
-        android:id="@+id/Listtextview1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:gravity="center"
-        android:text="Select a List"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        android:layout_weight="0" />
-    
     <ListView
         android:id="@+id/Listlistview"
         android:layout_width="match_parent"
