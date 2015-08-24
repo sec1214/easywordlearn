@@ -40,6 +40,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.rootsproject.R;
 
 public class play extends Activity {
@@ -80,8 +82,8 @@ public class play extends Activity {
 		share = (ShareButton) findViewById(R.id.share);
 		share.setShareContent(new ShareLinkContent.Builder()
 				.setContentTitle("Roots: Play with words")
-				.setContentDescription("Check out Roots, a mobile game that teaches vocabulary"
-						+ "through etymology! It's a great tool for students"
+				.setContentDescription("Check out Roots, a mobile game that teaches vocabulary "
+						+ "through etymology! It's a great tool for students "
 						+ "studying for the SAT and ESL students.")
 				.setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.rootsproject"))
 				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2014/10/RootsPlayWords_TransWoutline1.png"))
@@ -409,19 +411,18 @@ public class play extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void onClickShare() {
-		String description = "Check out Roots, a mobile game that teaches vocabulary "
+	public void onClickSend(View v) {
+		Intent i = new Intent(Intent.ACTION_SEND);
+		i.setType("message/rfc822");
+		i.putExtra(Intent.EXTRA_SUBJECT, "Roots: Play With Words");
+		i.putExtra(Intent.EXTRA_TEXT   , "Check out Roots, a mobile game that teaches vocabulary "
 				+ "through etymology! It's a great tool for students "
-				+ "studying for the SAT and ESL students.";
-		if (ShareDialog.canShow(ShareLinkContent.class)) {
-			// Publish the post using the Share Dialog
-			ShareLinkContent linkContent = new ShareLinkContent.Builder()
-					.setContentDescription(description)
-					.setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.rootsproject"))
-					.setImageUrl(Uri.parse("android.resource://com.rootsproject/" + R.drawable.ic_launcher))
-					.build();
-
-			shareDialog.show(linkContent);
+				+ "studying for the SAT and ESL students. Download it on the Play Store now! "
+				+ "https://play.google.com/store/apps/details?id=com.rootsproject");
+		try {
+			startActivity(Intent.createChooser(i, "Send mail..."));
+		} catch (android.content.ActivityNotFoundException ex) {
+			Toast.makeText(play.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
 		}
 	}
 }

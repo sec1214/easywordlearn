@@ -784,35 +784,4 @@ public class score extends Activity {
 
 		}
 	}
-
-	private void onClickShare() {
-		String description = "Check out Roots, a mobile game that teaches vocabulary "
-				+ "through etymology! It's a great tool for students "
-				+ "studying for the SAT and ESL students.";
-		if (ShareDialog.canShow(ShareLinkContent.class)) {
-			// Publish the post using the Share Dialog
-			ShareLinkContent linkContent = new ShareLinkContent.Builder()
-					.setContentDescription(description)
-					.setContentUrl(Uri.parse("http://www.roots.nyc"))
-					.build();
-
-			shareDialog.show(linkContent);
-		}
-	}
-
-	private void onClickPostScore() {
-		String tableName;
-		tableName = myapp.get(0).replace("_", " ");
-		String description = "I scored " + scorenum + " on Roots: "
-				+ tableName + ", " + myapp.get(1) + ", Level "
-				+ myapp.get(3);
-		if (ShareDialog.canShow(ShareLinkContent.class)) {
-			ShareLinkContent linkContent = new ShareLinkContent.Builder()
-				.setContentDescription(description)
-				.setContentUrl(Uri.parse("https://www.facebook.com/rootsmobileapp"))
-				.build();
-
-			shareDialog.show(linkContent);
-		}
-	}
 }
