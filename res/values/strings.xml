@@ -7,6 +7,7 @@
     <string name="action_settings">Settings</string>
     <string name="course">Pick a Category</string>
     <string name="level">Select a Level</string>
+    <string name="tutorial">Tutorial</string>
     
     <string name="level1">Level 1</string>
     <string name="level2">Level 2</string>
@@ -20,6 +21,11 @@
     <string name="roothelp">Find the meaning of this root word. Hint: It is in blue</string>
     <string name="idroothelp">Break it down, identify all of the roots that belong in this word.</string>
     <string name="missroothelp">Find the roots that make up this word. Hint: Use the definition</string>
+
+    <string name="promptscore_title">Post Score to Facebook</string>
+    <string name="promptscore_message">If you would like to post your score to Facebook, remember to hit the Share button below!</string>
+    <string name="ok">Okay</string>
+    <string name="donotshow">Don\'t Show Again</string>
     
     <string name="greenhelp">construction </string>
     <string name="sleeptime">1000</string>    
@@ -31,5 +37,6 @@
     <string name="share_button">Share</string>
     <string name="post_button">Post Score</string>
     <string name="no_level_play_complete_alert">You must complete at least one level completely to review your scores</string>
+    <string name="title_activity_tutorial">tutorial</string>
 
 </resources>

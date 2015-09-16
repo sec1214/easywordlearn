@@ -14,6 +14,7 @@ import com.facebook.share.widget.ShareButton;
 import com.facebook.share.widget.ShareDialog;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
+import com.sbstrm.appirater.Appirater;
 
 import Database.managedb;
 import android.app.ActionBar;
@@ -94,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Appirater.appLaunched(this);
+
 		Appsee.start("c2c77102cf2a485ea9b4e81e2a2b9101");
 		getWindow().requestFeature(Window.FEATURE_PROGRESS);
 		super.onCreate(savedInstanceState);
@@ -133,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 		ShareLinkContent content = new ShareLinkContent.Builder()
 				.setContentUrl(Uri.parse("http://roots.nyc/"))
 				.setContentTitle("Roots: Play with words")
-				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2014/10/RootsPlayWords_TransWoutline1.png"))
+				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2015/09/RootsPlayWords_TransWoutline1.png"))
 				.setContentDescription("Check out Roots, a mobile game that teaches vocabulary "
 						+ "through etymology! It's a great tool for students "
 						+ "studying for the SAT and ESL students. \n"

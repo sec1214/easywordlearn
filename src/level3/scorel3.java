@@ -22,7 +22,9 @@ import com.rootsproject.scoreword;
 
 import Database.managedb;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -131,7 +133,7 @@ public class scorel3 extends AppCompatActivity {
 		ShareLinkContent content = new ShareLinkContent.Builder()
 				.setContentUrl(Uri.parse("http://roots.nyc/"))
 				.setContentTitle("Roots: Play with words")
-				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2014/10/RootsPlayWords_TransWoutline1.png"))
+				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2015/09/RootsPlayWords_TransWoutline1.png"))
 				.setContentDescription("I scored " + scorenum + "% on Roots: "
 						+ myapp.get(0).replace("_", " ") + ", " + myapp.get(1)
 						+ ", Level " + myapp.get(3) + ". \n"
@@ -504,6 +506,24 @@ public class scorel3 extends AppCompatActivity {
 			}
 
 		}
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				// User clicked OK button
+			}
+		})
+				.setNegativeButton(R.string.donotshow, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// User requested to not show again
+						// TODO: Do not show again.
+					}
+				})
+				.setMessage(R.string.promptscore_message)
+				.setTitle(R.string.promptscore_title);
+		AlertDialog dialog = builder.create();
+		dialog.show();
+
 	}
 
 	@Override
