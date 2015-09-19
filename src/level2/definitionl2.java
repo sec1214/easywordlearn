@@ -121,6 +121,7 @@ public class definitionl2 extends AppCompatActivity {
 		EasyTracker.getInstance(this).activityStart(this);
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		myapp = (mypublicvalue) getApplication();
 
 		android.support.v7.app.ActionBar ab = getSupportActionBar();
 		ab.setTitle(underlineclear(myapp.get(0)));
@@ -142,7 +143,6 @@ public class definitionl2 extends AppCompatActivity {
 		textViewwr = (TextView) this.findViewById(R.id.wrtext);
 		textViewscore = (TextView) this.findViewById(R.id.scoretext);
 
-		myapp = (mypublicvalue) getApplication();
 		myapp.startlevelmusic();
 		textView2.setText(myapp.get(1));
 

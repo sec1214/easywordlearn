@@ -93,12 +93,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".wrongword"
+            android:name=".scoreword"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".scoreword"
+            android:name=".tutorial"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>
@@ -128,12 +128,22 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="level2.tutorial2"
+            android:label=" "
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="level3.missroot"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="level3.scorel3"
+            android:label=" "
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="level3.tutorial3"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>
@@ -168,12 +178,22 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="level4.tutorial4"
+            android:label=" "
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="level5.idroortsl5"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="level5.scorel5"
+            android:label=" "
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="level5.tutorial5"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>
@@ -188,12 +208,22 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="level6.tutorial6"
+            android:label=" "
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="level7.missrootl7"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="level7.scorel7"
+            android:label=" "
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="level7.tutorial7"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>
@@ -209,6 +239,11 @@
         </activity>
         <activity
             android:name="level8.wordsl8"
+            android:label=" "
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="level8.tutorial8"
             android:label=" "
             android:screenOrientation="portrait" >
         </activity>
@@ -234,10 +269,6 @@
             android:authorities="com.facebook.app.FacebookContentProvider1533247433612831"
             android:exported="true" />
 
-        <activity
-            android:name=".tutorial"
-            android:label="@string/title_activity_tutorial" >
-        </activity>
     </application>
 
 </manifest>

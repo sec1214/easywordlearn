@@ -35,15 +35,12 @@
             android:textSize="15sp"
             android:layout_marginLeft="20dp" />
 
-        <Button
+        <ImageButton
             android:layout_width="80dp"
             android:layout_height="30dp"
-            android:text="Email"
             android:id="@+id/email"
+            android:background="@drawable/email"
             android:layout_marginLeft="20dp"
-            android:textSize="10dp"
-            android:textAlignment="center"
-            android:typeface="normal"
             android:onClick="onClickSend" />
 
     </LinearLayout>

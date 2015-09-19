@@ -3,15 +3,16 @@ package com.rootsproject;
 import java.util.ArrayList;
 import java.util.List;
 
-import level2.definitionl2;
-import level2.wordsl2;
-import level3.missroot;
-import level4.idroortsl4;
-import level4.testvideo;
-import level5.idroortsl5;
+import level2.tutorial2;
+import level3.tutorial3;
+import level4.tutorial4;
+import level5.tutorial5;
 import level6.rootl6;
+import level6.tutorial6;
 import level7.missrootl7;
+import level7.tutorial7;
 import level8.definitionl8;
+import level8.tutorial8;
 import level8.wordsl8;
 
 import com.facebook.FacebookSdk;
@@ -139,78 +140,51 @@ public class play extends AppCompatActivity {
 				myapp.setComboBeginningState();
 				
 				if (position == 0) {  // level 1
-
-					double h = Math.random();
-
-					if (h < 0.5) {
-						Intent intent = new Intent(play.this, words.class);
-
-						startActivity(intent);
-
-					} else {
-						Intent intent = new Intent(play.this, definition.class);
-						startActivity(intent);
-					}
-
+					Intent intent = new Intent(play.this, tutorial.class);
+					startActivity(intent);
 				}
 				if (position == 1) {  // level 2
-					double h = Math.random();
-
-					if (h < 0.5) {
-						Intent intent = new Intent(play.this, wordsl2.class);
-
-						startActivity(intent);
-
-						// finish();
-					} else {
-						Intent intent = new Intent(play.this,
-								definitionl2.class);
-						startActivity(intent);
-					}
+					Intent intent = new Intent(play.this, tutorial2.class);
+					startActivity(intent);
 
 				}
 
 				if (position == 2) { // choose level3
 
-					Intent intent = new Intent(play.this, missroot.class);
+					Intent intent = new Intent(play.this, tutorial3.class);
 					startActivity(intent);
 					
 				}
 
 				if (position == 3) { // choose level4
-				//	 Intent intent = new Intent(play.this, testvideo.class); 
 
-					Intent intent = new Intent(play.this, idroortsl4.class);
-
+					Intent intent = new Intent(play.this, tutorial4.class);
 					startActivity(intent);
+
 				}
 
 				if (position == 4) { // choose level5
-					Intent intent = new Intent(play.this, idroortsl5.class);
+
+					Intent intent = new Intent(play.this, tutorial5.class);
 					startActivity(intent);
+
 				}
 				if (position == 5) { // choose level6
-					Intent intent = new Intent(play.this, rootl6.class);
+
+					Intent intent = new Intent(play.this, tutorial6.class);
 					startActivity(intent);
+
 				}
 				if (position == 6) { // choose level7
-					Intent intent = new Intent(play.this, missrootl7.class);
+
+					Intent intent = new Intent(play.this, tutorial7.class);
 					startActivity(intent);
+
 				}
 				if (position == 7) { // choose level8
-					double h = Math.random();
 
-					if (h < 0.5) {
-						Intent intent = new Intent(play.this,
-								definitionl8.class);
-
-						startActivity(intent);
-
-						// finish();
-					} else {
-						Intent intent = new Intent(play.this, wordsl8.class);
-						startActivity(intent);
-					}
+					Intent intent = new Intent(play.this, tutorial8.class);
+					startActivity(intent);
 
 				}
 

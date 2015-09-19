@@ -1,4 +1,4 @@
-package com.rootsproject;
+package level8;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.rootsproject.R;
+import com.rootsproject.mypublicvalue;
+import com.rootsproject.play;
 
-public class tutorial extends AppCompatActivity {
+import level7.missrootl7;
+
+
+public class tutorial8 extends AppCompatActivity {
 
     private mypublicvalue myapp;
     private TextView description;
@@ -23,12 +29,12 @@ public class tutorial extends AppCompatActivity {
         setContentView(R.layout.ztutorial);
 
         description = (TextView) this.findViewById(R.id.description);
-        description.setText(R.string.tutorial1);
+        description.setText(R.string.tutorial8);
         description.setLineSpacing(0, 1.5f);
 
         android.support.v7.app.ActionBar ab = getSupportActionBar();
         ab.setTitle(R.string.tutorial);
-        ab.setSubtitle(R.string.level1);
+        ab.setSubtitle(R.string.level8);
 
 
     }
@@ -39,7 +45,7 @@ public class tutorial extends AppCompatActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             myapp.empty();
 
-            Intent intent = new Intent(tutorial.this, play.class);
+            Intent intent = new Intent(tutorial8.this, play.class);
             startActivity(intent);
             finish();
 
@@ -77,11 +83,10 @@ public class tutorial extends AppCompatActivity {
         double h = Math.random();
 
         if (h < 0.5) {
-            Intent intent = new Intent(tutorial.this, words.class);
+            Intent intent = new Intent(tutorial8.this, definitionl8.class);
             startActivity(intent);
-
         } else {
-            Intent intent = new Intent(tutorial.this, definition.class);
+            Intent intent = new Intent(tutorial8.this, wordsl8.class);
             startActivity(intent);
         }
 
@@ -94,11 +99,10 @@ public class tutorial extends AppCompatActivity {
         double h = Math.random();
 
         if (h < 0.5) {
-            Intent intent = new Intent(tutorial.this, words.class);
+            Intent intent = new Intent(tutorial8.this, definitionl8.class);
             startActivity(intent);
-
         } else {
-            Intent intent = new Intent(tutorial.this, definition.class);
+            Intent intent = new Intent(tutorial8.this, wordsl8.class);
             startActivity(intent);
         }
 

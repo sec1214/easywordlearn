@@ -22,6 +22,18 @@
     <string name="idroothelp">Break it down, identify all of the roots that belong in this word.</string>
     <string name="missroothelp">Find the roots that make up this word. Hint: Use the definition</string>
 
+    <string name="tutorial1">Match a word to its definition, then select the definition of the highlighted root.</string>
+    <string name="tutorial2">Match the word to its definition, then select all of its roots, and finally select the
+        definition for each root.</string>
+    <string name="tutorial3">Fill in the blanks using roots from the choices below to form a word whose definition matches
+        the one above.</string>
+    <string name="tutorial4">Select and define all of the roots for the given word, and then match the word to its definition.
+        Complete each part in less than 14 seconds.</string>
+    <string name="tutorial5">Select all roots for the given word in 9 seconds.</string>
+    <string name="tutorial6">Define each given root in 9 seconds.</string>
+    <string name="tutorial7">Select all roots for the given definition in 9 seconds.</string>
+    <string name="tutorial8">Match the word to its definition in 9 seconds.</string>
+
     <string name="promptscore_title">Post Score to Facebook</string>
     <string name="promptscore_message">If you would like to post your score to Facebook, remember to hit the Share button below!</string>
     <string name="ok">Okay</string>
