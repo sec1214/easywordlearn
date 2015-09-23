@@ -34,10 +34,10 @@
     <string name="tutorial7">Select all roots for the given definition in 9 seconds.</string>
     <string name="tutorial8">Match the word to its definition in 9 seconds.</string>
 
-    <string name="promptscore_title">Post Score to Facebook</string>
-    <string name="promptscore_message">If you would like to post your score to Facebook, remember to hit the Share button below!</string>
-    <string name="ok">Okay</string>
-    <string name="donotshow">Don\'t Show Again</string>
+    <string name="promptscore_title">Nice Work!</string>
+    <string name="promptscore_message">Would you like to post your score to Facebook?</string>
+    <string name="post">Post</string>
+    <string name="dontpost">Don\'t Post</string>
     
     <string name="greenhelp">construction </string>
     <string name="sleeptime">1000</string>    

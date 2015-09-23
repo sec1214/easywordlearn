@@ -38,8 +38,6 @@ public class list extends AppCompatActivity {
 	private mypublicvalue myapp;
 	private Button playButton, studyButton, reviewButton;
 
-	private CallbackManager callbackManager;
-	private ShareDialog shareDialog;
 	private ShareButton share;
 	private LikeView like;
 
@@ -73,8 +71,7 @@ public class list extends AppCompatActivity {
 		studyButton = (Button) this.findViewById(R.id.button2);
 		reviewButton = (Button) this.findViewById(R.id.button3);
 
-		callbackManager = CallbackManager.Factory.create();
-		shareDialog = new ShareDialog(this);
+
 
 		ShareLinkContent content = new ShareLinkContent.Builder()
 				.setContentUrl(Uri.parse("http://roots.nyc/"))
@@ -92,6 +89,7 @@ public class list extends AppCompatActivity {
 
 		like = (LikeView) findViewById(R.id.likeView);
 		like.setObjectIdAndType("https://www.facebook.com/rootsmobileapp", LikeView.ObjectType.UNKNOWN);
+		like.setLikeViewStyle(LikeView.Style.BOX_COUNT);
 
 		studyButton.setOnClickListener(new View.OnClickListener() {
 
@@ -206,13 +204,6 @@ public class list extends AppCompatActivity {
 			}
 		});
 
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-
-		callbackManager.onActivityResult(requestCode, resultCode, data);
 	}
 
 	public String underlineclear(String key) {

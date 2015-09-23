@@ -46,8 +46,6 @@ public class listselectactivity extends AppCompatActivity {
 	private BroadcastReceiver receiver; // the receiver is used to control Home
 										// key
 
-	private CallbackManager callbackManager;
-	private ShareDialog shareDialog;
 	private ShareButton share;
 	private LikeView like;
 
@@ -153,10 +151,6 @@ public class listselectactivity extends AppCompatActivity {
 			}
 		});
 
-		FacebookSdk.sdkInitialize(this.getApplicationContext());
-		callbackManager = CallbackManager.Factory.create();
-		shareDialog = new ShareDialog(this);
-
 		ShareLinkContent content = new ShareLinkContent.Builder()
 				.setContentUrl(Uri.parse("http://roots.nyc/"))
 				.setContentTitle("Roots: Play with words")
@@ -173,14 +167,8 @@ public class listselectactivity extends AppCompatActivity {
 
 		like = (LikeView) findViewById(R.id.likeView);
 		like.setObjectIdAndType("https://www.facebook.com/rootsmobileapp", LikeView.ObjectType.UNKNOWN);
+		like.setLikeViewStyle(LikeView.Style.BOX_COUNT);
 
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-
-		callbackManager.onActivityResult(requestCode, resultCode, data);
 	}
 
 	public String underlineclear(String key) { // this method is used to delele

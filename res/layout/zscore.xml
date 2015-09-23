@@ -261,29 +261,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="0"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp">
-
-            <com.facebook.share.widget.LikeView
-                android:id="@+id/likeView"
-                android:layout_width="80dp"
-                android:layout_height="30dp"
-                android:textSize="15sp"
-                android:layout_marginLeft="20dp" />
-
-            <com.facebook.share.widget.ShareButton
-                android:id="@+id/post"
-                android:layout_width="80dp"
-                android:layout_height="30dp"
-                android:textSize="15sp"
-                android:layout_marginLeft="20dp" />
-        </LinearLayout>
-
     </LinearLayout>
 
 </LinearLayout>

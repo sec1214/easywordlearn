@@ -54,8 +54,6 @@ public class play extends AppCompatActivity {
 	private List<String> list = new ArrayList<String>();
 	private BroadcastReceiver receiver; // home key
 
-	private CallbackManager callbackManager;
-	private ShareDialog shareDialog;
 	private ShareButton share;
 	private LikeView like;
 
@@ -77,9 +75,6 @@ public class play extends AppCompatActivity {
 
 		myapp.startsplashmusic();
 
-		callbackManager = CallbackManager.Factory.create();
-		shareDialog = new ShareDialog(this);
-
 		// configure Share Button
 		ShareLinkContent content = new ShareLinkContent.Builder()
 				.setContentUrl(Uri.parse("http://roots.nyc/"))
@@ -97,6 +92,7 @@ public class play extends AppCompatActivity {
 
 		like = (LikeView) findViewById(R.id.likeView);
 		like.setObjectIdAndType("https://www.facebook.com/rootsmobileapp", LikeView.ObjectType.UNKNOWN);
+		like.setLikeViewStyle(LikeView.Style.BOX_COUNT);
 
 		managedb db = new managedb(getBaseContext()); // store 20 words in
 														// public value, because

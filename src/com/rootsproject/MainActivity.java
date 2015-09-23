@@ -52,6 +52,7 @@ import android.widget.ListView;
 
 import com.rootsproject.R;
 import com.appsee.Appsee;
+
 public class MainActivity extends AppCompatActivity {
 
 	private MenuItem musicsound; // control the splashmusic on and off
@@ -66,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
 	private boolean exit = true;
 
-	private CallbackManager callbackManager;
-	private ShareDialog shareDialog;
 	private ShareButton share;
 	private LikeView like;
 
@@ -95,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		Appirater.appLaunched(this);
 
 		Appsee.start("c2c77102cf2a485ea9b4e81e2a2b9101");
 		getWindow().requestFeature(Window.FEATURE_PROGRESS);
@@ -121,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
 		if (!myapp.getsplashscreen()) { // this getsplashscreen ensure that
 										// splashscreen only display once.
+			Appirater.appLaunched(this);
 			Message msg = new Message();
 			msg.what = STOPSPLASH;
 			splashHandler.sendMessageDelayed(msg, SPLASHTIME);
@@ -129,9 +128,6 @@ public class MainActivity extends AppCompatActivity {
 		} else {
 			splash.setVisibility(View.GONE);
 		}
-
-		callbackManager = CallbackManager.Factory.create();
-		shareDialog = new ShareDialog(this);
 
 		ShareLinkContent content = new ShareLinkContent.Builder()
 				.setContentUrl(Uri.parse("http://roots.nyc/"))
@@ -149,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
 		like = (LikeView) findViewById(R.id.likeView);
 		like.setObjectIdAndType("https://www.facebook.com/rootsmobileapp", LikeView.ObjectType.UNKNOWN);
+		like.setLikeViewStyle(LikeView.Style.BOX_COUNT);
 
 		List<String> list = new managedb(this).listtablename(null);
 
@@ -236,13 +233,6 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-
-		callbackManager.onActivityResult(requestCode, resultCode, data);
-	}
-
-	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
@@ -280,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
 		System.out.println("Stop");
 
 		if (exit) {
-			System.exit(0);
+			//System.exit(0); Removed for compatibility with Facebook button.
 		}
 
 	}

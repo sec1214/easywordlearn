@@ -3,7 +3,6 @@ package com.rootsproject;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.facebook.FacebookSdk;
 import com.facebook.CallbackManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.LikeView;
@@ -78,6 +77,9 @@ public class score extends AppCompatActivity {
 
 		android.support.v7.app.ActionBar ab = getSupportActionBar();
 		ab.setTitle(underlineclear(myapp.get(0)));
+
+		callbackManager = CallbackManager.Factory.create();
+		shareDialog = new ShareDialog(this);
 
 		setContentView(R.layout.zscore);
 		textView2 = (TextView) this.findViewById(R.id.textview2);
@@ -154,33 +156,12 @@ public class score extends AppCompatActivity {
 				eventValue) // Event value
 				.build());
 
-		callbackManager = CallbackManager.Factory.create();
-
 		scorenum = (int) ((myapp.getscore(1) / myapp.getscore(0)) * 100);
 
 		defwordscorenum = (int) ((myapp.getdefwordscore(1) / myapp
 				.getdefwordscore(0)) * 100);
 
 		rootscorenum = (int) ((myapp.getrootscore(1) / myapp.getrootscore(0)) * 100);
-
-		ShareLinkContent content = new ShareLinkContent.Builder()
-				.setContentUrl(Uri.parse("http://roots.nyc/"))
-				.setContentTitle("Roots: Play with words")
-				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2015/09/RootsPlayWords_TransWoutline1.png"))
-				.setContentDescription("I scored " + scorenum + "% on Roots: "
-						+ myapp.get(0).replace("_", " ") + ", " + myapp.get(1)
-						+ ", Level " + myapp.get(3) + ". \n"
-						+ "Word Definitions: " + defwordscorenum + "%\n"
-						+ "Root Definitions: " + rootscorenum + "%\n"
-						+ "Get it now on the Google Play Store! \n"
-						+ "https://play.google.com/store/apps/details?id=com.rootsproject")
-				.build();
-
-		post = (ShareButton) findViewById(R.id.post);
-		post.setShareContent(content);
-
-		like = (LikeView) findViewById(R.id.likeView);
-		like.setObjectIdAndType("https://www.facebook.com/rootsmobileapp", LikeView.ObjectType.UNKNOWN);
 
 		if (wcon == 0) {
 
@@ -574,28 +555,20 @@ public class score extends AppCompatActivity {
 		}
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+		builder.setPositiveButton(R.string.post, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						// User clicked OK button
+						onShareScore();
 					}
 				})
-				.setNegativeButton(R.string.donotshow, new DialogInterface.OnClickListener() {
+				.setNegativeButton(R.string.dontpost, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						// User requested to not show again
-						// TODO: Do not show again.
+						// User did not post score
 					}
 				})
 				.setMessage(R.string.promptscore_message)
 				.setTitle(R.string.promptscore_title);
 		AlertDialog dialog = builder.create();
 		dialog.show();
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-
-		callbackManager.onActivityResult(requestCode, resultCode, data);
 	}
 
 	@Override
@@ -616,6 +589,12 @@ public class score extends AppCompatActivity {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+	}
+
+	@Override
+	protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		callbackManager.onActivityResult(requestCode, resultCode, data);
 	}
 
 	private void bool() {
@@ -798,6 +777,27 @@ public class score extends AppCompatActivity {
 		{
 			score.setTextColor(Color.YELLOW);
 
+		}
+	}
+
+	public void onShareScore()
+	{
+		if (ShareDialog.canShow(ShareLinkContent.class))
+		{
+			ShareLinkContent content = new ShareLinkContent.Builder()
+					.setContentUrl(Uri.parse("http://roots.nyc/"))
+					.setContentTitle("Roots: Play with words")
+					.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2015/09/RootsPlayWords_TransWoutline1.png"))
+					.setContentDescription("I scored " + scorenum + "% on Roots: "
+							+ myapp.get(0).replace("_", " ") + ", " + myapp.get(1)
+							+ ", Level " + myapp.get(3) + ". \n"
+							+ "Word Definitions: " + defwordscorenum + "%\n"
+							+ "Root Definitions: " + rootscorenum + "%\n"
+							+ "Get it now on the Google Play Store! \n"
+							+ "https://play.google.com/store/apps/details?id=com.rootsproject")
+					.build();
+
+			shareDialog.show(content);
 		}
 	}
 }
