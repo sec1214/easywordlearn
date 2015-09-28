@@ -38,6 +38,7 @@
     <string name="promptscore_message">Would you like to post your score to Facebook?</string>
     <string name="post">Post</string>
     <string name="dontpost">Don\'t Post</string>
+    <string name="listsuggest"><a href="mailto:rootsmobileapp@gmail.com">Don\'t see a list you like? Click here to suggest one!</a></string>
     
     <string name="greenhelp">construction </string>
     <string name="sleeptime">1000</string>    

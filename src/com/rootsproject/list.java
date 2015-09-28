@@ -23,6 +23,7 @@ import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -70,8 +71,6 @@ public class list extends AppCompatActivity {
 		playButton = (Button) this.findViewById(R.id.button1);
 		studyButton = (Button) this.findViewById(R.id.button2);
 		reviewButton = (Button) this.findViewById(R.id.button3);
-
-
 
 		ShareLinkContent content = new ShareLinkContent.Builder()
 				.setContentUrl(Uri.parse("http://roots.nyc/"))

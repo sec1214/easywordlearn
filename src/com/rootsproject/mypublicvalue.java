@@ -37,6 +37,8 @@ import com.rootsproject.R;
 
 public class mypublicvalue extends Application {
 
+	public static final String prefsName = "com.rootsproject.prefs";
+
 	public int buttonsound, musicsound;
 
 	public boolean splashscreen;

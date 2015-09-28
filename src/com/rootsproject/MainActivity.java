@@ -33,6 +33,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.LinkMovementMethod;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -45,6 +46,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.AbsListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
 	private boolean exit = true;
 
+	private TextView listSuggest;
 	private ShareButton share;
 	private LikeView like;
 
@@ -128,6 +131,10 @@ public class MainActivity extends AppCompatActivity {
 		} else {
 			splash.setVisibility(View.GONE);
 		}
+
+
+		listSuggest = (TextView) findViewById(R.id.listSuggest);
+		listSuggest.setMovementMethod(LinkMovementMethod.getInstance());
 
 		ShareLinkContent content = new ShareLinkContent.Builder()
 				.setContentUrl(Uri.parse("http://roots.nyc/"))

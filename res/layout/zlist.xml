@@ -107,38 +107,60 @@
 
             android:layout_marginLeft="0dp" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
             android:orientation="horizontal"
             android:paddingTop="10dp"
             android:paddingBottom="10dp">
 
-            <com.facebook.share.widget.LikeView
-                android:id="@+id/likeView"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:textSize="15sp"
-                android:layout_marginLeft="20dp"
-                android:layout_alignParentLeft="true" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
-            <com.facebook.share.widget.ShareButton
-                android:id="@+id/share"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:textSize="15sp"
-                android:layout_centerHorizontal="true" />
+                <com.facebook.share.widget.LikeView
+                    android:id="@+id/likeView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:textSize="15sp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
 
-            <ImageButton
-                android:layout_width="80dp"
-                android:layout_height="30dp"
-                android:id="@+id/email"
-                android:background="@drawable/email"
-                android:onClick="onClickSend"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
-        </RelativeLayout>
+                <com.facebook.share.widget.ShareButton
+                    android:id="@+id/share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:textSize="15sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/email"
+                    android:background="@drawable/email"
+                    android:onClick="onClickSend"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+
+        </LinearLayout>
 
 
     </LinearLayout>

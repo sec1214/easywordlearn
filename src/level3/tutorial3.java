@@ -1,6 +1,7 @@
 package level3;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -76,7 +77,11 @@ public class tutorial3 extends AppCompatActivity {
 
     public void onClickNever(View v)
     {
-        //TODO: Do not show
+        SharedPreferences settings = getSharedPreferences(mypublicvalue.prefsName, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("hideTutorials", true);
+        editor.commit();
+
         myapp.playmusic(1);
         Intent intent = new Intent(tutorial3.this, missroot.class);
         startActivity(intent);

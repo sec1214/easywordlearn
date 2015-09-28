@@ -3,9 +3,14 @@ package com.rootsproject;
 import java.util.ArrayList;
 import java.util.List;
 
+import level2.definitionl2;
 import level2.tutorial2;
+import level2.wordsl2;
+import level3.missroot;
 import level3.tutorial3;
+import level4.idroortsl4;
 import level4.tutorial4;
+import level5.idroortsl5;
 import level5.tutorial5;
 import level6.rootl6;
 import level6.tutorial6;
@@ -27,9 +32,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,6 +51,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rootsproject.R;
+
+import org.w3c.dom.Text;
 
 public class play extends AppCompatActivity {
 
@@ -134,57 +143,140 @@ public class play extends AppCompatActivity {
 				
 				/*combo count returns to zero*/
 				myapp.setComboBeginningState();
-				
-				if (position == 0) {  // level 1
-					Intent intent = new Intent(play.this, tutorial.class);
-					startActivity(intent);
+
+				SharedPreferences settings = getSharedPreferences(mypublicvalue.prefsName, 0);
+				boolean hideTutorial = settings.getBoolean("hideTutorials", false);
+
+				if (hideTutorial)
+				{
+					if (position == 0) {  // level 1
+						myapp.playmusic(1);
+						double h = Math.random();
+
+						if (h < 0.5) {
+							Intent intent = new Intent(play.this, words.class);
+							startActivity(intent);
+
+						} else {
+							Intent intent = new Intent(play.this, definition.class);
+							startActivity(intent);
+						}
+					}
+
+					if (position == 1) {  // level 2
+						myapp.playmusic(1);
+						double h = Math.random();
+
+						if (h < 0.5) {
+							Intent intent = new Intent(play.this, wordsl2.class);
+
+							startActivity(intent);
+						} else {
+							Intent intent = new Intent(play.this, definitionl2.class);
+							startActivity(intent);
+						}
+					}
+
+					if (position == 2) { // choose level3
+
+						myapp.playmusic(1);
+						Intent intent = new Intent(play.this, missroot.class);
+						startActivity(intent);
+					}
+
+					if (position == 3) { // choose level4
+
+						myapp.playmusic(1);
+						Intent intent = new Intent(play.this, idroortsl4.class);
+						startActivity(intent);
+					}
+
+					if (position == 4) { // choose level5
+
+						myapp.playmusic(1);
+						Intent intent = new Intent(play.this, idroortsl5.class);
+						startActivity(intent);
+					}
+
+					if (position == 5) { // choose level6
+
+						myapp.playmusic(1);
+						Intent intent = new Intent(play.this, rootl6.class);
+						startActivity(intent);
+					}
+					if (position == 6) { // choose level7
+
+						myapp.playmusic(1);
+						Intent intent = new Intent(play.this, missrootl7.class);
+						startActivity(intent);
+					}
+					if (position == 7) { // choose level8
+
+						myapp.playmusic(1);
+						double h = Math.random();
+
+						if (h < 0.5) {
+							Intent intent = new Intent(play.this, definitionl8.class);
+							startActivity(intent);
+						} else {
+							Intent intent = new Intent(play.this, wordsl8.class);
+							startActivity(intent);
+						}
+					}
+
+					finish();
 				}
-				if (position == 1) {  // level 2
-					Intent intent = new Intent(play.this, tutorial2.class);
-					startActivity(intent);
 
+				if (!hideTutorial)
+				{
+					if (position == 0) {  // level 1
+						Intent intent = new Intent(play.this, tutorial.class);
+						startActivity(intent);
+					}
+
+					if (position == 1) {  // level 2
+						Intent intent = new Intent(play.this, tutorial2.class);
+						startActivity(intent);
+					}
+
+					if (position == 2) { // choose level3
+
+						Intent intent = new Intent(play.this, tutorial3.class);
+						startActivity(intent);
+					}
+
+					if (position == 3) { // choose level4
+
+						Intent intent = new Intent(play.this, tutorial4.class);
+						startActivity(intent);
+					}
+
+					if (position == 4) { // choose level5
+
+						Intent intent = new Intent(play.this, tutorial5.class);
+						startActivity(intent);
+					}
+
+					if (position == 5) { // choose level6
+
+						Intent intent = new Intent(play.this, tutorial6.class);
+						startActivity(intent);
+					}
+
+					if (position == 6) { // choose level7
+
+						Intent intent = new Intent(play.this, tutorial7.class);
+						startActivity(intent);
+					}
+
+					if (position == 7) { // choose level8
+
+						Intent intent = new Intent(play.this, tutorial8.class);
+						startActivity(intent);
+					}
+
+					finish();
 				}
-
-				if (position == 2) { // choose level3
-
-					Intent intent = new Intent(play.this, tutorial3.class);
-					startActivity(intent);
-					
-				}
-
-				if (position == 3) { // choose level4
-
-					Intent intent = new Intent(play.this, tutorial4.class);
-					startActivity(intent);
-
-				}
-
-				if (position == 4) { // choose level5
-
-					Intent intent = new Intent(play.this, tutorial5.class);
-					startActivity(intent);
-
-				}
-				if (position == 5) { // choose level6
-
-					Intent intent = new Intent(play.this, tutorial6.class);
-					startActivity(intent);
-
-				}
-				if (position == 6) { // choose level7
-
-					Intent intent = new Intent(play.this, tutorial7.class);
-					startActivity(intent);
-
-				}
-				if (position == 7) { // choose level8
-
-					Intent intent = new Intent(play.this, tutorial8.class);
-					startActivity(intent);
-
-				}
-
-				finish();
 			}
 		});
 

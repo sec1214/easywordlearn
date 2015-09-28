@@ -18,8 +18,6 @@ import com.rootsproject.R;
 
 public class videointro extends AppCompatActivity {
 
-	public static final String PREFS_NAME = "RootsPrefsFile";
-
 	private VideoView video;
 	private MediaController mediaController;
 	private Button skip;
@@ -37,11 +35,11 @@ public class videointro extends AppCompatActivity {
 		
 		
 		myapp= (mypublicvalue) getApplication();
-		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences settings = getSharedPreferences(mypublicvalue.prefsName, 0);
 		final SharedPreferences.Editor editor = settings.edit();
 
 		//if (myapp.getvideo()==0) {
-		if (!settings.getBoolean("skipVideo", false)) {
+		if (!settings.getBoolean("hideVideo", false)) {
 			
 		
 		
@@ -66,11 +64,11 @@ public class videointro extends AppCompatActivity {
 				video.stopPlayback();
 				if (ignore.isChecked()) {
 					//myapp.setvideo();
-					editor.putBoolean("skipVideo", true);
+					editor.putBoolean("hideVideo", true);
 					editor.commit();
 				}
 				else {
-					editor.putBoolean("skipVideo", false);
+					editor.putBoolean("hideVideo", false);
 					editor.commit();
 				}
 
@@ -91,11 +89,11 @@ public class videointro extends AppCompatActivity {
 				// TODO Auto-generated method stub
 				if (ignore.isChecked()) {
 					//myapp.setvideo();
-					editor.putBoolean("skipVideo", true);
+					editor.putBoolean("hideVideo", true);
 					editor.commit();
 				}
 				else {
-					editor.putBoolean("skipVideo", false);
+					editor.putBoolean("hideVideo", false);
 					editor.commit();
 				}
 
@@ -110,7 +108,7 @@ public class videointro extends AppCompatActivity {
 		}
 		
 		//if (myapp.getvideo()==1) {
-		if (settings.getBoolean("skipVideo", false)) {
+		if (settings.getBoolean("hideVideo", false)) {
 			
 			Intent intent=new Intent(videointro.this,MainActivity.class);
 			startActivity(intent);
