@@ -130,6 +130,8 @@ public class Appirater {
 
 	@SuppressLint("NewApi")
 	private static void showRateDialog(final Context mContext, final SharedPreferences.Editor editor) {
+        editor.putLong(PREF_LAUNCH_COUNT, 0);
+
     	String appName = mContext.getString(R.string.appirator_app_title);
         final Dialog dialog = new Dialog(mContext);
         

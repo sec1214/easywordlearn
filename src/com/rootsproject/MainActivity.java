@@ -134,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 		listSuggest = (TextView) findViewById(R.id.listSuggest);
-		listSuggest.setMovementMethod(LinkMovementMethod.getInstance());
 
 		ShareLinkContent content = new ShareLinkContent.Builder()
 				.setContentUrl(Uri.parse("http://roots.nyc/"))
@@ -513,6 +512,19 @@ public class MainActivity extends AppCompatActivity {
 				+ "through etymology! It's a great tool for students "
 				+ "studying for the SAT and ESL students. Download it on the Play Store now! "
 				+ "https://play.google.com/store/apps/details?id=com.rootsproject");
+		try {
+			startActivity(Intent.createChooser(i, "Send mail..."));
+		} catch (android.content.ActivityNotFoundException ex) {
+			Toast.makeText(MainActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	public void onClickSuggest(View v)
+	{
+		Intent i = new Intent(Intent.ACTION_SEND);
+		i.setType("message/rfc822");
+		i.putExtra(Intent.EXTRA_EMAIL, new String[] {"rootsmobileapp@gmail.com"});
+		i.putExtra(Intent.EXTRA_SUBJECT, "Category Suggestion");
 		try {
 			startActivity(Intent.createChooser(i, "Send mail..."));
 		} catch (android.content.ActivityNotFoundException ex) {
