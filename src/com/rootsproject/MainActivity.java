@@ -136,14 +136,13 @@ public class MainActivity extends AppCompatActivity {
 		listSuggest = (TextView) findViewById(R.id.listSuggest);
 
 		ShareLinkContent content = new ShareLinkContent.Builder()
-				.setContentUrl(Uri.parse("http://roots.nyc/"))
+				.setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.rootsproject"))
 				.setContentTitle("Roots: Play with words")
 				.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2015/09/RootsPlayWords_TransWoutline1.png"))
 				.setContentDescription("Check out Roots, a mobile game that teaches vocabulary "
 						+ "through etymology! It's a great tool for students "
 						+ "studying for the SAT and ESL students. \n"
-						+ "Get it now on the Google Play Store! \n"
-						+ "https://play.google.com/store/apps/details?id=com.rootsproject")
+						+ "Get it now on the Google Play Store!")
 				.build();
 
 		share = (ShareButton) findViewById(R.id.share);

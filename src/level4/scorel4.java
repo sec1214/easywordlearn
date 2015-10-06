@@ -741,7 +741,7 @@ public class scorel4 extends AppCompatActivity {
 		if (ShareDialog.canShow(ShareLinkContent.class))
 		{
 			ShareLinkContent content = new ShareLinkContent.Builder()
-					.setContentUrl(Uri.parse("http://roots.nyc/"))
+					.setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.rootsproject"))
 					.setContentTitle("Roots: Play with words")
 					.setImageUrl(Uri.parse("http://roots.nyc/wp-content/uploads/2015/09/RootsPlayWords_TransWoutline1.png"))
 					.setContentDescription("I scored " + scorenum + "% on Roots: "
@@ -750,8 +750,7 @@ public class scorel4 extends AppCompatActivity {
 							+ "Word Definitions: " + defwordscorenum + "%\n"
 							+ "Root Definitions: " + rootscorenum + "%\n"
 							+ "Root Identification: " + idrootscorenum + "%\n"
-							+ "Get it now on the Google Play Store! \n"
-							+ "https://play.google.com/store/apps/details?id=com.rootsproject")
+							+ "Get it now on the Google Play Store!")
 					.build();
 
 			shareDialog.show(content);
